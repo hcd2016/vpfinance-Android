@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray2"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvTotalMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="10,000,000.00"
+                android:textSize="@dimen/text_size_16"
+                android:textColor="@color/normal_text_color"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="资产总额"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="@color/gray"/>
+        </LinearLayout>
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/divider_color"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvAvailableMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="10,000.00"
+                android:textSize="@dimen/text_size_16"
+                android:textColor="@color/normal_text_color"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="可用余额"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="@color/gray"/>
+        </LinearLayout>
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/divider_color"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvTotalIncome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="10,000.00"
+                android:textSize="@dimen/text_size_16"
+                android:textColor="@color/normal_text_color"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="累计收益"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="@color/gray"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/btnWithdraw"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="提 现"
+            android:textSize="18sp"
+            android:textColor="@color/red_text"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/divider_color"/>
+        <TextView
+            android:id="@+id/btnRecharge"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="充 值"
+            android:textSize="18sp"
+            android:textColor="@color/red_text"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/clickRebackFund3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:paddingLeft="17dp"
+            android:paddingRight="23dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="回款日历"
+                android:textColor="@color/text_1c1c1c"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/ic_calendar"
+                android:gravity="center_vertical"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/tvReturnMoneyCount"
+                android:layout_marginRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                tools:text="你有0笔待回款事项"
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/text_999999"/>
+
+            <ImageView
+                android:layout_width="6dp"
+                android:layout_height="11dp"
+                android:layout_gravity="center"
+                android:background="@drawable/nav_next"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:background="@color/divider_color" />
+
+        <LinearLayout
+            android:id="@+id/clickRebackFund2"
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/waitReturnMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="0.00"
+                    android:textColor="@color/red_text"
+                    android:textSize="@dimen/text_size_16"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="待回款本金"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/divider_color" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvReturnMoneyCount2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/red_text"
+                    android:textSize="@dimen/text_size_16"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="待回款利息"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/bg_gray2" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/clickFundRecord"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/my_invest" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="我的投资"
+                    android:textColor="@color/normal_text_color"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/clickTransfer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/my_transferor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="我要转让"
+                    android:textColor="@color/normal_text_color"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/clickRecharge"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/money_water" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="资金流水"
+                    android:textColor="@color/normal_text_color"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/clickInvestSummary"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/financial_statistics" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="投资统计"
+                    android:textColor="@color/normal_text_color"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@color/bg_gray2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/clickTrialCoin"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="23dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="我的体验金"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/my_experience_money"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/normal_text_color"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:id="@+id/img_dot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/img_dot"
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"/>
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="11dp"
+                    android:background="@drawable/nav_next"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/divider_color" />
+            <LinearLayout
+                android:id="@+id/clickVoucher"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="23dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="我的优惠券"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/my_voucher"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/normal_text_color"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/canUseNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    tools:text="2张未使用"
+                    android:gravity="center"
+                    android:textColor="@color/text_999999"
+                    android:layout_marginRight="8dp"/>
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="11dp"
+                    android:background="@drawable/nav_next"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/divider_color" />
+
+            <LinearLayout
+                android:id="@+id/clickInviteGift"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="23dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="邀请有礼"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/invite_gift"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/normal_text_color"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="11dp"
+                    android:background="@drawable/nav_next"/>
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/divider_color" />
+
+            <LinearLayout
+                android:id="@+id/clickTravel"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="23dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:text="玩赚旅游"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/travel"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/normal_text_color"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="11dp"
+                    android:background="@drawable/nav_next"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@color/bg_gray2" />
+
+        <!--<View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/divider_color"/>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/invest_top"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="23dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="投资风云榜"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/invest_top"
+                    android:drawablePadding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/normal_text_color"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="11dp"
+                    android:background="@drawable/nav_next"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/divider_color" />
+
+            <LinearLayout
+                android:id="@+id/my_medal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="23dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="我的勋章"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/my_medal"
+                    android:drawablePadding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/normal_text_color"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="11dp"
+                    android:background="@drawable/nav_next"/>
+            </LinearLayout>
+            <!--<View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/bg_gray2" />-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/divider_color" />
+
+            <LinearLayout
+                android:id="@+id/click_risk_evaluating"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="23dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="风险评测"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_risk_evaluating"
+                    android:drawablePadding="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/normal_text_color"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="11dp"
+                    android:background="@drawable/nav_next"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

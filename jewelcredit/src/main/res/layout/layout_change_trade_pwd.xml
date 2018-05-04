@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:paddingBottom="25dp">
+
+    <EditText
+        android:id="@+id/phoneNum"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/edittext_height"
+        android:layout_marginTop="25dp"
+        style="@style/NumberEditStyle"
+        android:hint="手机号"/>
+
+    <cn.vpfinance.vpjr.view.EditTextWithDel
+        android:id="@+id/oldTradePwd"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/edittext_height"
+        android:layout_marginTop="25dp"
+        style="@style/PasswdTextStyle"
+        android:hint="原交易密码" />
+
+    <cn.vpfinance.vpjr.view.EditTextWithDel
+        android:id="@+id/newTradePwd"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/edittext_height"
+        android:layout_marginTop="25dip"
+        style="@style/PasswdTextStyle"
+        android:hint="新交易密码" />
+
+    <cn.vpfinance.vpjr.view.EditTextWithDel
+        android:id="@+id/newTradePwdAgain"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/edittext_height"
+        android:layout_marginTop="25dip"
+        style="@style/PasswdTextStyle"
+        android:hint="确认新密码" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edittext_height"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnGetCode"
+            android:layout_width="138dp"
+            android:layout_height="match_parent"
+            android:text="@string/register_fetch_passcode"
+            android:textColor="@android:color/white"
+            style="@style/SubmitButtonStyle"
+            android:layout_alignParentRight="true"/>
+
+        <EditText
+            android:id="@+id/etPhoneCode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/btnGetCode"
+            android:layout_marginRight="14dp"
+            android:hint="@string/hint_captcha"
+            style="@style/NumberEditStyle"
+            android:gravity="center"/>
+
+    </RelativeLayout>
+    <include layout="@layout/view_voice_captcha"/>
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/submit_button_height"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_vertical"
+        style="@style/SubmitButtonStyle"
+        android:text="提交" />
+
+</LinearLayout>

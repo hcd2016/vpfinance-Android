@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="300dp"
+    android:minHeight="200dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="申请提现金额："
+            style="@style/TextStyle"/>
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10000.00"
+            style="@style/TextStyle"
+            android:textColor="@color/assist_text_color"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手续费："
+            style="@style/TextStyle"/>
+        <TextView
+            android:id="@+id/cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2.00"
+            style="@style/TextStyle"
+            android:textColor="@color/assist_text_color"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="预计1-2个工作日内可以到账"
+        style="@style/TextStyle"
+        android:textColor="@color/assist_text_color"/>
+
+    <LinearLayout
+        android:id="@+id/llBottom"
+        android:layout_width="match_parent"
+        android:layout_height="66dip"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip" >
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="0dip"
+            android:layout_height="40dip"
+            android:layout_marginLeft="10dip"
+            android:layout_weight="1"
+            android:minWidth="160dp"
+            android:text="取消" />
+
+        <Button
+            android:id="@+id/btnOK"
+            android:layout_width="0dip"
+            android:minWidth="160dp"
+            android:layout_height="40dip"
+            android:layout_marginLeft="10dip"
+            android:layout_weight="1"
+            android:text="确定" />
+    </LinearLayout>
+
+</LinearLayout>

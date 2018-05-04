@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true"
+                android:paddingBottom="5dp"
+                android:paddingLeft="28dp"
+                android:paddingRight="10dp"
+                android:paddingTop="21dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/ll">
+
+        <ImageView
+            android:paddingTop="3dp"
+            android:id="@+id/imgIcon"
+                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textColor="@color/text_1c1c1c"
+            android:textSize="14sp"
+            tools:text="项目介绍"/>
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/ll"
+        android:layout_gravity="bottom"/>
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_below="@id/divider"
+        android:layout_marginTop="10dp">
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+        </LinearLayout>
+    </HorizontalScrollView>
+</RelativeLayout>

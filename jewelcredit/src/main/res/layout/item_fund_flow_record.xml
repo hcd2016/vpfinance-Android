@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:gravity="center"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:descendantFocusability="blocksDescendants">
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="2.2"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvRecordState"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="投标" />
+        <TextView
+            android:id="@+id/tvRecordTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:drawableLeft="@drawable/ic_record_time"
+            android:drawablePadding="4dp"
+            tools:text="2016 01-22"
+            android:singleLine="true"
+            android:textSize="10sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1.4"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvRecordMoney"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal"
+            tools:text="-1000" />
+        <TextView
+            android:id="@+id/tvRecordUsedMoney"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            tools:text="余额¥12230.00"
+            android:textSize="10sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1.8"
+        android:orientation="vertical"
+        android:id="@+id/llState">
+        <TextView
+            android:id="@+id/tvWithdrawState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="right"
+            tools:text="待审核" />
+        <LinearLayout
+            android:id="@+id/llBtnParent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="right">
+            <Button
+                android:id="@+id/btnWithdrawOk"
+                android:layout_width="55sp"
+                android:layout_height="20dp"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:background="@drawable/bg_corners_selector"
+                android:textColor="@color/white"
+                android:text="撤回提现"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

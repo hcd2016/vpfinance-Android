@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_gray2">
+    <RelativeLayout
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:paddingLeft="9dp"
+        android:background="@drawable/bg_white_corners"
+        android:layout_marginBottom="5dp">
+        <LinearLayout
+            android:id="@+id/titleArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/item_loan_title"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:singleLine="true"
+                android:text="@string/app_name"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text_282828"
+                android:textSize="19sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/titleArea"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:id="@+id/rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1.1"
+                        android:visibility="visible">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="5dp">
+                            <TextView
+                                android:id="@+id/item_loan_rate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/dark_red"
+                                android:textSize="22sp"
+                                tools:text="9.5"/>
+                            <TextView
+                                android:id="@+id/item_loan_rate_percent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/dark_red"
+                                android:textSize="14sp"
+                                android:text="%"/>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/item_loan_term"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1.1"
+                        android:textColor="@color/text_282828"
+                        android:textSize="16sp"
+                        tools:text="6个月"/>
+
+                    <TextView
+                        android:id="@+id/item_loan_totle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1"
+                        android:textColor="@color/text_282828"
+                        android:textSize="16sp"
+                        tools:text="100万元"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp">
+
+                    <TextView
+                        android:id="@+id/tv_rate_des"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.1"
+                        android:text="约定年利率"
+                        android:textColor="@color/text_999999"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:id="@+id/tvMonthInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.1"
+                        android:text="锁定期"
+                        android:textColor="@color/text_999999"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:id="@+id/tvTotalMoneyInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="计划金额"
+                        android:textColor="@color/text_999999"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_weight="2.5"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_presell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="94dp"
+                android:layout_height="20dp"
+                android:background="@drawable/bg_order"
+                android:gravity="center"
+                android:text="预   售   中"
+                android:textSize="13sp"
+                android:textColor="@color/red_top"
+                android:layout_marginLeft="3dp"/>
+
+            <cn.vpfinance.vpjr.view.MyCountDownTimer
+                android:id="@+id/presell"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible"
+                custom:newLayout="@layout/layout_time_countdown3"
+                />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_progress"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:layout_width="70dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_height="70dp">
+                <View
+                    android:id="@+id/circle_background"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_circle_progress"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"/>
+                <cn.vpfinance.vpjr.view.SmallCircularProgressView
+                    android:id="@+id/progress"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"/>
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    tools:text="开始\n购买"
+                    android:textColor="@color/red_text"
+                    android:textSize="12sp"
+                    android:visibility="visible"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/status2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="99.99%"
+                android:textColor="@color/red_text"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="12sp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_deposit_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="剩余时间: "
+                android:gravity="center"
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/text_999999"/>
+            <cn.vpfinance.vpjr.view.MyCountDownTimer
+                android:id="@+id/deposit_countdown"
+                android:layout_width="130dp"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:visibility="visible"
+                custom:newLayout="@layout/layout_time_countdown" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleArea"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/red_text"
+                android:textSize="30sp"
+                tools:text="9.5%"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rate"
+                android:gravity="right"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                tools:text="+0.2%"
+                tools:visibility="visible"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

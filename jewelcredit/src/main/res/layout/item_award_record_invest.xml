@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+    <TextView
+        android:id="@+id/periods"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:text=""/>
+    <TextView
+        android:id="@+id/addTime"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:text=""/>
+    <TextView
+        android:id="@+id/bonuses"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:text=""/>
+
+</LinearLayout>

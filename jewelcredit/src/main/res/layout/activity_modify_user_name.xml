@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_gray">
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <cn.vpfinance.vpjr.view.EditTextWithDel
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="#FFF"
+        android:hint="请输入用户名">
+    </cn.vpfinance.vpjr.view.EditTextWithDel>
+</LinearLayout>

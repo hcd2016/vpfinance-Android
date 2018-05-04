@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EE373737">
+    <TextView
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="70dp"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="#ffce26"
+        android:text="平台对借款人的资质进行审核，综合评价借款人的信用等级"/>
+
+    <TextView
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="4dp"
+        android:text="@string/borrower_credit"/>
+
+    <ImageButton
+        android:id="@+id/ibCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_delete_circle"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

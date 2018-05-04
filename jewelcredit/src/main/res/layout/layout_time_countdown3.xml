@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="3dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/countdown_day"
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:gravity="center"
+            android:background="@drawable/cuntdown_top_shape3"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:background="@drawable/cuntdown_bottom_shape3"
+            android:gravity="center"
+            android:text="天"
+            android:textSize="12sp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp">
+
+        <TextView
+            android:id="@+id/countdown_hour"
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:background="@drawable/cuntdown_top_shape3"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:background="@drawable/cuntdown_bottom_shape3"
+            android:gravity="center"
+            android:text="时"
+            android:textSize="12sp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp">
+
+        <TextView
+            android:id="@+id/countdown_minute"
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:background="@drawable/cuntdown_top_shape3"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:background="@drawable/cuntdown_bottom_shape3"
+            android:gravity="center"
+            android:text="分"
+            android:textSize="12sp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp">
+
+        <TextView
+            android:id="@+id/countdown_second"
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:background="@drawable/cuntdown_top_shape3"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:background="@drawable/cuntdown_bottom_shape3"
+            android:gravity="center"
+            android:text="秒"
+            android:textSize="12sp"
+            android:visibility="visible"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+
+</LinearLayout>

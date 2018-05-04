@@ -1,0 +1,140 @@
+apply plugin: 'com.android.application'
+android {
+    /*compileSdkVersion 22
+    buildToolsVersion "22.0.1"*/
+    compileSdkVersion project.ANDROID_BUILD_SDK_VERSION as int
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    /*
+          android:versionCode="38"
+          android:versionName="2.9.0"*/
+
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
+    //高版本使用了Apache HttpClient
+    useLibrary 'org.apache.http.legacy'
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    defaultConfig {
+        applicationId "cn.vpfinance.android"
+        /*minSdkVersion 11
+        targetSdkVersion 16*/
+
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
+
+        versionCode project.VERSION_CODE as int
+        versionName project.VERSION_NAME
+        minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION as int
+        targetSdkVersion project.ANDROID_BUILD_TARGET_SDK_VERSION as int
+
+        resValue "string", "host", project.HOST
+
+        manifestPlaceholders = [
+                GETUI_APP_ID : "3IlsqrpfoU51MJSVlhHUJ",
+                GETUI_APP_KEY : "Ssx3YHGQ4vAyOPKpFYiPd3",
+                GETUI_APP_SECRET : "eSgnHuXb7TA2UP9l2gtuO9"
+        ]
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86","mips"
+        }
+
+        multiDexEnabled true
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+
+        //disable 'InvalidPackage'
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../finance.keystore")
+            storePassword "vFinance"
+            keyAlias "finance.keystore"
+            keyPassword "vFinance"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+        debug{
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    /**/
+    productFlavors {
+        vpfinance {}
+        xiaomi {}
+        yingyongbao{}
+//        _360 {}
+//        baidu {}
+//        wandoujia {}
+//        appchina {}
+//        umeng {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+repositories {
+    flatDir{
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.jakewharton:butterknife:7.0.1'
+    //compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.5'
+    compile files('libs/nineoldandroids-2.4.0.jar')
+    compile 'com.github.chrisbanes:PhotoView:1.3.0'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    //    compile 'junit:junit:4.12'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.6'
+    //    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile files('libs/android-async-http-1.4.8.jar')
+    compile (name:'securePay-180419',ext:'aar')
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.getui:sdk:2.10.2.0'
+    testCompile 'junit:junit:4.12'
+
+    compile 'com.android.support:multidex:1.0.1'
+
+    //内存泄漏leakcanary
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+//    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    //FlycoTabLayout_Lib
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
+//    compile 'com.github.czy1121:update:1.1.1'
+}

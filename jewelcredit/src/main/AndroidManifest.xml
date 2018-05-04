@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="cn.vpfinance.android"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="22"/>
+
+    <!-- 浮动通知权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <!-- 自定义权限 -->
+    <uses-permission android:name="getui.permission.GetuiService.cn.vpfinance.android"/>
+
+    <permission
+        android:name="getui.permission.GetuiService.cn.vpfinance.android"
+        android:protectionLevel="normal">
+    </permission>
+    <!-- 个推SDK权限配置结束 -->
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+	<uses-permission android:name="android.permission.READ_SMS" />
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <!--
+    蓝牙分享所需的权限
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    -->
+    <!-- iBeancon功能所需权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <!-- 个推3.0电子围栏功能所需权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- 必选 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <!-- 聊天界面拍照发送图片 -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!--cn.vpfinance.vpjr.module.welcome.WelcomeActivity-->
+    <application
+        android:name="cn.vpfinance.vpjr.FinanceApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="cn.vpfinance.vpjr.module.welcome.WelcomeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppStartTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.BindPhoneSuccessActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.BindPhoneByAbleCodeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.BindPhoneInputPhoneActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.AutoInvestProtocolActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.gusturelock.LockActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:uiOptions="splitActionBarWhenNarrow">
+        </activity>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:uiOptions="splitActionBarWhenNarrow">
+        </activity>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.welcome.WelcomeGuideActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppStartTheme"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.home.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.common.WebViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.asset.InvestSummaryActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.home.NewSearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.PersonalCardActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.list.ListMaskingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeTips"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.personal.MyMedalActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.personal.MedalDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.common.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.welcome.SetupGuideActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.common.ServerDownActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.home.InviteGiftIntroduceActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.record.FundRecordsDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.deposit.FundRecordsDepositDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.deposit.DepositDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="cn.vpfinance.vpjr.module.product.record.NoRepayListActivity"
+                  android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.home.NewWelfareActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.record.TransferRefundActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.record.InvestRecordRefundActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.common.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible"
+            android:launchMode="singleTask"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.ResetLoginPswActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.ResetPayPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.ModifyUserNameActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.invest.DepositInvestActivity"
+            android:screenOrientation="portrait"/>
+        <!--android:windowSoftInputMode="adjustPan|stateHidden"-->
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.invest.PresellProductInvestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.success.ProductInvestSuccessActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.success.ProductInvestSuccessByActiveActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.BindBankHintActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.home.IndexRedPacketActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.BindMailActivity2"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.BindPhoneActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.BindPhoneByUnableCodeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.trade.RechargeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.asset.FundRecordsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.asset.FundRecordsActivity2"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.BankAddActivity2"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.personal.BankManageActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.asset.TransferProductListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.transfer.TransferProductExecuteActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.transfer.TransferProductExecuteNowActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.personal.InviteGiftActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.personal.AwardRecordForInvestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.personal.AwardRecordForRegistActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.personal.RuleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.BorrowerCreditActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.invest.RegularProductActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinanceTheme"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.record.TransferAvailableTimeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinanceTheme"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.shenyang.PresellProductActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinanceTheme"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.transfer.TransferProductActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinanceTheme"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.voucher.VoucherActivity2"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinanceTheme"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.personal.VoucherV3Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinanceTheme"/>
+        <activity android:name="cn.vpfinance.vpjr.module.user.personal.AddrateTicketActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/FinanceTheme"/>
+        <activity android:name="cn.vpfinance.vpjr.module.user.personal.PresellTicketActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/FinanceTheme"/>
+        <activity android:name="cn.vpfinance.vpjr.module.user.personal.TicketActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/FinanceTheme"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.personal.TrialCoinActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinanceTheme"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.RealnameAuthActivity"
+            android:screenOrientation="portrait"/>
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" -->
+        <activity
+            android:name="cn.vpfinance.vpjr.module.trade.WithdrawDepositActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.trade.WithdrawBankActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.asset.AccountEActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.trade.WithdrawSuccessActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.trade.RechargBankActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.AutoInvestSettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.AutoInvestDeadlineActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.AutoInvestTypeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.AutoInvestRefundWayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.AutoInvestRateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.AutoInvestRiskLevelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.AutoInvestCouponActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.asset.FundFlowActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.PasswordChangeActivity"
+            android:screenOrientation="portrait"/>
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" -->
+        <activity
+            android:name="cn.vpfinance.vpjr.module.more.AboutUsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.invest.BankInvestSuccessHintActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.more.VersionUpdateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.more.MyQRcodeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.more.AddWeiXinActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.PersonalInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.NewPersonalInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.asset.FundOverViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.umeng.fb.ConversationActivity"/>
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService">
+        </service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+
+        <!-- LLYT SDK START -->
+        <activity
+            android:name="com.yintong.secure.activity.BaseActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.DialogWebViewActivity"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity android:name="cn.vpfinance.vpjr.module.setting.MyDescribeAcitvity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="cn.vpfinance.vpjr.module.setting.PrivateSettingAcitvity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="cn.vpfinance.vpjr.module.user.personal.InvestTopActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="cn.vpfinance.vpjr.module.user.personal.MyFriendActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="cn.vpfinance.vpjr.module.user.OtherPersonalCardActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="cn.vpfinance.vpjr.module.voucher.NewSelectVoucherActivity"
+                  android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.NewRegularProductActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.transfer.NewTransferProductActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.record.NewRepayListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.asset.ReturnMoneyCalendarActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.asset.QueryReturnMoneyListActivity"
+            android:screenOrientation="portrait"/>
+
+        <service android:name="com.yintong.secure.service.PayService">
+        </service>
+        <!-- LLYT SDK END -->
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="554c085a67e58e76a2005d67"/>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}"/>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="ab09575968a075f8edec05b34f97349d"/>
+
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <!--
+            	AuthorizeAdapter表示一个继承自cn.sharesdk.framework.authorize.AuthorizeAdapter
+            	的类，这个类可以监听到页面的生命周期，也可以获取授权页面的各种UI控件。
+            	开发者可以通过继承AuthorizeAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
+            -->
+            <meta-data
+                android:name="AuthorizeAdapter"
+                android:value="cn.sharesdk.demo.MyAdapter"/>
+
+            <!--
+            	QZoneWebShareAdapter表示一个继承自cn.sharesdk.tencent.qzone.QZoneWebShareAdapter
+            	的类，这个类可以监听到页面的生命周期，也可以获QQ空间网页分享权页面的各种UI控件。
+            	开发者可以通过继承QZoneWebShareAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
+
+            <meta-data android:name="QZoneWebShareAdapter" android:value="cn.sharesdk.demo.MyQZoneWebShareAdapter" />
+            -->
+            <!--
+            	Dropbox的SSO功能需要在此处添加一个对ACTION_VIEW事件的过滤器，其中的scheme是
+            	“db-”前缀再开发者应用的加上appKey。如果此过滤器不设置，则不能完成SSO功能授权
+            -->
+            <intent-filter>
+                <data android:scheme="db-7janx53ilz11gbs"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
+            <!--
+                如果集成QQ分享，或者使用QQ客户端来进行QQ空间的分享，须要在此处添加一个对ACTION_VIEW
+                事件的过滤器，其中的scheme是“tencent”前缀再开发者应用的加上appId。如果此过滤器不设置，
+                则分享结束以后不能得到正确的回调
+            -->
+            <intent-filter>
+                <data android:scheme="tencent1104564657"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </activity>
+        <!-- 微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <!-- 监听通知点击或者忽略处理的广播 -->
+        <receiver
+            android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
+            android:exported="false">
+        </receiver>
+
+        <!-- 监听开机运行、网络连接变化、卸载的广播 -->
+        <receiver
+            android:name="com.umeng.message.SystemReceiver"
+            android:process=":push">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- 监听消息到达的广播 -->
+        <receiver
+            android:name="com.umeng.message.MessageReceiver"
+            android:process=":push">
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RECEIVE"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- 监听宿主选举的广播 -->
+        <receiver
+            android:name="com.umeng.message.ElectionReceiver"
+            android:process=":push">
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.ELECTION_RESULT_V4"/>
+
+                <category android:name="umeng"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- 监听注册的广播 -->
+        <!-- cn.vpfinance.android字符串需要替换成本应用的应用包名 -->
+        <receiver
+            android:name="com.umeng.message.RegistrationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.vpfinance.android.intent.action.COMMAND"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.umeng.message.UmengMessageBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.umeng.message.UmengService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":push">
+            <intent-filter>
+                <action android:name="cn.vpfinance.android.intent.action.START"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="cn.vpfinance.android.intent.action.COCKROACH"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.PING_V4"/>
+
+                <category android:name="umeng"/>
+            </intent-filter>
+        </service>
+
+        <!-- Umeng的消息接收服务 -->
+        <service
+            android:name="com.umeng.message.UmengIntentService"
+            android:process=":push"/>
+
+        <!-- Umeng的消息路由服务 -->
+        <service
+            android:name="com.umeng.message.UmengMessageIntentReceiverService"
+            android:exported="true"
+            android:process=":push">
+            <intent-filter>
+                <action android:name="org.android.agoo.client.MessageReceiverService"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.android.agoo.client.ElectionReceiverService"/>
+            </intent-filter>
+        </service>
+
+        <!-- v2.4.1添加的Service，Umeng的消息接收后的处理服务 -->
+        <service
+            android:name="com.umeng.message.UmengMessageCallbackHandlerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.umeng.messge.registercallback.action"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.umeng.message.unregistercallback.action"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.umeng.message.message.handler.action"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.umeng.message.autoupdate.handler.action"/>
+            </intent-filter>
+        </service>
+
+        <!-- V1.3.0添加的service，负责下载通知的资源 -->
+        <service android:name="com.umeng.message.UmengDownloadResourceService"/>
+        <service
+            android:name="cn.vpfinance.vpjr.service.MyPushIntentService"
+            android:process=":push"/>
+
+        <!-- 个推SDK配置开始 V2.9.5.0-->
+        <!-- 配置的第三方参数属性 -->
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="${GETUI_APP_ID}"/>
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="${GETUI_APP_KEY}"/>
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="${GETUI_APP_SECRET}"/>
+
+        <!--<meta-data
+            android:name="PUSH_APPID"
+            android:value="3IlsqrpfoU51MJSVlhHUJ"/>
+        &lt;!&ndash; 替换为应用的APPID &ndash;&gt;
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="Ssx3YHGQ4vAyOPKpFYiPd3"/>
+        &lt;!&ndash; 替换为应用的APPKEY &ndash;&gt;
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="eSgnHuXb7TA2UP9l2gtuO9"/>-->
+        <!-- 替换为应用的APPSECRET -->
+        <!-- 配置第三方Receiver 用来接收ClientId和透传消息 -->
+        <!-- 配置SDK核心服务 -->
+        <service
+            android:name="com.igexin.sdk.PushService"
+            android:exported="true"
+            android:label="NotificationCenter"
+            android:process=":pushservice">
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.service.message"/>
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.igexin.sdk.PushReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="com.igexin.sdk.action.refreshls"/>
+                <action android:name="android.intent.action.MEDIA_MOUNTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.igexin.sdk.PushActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <activity
+            android:name="com.igexin.sdk.GActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <service
+            android:name="com.igexin.download.DownloadService"
+            android:process=":pushservice"/>
+
+        <receiver
+            android:name="com.igexin.download.DownloadReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="com.igexin.download.DownloadProvider"
+            android:authorities="downloads.${applicationId}"
+            android:exported="true"
+            android:process=":pushservice"/>
+
+        <!-- 用户自定义服务继承自GTIntentService,作为SDK与APP桥梁服务,用来接收各种消息和命令回复-->
+        <service android:name="cn.vpfinance.vpjr.service.DemoIntentService"/>
+
+        <!-- 用户自定义服务名 -->
+        <service
+            android:name="cn.vpfinance.vpjr.service.DemoPushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice">
+        </service>
+
+
+
+        <!-- 个推SDK配置结束 -->
+
+       <!-- <meta-data
+            android:name="com.appkefu.lib.appkey"
+            android:value="7ead03ebaf1c7127621baf4f87b7096f"/>-->
+
+        <!-- 版本内更新广播 -->
+        <receiver android:name="cn.vpfinance.vpjr.download.ApkInstallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:authorities="${applicationId}.fileProvider"
+            android:name="android.support.v4.content.FileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>

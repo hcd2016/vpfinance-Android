@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/rootView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/topView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <include layout="@layout/view_gray_division"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginTop="10dp"
+                    android:text="交易描述"
+                    android:textColor="@color/text_black_no4_gray"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/jewelry_description"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginRight="23dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/yidianTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text=""
+                        android:textColor="@color/normal_text_color"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <TextView
+                        android:id="@+id/yidianContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="@dimen/lineSpacingExtra"
+                        android:text=""
+                        android:textColor="@color/text_black_no4_gray"
+                        android:textSize="13dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/yidian_1"
+                            android:layout_width="150dp"
+                            android:layout_height="@dimen/jewelry_image_height"
+                            android:visibility="gone"/>
+
+                        <ImageView
+                            android:id="@+id/yidian_2"
+                            android:layout_width="@dimen/jewelry_image_width"
+                            android:layout_height="@dimen/jewelry_image_height"
+                            android:layout_marginLeft="20dp"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginRight="23dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/insuranceTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text=""
+                        android:textColor="@color/normal_text_color"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <TextView
+                        android:id="@+id/insuranceContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="@dimen/lineSpacingExtra"
+                        android:text=""
+                        android:textColor="@color/text_black_no4_gray"
+                        android:textSize="13dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/insurance_1"
+                            android:layout_width="@dimen/jewelry_image_width"
+                            android:layout_height="@dimen/jewelry_image_height"
+                            android:visibility="gone"/>
+
+                        <ImageView
+                            android:id="@+id/insurance_2"
+                            android:layout_width="@dimen/jewelry_image_width"
+                            android:layout_height="@dimen/jewelry_image_height"
+                            android:layout_marginLeft="20dp"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginRight="23dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/repurchaseTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text=""
+                        android:textColor="@color/normal_text_color"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <TextView
+                        android:id="@+id/repurchaseContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="@dimen/lineSpacingExtra"
+                        android:text=""
+                        android:textColor="@color/text_black_no4_gray"
+                        android:textSize="13dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/repurchase_1"
+                            android:layout_width="@dimen/jewelry_image_width"
+                            android:layout_height="@dimen/jewelry_image_height"
+                            android:visibility="gone"/>
+
+                        <ImageView
+                            android:id="@+id/repurchase_2"
+                            android:layout_width="@dimen/jewelry_image_width"
+                            android:layout_height="@dimen/jewelry_image_height"
+                            android:layout_marginLeft="20dp"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginRight="23dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/appraisalTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text=""
+                        android:textColor="@color/normal_text_color"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <TextView
+                        android:id="@+id/appraisalContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="@dimen/lineSpacingExtra"
+                        android:text=""
+                        android:textColor="@color/text_black_no4_gray"
+                        android:textSize="13dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/appraisal_1"
+                            android:layout_width="@dimen/jewelry_image_width"
+                            android:layout_height="@dimen/jewelry_image_height"
+                            android:visibility="gone"/>
+
+                        <ImageView
+                            android:id="@+id/appraisal_2"
+                            android:layout_width="@dimen/jewelry_image_width"
+                            android:layout_height="@dimen/jewelry_image_height"
+                            android:layout_marginLeft="20dp"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@color/bg_gray2"/>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

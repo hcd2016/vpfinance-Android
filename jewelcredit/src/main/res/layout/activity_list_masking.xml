@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#9f000000">
+        <com.jewelcredit.ui.widget.ActionBarLayout
+            android:id="@+id/titleBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        android:background="@color/transparent">
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#9f000000"
+        android:gravity="center_horizontal">
+        <LinearLayout
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/tabs"
+            android:layout_marginTop="40dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFE561"
+                android:text="银行存管的产品"
+                android:textSize="17sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="放这里咯~"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnKnow"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="朕知道了!"
+            style="@style/SubmitButtonStyle"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/info"
+            android:layout_marginTop="100dp"/>
+    </LinearLayout>
+</LinearLayout>

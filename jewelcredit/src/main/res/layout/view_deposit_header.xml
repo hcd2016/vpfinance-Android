@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:lineSpacingExtra="3dp"
+        android:text="您投入的10000.00元已根据您认可的项目类型随机分配到以下债权中"/>
+
+    <LinearLayout
+        android:id="@+id/ll_product_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!--<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="8dp"
+            android:lineSpacingExtra="3dp"
+            android:text="您认可的项目类型 :"/>-->
+        <LinearLayout
+            android:id="@+id/product_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="300dp"
+        android:layout_height="320dp">
+        <ImageButton
+            android:id="@+id/ibClose"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_close_circle"
+            android:layout_gravity="right"
+            android:layout_marginRight="0dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_regist_dialog2">
+            <TextView
+                android:id="@+id/tvNowStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="立即体验"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="3dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="13dp"
+                android:paddingRight="35dp"
+                android:paddingLeft="32dp"/>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white">
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="42dip"
+        app:pstsDividerColor="@color/transparent"
+        app:pstsDividerPadding="0dp"
+        app:pstsIndicatorColor="@color/col_tab_sel"
+        app:pstsIndicatorHeight="3dp"
+        app:pstsScrollOffset="3dp"
+        app:pstsShouldExpand="true"
+        app:pstsTabBackground="@color/transparent"
+        app:pstsTabPaddingLeftRight="3dp"
+        app:pstsTextAllCaps="false"
+        app:pstsUnderlineColor="@color/bg_gray2"
+        app:pstsUnderlineHeight="1px"
+        android:layout_below="@id/titleBar"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabs" />
+</RelativeLayout>

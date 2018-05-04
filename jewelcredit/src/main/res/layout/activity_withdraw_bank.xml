@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray2"
+    android:orientation="vertical">
+
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="92dp"
+        android:background="@color/white">
+
+        <cn.vpfinance.vpjr.view.CircleImg
+            android:id="@+id/icon_bank"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:src="@drawable/icon_yinhanglogo2x" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/icon_bank"
+            android:textColor="@color/text_333333"
+            android:text="广东华兴银行存管" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账户余额（元）"
+            android:textColor="@color/text_666666" />
+
+        <TextView
+            android:id="@+id/tv_account_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textColor="@color/red_text2"
+            tools:text="1922.00" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1px"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="冻结金额（元）"
+            android:textColor="@color/text_666666" />
+
+        <ImageView
+            android:id="@+id/iv_hint"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/icon_en" />
+
+        <TextView
+            android:id="@+id/tv_freeze_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textColor="@color/red_text2"
+            tools:text="0.00" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_money"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="12.5dp"
+        android:background="@drawable/shape_withdraw_bank"
+        android:hint="请输入提现金额"
+        android:paddingLeft="15dp"
+        android:inputType="numberDecimal"
+        android:textColorHint="@color/text_999999"
+        android:textSize="@dimen/text_size_14"/>
+
+    <Button
+        android:id="@+id/click_withdraw"
+        style="@style/SubmitButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:text="提现" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="温馨提示："
+            android:textSize="@dimen/text_size_12" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10.5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.可提现到已绑定银行卡内。"
+                android:textSize="@dimen/text_size_12" />
+
+            <TextView
+                android:id="@+id/tvWithDrawInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="查看提现图文指引>"
+                android:textColor="@color/link_blue2"
+                android:textSize="@dimen/text_size_12" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7.5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2.提现需先进行实名认证。"
+                android:textSize="@dimen/text_size_12" />
+
+            <TextView
+                android:id="@+id/tvRealnameInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="查看实名认证图文指引>"
+                android:textColor="@color/link_blue2"
+                android:textSize="@dimen/text_size_12" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7.5dp"
+            android:text="3.如资金被冻结，在25-30分钟之间即可解冻，届时可再次提现。"
+            android:textSize="@dimen/text_size_12" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+    </LinearLayout>
+</LinearLayout>

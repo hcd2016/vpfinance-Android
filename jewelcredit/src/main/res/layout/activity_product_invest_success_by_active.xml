@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_gray2"
+              android:id="@+id/view_ll"
+              android:orientation="vertical">
+
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_invest_success"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="恭喜您，投资成功！"
+                    android:textColor="@color/dark_red"
+                    android:textSize="18sp"/>
+                <!--<TextView
+                    android:id="@+id/tvMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="投资金额 ￥20000.00"
+                    android:textSize="18sp"
+                    android:layout_marginTop="8dp"/>-->
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="33dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="18dp"
+                        android:text="产品名称"
+                        android:textColor="@color/text_999999"/>
+
+                    <TextView
+                        android:id="@+id/product_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_1c1c1c"
+                        tools:text="V孵化－沈阳－058"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider_color"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="33dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="18dp"
+                        android:text="投资金额"
+                        android:textColor="@color/text_999999"/>
+
+                    <TextView
+                        android:id="@+id/product_invest_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_1c1c1c"
+                        android:text="200,000元"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider_color"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="33dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="18dp"
+                        android:text="投资收益"
+                        android:textColor="@color/text_999999"/>
+
+                    <TextView
+                        android:id="@+id/product_income"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_1c1c1c"
+                        android:text="4.0%约定年利率 + iPhone 7 128G"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider_color"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="33dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="18dp"
+                        android:text="还款方式"
+                        android:textColor="@color/text_999999"/>
+
+                    <TextView
+                        android:id="@+id/product_refund_way"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_1c1c1c"
+                        tools:text="按月付息到期还本"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider_color"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:id="@+id/content_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="35dp"
+                    android:textSize="@dimen/text_size_12"
+                    android:text="• 您已选择x色Apple iPhone 7手机（128G）"
+                    android:textColor="@color/text_999999"/>
+
+                <TextView
+                    android:id="@+id/content_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="35dp"
+                    android:textSize="@dimen/text_size_12"
+                    android:text="• 产品满标后3个工作日内，微品金融工作人员将与您联系"
+                    android:textColor="@color/text_999999"/>
+
+                <TextView
+                    android:id="@+id/content_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="35dp"
+                    android:textSize="@dimen/text_size_12"
+                    android:text="• 活动详询客服热线：0755 - 86627551"
+                    android:textColor="@color/text_999999"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="35dp"
+                android:paddingTop="25dp">
+
+                <TextView
+                    android:id="@+id/look_account"
+                    android:layout_width="125dp"
+                    android:layout_height="35dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/bg_edittext"
+                    android:gravity="center"
+                    android:text="查看账户详情"
+                    android:textColor="@color/text_999999"/>
+
+                <TextView
+                    android:id="@+id/next_invest"
+                    android:layout_width="125dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/bg_trans_red_corners"
+                    android:gravity="center"
+                    android:text="继续投资"
+                    android:textColor="@color/red_text"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

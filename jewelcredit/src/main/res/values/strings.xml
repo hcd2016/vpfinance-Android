@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">设置</string>
+    <string name="app_name">微品金融</string>
+    <string name="regular_product">定期投资</string>
+    <string name="bond_product">债权转让</string>
+    <string name="automatic_product">智存投资</string>
+    
+    <string name="product_basic_info">基本信息</string>
+    <string name="product_borrower_info">借款人资料</string>
+    <string name="product_inverst_record">投标记录</string>
+    <string name="product_detail">产品详情</string>
+    <string name="product_project_introduction">项目介绍</string>
+    <string name="product_risk_control">风险控制</string>
+    <string name="product_qualification_material">资质资料</string>
+
+    <string name="product_person_borrower_info">借款人信息</string>
+    <string name="product_person_borrower_credit">信用评级</string>
+
+    <string name="product_project_baoli">保理信息</string>
+    <!--融珠包-->
+    <string name="product_project_rongzhu_tab2">融租详情</string>
+    <string name="product_project_rongzhu_tab4">承租企业</string>
+
+    <string name="product_presell_name">项目详情</string>
+    <string name="product_presell_detail">认购须知</string>
+    <string name="product_presell_qualification_material">资质材料</string>
+    <string name="product_presell_risk_control">风险控制</string>
+    <string name="product_presell_inverst_record">投标记录</string>
+
+    <string name="product_car_tab1">基本信息</string>
+    <string name="product_car_tab2">交易描述</string>
+    <string name="product_car_tab3">质押车辆</string>
+    <string name="product_car_tab4">风险控制</string>
+
+
+    <string name="month1">1月</string>
+    <string name="month2">2月</string>
+    <string name="month3">3月</string>
+    <string name="month4">4月</string>
+    <string name="month5">5月</string>
+    <string name="month6">6月</string>
+    <string name="month7">7月</string>
+    <string name="month8">8月</string>
+    <string name="month9">9月</string>
+    <string name="month10">10月</string>
+    <string name="month11">11月</string>
+    <string name="month12">12月</string>
+
+    <string name="pull_to_refresh_get_more_label">上拉加载更多</string>
+    <string name="pull_to_refresh_release_more_label">松开即可加载</string>
+    <string name="pull_to_refresh_refreshing_more_label">正在加载…</string>
+    <string name="pull_to_refresh_from_bottom_pull_label">@string/pull_to_refresh_get_more_label</string>
+    <string name="pull_to_refresh_from_bottom_release_label">@string/pull_to_refresh_release_more_label</string>
+    <string name="pull_to_refresh_from_bottom_refreshing_label">@string/pull_to_refresh_refreshing_more_label</string>
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">松开后刷新</string>
+    <string name="pull_to_refresh_refreshing_label">正在刷新…</string>
+    <string name="pull_to_refresh_footer_release_label">松开后加载</string>
+    <string name="data_loading_please_wait">数据加载中，请稍后…</string>
+    <string name="data_loading_failure_please_retry">数据加载失败，点击重试！</string>
+    <string name="pull_to_refresh_footer_refreshing_label">加载中…</string>
+    <string name="loading">正在加载...</string>
+    <string name="http_request_error">网络请求失败！</string>
+    <string name="no_more_data_tips">没有更多的数据了.</string>
+    
+	<string name="test">+0.6%</string>
+	<string name="fetch_passcode">获取验证码</string>
+    
+	<string name="maintab_home">首页</string>
+	<string name="maintab_plan">我要投资</string>
+	<string name="maintab_mine">我的账户</string>
+	<string name="maintab_more">更多</string>
+	<string name="maintab_finance">实时财务</string>
+    
+    <string name="register_title">注册</string>
+    <string name="register_username">用户名</string>
+    <string name="register_phone">请输入手机号</string>
+    <string name="register_password">密码</string>
+    <string name="register_passcode">手机验证码</string>
+    <string name="register_fetch_passcode">@string/fetch_passcode</string>
+    <string name="register_commit">注册</string>
+    <string name="register_tips">注册视为同意微品金融协议</string>
+    
+    
+    
+    
+    <string name="login_title">会员登录</string>
+    <string name="login_username">手机号或邮箱</string>
+    <string name="login_password">密码</string>
+    <string name="login_commit">登录</string>
+    <string name="login_register">免费注册</string>
+    <string name="login_forget_password">忘记密码</string>
+    
+    
+    
+    <string name="identity_verify_title">实名认证</string>
+    <string name="identity_verify_name">请输入姓名</string>
+    <string name="identity_verify_idno">请输入身份证号码</string>
+    <string name="identity_verify_commit">认证</string>
+    
+    
+    
+    <string name="more_title">更多</string>
+    <string name="more_identity_manager">认证管理</string>
+    <string name="more_gesture_password">手势密码</string>
+    <string name="more_upgrade">版本更新</string>
+    <string name="more_current_version">当前版本 1.0</string>
+    <string name="more_feedback">意见反馈</string>
+    <string name="more_clear_cache">清除缓存</string>
+    <string name="more_logout">退出登录</string>
+    
+    
+    
+    <string name="reset_login_password_title">找回登录密码</string>
+    <string name="reset_login_password_username">手机号</string>
+    <string name="reset_login_password_password">新登录密码</string>
+    <string name="reset_login_password_password2">确认新登录密码</string>
+    <string name="reset_login_password_passcode">手机验证码</string>
+    <string name="reset_login_password_fetch_passcode">@string/fetch_passcode</string>
+    <string name="reset_login_password_commit">提交</string>
+    
+    
+    
+    
+    <string name="reset_trans_password_title">找回密码</string>
+    <string name="reset_trans_password_username">手机号</string>
+    <string name="reset_trans_password_login_password">登录密码</string>
+    <string name="reset_trans_password_password">新交易密码</string>
+    <string name="reset_trans_password_password2">确认新交易密码</string>
+    <string name="reset_trans_password_passcode">手机验证码</string>
+    <string name="reset_trans_password_fetch_passcode">@string/fetch_passcode</string>
+    <string name="reset_trans_password_commit">提交</string>
+    
+    
+    
+    
+    <string name="withdrawl_title">提现</string>
+    <string name="withdrawl_nocard_tips">你还没有绑定银行卡!</string>
+    <string name="withdrawl_balance">账户可用余额</string>
+    <string name="withdrawl_can_deposit_now">可提现金额</string>
+    <string name="withdrawl_need_service_charge">需收取服务费部分</string>
+    <string name="withdrawl_neednot_service_charge">无需收取服务费部分</string>
+    <string name="withdrawl_money">提现金额</string>
+    <string name="withdrawl_commit">下一步</string>
+    
+	<string name="withdrawl_records_title">提现记录</string>
+	
+	<string name="score_records_title">积分记录</string>
+	
+    
+    
+    <string name="addbank_title">增加银行卡</string>
+    <string name="addbank_bkname">开户银行</string>
+    <string name="addbank_cardno">银行卡号</string>
+    <string name="addbank_passcode">手机验证码</string>
+    <string name="addbank_fetch_passcode">手机验证码</string>
+    <string name="addbank_commit">保存</string>
+    
+    <string name="addbank_manager_title">银行卡管理</string>
+    
+    
+    <string name="bankadd_title">增加银行卡</string>
+    <string name="bankadd_bkname">开户银行</string>
+    <string name="bankadd_cardno">银行卡号</string>
+    <string name="bankadd_passcode">手机验证码</string>
+    <string name="bankadd_fetch_passcode">手机验证码</string>
+    <string name="bankadd_commit">保存</string>
+    
+    
+    <string name="bankedit_title">编辑银行卡</string>
+    <string name="bankedit_bkname">招商银行</string>
+    <string name="bankedit_cardno">62284****9097</string>
+    <string name="bankedit_province">省份</string>
+    <string name="bankedit_city">城市</string>
+    <string name="bankedit_sub_bkname">支行名称</string>
+    <string name="bankedit_passcode">手机验证码</string>
+    <string name="bankedit_fetch_passcode">手机验证码</string>
+    <string name="bankedit_commit">保存</string>
+    
+    <string name="bankmgr_title">银行卡管理</string>
+    <string name="bankselect_title">选择银行</string>
+    
+    <string name="bankcard_name">招商银行</string>
+    <string name="bankcard_no">62236677****9908</string>
+    
+    <string name="recharge_title">充值</string>
+    <string name="recharge_tips">近期标量较少，请谨慎充值，以免资金闲置</string>
+    <string name="recharge_amount">充值金额</string>
+    <string name="recharge_balance_label">账户可用余额</string>
+    <string name="recharge_balance">100</string>
+    <string name="recharge_amount_after_label">充值后金额</string>
+    <string name="recharge_amount_after">100</string>
+    <string name="recharge_select_bank">选择银行</string>
+    <string name="recharge_commit">下一步</string>
+    
+    <string name="recharge_records_title">充值记录</string>
+    
+    
+    <string name="editcontact_title">编辑紧急联系人</string>
+    <string name="editcontact_name">紧急联系人</string>
+    <string name="editcontact_phone">联系电话</string>
+    
+    
+    <string name="authmgr_title">认证管理</string>
+    <string name="auth_identity">身份认证</string>
+    <string name="auth_mobile">手机认证</string>
+    <string name="auth_email">邮箱认证</string>    
+    
+    <string name="auth_identity_title">身份认证</string>
+    <string name="auth_identity_name">真实姓名</string>
+    <string name="auth_identity_idno">身份证号</string>
+    <string name="auth_identity_idno2">确认身份证号</string>
+    <string name="auth_identity_phone">手机号</string>
+    <string name="auth_identity_passcode">手机验证码</string>
+    <string name="auth_identity_fetch_passcode">手机验证码</string>
+    <string name="auth_identity_commit">提交</string>
+    <string name="auth_identity_pass">您已通过身份认证</string>
+    <string name="auth_identity_notpass">您尚未通过身份认证</string>
+    
+    
+    <string name="auth_email_title">邮箱认证</string>
+    <string name="auth_email_email">邮箱账号</string>
+    <string name="auth_email_passcode">邮验证码</string>
+    <string name="auth_email_fetch_passcode">邮验证码</string>
+    <string name="auth_email_commit">提交</string>
+    
+    <string name="auth_mobile_title">手机认证</string>
+    <string name="auth_mobile_tips">您已经通过手机认证</string>
+    <string name="auth_mobile_mobile_label">手机号</string>
+    <string name="auth_mobile_check_loan_msg">是否接收放款短信</string>
+    <string name="auth_mobile_check_restream_msg">是否接收回款短信</string>
+    <string name="auth_mobile_check_push_msg">是否接收推送短信</string>
+    
+    
+    <string name="security_settings_title">安全设置</string>
+    <string name="security_login_password">登录密码</string>
+    <string name="security_pay_password">交易密码</string>
+    <string name="security_question">密保问题</string>
+    
+    
+    
+    <string name="mybid_title">我的投资</string>
+    <string name="mybid_segment_posted">已投标</string>
+    <string name="mybid_segment_repaying">还款中</string>
+    <string name="mybid_segment_finished">已完成</string>
+    <string name="mybid_total_principal_and_interest">待收本息总额</string>
+    <string name="mybid_total_interest">待赚利息总额</string>
+    <string name="mybid_total_principal">待收本金总额</string>
+    <string name="mybid_posted_loan_no">借款编号:</string>
+    <string name="mybid_posted_loan_status">还款中</string>
+    <string name="mybid_posted_loan_date">投标时间:</string>
+    <string name="mybid_posted_loan_expected_return">预期收益:</string>
+    <string name="mybid_posted_loan_bid_amount">投标金额:</string>
+    <string name="mybid_posted_loan_title">【成都时代店】车辆借款27万</string>
+	<string name="mybid_posted_loan_amount">金额:</string>
+    <string name="mybid_posted_loan_deadline">期限:</string>
+    <string name="mybid_posted_loan_rate">利率:</string>
+    <string name="mybid_posted_loan_loaner">贷款人:</string>
+    <string name="mybid_finished_next_repay_date">下一还款日:</string>
+	<string name="mybid_finished_periods">期数</string>
+	<string name="mybid_finished_principal_and_interest">回收本息</string>
+	<string name="mybid_left_principal_and_interest">剩余本息:</string>
+	
+	<string name="message_center_title">消息中心</string>
+	
+	
+	<string name="loan_detail_title">项目详情</string>
+	<string name="loaninfo_basic">基本信息</string>
+	<string name="loaninfo_loaner">借款人资料</string>
+	<string name="loaninfo_bidrecords">投标记录</string>
+	<string name="loaninfo_comments">评论</string>
+	
+	<string name="loaninfo_bidrecords_nickname">投资人</string>
+	<string name="loaninfo_bidrecords_money">$100.0</string>
+	<string name="loaninfo_bidrecords_mode">自动(3306)</string>
+	<string name="loaninfo_bidrecords_time">2014-11-09 02:30:27</string>
+	
+	<string name="loaninfo_comments_nickname">尼称</string>
+	<string name="loaninfo_comments_text">评论内容</string>
+	<string name="loaninfo_comments_time">2014-11-09 02:30:27</string>
+    	
+	
+    <string name="feedback_title">意见反馈</string>
+    <string name="feedback_content">欢迎反馈任何意见和建议</string>
+    
+    
+    
+    <string name="lockscreen_access_pattern_start">"开始设置手势密码"</string>
+    <string name="lockscreen_access_pattern_cleared">"手势密码已清除"</string>
+    <string name="lockscreen_access_pattern_cell_added">"已添加单元格"</string>
+    <string name="lockscreen_access_pattern_detected">"手势密码已记录"</string>
+    <string name="lockpattern_retry_button_text">"重试"</string>
+    <string name="lockpattern_continue_button_text">"继续"</string>
+    <string name="lockpattern_confirm_button_text">"确认"</string>
+    <string name="lockpattern_recording_intro_header">"请设置手势密码"</string>
+    <string name="lockpattern_settings_help_how_to_record">"如何设置手势密码"</string>
+    <string name="lockpattern_recording_incorrect_too_short">"至少连接4个点，请重新设置"</string>
+    <string name="lockpattern_pattern_entered_header">"手势密码已记录"</string>
+    <string name="lockpattern_need_to_confirm">"请再次设置手势密码"</string>
+    <string name="lockpattern_need_to_unlock_wrong">"与上次输入不一致，请重新设置"</string>
+    <string name="lockpattern_pattern_confirmed_header">"成功设置手势密码，请牢记"</string>
+    <string name="lockpattern_recording_inprogress">"完成后松开手指"</string>
+    <string name="lockpattern_input_old">"请输入旧手势密码"</string>
+    <string name="lockpattern_checkold_wrong">"旧手势密码错误，请重新输入"</string>
+    <string name="gesture_password_guide_text">你可以创建一个手势密码，这样他人在借用你的手机时，将无法打开应用。</string>
+    <string name="gesture_password_guide_creat_btn">创建手势密码</string>
+    
+    <string name="quite_signup">快速注册</string>
+    <string name="quite_signup_short">100元起即可投</string>
+    <string name="platform_msg">平台公告</string>
+    <string name="platform_msg_short">最新平台公告</string>
+    <string name="news_report">新闻报道</string>
+    <string name="news_report_short">最新资讯报道</string>
+    <string name="about_us">关于我们</string>
+    <string name="about_us_short">权威网贷平台</string>
+    <string name="fresh_guide">新手指引</string>
+    <string name="fresh_guide_short">3分钟快速投资</string>
+    <string name="safe_guard">平台优势</string>
+    <string name="safe_guard_short">100%本息保障</string>
+    
+    <string name="coupons">代金券</string>
+    <string name="trial_coin">体验金</string>
+
+    <string name="setting_gesture_passwd">设置手势密码</string>
+    <string name="draw_old_gesture">输入旧手势</string>
+    <string name="draw_new_gesture">绘制解锁手势</string>
+    <string name="forget_gesture">忘记手势密码</string>
+    <string name="login_another_account">登录其他账号</string>
+    <string name="input_origin_gesture">输入原手势密码</string>
+    <string name="verify_login_passwd">验证登录密码</string>
+    <string name="verify_gesture_passwd">验证手势密码</string>
+    <string name="rufunding_date_f">还款时间 %s</string>
+    <string name="refunding_date_v">还款时间 2015年12月24日</string>
+    <string name="product_state_full_review">满标复审</string>
+    <string name="product_state_refunding">正在还款</string>
+    <string name="product_state_refund_complete">还款结束</string>
+    <string name="passwd_error_count">密码错误，还可以再输入%d次</string>
+    <string name="gesture_invalid">手势密码已失效，请重新登录钱包。</string>
+    <string name="title_user_agreement">微品金融用户协议</string>
+
+    <string name="safe_guard_1">严控源头</string>
+    <string name="safe_guard_2">资金安全</string>
+    <string name="safe_guard_3">信息安全</string>
+    <string name="safe_guard_4">本息保障</string>
+    <string name="safe_guard_5">法律保障</string>
+
+    <string name="safe_guard_detail_1">上市企业、政府支持产业的借款需求为主导尽调团队开展全方位调查，出具专业调查分析报告。</string>
+    <string name="safe_guard_detail_2">接入第三方资金托管，严格分离平台与投资人资金接触，杜绝资金池模式。</string>
+    <string name="safe_guard_detail_3">拥有顶尖技术团队，采用业界先进的加密技术对用户信息进行高强度加密处理。</string>
+    <string name="safe_guard_detail_4">融资方控股股东连带责任担保\n融资方资产抵押或质押、第三方企业担保</string>
+    <string name="safe_guard_detail_5">引进律师事务所、会计师事务所,确保平台项目的合法性及平台运营的规范性和有序性。</string>
+
+    <string name="withdrawal_tips">
+        "1. 提现手续费每笔2元"
+    </string>
+    <string name="recharge_tip">温馨提示\n• 为保障资金安全，充值提现采用同卡进出原则，即提现银行卡需与充值银行卡一致。\n• 为了您的账户安全，请在充值前进行实名认证、银行卡绑定以及交易密码设置。\n• 请注意您的银行卡充值限制，以免造成不便，每日的充值限额依据各银行限额为准。\n• 中行、工行、浦发、交行、邮储、农行、建行的用户在使用快捷充值过程中，如遇到充值不成功或者收不到验证码的情况，需开通“银联在线支付业务”请点击此处，根据提示进行开通。\n• 禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。\n• 充值过程中遇到问题，请联系客服：0755-86627551。
+</string>
+    <!--<string name="withdraw_tip">提现手续费：\n\n提现每笔收取手续费2元，未进行投资的资金提现加收提现金额0.25%。\n温馨提示\n1.请确保您输入的提现金额，以及银行帐号信息准确无误。\n2.如果您填写的提现信息不正确可能会导致提现失败，由此产生的提现费用将不予返还。\n3.在双休日和法定节假日期间，用户可以申请提现，微品金融会在下一个工作日进行处理。由此造成的不便，请多多谅解！\n4.平台禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。\n5.如果提现金额没有及时到账，请联系客服，400-808-3900。</string>-->
+    <string name="withdraw_tip">温馨提示\n• 提现费用2元/笔，为防止套现，充值未投资并申请提现的资金，需加收该部分资金的0.25%作为提现费用。\n• 预计提现后T+1个工作日到账（如遇双休日或法定节假日，向后顺延）。\n• 提现额度平台不做限制（银行规定额度除外）。\n• 平台禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。\n• 提现过程中遇到问题，请联系客服：0755-86627551。
+    </string>
+    <string name="bank_tip">温馨提示：为了保障您的资金安全，【充值】和【提现】银行卡需为同一张卡！若需更改绑定银行卡，请移步官网。或联系客服：0755-86627551</string>
+    <string name="confirm">确认</string>
+    <string name="try_again">重新设置</string>
+    <string name="goon">继续</string>
+    <string name="lockpattern_error" >"手势密码不对"</string>
+    <string name="borrower_credit">A级：表示债务人能够提供极好的债务安全保障。尽管各种各\n\t\t\t样的债务保护因素可能发生变化，但这些变化不大可能\n\t\t\t损害债务人相当稳定的偿债能力。\nB级：表示债务人能够提供很好的债务安全保障。他们比A级\n\t\t\t债务人的级别稍低，只是因为存在其他因素使长期风险\n\t\t\t比A级债务人稍高。\nC级：表示债务人能够提供较好的债务安全保障。但是，可能\n\t\t\t存在一些会对将来产生不利影响和损害的因素。\nD级：表示债务人能够提供必要的债务安全保障。然而从长时\n\t\t\t期来看，可能缺乏一些保护因素或某些保护因素不可靠。\nE级：表示债务人债务安全保障是不可靠的。他们承担债务的\n\t\t\t能力中等，不能很好地保证将来偿还债务，质量的不确定\n\t\t\t性是这一等级债务的突出特征。\nF级：表示债务人债务安全保障较差。从长期来看，他们按时\n\t\t\t偿还债务的能力可能不充足。</string>
+    <string name="refundState1">等额本息</string>
+    <string name="refundState2">按月付息到期还本</string>
+    <string name="refundState3">一次性还本付息</string>
+    <string name="homeProductState1">未发布</string>
+    <string name="homeProductState3">立即投资</string>
+    <string name="homeProductState5">还款中</string>
+    <string name="homeProductState6">已完成</string>
+
+    <string name="productState1">预售中</string>
+    <string name="productState2">立即投资</string>
+    <string name="productState3">还款中</string>
+    <string name="productState4">已完成</string>
+    <string name="productState5">暂停开放</string>
+    <string name="productStateFill">满标审核</string>
+    <string name="progressString">募集进度</string>
+    <string name="transfer_product_execute_now_info">持有的3个月以上的产品可选择溢价/平价/折价转让的方式退出：\n1、溢价时转让产品折算“约定年利率”不低于%1$s，且转让金额不超过剩余回款本金利息之和\n2、折价时转让的折价率不超过%2$s\n3、平价转让即以原始本金转出</string>
+    <string name="transfer_product_execute_now_info_title">持有的债权可平价、溢价或折价方式转让：</string>
+    <string name="str_invest_summary_info">1.投资产品分布为用户注册以来不同期限产品的投资金额占比分布图\n\n2.投资总额统计为最近12个月以来用户每月的投资金额统计图\n\n3.每月收益统计为最近12个月以来用户每月的收益统计图，每月收益包括利息收益、代 金券抵扣现金、邀请奖励、其他等类型奖励</string>
+    <string name="hint_captcha">请输入6位验证码</string>
+    <string name="description_yi_dian">北京融艺投信息科技有限公司（艺点金融）在文物修复和艺术品投资等相关领域深耕细作，已成功开展了极多名贵艺术品的质押借贷。创始团队同时具备丰富的金融+互联网背景，在各自领域有深刻的见解和实操经验。集聚了驰聘于古玩城、珠宝行、百度、360以及四大行等金融机构多年的一流专家团队，并且公司已获得真格基金等的资金支持。</string>
+    <string name="description_insurance">中国人保财险为国内最大的财产保险有限公司，始终遵循“以市场为导向，以客户为中心的经营理念”，公司经历66年的发展积累，形成了完善的产品体系，全覆盖的服务网络，领先的业务技能和运营管理能力。2011年4月由保监会审批通过，由人保总公司研发的艺术品综合保险专项条款正式颁发，作为艺术品保险服务的专项产品。中国人保财险北京分公司作为融易投有限公司艺术品保险的承包方，向其认定的艺术品持有人提供文化艺术品综合保险产品及理赔服务。</string>
+    <string name="description_repurchase">归藏艺术品投资中心（有限合伙）是由业内顶级专家组成的、专注于通过艺术品投资获取投资收益的一支基金，基金规模10000万元，专项用于为经过其认可的实物质押项目提供处置渠道，一旦借款人违约，将在第一时间进行质押品收购，为投资人资金安全提供保障。基金股东为艺术品投资及收藏领域知名人士，在艺术品领域颇具影响力。</string>
+    <string name="description_appraisal">融易投有限公司联手合作方整合业内鉴定专家资源，签约专业鉴定机构、资深鉴定专家、各大拍卖行鉴定顾问、知名收藏家、博物馆鉴定师、文物修复专家等，专家团队规模近百位，按各位专家擅长的品类不同，进行类别分组，分门别类进行独立鉴定。融易投拥有专业的珠宝检测设备如钻石分级灯、比色槽热导仪及外荧光观察仪等，质押珠宝经融易投初步鉴定后，再委托国检中心深圳珠宝检验实验室有限公司对质押珠宝首饰进行专项监督鉴定。</string>
+    <string name="invest_time">投资期限</string>
+    <string name="update_bottom_info">如果你喜欢我们的服务可以关注微信公众号\"微品金融\",为您提供最新的平台信息</string>
+    <string name="unlimited">不限</string>
+    <string name="selected">已选择</string>
+    <string name="unselected">未选择</string>
+
+    <string-array name="voucherType">
+        <item>未使用</item>
+        <item>已使用</item>
+        <item>已过期</item>
+    </string-array>
+    <string-array name="transferListType">
+        <item>可转让</item>
+        <item>转让中</item>
+        <item>已完成</item>
+    </string-array>
+    
+    <string name="fund_flow_hint">温馨提示：由于银行返回数据存在延迟，资金流水在操作两小时后正常显示。</string>
+    <string name="message_no_bind_bank">您未绑定银行卡</string>
+    <string name="voucher_dongjie">\t 由于银行数据返回存在延迟，您投资提交的优惠券会被暂时冻结，如果投资失败或者未投资，优惠券会在30分钟左右后解冻</string>
+</resources>

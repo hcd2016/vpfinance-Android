@@ -1,0 +1,111 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gesture_bg"
+    android:orientation="vertical">
+
+    <!--<View
+        android:id="@+id/fake_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:visibility="gone" />-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <ImageView
+            android:id="@+id/headBack"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="8dp"
+            android:padding="10dp"
+            android:background="@drawable/actionbar_button_selector"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/nav_back"
+            android:visibility="visible" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手势密码设置"
+            android:id="@+id/textView2"
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/tvIgnore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳过"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_size_14"
+            android:padding="10dp"
+
+            android:textColor="@color/white"
+            android:layout_gravity="center" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#26EEFA"
+            android:id="@+id/tip"
+            android:text="请输入手势密码"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+            <cn.vpfinance.vpjr.module.gusturelock.MiniLockPatternView
+                android:id="@+id/minilock"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:paddingRight="30dp"/>
+            <View
+                android:layout_width="12dp"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+        <cn.vpfinance.vpjr.module.gusturelock.LockPatternView
+            android:id="@+id/lock_pattern"
+            android:padding="15dp"
+            android:layout_width="300dp"
+            android:layout_gravity="center"
+            android:layout_height="300dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/left_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:visibility="invisible"
+                android:text="取消" />
+
+            <TextView
+                android:id="@+id/right_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="继续" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

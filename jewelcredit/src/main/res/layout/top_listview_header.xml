@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:background="#CD1A26">
+
+        <cn.vpfinance.vpjr.view.CircleImg
+            android:id="@+id/userHead"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/user_head"/>
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                tools:text="幸运号"
+                android:maxEms="4"
+                android:ellipsize="end"
+                android:singleLine="true"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="您没有参与投资"
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/white"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="没法参与排行比拼"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_12"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:id="@+id/invest_btn"
+            android:text="立即投资"
+            android:textSize="@dimen/text_size_12"
+            android:textColor="@drawable/invest_top_text_color"
+            android:background="@drawable/invest_top_btn_selector"/>
+    </LinearLayout>
+
+</LinearLayout>

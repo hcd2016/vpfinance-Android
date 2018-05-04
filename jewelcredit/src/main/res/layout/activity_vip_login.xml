@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+	android:descendantFocusability="beforeDescendants"
+	android:focusableInTouchMode="true">
+    
+	<com.jewelcredit.ui.widget.ActionBarLayout
+		android:id="@+id/titleBar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"/>
+
+	<!--<LinearLayout-->
+		<!--android:id="@+id/posBottom"-->
+		<!--android:layout_width="match_parent"-->
+		<!--android:layout_height="44dp"-->
+		<!--android:orientation="horizontal"-->
+		<!--android:background="@drawable/bg_top_line"-->
+		<!--android:layout_alignParentBottom="true">-->
+		<!--<TextView-->
+			<!--android:id="@+id/login_register"-->
+			<!--android:layout_width="0dp"-->
+			<!--android:layout_height="match_parent"-->
+			<!--android:layout_weight="1"-->
+			<!--android:textColor="@color/normal_text_color"-->
+			<!--android:text="@string/login_register"-->
+			<!--android:textSize="@dimen/text_size_medium"-->
+			<!--android:gravity="center"/>-->
+		<!--<View-->
+			<!--android:layout_width="0.5dp"-->
+			<!--android:layout_height="match_parent"-->
+			<!--android:background="@color/divider_color"/>-->
+		<!--<TextView-->
+			<!--android:id="@+id/login_forget"-->
+			<!--android:layout_width="0dp"-->
+			<!--android:layout_height="match_parent"-->
+			<!--android:layout_weight="1"-->
+			<!--android:textColor="@color/normal_text_color"-->
+			<!--android:text="@string/login_forget_password"-->
+			<!--android:textSize="@dimen/text_size_medium"-->
+			<!--android:gravity="center"/>-->
+	<!--</LinearLayout>-->
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:scrollbars="none"
+		android:layout_below="@id/titleBar">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="25dp"
+			android:paddingRight="25dp"
+			android:paddingTop="25dp"
+			android:paddingBottom="25dp"
+			android:orientation="vertical">
+
+			<!--<ImageView-->
+				<!--android:layout_width="wrap_content"-->
+				<!--android:layout_height="wrap_content"-->
+				<!--android:layout_marginBottom="25dp"-->
+				<!--android:src="@drawable/img_logo_v"-->
+				<!--android:scaleType="centerCrop"-->
+				<!--android:layout_gravity="center_horizontal"/>-->
+
+			<cn.vpfinance.vpjr.view.EditTextWithDel
+				android:id="@+id/login_username"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/edittext_height"
+				style="@style/SampleEditTextStyle"
+				android:drawableLeft="@drawable/ic_username"
+				android:hint="用户名/手机号">
+				<requestFocus/>
+			</cn.vpfinance.vpjr.view.EditTextWithDel>
+
+			<cn.vpfinance.vpjr.view.EditTextWithDel
+				android:id="@+id/login_password"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/edittext_height"
+				android:layout_marginTop="27dp"
+				style="@style/SamplePasswdTextStyle"
+				android:drawableLeft="@drawable/ic_lock"
+				android:hint="请输入登录密码"/>
+
+			<Button
+				android:id="@+id/login_commit_btn"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/submit_button_height"
+				android:layout_marginTop="42dp"
+				style="@style/SubmitButtonStyle"
+				android:text="@string/login_commit" />
+
+			<!--<LinearLayout-->
+				<!--android:id="@+id/login_checkbox"-->
+				<!--android:layout_width="match_parent"-->
+				<!--android:layout_height="wrap_content"-->
+				<!--android:gravity="center|right"-->
+				<!--android:paddingBottom="10dp"-->
+				<!--android:paddingLeft="20dp"-->
+				<!--android:paddingRight="20dp"-->
+				<!--android:paddingTop="10dp" >-->
+
+				<!--<ImageView-->
+					<!--android:id="@+id/login_checkbox_image"-->
+					<!--android:layout_width="wrap_content"-->
+					<!--android:layout_height="wrap_content"-->
+					<!--android:paddingRight="5dp"-->
+					<!--android:src="@drawable/checked" />-->
+
+				<!--<TextView-->
+					<!--android:id="@+id/textView1"-->
+					<!--android:layout_width="wrap_content"-->
+					<!--android:layout_height="wrap_content"-->
+					<!--android:text="记住密码" />-->
+
+			<!--</LinearLayout>-->
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_marginTop="24dp">
+				<TextView
+					android:id="@+id/login_register"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="#1D61C2"
+					android:text="@string/login_register"
+					android:textSize="@dimen/text_size_medium"/>
+				<View
+					android:layout_width="0dp"
+					android:layout_height="0dp"
+					android:layout_weight="1"/>
+				<TextView
+					android:id="@+id/login_forget"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="#1D61C2"
+					android:text="忘记密码？"
+					android:textSize="@dimen/text_size_medium"/>
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</ScrollView>
+
+</RelativeLayout>

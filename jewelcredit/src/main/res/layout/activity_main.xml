@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--<com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>-->
+    <RadioGroup
+        android:id="@+id/maintab_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_top_line"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        
+	     <RadioButton
+            android:id="@+id/maintab_home_radiobtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/maintab_button"
+            android:checked="true"
+            android:drawableTop="@drawable/maintab_home_selector"
+            android:text="@string/maintab_home"/>
+
+        <RadioButton
+            android:id="@+id/maintab_plan_radiobtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/maintab_button"
+            android:drawableTop="@drawable/maintab_plan_selector"
+            android:text="@string/maintab_plan"/>
+
+        <RadioButton
+            android:id="@+id/maintab_mine_radiobtn"
+            style="@style/maintab_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/maintab_mine_selector"
+            android:text="@string/maintab_mine" />
+
+        <RadioButton
+            android:id="@+id/maintab_more_radiobtn"
+            style="@style/maintab_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/maintab_more_selector"
+            android:text="@string/maintab_more" />
+
+	</RadioGroup>
+
+
+    <com.jewelcredit.ui.widget.NonSwipeViewPager
+        android:id="@+id/homePager"
+        android:layout_below="@id/titleBar"
+        android:layout_above="@id/maintab_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

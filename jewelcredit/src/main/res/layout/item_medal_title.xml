@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:id="@+id/tvTitle"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:gravity="center"
+    tools:text="---------已获得勋章---------"
+    android:textColor="@color/white"
+    android:textSize="@dimen/text_size_14"
+    android:layout_gravity="center"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    xmlns:tools="http://schemas.android.com/tools"/>

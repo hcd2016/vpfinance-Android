@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:background="#CD1A26">
+
+        <cn.vpfinance.vpjr.view.CircleImg
+            android:id="@+id/userHead"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/user_head"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    tools:text="幸运号"
+                    android:maxEms="6"
+                    android:ellipsize="end"
+                    android:singleLine="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/level"
+                    android:layout_marginLeft="5dp"
+                    tools:text="Ⅵ 初学乍练"
+                    android:visibility="gone"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/syn_yield"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="20000"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:id="@+id/strength_des"
+                    android:textSize="13sp"
+                    android:drawableLeft="@drawable/pk"
+                    tools:text="击败了20%的投资达人"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tv_flag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    tools:text="总投资(元)"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- <View
+             android:layout_width="0dp"
+             android:layout_height="match_parent"
+             android:layout_weight="1"/>
+
+         <LinearLayout
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:layout_marginRight="5dp"
+             android:orientation="vertical">
+
+             <TextView
+                 android:id="@+id/syn_yield"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 tools:text="20000"
+                 android:textSize="@dimen/text_size_20"
+                 android:textColor="@color/white"/>
+
+             <TextView
+                 android:id="@+id/tv_flag"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="5dp"
+                 tools:text="总投资(元)"
+                 android:layout_gravity="right"
+                 android:textColor="@color/white"/>
+         </LinearLayout>-->
+    </LinearLayout>
+
+</LinearLayout>

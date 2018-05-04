@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:custom="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_gray2"
+        android:layout_above="@+id/view"
+        android:layout_alignParentLeft="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <include layout="@layout/view_product_baseinfo_header"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/bg_gray2" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/img_activity"
+                android:background="@color/bg_gray2"
+                android:scaleType="matrix"
+                tools:visibility="visible"
+                android:visibility="gone"/>
+            <!-- -->
+            <LinearLayout
+                android:id="@+id/ll_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvRefundDes"
+                android:background="@color/bg_gray2"
+                android:textSize="@dimen/text_size_10"
+                tools:visibility="visible"
+                android:visibility="gone"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/red_top"
+                tools:text="温馨提示：借款人若提前(部分)还款，投资人利息按实际借款期限计算，并额外享有提前还款金额7天的利息。"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/bg_gray2" />
+            <LinearLayout
+                android:id="@+id/clickInvestRecord"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_transfer_product_3"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/text_999999"
+                    android:text="投资记录" />
+
+                <TextView
+                    android:id="@+id/tvInvestCount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:paddingRight="7dp"
+                    android:layout_weight="1"
+                    tools:text="已有43笔投资"
+                    android:gravity="center_vertical|right"
+                    android:textColor="@color/text_999999"
+                    android:drawablePadding="10dp"/>
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="11dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/nav_next"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_gray" />
+            <LinearLayout
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:id="@+id/clickToAvailableTime"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_transfer_product_4"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/text_999999"
+                    android:text="回款计划" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingRight="7dp"
+                    tools:text=""
+                    android:gravity="center_vertical|right"
+                    android:drawablePadding="10dp"/>
+                <ImageView
+                    android:layout_width="6dp"
+                    android:layout_height="11dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/nav_next"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:background="@color/bg_gray2">
+                <TextView
+                    android:id="@+id/orderVoucherNum"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="您有0张预约券！点击进行预约。"
+                    android:textSize="@dimen/text_size_12"
+                    android:textColor="@color/main_color"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/invest"
+        style="@style/SubmitButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_btn_submit"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="立即投资"
+        android:textSize="18sp"
+        android:enabled="true"
+        android:visibility="visible"/>
+
+    <LinearLayout
+        android:id="@+id/order_ll"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minWidth="250dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/ll_time">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开始抢标"
+                    android:textSize="@dimen/text_size_12"
+                    android:textColor="@color/normal_text_color"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="30dp"/>
+
+                <cn.vpfinance.vpjr.view.MyCountDownTimer
+                    android:id="@+id/order_countDown"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    custom:newLayout="@layout/layout_time_countdown2"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/btnOrder"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:text="预售中"
+            android:textColor="@color/white"
+            android:background="@drawable/order_selector"
+            android:enabled="false"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_gray2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="45dp"
+        android:id="@+id/view" />
+
+</RelativeLayout>

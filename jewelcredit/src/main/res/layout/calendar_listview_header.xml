@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/headView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:showIn="@layout/return_money_calendar_activity">
+
+    <cn.vpfinance.vpjr.view.RobotoCalendarView
+        android:id="@+id/canlendar"
+        android:longClickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/bg_gray2">
+
+        <TextView
+            android:id="@+id/returnNum"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="18dp"
+            tools:text="本月共计5比回款"
+            android:gravity="center_vertical"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/returnMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="18dp"
+            tools:text="共5607,55元"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+</LinearLayout>

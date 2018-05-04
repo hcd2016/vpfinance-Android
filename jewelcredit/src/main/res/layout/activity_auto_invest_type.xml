@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray2"
+    android:orientation="vertical">
+
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/unlimited"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_below="@id/title_bar">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="不限"
+            android:textColor="@color/text_1c1c1c" />
+
+        <Switch
+            android:id="@+id/switchOpen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/unlimited"/>
+    <!--<android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="44dp"
+        android:layout_below="@id/title_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="不限"
+                    android:textColor="@color/text_1c1c1c" />
+
+                <Switch
+                    android:id="@+id/switchOpen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_che_dai_bao"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_che_dai_bao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="车贷宝"
+                    android:textColor="@color/text_1c1c1c" />
+
+                <CheckBox
+                    android:id="@+id/cb_che_dai_bao"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/bg_auto_invest_checkbox"
+                    android:button="@null"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_xiao_fei_bao"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_xiao_fei_bao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="消费宝"
+                    android:textColor="@color/text_1c1c1c" />
+
+                <CheckBox
+                    android:id="@+id/cb_xiao_fei_bao"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/bg_auto_invest_checkbox"
+                    android:button="@null"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_gong_ying_lian"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_gong_ying_lian"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="供应链"
+                    android:textColor="@color/text_1c1c1c" />
+
+                <CheckBox
+                    android:id="@+id/cb_gong_ying_lian"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/bg_auto_invest_checkbox"
+                    android:button="@null"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_qi_ye_dai"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_qi_ye_dai"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="企业贷"
+                    android:textColor="@color/text_1c1c1c" />
+
+                <CheckBox
+                    android:id="@+id/cb_qi_ye_dai"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/bg_auto_invest_checkbox"
+                    android:button="@null"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_zhu_bao_dai"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_zhu_bao_dai"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="珠宝贷"
+                    android:textColor="@color/text_1c1c1c" />
+
+                <CheckBox
+                    android:id="@+id/cb_zhu_bao_dai"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/bg_auto_invest_checkbox"
+                    android:button="@null"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_rong_zu_bao"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_rong_zu_bao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="融租宝"
+                    android:textColor="@color/text_1c1c1c" />
+
+                <CheckBox
+                    android:id="@+id/cb_rong_zu_bao"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/bg_auto_invest_checkbox"
+                    android:button="@null"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_ge_ren_dai"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_ge_ren_dai"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="个人贷"
+                    android:textColor="@color/text_1c1c1c" />
+
+                <CheckBox
+                    android:id="@+id/cb_ge_ren_dai"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/bg_auto_invest_checkbox"
+                    android:button="@null"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_zhi_cun"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_zhi_cun"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="智存投资"
+                    android:textColor="@color/text_1c1c1c" />
+
+                <CheckBox
+                    android:id="@+id/cb_zhi_cun"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/bg_auto_invest_checkbox"
+                    android:button="@null"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            &lt;!&ndash;<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="定存宝"
+                    android:textColor="@color/text_1c1c1c" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_qi_che_fen_qi"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_qi_che_fen_qi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="汽车分期"
+                    android:textColor="@color/text_1c1c1c" />
+
+                <CheckBox
+                    android:id="@+id/cb_qi_che_fen_qi"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/bg_auto_invest_checkbox"
+                    android:button="@null"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/click_xiao_fei_fen_qi"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="1px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_xiao_fei_fen_qi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="消费分期"
+                    android:textColor="@color/text_1c1c1c" />
+
+                <CheckBox
+                    android:id="@+id/cb_xiao_fei_fen_qi"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:background="@drawable/bg_auto_invest_checkbox"
+                    android:button="@null"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:focusable="false" />
+            </LinearLayout>&ndash;&gt;
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>-->
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/red_text2"
+        android:text="确定"
+        android:textSize="@dimen/text_size_18"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

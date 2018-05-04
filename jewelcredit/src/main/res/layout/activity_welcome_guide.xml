@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:background="@drawable/guide03">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/guide_viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+    <Button
+        android:id="@+id/go_main"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:layout_centerHorizontal="true"
+        android:background="@color/transparent"/>
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/guide_pager_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dip"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/register_now"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_guide"
+                android:text="立即注册"
+                android:paddingTop="55dp"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"/>
+                <Button
+                    android:id="@+id/login_now"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_red_btn_border"
+                    android:text="已有账号？"
+                    android:textColor="@color/text_black"
+                    android:layout_alignParentBottom="true"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:visibility="gone"
+        android:id="@+id/exper_now"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:text="跳过"
+        android:textColor="@color/text_black"
+        android:background="@drawable/bg_red_btn_border"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>

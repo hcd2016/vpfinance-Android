@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_my_medal"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:id="@+id/hadMedalsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                tools:visibility="visible"
+                android:visibility="gone">
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="1dp"
+                    android:background="@color/white"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="已获得勋章"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"/>
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="1dp"
+                    android:background="@color/white"/>
+            </LinearLayout>
+
+
+            <GridLayout
+                android:id="@+id/hadMedals"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:columnCount="3"
+                android:minHeight="75dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:orientation="horizontal">
+            </GridLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="1dp"
+                    android:background="@color/white"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="未获得勋章"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"/>
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="1dp"
+                    android:background="@color/white"/>
+            </LinearLayout>
+
+            <GridLayout
+                android:id="@+id/noMedals"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:columnCount="3"
+                android:minHeight="75dp"
+                android:orientation="horizontal">
+            </GridLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

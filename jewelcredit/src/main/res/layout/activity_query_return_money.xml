@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/bg_gray2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
+            <ExpandableListView
+                android:id="@+id/expandablelistview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dividerHeight="0dp"
+                android:divider="@null"
+                android:childDivider="#f8f8f8"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:drawablePadding="2dp"
+            android:drawableTop="@drawable/ic_no_return_money"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:gravity="center"
+            android:textColor="@color/text_999999"
+            android:text="暂无待回款记录" />
+
+
+
+
+    </RelativeLayout>
+</LinearLayout>

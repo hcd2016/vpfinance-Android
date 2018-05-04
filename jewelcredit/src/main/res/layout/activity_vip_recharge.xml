@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:background="@color/bg_gray2"
+              android:orientation="vertical"
+              android:descendantFocusability="beforeDescendants"
+              android:focusableInTouchMode="true">
+
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/bankLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            tools:background="@drawable/bank_beijing"
+            android:layout_marginLeft="20dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/bankLogo"
+            android:layout_centerVertical="true"
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/bankName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="招商银行"
+                android:textColor="@color/black"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/bankAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="622681262****1232"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/text_size_14"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/bankLimit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="充值限额 | null元/笔，null元/日"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/red_top"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:orientation="horizontal"
+        android:background="@color/bg_gray2"
+        android:gravity="center_vertical|right">
+        <TextView
+            android:id="@+id/bankLimitInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="银行限额说明"
+            android:drawableLeft="@drawable/ic_limit_info"
+            android:drawablePadding="5dp"
+            android:textSize="@dimen/text_size_12"
+            android:textColor="@color/money_blue_color"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+
+            android:src="@drawable/money_limit"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可用余额"
+            android:layout_marginLeft="5dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/remaining_money"
+            android:layout_marginRight="20dp"
+            tools:text="10000元"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/bg_gray2"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+        <EditText
+            android:id="@+id/money"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            style="@style/EditTextStyle"
+            android:hint="请输入充值金额"
+            android:gravity="center"
+            android:inputType="number|numberDecimal" />
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="right">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="可用余额  |  "
+                android:textColor="@color/red_top"/>
+            <TextView
+                android:id="@+id/remaining_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 元"
+                android:textColor="@color/red_top"/>
+        </LinearLayout>-->
+        <Button
+            android:layout_width="match_parent"
+            android:id="@+id/submit"
+            android:layout_height="44dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="12dp"
+            style="@style/SubmitButtonStyle"
+            android:layout_marginBottom="10dp"
+            android:text="下一步"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textSize="12sp"
+        android:autoLink="phone"
+        android:lineSpacingExtra="4dp"
+        android:textColor="@color/assist_text_color"
+        android:text="@string/recharge_tip" />
+
+</LinearLayout>

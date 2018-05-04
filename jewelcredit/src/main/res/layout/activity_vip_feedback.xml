@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_bg_color"
+    android:orientation="vertical" >
+    
+    <include
+	    android:layout_width="fill_parent"
+	    android:layout_height="50dp"
+	    layout="@layout/titlebar_main" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:id="@+id/feedback_type_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/clickfrm_border"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dip"
+                    android:layout_weight="1"
+                    android:text="意见类型:"
+                    android:textColor="@color/gray_text_color2"
+                    android:textSize="@dimen/text_size_16" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center" >
+
+                <TextView
+                    android:id="@+id/feedback_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="改善意见"
+                    android:textColor="@color/gray_text_color2"
+                    android:textSize="@dimen/text_size_16" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/feedback_content"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/frame_border"
+            android:ems="10"
+            android:gravity="left|top"
+            android:hint="@string/feedback_content"
+            android:inputType="textMultiLine"
+            android:padding="10dp" >
+
+            <requestFocus />
+        </EditText>
+
+		<LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/feedback_commit"
+                android:layout_width="fill_parent"
+                android:layout_height="50dip"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/commit_btn_bg"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+            
+	    </LinearLayout>
+    
+        
+    </LinearLayout>
+
+</LinearLayout>

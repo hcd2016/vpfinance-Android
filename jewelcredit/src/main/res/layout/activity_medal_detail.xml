@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/bg_my_medal"
+    android:gravity="center_horizontal">
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        tools:background="@drawable/medal_3"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="捡到宝"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_30"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/condition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="代金券抵扣现金，累计满10元"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16"
+        android:layout_marginTop="18dp"/>
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="29dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_24"
+        android:gravity="center"
+        android:background="@drawable/bg_btn_white_radius_bg_trans"
+        android:text="未达成条件"/>
+</LinearLayout>

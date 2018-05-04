@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/window_bg_color"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/lytSetRealnameAuth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="25dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <EditText
+                    android:id="@+id/realName"
+                    style="@style/SampleEditTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edittext_height"
+                    android:layout_marginTop="25dip"
+                    android:hint="真实姓名" />
+
+
+                <EditText
+                    android:id="@+id/idCard"
+                    android:maxLength="18"
+                    style="@style/SampleEditTextStyle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/edittext_height"
+                    android:layout_marginTop="25dp"
+                    android:hint="身份证号" />
+
+                <Button
+                    android:id="@+id/submit"
+                    style="@style/SubmitButtonStyle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/submit_button_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="30dp"
+                    android:text="开通存管账户" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lytShowRealnameAuth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="25dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:gravity="center"
+                android:visibility="visible"
+                android:layout_marginTop="100dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#128d01"
+                    android:text="你已成功通过身份验证"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="真实姓名："
+                        style="@style/TextStyle"/>
+                    <TextView
+                        android:id="@+id/tvRealname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        style="@style/TextStyle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="身份证号："
+                        style="@style/TextStyle" />
+                    <TextView
+                        android:id="@+id/tvIdCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        style="@style/TextStyle"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </ScrollView>
+
+</LinearLayout>

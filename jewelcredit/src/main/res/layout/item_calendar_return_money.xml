@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="35dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvMonthDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_333333"
+                android:textSize="18sp"
+                tools:text="11.24" />
+
+            <TextView
+                android:id="@+id/tvYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:textColor="@color/text_cccccc"
+                android:textSize="12sp"
+                tools:text="2016" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24dp"
+            android:background="@color/bg_gray2" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="21dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:textColor="@color/text_333333"
+                android:textSize="14sp"
+                tools:text="珠宝贷2011111101  2/3期" />
+
+            <TextView
+                android:id="@+id/tvMoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center_vertical|right"
+                android:textColor="@color/text_999999"
+                android:textSize="12sp"
+                tools:text="本金60000.00元+收益500.00元" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvAheadReturnInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="于2018.01.01提前还款"
+        android:textColor="@color/text_999999"
+        android:textSize="13sp"
+        android:gravity="center_vertical|right"
+        android:paddingRight="21dp"
+        android:layout_marginBottom="5dp"
+        android:visibility="gone"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_gray2" />
+</LinearLayout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <cn.vpfinance.vpjr.view.HideTitleScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:id="@+id/scrollView">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_invite_gift">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/clickInviteGift"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_btn_invite_now"
+                android:layout_gravity="center_horizontal"/>
+            <LinearLayout
+                android:id="@+id/clickToInviteGiftH5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="详情请点击:"
+                    android:textColor="@color/text_black_no2"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="http://vpfinance.cn/to/article-1-20-75.html"
+                    android:textColor="@color/text_black_no2"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/text_black_no2"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="70dp"/>
+        </LinearLayout>
+    </cn.vpfinance.vpjr.view.HideTitleScrollView>
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+    <RelativeLayout
+        android:id="@+id/titleBar2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_height"
+        android:background="@color/transparent" >
+
+        <LinearLayout
+            android:id="@+id/posLeft"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <ImageView
+                android:id="@+id/headBack"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:background="@drawable/actionbar_button_selector"
+                android:src="@drawable/nav_back"/>
+            <TextView
+                android:id="@+id/actionLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text=""
+                style="@style/SingleLineTextStyle"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/posRight"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingRight="12dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:id="@+id/actionRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:gravity="center"
+                android:text=""
+                style="@style/SingleLineTextStyle"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/imageButtonRight"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:padding="5dp"
+                android:visibility="visible"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/posLeft"
+            android:layout_toLeftOf="@id/posRight"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            style="@style/SingleLineTextStyle"
+            android:ellipsize="middle"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+</RelativeLayout>

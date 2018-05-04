@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray2">
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/mActionBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bind_bank_hint"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请使用首笔支付认证"
+            android:textColor="@color/text_333333"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="使用需要绑定的银行卡用手机银行向华兴存管账户里转预约数额的资金"
+            android:textColor="@color/text_666666"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="17dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="就可以绑卡激活存管账户,充值到账更迅速!"
+            android:textColor="@color/text_666666"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="12dp"
+            android:lineSpacingExtra="10dp"/>
+        
+        <Button
+            android:id="@+id/btnKnow"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:text="知道了"
+            android:background="@drawable/shape_radius5_red"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_marginTop="33dp"/>
+    </LinearLayout>
+</LinearLayout>

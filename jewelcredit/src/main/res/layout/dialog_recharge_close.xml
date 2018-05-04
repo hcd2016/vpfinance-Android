@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="180dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="连连支付充值渠道已关闭"
+            android:textColor="@color/text_333333"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请转入存管账户充值投资"
+            android:textColor="@color/text_333333"
+            android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/close"
+            android:layout_width="180dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_button_recharge_close"
+            android:text="确定"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</FrameLayout>

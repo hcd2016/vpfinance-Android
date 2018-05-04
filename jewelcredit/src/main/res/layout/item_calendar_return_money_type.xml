@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:gravity="center_vertical">
+
+    <LinearLayout
+        android:paddingTop="11dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/red_shugang"
+            android:layout_marginLeft="12dp"/>
+
+        <TextView
+            android:id="@+id/tvReturnDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:textSize="@dimen/text_size_14"
+            android:textColor="@color/text_999999"
+            tools:text="今日待回款事项"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvVisible"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        tools:text="今日无待回款项"
+        android:textColor="@color/text_999999"
+        android:gravity="center"
+        tools:visibility="visible"
+        android:visibility="gone"/>
+</LinearLayout>

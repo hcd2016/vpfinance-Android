@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="42dp"
+            android:background="@drawable/gesture_bg">
+
+            <LinearLayout
+                android:id="@+id/lyt_gesture_indi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="36dp"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/tv_gesture_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:gravity="center_horizontal"
+                    android:text="绘制解锁手势"
+                    android:textSize="12sp"
+                    android:textColor="#83f6d9"/>
+
+                <com.jewelcredit.ui.widget.GestureDetector
+                    android:id="@+id/gesture_detector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_input_origin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="绘制解锁手势"
+                android:textSize="12sp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#83f6d9"
+                android:layout_marginTop="98dp"
+                android:visibility="gone"/>
+
+            <com.jewelcredit.ui.widget.GestureLock
+                android:id="@+id/gesture_lock"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="150dp"
+                android:layout_marginBottom="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/tv_action_login_passwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="验证登录密码"
+                android:layout_below="@id/gesture_lock"
+                android:textSize="12sp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#83f6d9"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray2"
+    android:orientation="vertical">
+
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/bg_gray2"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/white">
+        <LinearLayout
+            android:id="@+id/llConvertVoucher"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_convert_voucher"
+                android:layout_marginRight="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="兑换代金券"
+                android:textColor="@color/text_black"
+                android:gravity="center"/>
+        </LinearLayout>
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/bg_gray2"/>
+        <LinearLayout
+            android:id="@+id/llRecommendVoucher"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_recommend_voucher"
+                android:layout_marginRight="5dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="推荐好友"
+                    android:textColor="@color/text_black"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="推荐好友赚取代金券"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--<TextView
+            android:id="@+id/tip"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
+            android:text="使用规则>>" />-->
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/bg_gray2"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <RelativeLayout
+            android:id="@+id/selectConfirm"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/confirm"
+                android:layout_alignParentRight="true"
+                android:id="@+id/btnOK" />
+        </RelativeLayout>
+        <ListView
+            android:id="@+id/voucherLV"
+            android:layout_above="@id/selectConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#00000000"
+            android:dividerHeight="0dp" />
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:drawablePadding="2dp"
+            android:drawableTop="@drawable/servicer"
+            android:gravity="center"
+            android:text="点击刷新" />
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

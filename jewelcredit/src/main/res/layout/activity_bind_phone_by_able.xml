@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <com.jewelcredit.ui.widget.ActionBarWhiteLayout
+        android:id="@+id/mActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="25dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="输入短信验证码"
+            android:textColor="@color/text_1c1c1c"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/tvCodeHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="已向手机号183****3352发送了验证码"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/text_666666"/>
+
+        <cn.vpfinance.vpjr.view.CodeVerifyView
+            android:id="@+id/vCodeVerifyView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:inputType="number"/>
+        <TextView
+            android:id="@+id/tvErrorInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="短信验证码有误，请重新输入"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/text_ff5050"
+            android:visibility="invisible"/>
+        <TextView
+            android:id="@+id/tvCountDownInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="60s后重新发送"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/text_999999"/>
+
+    </LinearLayout>
+</LinearLayout>

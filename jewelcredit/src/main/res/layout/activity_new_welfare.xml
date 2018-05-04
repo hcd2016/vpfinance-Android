@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<cn.vpfinance.vpjr.view.HideTitleScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:id="@+id/scrollView">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="#ff513f"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_new_welfare1"/>
+        <ImageView
+            android:id="@+id/ivRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_new_welfare2"/>
+        <Button
+            android:id="@+id/clickToRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_new_welfare1"
+            android:layout_gravity="center_horizontal"/>
+
+        <ImageView
+            android:id="@+id/ivRealName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_new_welfare3"/>
+        <Button
+            android:id="@+id/clickToProve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_new_welfare2"
+            android:layout_gravity="center_horizontal"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_new_welfare4"/>
+        <Button
+            android:id="@+id/clickToInvest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_new_welfare3"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="本活动自发布之日即可实行，结束时间将另行通知。"
+            android:layout_marginTop="60dp"
+            android:textSize="@dimen/text_size_12"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/white"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微品金融将保留对以上规则、条件和流程进行适当调整的权利。"
+            android:layout_marginBottom="30dp"
+            android:textSize="@dimen/text_size_12"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+</cn.vpfinance.vpjr.view.HideTitleScrollView>
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:id="@+id/titleBar2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_height"
+        android:background="@color/transparent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true">
+
+        <LinearLayout
+            android:id="@+id/posLeft"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <ImageView
+                android:id="@+id/headBack"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:background="@drawable/actionbar_button_selector"
+                android:src="@drawable/nav_back"/>
+            <TextView
+                android:id="@+id/actionLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text=""
+                style="@style/SingleLineTextStyle"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/posRight"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingRight="12dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:id="@+id/actionRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:gravity="center"
+                android:text=""
+                style="@style/SingleLineTextStyle"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/imageButtonRight"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:padding="5dp"
+                android:visibility="visible"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/posLeft"
+            android:layout_toLeftOf="@id/posRight"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            style="@style/SingleLineTextStyle"
+            android:ellipsize="middle"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+</RelativeLayout>

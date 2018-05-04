@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray2">
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/mActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="温馨提示"
+            android:textSize="16sp"
+            android:textColor="@color/text_1c1c1c"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="1.由于银行返回数据存在延迟，在您完成投资操作后，10-20分钟后可以显示投资记录"
+            android:lineSpacingExtra="2dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="2.代金券抵扣金额会在项目满标时返回到您的账户中。"
+            android:lineSpacingExtra="2dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="3.如果您未在银行页面完成投资操作，您本次投资使用的优惠券会暂时冻结，稍后会返回到您的账户中。"
+            android:lineSpacingExtra="2dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="4.满标时间以银行返回数据时间为准"
+            android:lineSpacingExtra="2dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="5.投资遇到其他问题请联系客服。"
+            android:lineSpacingExtra="2dp"/>
+
+        <CheckBox
+            android:id="@+id/vCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不再提示"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/normal_text_color"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+        
+        <Button
+            android:id="@+id/vButton"
+            android:layout_width="205dp"
+            android:layout_height="50dp"
+            style="@style/SubmitButtonStyle"
+            android:text="知道了"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+</LinearLayout>

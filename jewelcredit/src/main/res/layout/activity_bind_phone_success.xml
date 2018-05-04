@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal">
+    <com.jewelcredit.ui.widget.ActionBarWhiteLayout
+        android:id="@+id/mActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/icon_bind_phone_success"
+        android:layout_marginTop="50dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:text="验证成功,已成功更换绑定手机号"
+        android:textSize="16sp"
+        android:textColor="@color/text_1c1c1c"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="温馨提示：银行存管手机号改绑需要下载并登陆投融资平台进行操作"
+        android:textColor="@color/text_666666"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:lineSpacingExtra="5dp"/>
+</LinearLayout>

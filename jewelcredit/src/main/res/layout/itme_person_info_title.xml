@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingLeft="24dp"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/imgIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="基本信息"
+            android:textColor="@color/text_1c1c1c"
+            android:textSize="14sp"
+            android:id="@+id/tvTitle"/>
+
+    </LinearLayout>
+
+    <cn.vpfinance.vpjr.view.NoScrollGridView
+        android:layout_marginBottom="25dp"
+        android:id="@+id/listview_item_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dp"
+        android:numColumns="2"
+        android:paddingLeft="2dp"
+        android:scrollbars="none"/>
+</LinearLayout>

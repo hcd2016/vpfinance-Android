@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_bg_color"
+    android:orientation="vertical" >
+
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RadioGroup
+        android:id="@+id/tabButton"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bottom_line_1">
+        <RadioButton
+            android:id="@+id/tab1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:text="基本信息"
+            android:checked="true"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/text_size_medium"
+            android:background="@drawable/bg_toptab"/>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/divider_color" />
+        <RadioButton
+            android:id="@+id/tab2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:text="借款人资料"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/text_size_medium"
+            android:background="@drawable/bg_toptab"/>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/divider_color" />
+        <RadioButton
+            android:id="@+id/tab3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:text="投标记录"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/text_size_medium"
+            android:background="@drawable/bg_toptab"/>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/divider_color"
+            android:visibility="gone"/>
+        <RadioButton
+            android:id="@+id/tab4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:text="评论"
+            android:textColor="@color/normal_text_color"
+            android:textSize="@dimen/text_size_medium"
+            android:background="@drawable/bg_toptab"
+            android:visibility="gone"/>
+    </RadioGroup>
+
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/loandetail_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    
+	
+</LinearLayout>

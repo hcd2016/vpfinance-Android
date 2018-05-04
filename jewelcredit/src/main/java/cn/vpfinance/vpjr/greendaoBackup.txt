@@ -1,0 +1,397 @@
+/*
+ * Copyright (C) 2011 Markus Junginger, greenrobot (http://greenrobot.de)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package de.greenrobot.daogenerator.gentest;
+
+import de.greenrobot.daogenerator.DaoGenerator;
+import de.greenrobot.daogenerator.Entity;
+import de.greenrobot.daogenerator.Property;
+import de.greenrobot.daogenerator.Schema;
+import de.greenrobot.daogenerator.ToMany;
+
+/**
+ * Generates entities and DAOs for the example project DaoExample.
+ *
+ * Run it as a Java application (not Android).
+ *
+ * @author Markus
+ */
+public class VPJRDaoGenerator {
+
+    public static void main(String[] args) throws Exception {
+        Schema schema = new Schema(24, "cn.vpfinance.vpjr.greendao");
+
+        addUser(schema);//用户信息
+        addFinanceProduct(schema);// 产品 有分页
+        addLoanRecord(schema);
+        addBorrowerInfo(schema);
+        addBanner(schema);
+
+        addInvestRecord(schema);
+
+        addMyInvestRecord(schema);
+
+        addQueryPage(schema);
+
+        addBankCard(schema);
+
+        new DaoGenerator().generateAll(schema, "./src-gen");
+    }
+
+    /**
+     *
+     * @param schema
+     */
+    private static void addUser(Schema schema)
+	{
+		Entity file = schema.addEntity("User");
+        file.addIdProperty().primaryKey().autoincrement();
+        file.addLongProperty("userId");
+
+        file.addStringProperty("userName").notNull();
+        file.addStringProperty("realName");
+        file.addStringProperty("sessionId");
+        file.addStringProperty("cellPhone");
+        file.addStringProperty("email");
+        file.addStringProperty("emailPass");
+        file.addStringProperty("userpass");
+        file.addStringProperty("head");
+
+        file.addStringProperty("identityCard");//身份证
+        file.addDoubleProperty("cashBalance");//可用余额
+        file.addDoubleProperty("netAsset");//账户总额
+        file.addDoubleProperty("frozenAmtN");//冻结资产
+        file.addDoubleProperty("paying");//偿还中借款
+
+        //dBid+dSum+invest+preIncome
+        file.addDoubleProperty("dBid");//
+        file.addDoubleProperty("dSum");//
+        file.addDoubleProperty("invest");//
+        file.addDoubleProperty("preIncome");//
+
+        file.addBooleanProperty("hasTradePassword");
+
+	}
+
+    private static void addFinanceProduct(Schema schema)
+	{
+		/*
+LoanSignbasic
+assure       	String	担保方名称
+behoof       	String	借款方借款用途
+bidTime      	String	招标期限
+creditTime   	String	放款时间
+guaranteesAmt	double	借款保证金
+loanCategory 	int	借款标类型
+loanExplain  	String	借款说明
+loanNumber   	String	借款标号
+loanOrigin   	String	借款方还款来源
+loanSignTime 	String	创建时间
+loanTitle    	String	标题
+mgtMoney     	double	借款管理费
+mgtMoneyScale	double	借款管理费比例
+overview     	String	借款方商业概述
+riskAssess   	int	风险评估	1低、2中、3高
+riskCtrlWay  	String	风险控制措施	1.信用 2.担保
+speech       	String	借款人感言
+views        	int	浏览数
+		 */
+		Entity file = schema.addEntity("FinanceProduct");
+        file.addIdProperty().primaryKey().autoincrement();
+
+        file.addStringProperty("buyCount");//已购买人数
+
+        file.addLongProperty("bidEndTime");
+        file.addIntProperty("type").notNull();
+
+        file.addDoubleProperty("total_tend_money").notNull();
+
+        file.addLongProperty("pid").notNull();//.notNull();
+//        file.addLongProperty("page").notNull();//(暂时删除)
+//        file.addLongProperty("pageSize").notNull();//(暂时删除)
+        file.addLongProperty("totalPage").notNull();
+        file.addStringProperty("assure");//担保方名称
+        file.addStringProperty("borrower");//
+        file.addStringProperty("riskGrade");//
+        file.addStringProperty("behoof");//借款方借款用途
+        file.addStringProperty("bidTime");//招标期限
+        file.addStringProperty("creditTime");//放款时间
+        file.addDoubleProperty("guaranteesAmt").notNull();//借款保证金
+        file.addLongProperty("loanCategory").notNull();//借款标类型
+        file.addStringProperty("loanExplain");//借款说明
+        file.addStringProperty("loanNumber");//借款标号
+        file.addStringProperty("loanOrigin");//借款方还款来源
+        file.addStringProperty("loanSignTime");//创建时间
+        file.addStringProperty("loanTitle");//标题
+        file.addDoubleProperty("mgtMoney").notNull();//借款管理费
+        file.addDoubleProperty("mgtMoneyScale").notNull();//借款管理费比例
+        file.addStringProperty("overview");//借款方商业概述
+        file.addLongProperty("riskAssess").notNull();//风险评估	1低、2中、3高
+        file.addStringProperty("riskCtrlWay");//风险控制措施	1.信用 2.担保
+//        file.addStringProperty("speech");//借款人感言	//(暂时删除)
+//        file.addLongProperty("views").notNull();//浏览数//(暂时删除)
+		/*
+LoanSign
+id	long	标id
+rate	double	借款利率
+issueLoan	double	借款金额
+loanType	int	标类型
+loanstate	int	借款标状态
+refundWay	int	还款方式
+loanUnit	double	最小出借单位
+month	int	借款周期
+publishTime	String	发布时间
+subType	int	标种子类型	1富担标，2担保，3抵押，4信用，5实地
+counterparts	int	普通用户可购买份数
+vipCounterparts	int	vip可购买份数
+product	int	产品类别	0、散标（含债权转让标），1、定存标
+status	int	定存标处理标记	散标和债权列表 请忽略
+		 */
+        file.addDoubleProperty("rate").notNull();//借款利率
+        file.addStringProperty("reward");//加息
+//        file.addDoubleProperty("rewardNum");//加息//(暂时删除)
+        file.addDoubleProperty("issueLoan").notNull();//借款金额
+        file.addLongProperty("loanType").notNull();//标类型
+        file.addLongProperty("loanstate").notNull();//借款标状态
+        file.addLongProperty("refundWay").notNull();//还款方式
+        file.addDoubleProperty("loanUnit").notNull();//最小出借单位
+        file.addLongProperty("month").notNull();//借款周期
+        file.addStringProperty("publishTime");//发布时间
+        file.addLongProperty("subType").notNull();//标种子类型	1富担标，2担保，3抵押，4信用，5实地
+//        file.addLongProperty("counterparts").notNull();//普通用户可购买份数//(暂时删除)
+//        file.addLongProperty("vipCounterparts").notNull();//vip可购买份数//(暂时删除)
+        file.addLongProperty("product").notNull();//产品类别	0、散标（含债权转让标），1、定存标
+        file.addStringProperty("productType");
+        file.addStringProperty("allowTransfer");
+        file.addStringProperty("imageUrl");
+        file.addStringProperty("maxRate");
+        file.addStringProperty("minRate");
+        file.addDoubleProperty("promitRate");//债权净收益rate
+        file.addLongProperty("status").notNull();//定存标处理标记	散标和债权列表 请忽略
+        file.addIntProperty("isAllowTrip");//旅游状态
+        file.addStringProperty("borrowing");//借款用途
+        file.addStringProperty("safeway");//保障方式
+        file.addStringProperty("bookCouponNumber");//可使用预约券张数
+        file.addDoubleProperty("bookPercent");//预约券可预约比例
+
+        //智存理财
+        file.addDoubleProperty("amount").notNull();
+        file.addDoubleProperty("openAmount").notNull();
+        file.addDoubleProperty("yearInterest").notNull();
+        //file.addIntProperty("mouth").notNull();
+        file.addIntProperty("poolNum").notNull();
+        file.addIntProperty("soldOut").notNull();
+        //file.addIntProperty("status").notNull();
+        file.addDoubleProperty("scale").notNull();
+        file.addDoubleProperty("maxMoney").notNull();
+
+        //债权转让才会有（新）
+        file.addStringProperty("repaytime");//还款时间
+        file.addIntProperty("periods");//期数
+        file.addStringProperty("repayStatus");//还款状态
+        file.addIntProperty("totalPeriod");//总期数
+        file.addIntProperty("originLoanId");//原标ID
+        file.addStringProperty("noRepayList");//剩余还款日,列表用json保存
+        file.addStringProperty("debtUser");//
+        file.addDoubleProperty("originIssueLoan");//原标金额
+        //债券转让(旧)
+        file.addDoubleProperty("appreciation").notNull();
+        file.addDoubleProperty("discountMoney").notNull();
+        file.addIntProperty("distype").notNull();
+        file.addIntProperty("share").notNull();
+        file.addDoubleProperty("tenderMoney").notNull();
+        file.addLongProperty("userAuth").notNull();
+        file.addLongProperty("userDebt").notNull();
+
+
+        //借款人信息
+        file.addLongProperty("borrowerId").notNull();//
+        //sex
+		//phone
+		//marryStatus
+		//qualifications
+        file.addStringProperty("isCard");
+		//income
+		file.addLongProperty("age").notNull();//
+		file.addDoubleProperty("money").notNull();
+		file.addStringProperty("realName");
+		file.addDoubleProperty("credit").notNull();
+		file.addStringProperty("remark");
+
+        file.addLongProperty("updateTime").notNull();
+        file.addStringProperty("lastTenderTime");//投标结束时间
+        file.addStringProperty("creditTime2");//起息日，以前也有存（上面放款时间用了这个名称）
+        file.addStringProperty("repays");//还款计划,存的是json字符串
+
+//        file.addStringProperty("buyCount");//已购买人数
+
+        file.addStringProperty("imageUrlByIphone");//标详情iphone图片取imageUrl
+        file.addStringProperty("givePhone");//首页最新标，标列表，标详情新增加givePhone字段，1代表该标参加送iphone活动
+	}
+
+
+    private static void addBanner(Schema schema)
+    {
+    	Entity file = schema.addEntity("Banner");
+        file.addIdProperty().primaryKey().autoincrement();
+        file.addLongProperty("bid").notNull();//.notNull();
+        file.addIntProperty("type").notNull();
+        file.addIntProperty("number").notNull();
+        file.addStringProperty("url");//
+        file.addStringProperty("imgurl");//
+        file.addStringProperty("picturename");
+    }
+
+
+    private static void addLoanRecord(Schema schema)
+    {
+    	Entity file = schema.addEntity("LoanRecord");
+        file.addIdProperty().primaryKey().autoincrement();
+        file.addLongProperty("lid").notNull();//
+
+        file.addLongProperty("pid").notNull();//
+
+        file.addLongProperty("page").notNull();
+        file.addLongProperty("pageSize").notNull();
+        file.addLongProperty("totalPage").notNull();
+
+        file.addStringProperty("username");
+        file.addDoubleProperty("rate").notNull();
+        file.addDoubleProperty("tendMoney").notNull();
+        file.addStringProperty("payStatus");
+        file.addStringProperty("paytime");
+        file.addIntProperty("isBook");//isBook = 1  预约购买  isBook = 0 非预约购买
+        file.addStringProperty("voucherMoney");//抵扣金额
+        file.addStringProperty("type");
+
+    }
+
+    private static void addBorrowerInfo(Schema schema)
+    {
+    	Entity file = schema.addEntity("BorrowerInfo");
+        file.addIdProperty().primaryKey().autoincrement();
+        file.addLongProperty("bid").notNull();//
+
+        file.addLongProperty("pid").notNull();//
+
+        //sex
+		//phone
+		//marryStatus
+		//qualifications
+        file.addStringProperty("isCard");
+		//income
+		file.addLongProperty("age").notNull();//
+		file.addDoubleProperty("money").notNull();
+		file.addStringProperty("realName");
+		file.addDoubleProperty("credit").notNull();
+		file.addStringProperty("remark");
+    }
+
+    /**
+     * 我的投资记录
+     *
+     * @param schema
+     */
+    public static void addInvestRecord(Schema schema)
+    {
+    	Entity file = schema.addEntity("InvestRecord");
+        file.addIdProperty().primaryKey().autoincrement();
+        file.addLongProperty("page").notNull();
+        file.addLongProperty("pageSize").notNull();
+        file.addLongProperty("totalPage").notNull();
+
+        file.addLongProperty("iid").notNull();//
+        file.addIntProperty("loanType").notNull();// 1全部 2进行中、3回款中、4已完成
+        file.addIntProperty("isSucceed").notNull();
+        file.addIntProperty("product").notNull();
+        file.addDoubleProperty("tenderMoney").notNull();
+        file.addStringProperty("tenderTime");
+        file.addLongProperty("voucherId").notNull();//
+        file.addDoubleProperty("voucherMoney").notNull();
+    }
+
+    public static void addMyInvestRecord(Schema schema)
+    {
+/**
+"borrowername": "朱德厚3",
+"deadline": "1个月",
+"interestRate": 0.2,
+"issueLoan": 100.0,
+"loanTitle": "maidouzhu麦兜猪",
+"money": 0.0,
+"refundWay": "按月等额本息",
+"schedule": 0.0,
+"tenderMoney": 100.0,
+"tenderTime": "2015-07-08 11:03:27"
+ */
+    	Entity file = schema.addEntity("MyInvestRecord");
+        file.addIdProperty().primaryKey().autoincrement();
+        file.addLongProperty("page").notNull();
+        file.addLongProperty("pageSize").notNull();
+        file.addLongProperty("totalPage").notNull();
+
+        file.addLongProperty("iid").notNull();//
+
+        file.addStringProperty("borrowername");
+        file.addStringProperty("deadline");
+        file.addDoubleProperty("interestRate").notNull();
+        file.addDoubleProperty("issueLoan").notNull();
+        file.addStringProperty("loanTitle");
+        file.addDoubleProperty("money").notNull();
+        file.addStringProperty("refundWay");
+        file.addDoubleProperty("schedule").notNull();
+        file.addDoubleProperty("tenderMoney").notNull();
+        file.addStringProperty("tenderTime");
+    }
+
+    public static void addBankCard(Schema schema)
+    {
+    	Entity file = schema.addEntity("BankCard");
+        file.addIdProperty().primaryKey().autoincrement();
+        file.addLongProperty("page").notNull();
+        file.addLongProperty("pageSize").notNull();
+        file.addLongProperty("totalPage").notNull();
+        file.addLongProperty("bid").notNull();
+
+        file.addStringProperty("accountName").notNull();
+        file.addStringProperty("bankAccount").notNull();
+        file.addStringProperty("bankname").notNull();
+        file.addStringProperty("name").notNull();
+        file.addStringProperty("branch").notNull();
+        file.addStringProperty("province").notNull();
+        file.addStringProperty("city").notNull();
+    }
+
+	public static void addQueryPage(Schema schema)
+	{
+		Entity file = schema.addEntity("QueryPage");
+        file.addIdProperty().primaryKey().autoincrement();
+        file.addLongProperty("page").notNull();
+        file.addLongProperty("pageSize").notNull();
+        file.addLongProperty("totalPage").notNull();
+
+        file.addStringProperty("qid").notNull();
+        file.addStringProperty("type").notNull();
+        file.addStringProperty("time").notNull();
+        file.addDoubleProperty("money").notNull();
+        file.addStringProperty("moneyDetail").notNull();
+        file.addStringProperty("progress").notNull();
+        file.addStringProperty("eid").notNull();
+
+
+	}
+}
+
+

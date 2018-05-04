@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:background="@color/window_bg_color"
+			  android:orientation="vertical"
+			  android:descendantFocusability="beforeDescendants"
+			  android:focusableInTouchMode="true" >
+
+	<com.jewelcredit.ui.widget.ActionBarLayout
+		android:id="@+id/titleBar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:scrollbars="none">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:isScrollContainer="true"
+			android:orientation="vertical"
+			android:paddingBottom="25dp"
+			android:paddingLeft="25dp"
+			android:paddingRight="25dp">
+
+			<cn.vpfinance.vpjr.view.EditTextWithDel
+				android:id="@+id/register_phone"
+				style="@style/SampleNumberEditStyle"
+				android:layout_width="fill_parent"
+				android:layout_height="@dimen/edittext_height"
+				android:layout_marginTop="25dp"
+				android:drawableLeft="@drawable/ic_call"
+				android:hint="@string/register_phone">
+
+				<requestFocus />
+			</cn.vpfinance.vpjr.view.EditTextWithDel>
+
+			<cn.vpfinance.vpjr.view.EditTextWithDel
+				android:id="@+id/register_password"
+				style="@style/SamplePasswdTextStyle"
+				android:layout_width="fill_parent"
+				android:layout_height="@dimen/edittext_height"
+				android:layout_marginTop="25dp"
+				android:drawableLeft="@drawable/ic_lock"
+				android:hint="设置密码，6-20个字符" />
+			<TextView
+				android:id="@+id/tvPasswordStrength"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/edittext_height"
+				android:layout_marginTop="25dp"
+				android:orientation="horizontal">
+
+				<Button
+					android:id="@+id/register_fetch_passcode_btn"
+					style="@style/SubmitButtonStyle"
+					android:layout_width="138dp"
+					android:layout_height="match_parent"
+					android:layout_alignParentRight="true"
+					android:text="@string/register_fetch_passcode" />
+
+				<EditText
+					android:id="@+id/register_passcode"
+					style="@style/NumberEditStyle"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginRight="14dp"
+					android:layout_toLeftOf="@id/register_fetch_passcode_btn"
+					android:gravity="center"
+					android:hint="@string/hint_captcha" />
+
+			</RelativeLayout>
+
+			<include layout="@layout/view_voice_captcha" />
+
+			<EditText
+				android:id="@+id/invitee"
+				style="@style/EditTextStyle"
+				android:layout_width="fill_parent"
+				android:layout_height="@dimen/edittext_height"
+				android:gravity="center"
+				android:hint="请输入推荐人手机号或四位推荐码" />
+
+			<Button
+				android:id="@+id/register_commit_btn"
+				style="@style/SubmitButtonStyle"
+				android:layout_width="fill_parent"
+				android:layout_height="@dimen/submit_button_height"
+				android:layout_gravity="center_vertical"
+				android:text="@string/register_commit"
+				android:layout_marginTop="30dp"/>
+
+			<LinearLayout
+				android:id="@+id/register_checkbox"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="12dp"
+				android:gravity="center_vertical"
+				android:orientation="vertical">
+
+				<LinearLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
+					<CheckBox
+						android:id="@+id/cb_protocol"
+						android:layout_width="13dp"
+						android:layout_height="13dp"
+						android:layout_marginRight="14.5dp"
+						android:button="@null"
+						android:checked="true"
+						android:background="@drawable/selector_checkbox_register"/>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="我已阅读并同意以下内容" />
+				</LinearLayout>
+
+				<TextView
+					android:id="@+id/register_protocol"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="《微品金融用户服务协议》"
+					android:textColor="@color/link_blue"
+					android:layout_marginLeft="23dp"/>
+
+				<TextView
+					android:id="@+id/register_protocol2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="《网络借贷风险和禁止性行为提示书》"
+					android:textColor="@color/link_blue"
+					android:layout_marginLeft="23dp"/>
+
+				<TextView
+					android:id="@+id/register_protocol3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="《资金来源合法承诺书》"
+					android:textColor="@color/link_blue"
+					android:layout_marginLeft="23dp"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+	</ScrollView>
+
+</LinearLayout>

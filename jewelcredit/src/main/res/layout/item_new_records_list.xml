@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="@color/white"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_month"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@color/bg_gray2">
+
+        <TextView
+            android:id="@+id/tvMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="24dp"
+            android:textColor="@color/text_999999"
+            tools:text="10月"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bg_gray2"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:gravity="bottom">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_1c1c1c"
+            tools:text="v孵化-沈阳-066"
+            android:gravity="center"/>
+        <TextView
+            android:layout_marginLeft="7dp"
+            android:id="@+id/tvSellState"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:textColor="@color/red_text"
+            android:background="@drawable/invest_voucher_bg"
+            android:textSize="@dimen/text_size_10"
+            tools:text="预约中"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tvMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_1c1c1c"
+            tools:text="10000000元"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="14dp"
+
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_12"
+            android:textColor="@color/text_999999"
+            tools:text="2016-11-11 16:30:35"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_isUserVoucher"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/interest"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                tools:src="@drawable/interest"/>
+
+            <TextView
+                android:id="@+id/tvUseVoucher"
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_10"
+                android:textColor="@color/text_999999"
+                tools:text="已使用加息券加息88.88元"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_share"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|right">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/bg_gray2"
+            />
+
+        <TextView
+            android:layout_marginRight="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:textColor="@color/text_999999"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_size_12"
+            android:drawableLeft="@drawable/records_share"
+            android:drawablePadding="3dp"
+            android:text="分享红包"/>
+
+    </LinearLayout>
+</LinearLayout>

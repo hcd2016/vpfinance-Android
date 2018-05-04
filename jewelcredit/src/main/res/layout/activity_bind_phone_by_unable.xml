@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <com.jewelcredit.ui.widget.ActionBarWhiteLayout
+        android:id="@+id/mActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="为保障您的账户安全，原手机号无法接受验证码时，请联系人工客服为您改绑手机号。"
+        android:layout_margin="25dp"
+        android:lineSpacingExtra="5dp"
+        android:textColor="@color/text_666666"/>
+
+    <Button
+        android:id="@+id/vClickCall"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="拨打人工客服"
+        android:layout_margin="25dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:background="@drawable/shape_radius2_red"/>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal">
+        <View
+            android:layout_width="60dp"
+            android:layout_height="1px"
+            android:background="@color/text_cccccc"/>
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:text="或"
+            android:gravity="center"
+            android:textColor="@color/text_cccccc"
+            android:layout_margin="13dp"/>
+        <View
+            android:layout_width="60dp"
+            android:layout_height="1px"
+            android:background="@color/text_cccccc"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加客服微信："
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/text_1c1c1c"
+        android:textSize="16sp"/>
+    
+    <TextView
+        android:id="@+id/tvWeiXin1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="客服小微：vp_xiaowei"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_666666"
+        android:drawableLeft="@drawable/icon_weichat"
+        android:drawablePadding="10dp"/>
+    <TextView
+        android:id="@+id/tvWeiXin2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="客服小金：vpjrkf"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_666666"
+        android:drawableLeft="@drawable/icon_weichat"
+        android:drawablePadding="10dp"/>
+</LinearLayout>

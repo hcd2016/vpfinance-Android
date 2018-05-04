@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingBottom="25dp">
+
+        <cn.vpfinance.vpjr.view.EditTextWithDel
+            android:id="@+id/oldLoginPwd"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edittext_height"
+            android:layout_marginTop="25dip"
+            style="@style/PasswdTextStyle"
+            android:hint="原登录密码" />
+
+
+        <cn.vpfinance.vpjr.view.EditTextWithDel
+            android:id="@+id/newPwd"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/edittext_height"
+            android:layout_marginTop="25dp"
+            style="@style/PasswdTextStyle"
+            android:hint="新密码" />
+        <TextView
+            android:id="@+id/tvPasswordStrength"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <cn.vpfinance.vpjr.view.EditTextWithDel
+            android:id="@+id/newPwdAgain"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/edittext_height"
+            android:layout_marginTop="10dip"
+            style="@style/PasswdTextStyle"
+            android:hint="确认新密码" />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/submit_button_height"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_vertical"
+            style="@style/SubmitButtonStyle"
+            android:text="提交" />
+
+    </LinearLayout>
+</ScrollView>

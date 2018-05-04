@@ -1,0 +1,275 @@
+# Add project specific ProGuard rules here.
+# By default, the flags in this file are appended to flags specified
+# in /Users/cheungquentin/Downloads/android-sdk-macosx/tools/proguard/proguard-android.txt
+# You can edit the include path and order by changing the proguardFiles
+# directive in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# Add any project specific keep options here:
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+-optimizationpasses 5
+-dontshrink
+-dontoptimize
+-dontpreverify
+-verbose
+
+-dontskipnonpubliclibraryclassmembers
+
+-ignorewarnings
+
+-dontwarn javax.management.**
+-dontwarn java.lang.management.**
+-dontwarn org.apache.log4j.**
+-dontwarn org.apache.commons.logging.**
+-dontwarn org.apache.**
+
+-dontwarn android.support.**
+
+-dontwarn org.joda.time.**
+
+-dontwarn edu.vt.middleware.password.*
+-dontwarn com.sina.**
+
+#-libraryjars  ./libs/android-support-v4.jar
+#-libraryjars  ./libs/MobLogCollector.jar
+#-libraryjars  ./libs/MobTools.jar
+#-libraryjars  ./libs/ShareSDK-Core-2.6.1.jar
+#-libraryjars  ./libs/ShareSDK-Email-2.6.1.jar
+#-libraryjars  ./libs/ShareSDK-ShortMessage-2.6.1.jar
+#-libraryjars  ./libs/ShareSDK-SinaWeibo-2.6.1.jar
+#-libraryjars  ./libs/ShareSDK-Wechat-2.6.1.jar
+#-libraryjars  ./libs/ShareSDK-Wechat-Core-2.6.1.jar
+#-libraryjars  ./libs/ShareSDK-Wechat-Moments-2.6.1.jar
+#-libraryjars  ./libs/android-support-v4.jar
+#-libraryjars  ./libs/com.umeng.fb.5.3.0.jar
+#-libraryjars  ./libs/com.umeng.message.lib_v2.3.0.jar
+#-libraryjars  ./libs/eventbus-2.4.0.jar
+#-libraryjars  ./libs/greendao-1.3.7.jar
+#-libraryjars  ./libs/joda-time-2.5.jar
+#-libraryjars  ./libs/securepay_auth_2.4.2.04.jar
+#-libraryjars  ./libs/umeng-analytics-v5.5.3.jar
+#-libraryjars  ./libs/umeng-update-v2.6.0.1.jar
+#-libraryjars  ./libs/vt-password-3.1.2.jar
+
+
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
+
+-keep class sun.misc.Unsafe { *; }
+-keep public class * extends android.support.v4.app.Fragment
+-keep public class * extends android.app.Fragment
+-keep public class * extends android.support.v4.app.DialogFragment
+-keep class android.support.v4.** { *; }
+-keep class android.support.v7.** { *; }
+
+
+#---------------start: Gson 混淆  ----------
+-keepattributes Signature
+# Gson specific classes
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+# Application classes that will be serialized/deserialized over Gson
+-keep class com.google.gson.** { *;}
+#这句非常重要
+-keep class cn.vpfinance.vpjr.model.** {*;}
+-keep class cn.vpfinance.vpjr.gson.** { *; }
+-dontwarn com.google.gson.**
+
+-keep class com.google.**
+-dontwarn com.google.**
+#---------------End: Gson 混淆  ----------
+
+#---------------start: butterKnife 混淆  ----------
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+#---------------End: butterKnife 混淆  ----------
+
+
+
+-dontwarn com.igexin.**
+-dontwarn android.support.**
+-keep class com.igexin.**{*;}
+-keep interface android.support.v4.app.** { *; }
+
+-keep class com.github.mikephil.charting.** { *; }
+
+-keep class * extends org.apache.** { *; }
+-keep class * extends com.yintong.**
+-keep class * extends com.yintong.** { *; }
+-keep public class * extends com.umeng.**
+-keep class com.umeng.** { *; }
+
+-keep class cn.sharesdk.**{*;}
+-keep class com.sina.**{*;}
+-keep class **.R$* {*;}
+-keep class **.R{*;}
+-dontwarn cn.sharesdk.**
+-dontwarn **.R$*
+
+-dontwarn okio.**
+
+-keepclasseswithmembernames class android.support.v7.** { *;}
+-keepclasseswithmembernames class android.support.v4.** { *;}
+-keepclasseswithmembernames class android.support.v4.view.** { *;}
+
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class com.android.vending.licensing.ILicensingService
+-keep class javax.** { *; }
+-keep class org.** { *; }
+-keep class org.w3c.** { *; }
+
+#-keep class com.nostra13.universalimageloader.** { *; }
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keepclassmembers class * extends de.greenrobot.dao.AbstractDao {
+    public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
+-keep public class **.R$*{
+public static final int *;
+}
+
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+
+-keepclassmembers class * {
+   public <init>(org.json.JSONObject);
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class com.tencent.mm.**
+-keep class com.tencent.mm.** {*;}
+
+-keep class com.tencent.wxop.stat.**
+-keep class com.tencent.wxop.stat.** {*;}
+
+
+-keep class com.tencent.mm.sdk.openapi.WXMediaMessage { *;}
+
+-keep class com.tencent.mm.sdk.openapi.** implements com.tencent.mm.sdk.openapi.WXMediaMessage$IMediaObject { *;}
+
+-keepclasseswithmembernames class com.tencent.** { *;}
+-keepclasseswithmembernames class com.tencent.mm.sdk.openapi.** { *;}
+-keepclasseswithmembernames class com.tencent.mm.sdk.openapi.BaseResp$*.** { *;}
+
+-keepclassmembers class ** {
+    public void onEvent*(**);
+}
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends de.greenrobot.event.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+
+
+# 连连Demo混淆keep规则，如果使用了Demo中工具包com.yintong.pay.utils下面的类，请对应添加keep规则，否则混下会包签名错误
+-keep public class com.yintong.pay.utils.** {
+    <fields>;
+    <methods>;
+}
+# 连连混淆keep规则，请添加
+-keep class com.yintong.secure.activityproxy.PayIntro$LLJavascriptInterface{*;}
+
+# 连连混淆keep规则
+-keep public class com.yintong.** {
+    <fields>;
+    <methods>;
+}
+###-----------MPAndroidChart图库相关的混淆配置------------
+-dontwarn io.realm.**
+-keep class com.github.mikephil.charting.** { *; }
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+-keepclassmembers public class * extends android.view.View {
+   void set*(***);
+   *** get*();
+}
+-keepclassmembers class * extends android.app.Activity {
+   public void *(android.view.View);
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+
+-keep class com.umeng.message.* {
+        public <fields>;
+        public <methods>;
+}
+
+-keep class com.umeng.message.protobuffer.* {
+        public <fields>;
+        public <methods>;
+}
+
+-keep class com.squareup.wire.* {
+        public <fields>;
+        public <methods>;
+}
+
+-keep class org.android.agoo.impl.*{
+        public <fields>;
+        public <methods>;
+}
+
+-keep class org.android.agoo.service.* {*;}
+
+-keep class org.android.spdy.**{*;}
+
+-dontwarn com.mob.**
+-dontwarn com.umeng.**

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:layout_marginTop="1px"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="车贷宝"
+        android:textColor="@color/text_1c1c1c" />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:background="@drawable/bg_auto_invest_checkbox"
+        android:button="@null"
+        android:checked="false"
+        android:clickable="false"
+        android:enabled="false"
+        android:focusable="false" />
+</LinearLayout>

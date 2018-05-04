@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:background="@android:color/white"
+              android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/bankcard_img_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:background="@drawable/bank_beijing"
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:layout_toRightOf="@id/bankcard_img_logo">
+
+        <TextView
+            android:id="@+id/bankcard_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="银行卡名称"
+            style="@style/TextStyle" />
+
+        <TextView
+            android:id="@+id/bankcard_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text=""
+            style="@style/ValueTextStyle"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
