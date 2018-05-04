@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity {
     private long exitTime = 0;
     private long exitDelay = 2000;
 
-//    private HomeFragment mHomeFragment;
+    //    private HomeFragment mHomeFragment;
 //    private ProductCategoryFragment productCategoryFragment;
 //    private MineFragment mineFragment;
 //    private NewMineFragment newMineFragment;
@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity {
     private AppUpdateInfo info;
     private DownloadObserver mDownloadObserver;
     private ContentResolver mContentResolver;
-//    public int mineFragmentColor;
+    //    public int mineFragmentColor;
     private Pair<ContentResolver, UpdateAppUtil.DownloadObserver> downloadObserverPair;
 
 
@@ -334,7 +334,7 @@ public class MainActivity extends BaseActivity {
 
                 //两年没换密码就提示更换一下密码
                 FinanceApplication application = (FinanceApplication) getApplication();
-                if (application.isNeedUpdatePwd){
+                if (application.isNeedUpdatePwd) {
                     new AlertDialog.Builder(this)
                             .setMessage("您已经很久没更换过密码了，请更换登录密码保障您的账户安全")
                             .setCancelable(false)
@@ -344,7 +344,7 @@ public class MainActivity extends BaseActivity {
                                     startActivity(new Intent(MainActivity.this, PasswordChangeActivity.class));
                                 }
                             })
-                            .setNegativeButton("取消",null)
+                            .setNegativeButton("取消", null)
                             .show();
                     application.isNeedUpdatePwd = false;
                 }

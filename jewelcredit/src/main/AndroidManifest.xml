@@ -375,9 +375,6 @@
             android:name="cn.vpfinance.vpjr.module.setting.PersonalInfoActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="cn.vpfinance.vpjr.module.setting.NewPersonalInfoActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name="cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity"
             android:screenOrientation="portrait"/>
         <activity
