@@ -74,21 +74,19 @@ public class NewRegularProductActivity extends BaseActivity {
     private TabPermissionBean mPermissionBean;
     private boolean isDeposit;
     private String recordPoolId = "";
-    private int accountType;
 
-    public static void goNewRegularProductActivity(Context context, long id, int nativeProductId, String title,boolean isDeposit,int accountType) {
+    public static void goNewRegularProductActivity(Context context, long id, int nativeProductId, String title,boolean isDeposit) {
         if (context != null) {
             Intent intent = new Intent(context, NewRegularProductActivity.class);
             intent.putExtra(EXTRA_PRODUCT_ID, id);
             intent.putExtra(NATIVE_PRODUCT_ID, nativeProductId);
             intent.putExtra(PRODUCT_TITLE, title);
             intent.putExtra(IS_DEPOSIT,isDeposit);
-            intent.putExtra(Constant.AccountType,accountType);
             context.startActivity(intent);
         }
     }
 
-    public static void goNewRegularProductActivity(Context context, long id, int nativeProductId, String title,boolean isDeposit,String recordPoolId,int accountType) {
+    public static void goNewRegularProductActivity(Context context, long id, int nativeProductId, String title,boolean isDeposit,String recordPoolId) {
         if (context != null) {
             Intent intent = new Intent(context, NewRegularProductActivity.class);
             intent.putExtra(EXTRA_PRODUCT_ID, id);
@@ -96,7 +94,6 @@ public class NewRegularProductActivity extends BaseActivity {
             intent.putExtra(PRODUCT_TITLE, title);
             intent.putExtra(IS_DEPOSIT,isDeposit);
             intent.putExtra(RecordPoolId,recordPoolId);
-            intent.putExtra(Constant.AccountType,accountType);
             context.startActivity(intent);
         }
     }
@@ -117,7 +114,6 @@ public class NewRegularProductActivity extends BaseActivity {
             boolean isGeTui = intent.getBooleanExtra(IS_GE_TUI, false);
             isDeposit = intent.getBooleanExtra(IS_DEPOSIT,false);
             recordPoolId = intent.getStringExtra(RecordPoolId);
-            accountType = intent.getIntExtra(Constant.AccountType,0);
             if (isGeTui){
                 //个推点击了过来的就友盟统计
                 ArrayMap<String, String> map = new ArrayMap<String, String>();
@@ -278,7 +274,7 @@ public class NewRegularProductActivity extends BaseActivity {
         }else{
             switch (dataType) {
                 case "0":
-                    fragment = NewBaseInfoFragment.newInstance(url,isDeposit,accountType);
+                    fragment = NewBaseInfoFragment.newInstance(url,isDeposit);
                     break;
                 case "1"://完成
                     fragment = NewWritingFragment.newInstance(url);

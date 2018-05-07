@@ -93,7 +93,7 @@ public class ProductDepositListFragment extends BaseFragment {
                 if (item != null && item.id != 0){
                     int pid = item.id;
                     String loanTitle = item.loanTitle;
-                    NewRegularProductActivity.goNewRegularProductActivity(mContext,pid,0,loanTitle,true,0);
+                    NewRegularProductActivity.goNewRegularProductActivity(mContext,pid,0,loanTitle,true);
                 }
             }
         });

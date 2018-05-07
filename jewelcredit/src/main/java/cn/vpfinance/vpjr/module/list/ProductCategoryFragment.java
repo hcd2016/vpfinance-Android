@@ -176,8 +176,8 @@ public class ProductCategoryFragment extends BaseFragment {
             switch (type){
                 case Constant.TYPE_REGULAR:
                     return ProductListFragment.getInstance(Constant.TYPE_REGULAR);
-                case Constant.TYPE_BANK:
-                    return ProductListFragment.getInstance(Constant.TYPE_BANK);
+//                case Constant.TYPE_BANK:
+//                    return ProductListFragment.getInstance(Constant.TYPE_BANK);
                 case Constant.TYPE_TRANSFER:
                     return ProductListFragment.getInstance(Constant.TYPE_TRANSFER);
                 case Constant.TYPE_POOL:

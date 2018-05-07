@@ -27,9 +27,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.gson.LoanSignListNewBean;
 import cn.vpfinance.vpjr.model.RefreshCountDown;
-import cn.vpfinance.vpjr.module.list.RegularProductListNewFragment;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.view.MyCountDownTimer;
@@ -47,7 +47,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int ShenYangProductType = 0;//沈阳项目
     private static final int GeneralProductType = 1;//专项投资,存管专区,转让专区
 
-    private int typeList = RegularProductListNewFragment.REGULAR_PRODUCT_LIST;
+    private int typeList = Constant.TYPE_REGULAR;
     private OnItemClickListener listener;
 
     public ProductListAdapter(Context context) {
@@ -359,8 +359,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         e.printStackTrace();
                     }
 
-                    if (typeList == RegularProductListNewFragment.BANK_PRODUCT_LIST){
-                        holder.bankAccountStatus.setVisibility(View.VISIBLE);
+                    if (typeList == Constant.TYPE_REGULAR){
+                        if (loansign.product == 4){//银行存管
+                            holder.bankAccountStatus.setVisibility(View.VISIBLE);
+                        }else{
+                            holder.bankAccountStatus.setVisibility(View.GONE);
+                        }
                         if (loansign.loanType == 2){
                             holder.tvTerm.setText(loansign.month + "天");
                         }else{
@@ -380,30 +384,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             holder.tv_addrate.setVisibility(View.GONE);
                         }
                         holder.tv_rate_des.setText("约定年利率");
-                    }else if (typeList == RegularProductListNewFragment.REGULAR_PRODUCT_LIST ){
-                        holder.tvMonthInfo.setText("投资期限");
-                        holder.tvTotalMoneyInfo.setText("投资总额");
-                        holder.bankAccountStatus.setVisibility(View.GONE);
-                        if (loansign.loanType == 2){
-                            holder.tvTerm.setText(loansign.month + "天");
-                        }else{
-                            holder.tvTerm.setText(loansign.month + "个月");
-                        }
-                        holder.tvLoanTatol.setText(FormatUtils.formatDown2(loansign.issueLoan / 10000) + "万");
-                        holder.tv_rate_des.setText("约定年利率");
-                        if (reward > 0) {
-                            reward *= 100;
-                            String tmp = FormatUtils.formatRate(rate-reward);
-                            holder.tvRate.setText(tmp);
-                            holder.tv_addrate.setVisibility(View.VISIBLE);
-                            holder.tv_addrate.setText("+"+FormatUtils.formatRate(reward) + "%");
-                            holder.rewardIv.setVisibility(View.VISIBLE);
-                        }else{
-                            String tmp = FormatUtils.formatRate(rate);
-                            holder.tvRate.setText(tmp);
-                            holder.tv_addrate.setVisibility(View.GONE);
-                        }
-                    }else if (typeList == RegularProductListNewFragment.TRANSFER_PRODUCT_LIST ){
+
+                    }else if (typeList == Constant.TYPE_TRANSFER){
                         holder.tvMonthInfo.setText("剩余期限");
                         holder.tvTotalMoneyInfo.setText("转让总额");
                         holder.bankAccountStatus.setVisibility(View.GONE);

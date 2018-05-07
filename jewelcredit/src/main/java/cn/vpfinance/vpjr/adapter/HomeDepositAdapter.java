@@ -88,7 +88,7 @@ public class HomeDepositAdapter extends BaseAdapter {
             itemView.findViewById(R.id.product_view).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    NewRegularProductActivity.goNewRegularProductActivity(mContext,(long)pid,0,"",true,0);
+                    NewRegularProductActivity.goNewRegularProductActivity(mContext,(long)pid,0,"",true);
                 }
             });
 

@@ -136,7 +136,6 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     private DepositInvestInfo depositInvestInfo;
 
     private long serverTime = System.currentTimeMillis();
-    private int accountType;
 
     private Handler mHandle = new Handler(){
         @Override
@@ -161,13 +160,6 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
         if (args != null) {
             mRequestUrl = args.getString(REQUEST_URL);
             isDeposit = args.getBoolean(IS_DEPOSIT);
-            accountType = args.getInt(Constant.AccountType);
-        }
-
-        if (accountType == 1){
-            bankAccountStatus.setVisibility(View.VISIBLE);
-        }else if (accountType == 0){
-            bankAccountStatus.setVisibility(View.GONE);
         }
 
         //        mFinanceProduct = new FinanceProduct();
@@ -194,12 +186,11 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     }
 
 
-    public static NewBaseInfoFragment newInstance(String url,boolean isDeposit,int accountType) {
+    public static NewBaseInfoFragment newInstance(String url,boolean isDeposit) {
         NewBaseInfoFragment fragment = new NewBaseInfoFragment();
         Bundle args = new Bundle();
         args.putString(REQUEST_URL, url);
         args.putBoolean(IS_DEPOSIT,isDeposit);
-        args.putInt(Constant.AccountType,accountType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -430,12 +421,16 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
             mProductTotalMoney.setText(FormatUtils.formatDown2(mNewBaseInfoBean.issueloan / 10000) + "万");//投资总额
             mInvestTime.setText(mNewBaseInfoBean.month);//投资期限
 
+            if (mNewBaseInfoBean.product == 4){
+                bankAccountStatus.setVisibility(View.VISIBLE);
+            }else{
+                bankAccountStatus.setVisibility(View.GONE);
+            }
             if ("1".equals(mNewBaseInfoBean.status)) {
                 //预约标
                 mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan)+ "元");//可购余额
-
             } else {
-                if (accountType == Constant.AccountLianLain){
+                if (mNewBaseInfoBean.product != 4){
                     mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan - mNewBaseInfoBean.hadTenderMoney) + "元");//可购余额
                 }else{
                     mHttpService.getBankRealTenderMoney(""+mNewBaseInfoBean.loanId);
@@ -649,13 +644,16 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                     break;
                 }
                 isNewUser = SharedPreferencesHelper.getInstance(mContext).getBooleanValue(SharedPreferencesHelper.KEY_IS_NEW_USER);
-                if (accountType == Constant.AccountLianLain && isNewUser){
+                if (mNewBaseInfoBean == null){
+                    return;
+                }
+                if (mNewBaseInfoBean.product != 4 && isNewUser){
                     InvestLianLianInformDialog dialog = new InvestLianLianInformDialog();
                     dialog.show(getActivity().getFragmentManager(),"InvestLianLianInformDialog");
                     return;
                 }
 
-                if (accountType == Constant.AccountBank &&
+                if (mNewBaseInfoBean.product == 4 &&
                         !SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT)){
                     Utils.Toast(getContext(),"请先开通存管账户");
                     return;
@@ -694,6 +692,10 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                             intent.putExtra(ProductInvestActivity.IPHONE, mNewBaseInfoBean.givePhone);
                         }
                         intent.putExtra("pid", "" + mNewBaseInfoBean.loanId);
+                        int accountType = Constant.AccountLianLain;
+                        if (mNewBaseInfoBean.product == 4){
+                            accountType = Constant.AccountBank;
+                        }
                         intent.putExtra(Constant.AccountType, accountType);
                         intent.putExtra(DepositInvestActivity.IS_ORDER, false);
                         FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
@@ -710,6 +712,11 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 }
 
                 isNewUser = SharedPreferencesHelper.getInstance(mContext).getBooleanValue(SharedPreferencesHelper.KEY_IS_NEW_USER);
+                if (mNewBaseInfoBean == null)   return;
+                int accountType = Constant.AccountLianLain;
+                if (mNewBaseInfoBean.product == 4){
+                    accountType = Constant.AccountBank;
+                }
                 if (accountType == Constant.AccountLianLain && isNewUser){
                     InvestLianLianInformDialog dialog = new InvestLianLianInformDialog();
                     dialog.show(getActivity().getFragmentManager(),"InvestLianLianInformDialog");

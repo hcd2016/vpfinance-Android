@@ -210,10 +210,10 @@ public class NewTransferProductActivity extends BaseActivity implements View.OnC
                 if (mBean.product == 0 && mBean.productType == 3){
                     PresellProductActivity.goPresellProductActivity(mContext, "" + mBean.sourceLoanId);
                 }else if (mBean.product == 4){
-                    NewRegularProductActivity.goNewRegularProductActivity(mContext, mBean.sourceLoanId, (int)mPid,mBean.loanTitle,false,1);
+                    NewRegularProductActivity.goNewRegularProductActivity(mContext, mBean.sourceLoanId, (int)mPid,mBean.loanTitle,false);
                 }else{
                     if (mBean != null && mBean.sourceLoanId != 0) {
-                        NewRegularProductActivity.goNewRegularProductActivity(mContext, mBean.sourceLoanId, (int)mPid,mBean.loanTitle,false,0);
+                        NewRegularProductActivity.goNewRegularProductActivity(mContext, mBean.sourceLoanId, (int)mPid,mBean.loanTitle,false);
                     }
                 }
                 break;

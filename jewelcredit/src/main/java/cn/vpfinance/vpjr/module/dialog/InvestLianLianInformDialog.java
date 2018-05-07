@@ -45,7 +45,7 @@ public class InvestLianLianInformDialog extends DialogFragment {
         view.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((FinanceApplication) getActivity().getApplication()).currentListTabType = Constant.TYPE_BANK;
+                ((FinanceApplication) getActivity().getApplication()).currentListTabType = Constant.TYPE_REGULAR;
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra(MainActivity.SWITCH_TAB_NUM,1);
                 startActivity(intent);

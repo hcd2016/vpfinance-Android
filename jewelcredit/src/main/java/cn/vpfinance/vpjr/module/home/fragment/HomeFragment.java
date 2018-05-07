@@ -312,7 +312,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 @Override
                 public void onLoadingComplete(String s, View view, Bitmap bitmap) {
                     imageView.setImageBitmap(bitmap);
-                    textView.setText(url.title);
+//                    textView.setText(url.title);
                 }
 
                 @Override
@@ -414,7 +414,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         case 2:
                             try {
                                 long id = Long.parseLong(dataUrl);
-                                NewRegularProductActivity.goNewRegularProductActivity(mContext, id, 0, "产品详情", false, 0);
+                                NewRegularProductActivity.goNewRegularProductActivity(mContext, id, 0, "产品详情", false);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

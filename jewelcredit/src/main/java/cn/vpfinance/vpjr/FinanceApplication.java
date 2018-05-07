@@ -37,7 +37,7 @@ public class FinanceApplication extends Application {
     public int saveMineTabSelected = 0;
 
     public long differTime = 0L;
-    public int currentListTabType = Constant.TYPE_BANK;
+    public int currentListTabType = Constant.TYPE_REGULAR;
 //    public static final String SHOW_SETUP_GUIDE = "show_setup_guide";
     /**
      * 是否进入向导设置

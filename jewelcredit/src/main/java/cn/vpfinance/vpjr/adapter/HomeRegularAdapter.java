@@ -172,7 +172,7 @@ public class HomeRegularAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View view) {
                             int accountType = loansign.product == 4 ? 1 : 0;
-                            NewRegularProductActivity.goNewRegularProductActivity(mContext, pid, 0, "产品详情",false,accountType);
+                            NewRegularProductActivity.goNewRegularProductActivity(mContext, pid, 0, "产品详情",false);
                         }
                     });
 

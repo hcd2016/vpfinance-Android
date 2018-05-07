@@ -36,11 +36,9 @@ import cn.vpfinance.vpjr.adapter.LoanSignListNewAdapter;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.gson.LoanSignDepositBean;
 import cn.vpfinance.vpjr.gson.LoanSignListNewBean;
-import cn.vpfinance.vpjr.module.list.RegularProductListNewFragment;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.module.product.shenyang.PresellProductActivity;
 import cn.vpfinance.vpjr.module.product.transfer.NewTransferProductActivity;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.StatusBarCompat1;
 import cn.vpfinance.vpjr.view.EditTextWithDel;
 
@@ -162,18 +160,18 @@ public class NewSearchActivity extends BaseActivity {
                 int currentListTabType = ((FinanceApplication) getApplication()).currentListTabType;
 
                 switch (currentListTabType) {
-                    case Constant.TYPE_BANK:
+                    /*case Constant.TYPE_BANK:
                         if (mListAdapter != null) {
                             LoanSignListNewBean.LoansignsBean bankBean = mListAdapter.getItem(position);
                             if ((!isFinishing()) && bankBean != null && bankBean.loansign != null) {
                                 if (bankBean.loansign.productType == 3) {
                                     PresellProductActivity.goPresellProductActivity(NewSearchActivity.this, "" + bankBean.loansign.id);
                                 } else {
-                                    NewRegularProductActivity.goNewRegularProductActivity(mContext, bankBean.loansign.id, 0, bankBean.loansignbasic.loanTitle, false, 1);
+                                    NewRegularProductActivity.goNewRegularProductActivity(mContext, bankBean.loansign.id, 0, bankBean.loansignbasic.loanTitle, false);
                                 }
                             }
                         }
-                        break;
+                        break;*/
                     case Constant.TYPE_REGULAR:
                         if (mListAdapter != null) {
                             LoanSignListNewBean.LoansignsBean regularBean = mListAdapter.getItem(position);
@@ -181,7 +179,7 @@ public class NewSearchActivity extends BaseActivity {
                                 if (regularBean.loansign.productType == 3) {
                                     PresellProductActivity.goPresellProductActivity(NewSearchActivity.this, "" + regularBean.loansign.id);
                                 } else {
-                                    NewRegularProductActivity.goNewRegularProductActivity(mContext, regularBean.loansign.id, 0, regularBean.loansignbasic.loanTitle, false, 0);
+                                    NewRegularProductActivity.goNewRegularProductActivity(mContext, regularBean.loansign.id, 0, regularBean.loansignbasic.loanTitle, false);
                                 }
                             }
                         }
@@ -200,7 +198,7 @@ public class NewSearchActivity extends BaseActivity {
                             if (item != null && item.id != 0) {
                                 int pid = item.id;
                                 String loanTitle = item.loanTitle;
-                                NewRegularProductActivity.goNewRegularProductActivity(mContext, pid, 0, loanTitle, true, 0);
+                                NewRegularProductActivity.goNewRegularProductActivity(mContext, pid, 0, loanTitle, true);
                             }
                         }
                         break;
@@ -215,9 +213,9 @@ public class NewSearchActivity extends BaseActivity {
         int currentListTabType = ((FinanceApplication) getApplication()).currentListTabType;
 
         switch (currentListTabType){
-            case Constant.TYPE_BANK:
-                mHttpService.getLoanSignListNew(Constant.TYPE_BANK, page * PAGE_SIZE, PAGE_SIZE, searchText);
-                break;
+//            case Constant.TYPE_BANK:
+//                mHttpService.getLoanSignListNew(Constant.TYPE_BANK, page * PAGE_SIZE, PAGE_SIZE, searchText);
+//                break;
             case Constant.TYPE_REGULAR:
                 mHttpService.getLoanSignListNew(Constant.TYPE_REGULAR, page * PAGE_SIZE, PAGE_SIZE, searchText);
                 break;

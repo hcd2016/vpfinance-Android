@@ -54,6 +54,7 @@ public class NewBaseInfoBean {
     public String isDebt;
     public double issueloan;
     public long    loanId;
+    public int    product;//4 银行存管
     public int    answerStatus;//1不弹 2弹提示框, 去做风险测评
 
     /**

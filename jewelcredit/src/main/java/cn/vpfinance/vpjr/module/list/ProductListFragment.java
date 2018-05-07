@@ -18,6 +18,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.adapter.ProductListAdapter;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.gson.LoanSignListNewBean;
@@ -103,16 +104,14 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
             public void onItemClick(LoanSignListNewBean.LoansignsBean item) {
                 if (item != null && item.loansign != null) {
                     if (isAdded()) {
-                        if (typeList == RegularProductListNewFragment.REGULAR_PRODUCT_LIST){
+                        if (typeList == Constant.TYPE_REGULAR){
                             if (item.loansign.productType == 3) {
                                 PresellProductActivity.goPresellProductActivity(getActivity(), "" + item.loansign.id);
                             } else {
-                                NewRegularProductActivity.goNewRegularProductActivity(mContext,item.loansign.id,0,item.loansignbasic.loanTitle,false,0);
+                                NewRegularProductActivity.goNewRegularProductActivity(mContext,item.loansign.id,0,item.loansignbasic.loanTitle,false);
                             }
-                        }else if (typeList == RegularProductListNewFragment.TRANSFER_PRODUCT_LIST){
+                        }else if (typeList == Constant.TYPE_TRANSFER){
                             NewTransferProductActivity.goNewTransferProductActivity(mContext, item.loansign.id);
-                        }else if (typeList == RegularProductListNewFragment.BANK_PRODUCT_LIST){
-                            NewRegularProductActivity.goNewRegularProductActivity(mContext,item.loansign.id,0,item.loansignbasic.loanTitle,false,1);
                         }
                     }
                 }

@@ -80,7 +80,7 @@ public class FundRecordsDepositDetailActivity extends BaseActivity {
         switch (view.getId()){
             case R.id.click_look_product_detail:
                 if (poolId != 0){
-                    NewRegularProductActivity.goNewRegularProductActivity(this,poolId ,0,"",true,recordPoolId,0);
+                    NewRegularProductActivity.goNewRegularProductActivity(this,poolId ,0,"",true,recordPoolId);
                 }
                 break;
             case R.id.click_look_refund_time:

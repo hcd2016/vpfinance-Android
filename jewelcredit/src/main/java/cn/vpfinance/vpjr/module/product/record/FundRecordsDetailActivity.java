@@ -228,16 +228,16 @@ public class FundRecordsDetailActivity extends BaseActivity {
             case R.id.click_look_product_detail:
                 if (mBeanProduct == 0 && mBeanProductType == 1){//定存宝
 
-                    NewRegularProductActivity.goNewRegularProductActivity(this,(long) pid,0,"",true,0);
+                    NewRegularProductActivity.goNewRegularProductActivity(this,(long) pid,0,"",true);
 
                 }else if (mBeanLoanTypeNum == 2){//1定期理财 2债权转让 3权益投资
                     NewTransferProductActivity.goNewTransferProductActivity(this, (long)pid);
                 }else if (mBeanProductType == 3){
                     PresellProductActivity.goPresellProductActivity(this, "" + (long)pid);
                 }else if (mBeanProduct == 4){
-                    NewRegularProductActivity.goNewRegularProductActivity(this,(long)pid,0,mLoanTitle,false,1);
+                    NewRegularProductActivity.goNewRegularProductActivity(this,(long)pid,0,mLoanTitle,false);
                 }else{
-                    NewRegularProductActivity.goNewRegularProductActivity(this,(long)pid,0,mLoanTitle,false,0);
+                    NewRegularProductActivity.goNewRegularProductActivity(this,(long)pid,0,mLoanTitle,false);
                 }
 
                 break;
