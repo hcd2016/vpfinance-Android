@@ -1466,7 +1466,7 @@ paying		偿还中借款
 
 
     /**
-     * 购买定期理财产品 / 债权
+     * 购买定期产品 / 债权
      *
      * @param loanId
      * @return
@@ -1675,7 +1675,7 @@ loanunit	int	最小出借单位	（投资金额须为些参数的1或N倍）
     }
 
     /**
-     * 定期理财产品详情
+     * 定期产品详情
      * 查看原标是传参不一样
      *
      * @param loanId
@@ -1970,7 +1970,7 @@ loanunit	int	最小出借单位	（投资金额须为些参数的1或N倍）
     }
 
     /**
-     * 智存理财
+     * 智存
      *
      * @param poolNum
      * @return
@@ -2023,7 +2023,7 @@ loanunit	int	最小出借单位	（投资金额须为些参数的1或N倍）
     }
 
     /**
-     * 智存理财
+     * 智存
      *
      * @param poolNum      债权池
      * @param money        购买金额
@@ -2369,7 +2369,7 @@ sex	int	性别	[0:女,1:男]
         String url = getServiceUrl(method);
 
         Map<String, String> params = new ArrayMap<String, String>();
-        params.put("type", "6");// 1.定期理财  2.债权转让  默认为1
+        params.put("type", "6");// 1.定期  2.债权转让  默认为1
         params.put("start", "" + (page * pageSize));//从start条记录开始（默认0）
         params.put("limit", "" + pageSize);//取limit条记录（默认5）
 
@@ -2378,7 +2378,7 @@ sex	int	性别	[0:女,1:男]
     }
 
     /**
-     * 智存理财列表
+     * 智存列表
      *
      * @param page
      * @param pageSize
@@ -2405,7 +2405,7 @@ sex	int	性别	[0:女,1:男]
         String url = getServiceUrl(method);
 
         Map<String, String> params = new ArrayMap<String, String>();
-        params.put("type", "1");// 1.定期理财  2.债权转让  默认为1
+        params.put("type", "1");// 1.定期  2.债权转让  默认为1
         params.put("start", "" + (page * pageSize));//从start条记录开始（默认0）
         params.put("limit", "" + pageSize);//取limit条记录（默认5）
 
@@ -2606,7 +2606,7 @@ sex	int	性别	[0:女,1:男]
     }
 
     /**
-     * 定期理财
+     * 定期
      *
      * @param json
      * @return
@@ -5128,9 +5128,9 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 获取定期理财新的接口
+     * 获取定期新的接口
      *
-     * @param typeList  1.定期理财  2.债权转让  默认为1
+     * @param typeList  1.定期  2.债权转让  默认为1
      * @param startPage 从start条记录开始（默认0）
      * @param pageSize  取limit条记录（默认5）
      * @param queryText 模糊查询
@@ -5141,7 +5141,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
         Map<String, String> param = new ArrayMap<String, String>();
-        param.put("type", "" + typeList);// 1.定期理财  2.债权转让 4存管专区 默认为1
+        param.put("type", "" + typeList);// 1.定期  2.债权转让 4存管专区 默认为1
 
         param.put("start", "" + startPage);//从start条记录开始（默认0）
         param.put("limit", "" + pageSize);//取limit条记录（默认5）
@@ -5161,7 +5161,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 新的定期理财产品详情
+     * 新的定期产品详情
      * 查看原标是传参不一样
      *
      * @param loanId

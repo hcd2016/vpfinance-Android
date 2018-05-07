@@ -37,7 +37,7 @@ import cn.vpfinance.vpjr.view.SmallCircularProgressView;
 import de.greenrobot.event.EventBus;
 
 /**
- * 产品列表适配器-->转让专区+ 定期理财
+ * 产品列表适配器-->转让专区+ 定期
  */
 public class LoanSignListNewAdapter extends BaseAdapter{
 

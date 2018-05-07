@@ -29,7 +29,7 @@ import cn.vpfinance.vpjr.view.SmallCircularProgressView;
 import de.greenrobot.event.EventBus;
 
 /**
- * 定期理财
+ * 定期
  * 
  * @author cheungquentin
  *

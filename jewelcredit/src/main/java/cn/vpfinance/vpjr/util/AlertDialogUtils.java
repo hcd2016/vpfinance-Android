@@ -7,15 +7,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jewelcredit.util.Utils;
+
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.download.SpUtils;
+import cn.vpfinance.vpjr.greendao.User;
+import cn.vpfinance.vpjr.module.common.WebViewActivity;
 import cn.vpfinance.vpjr.module.dialog.CommonDialogFragment;
 import cn.vpfinance.vpjr.module.dialog.RechargeCloseDialog;
+import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 import cn.vpfinance.vpjr.module.trade.RechargeActivity;
 
 
@@ -153,6 +159,24 @@ public class AlertDialogUtils {
             });
         }
         builder.create().show();
+    }
 
+    public static void openBankAccount(final Context context, final boolean isRealName,final String userId){
+        new AlertDialog.Builder(context)
+                .setMessage("请先开通存管账户")
+                .setPositiveButton("去开通", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (!isRealName){
+                            Utils.Toast(context, "开通存管账户前请先进行实名认证");
+                            context.startActivity(new Intent(context, RealnameAuthActivity.class));
+                        }else{
+                            Utils.goToWeb(context, "/hx/account/create?userId=" + userId,"");
+                        }
+                    }
+                })
+                .setNegativeButton("取消",null)
+                .create()
+                .show();
     }
 }

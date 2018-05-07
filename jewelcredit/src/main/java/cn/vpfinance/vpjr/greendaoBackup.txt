@@ -186,7 +186,7 @@ status	int	定存标处理标记	散标和债权列表 请忽略
         file.addStringProperty("bookCouponNumber");//可使用预约券张数
         file.addDoubleProperty("bookPercent");//预约券可预约比例
 
-        //智存理财
+        //智存
         file.addDoubleProperty("amount").notNull();
         file.addDoubleProperty("openAmount").notNull();
         file.addDoubleProperty("yearInterest").notNull();

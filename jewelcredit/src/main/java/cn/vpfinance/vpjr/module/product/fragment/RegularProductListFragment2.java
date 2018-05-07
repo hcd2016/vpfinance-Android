@@ -40,7 +40,7 @@ import cn.vpfinance.vpjr.network.OkHttpUtil;
 import de.greenrobot.event.EventBus;
 
 /**
- * 定期理财列表
+ * 定期列表
  * @author cheungquentin
  *
  */
@@ -48,7 +48,7 @@ public class RegularProductListFragment2 extends BaseFragment {
 
 	private ListView mListView;
 	private TextView mTextView;
-	public static final int REGULAR_PRODUCT_LIST  = 1; //定期理财
+	public static final int REGULAR_PRODUCT_LIST  = 1; //定期
 	public static final int TRANSFER_PRODUCT_LIST = 2; //债权转让
 	public static       int typeList              = REGULAR_PRODUCT_LIST;
 
@@ -242,7 +242,7 @@ public class RegularProductListFragment2 extends BaseFragment {
 		String url = HttpService.getServiceUrl(method);
 
 		ArrayMap<String,String> param = new ArrayMap<String,String>();
-		param.put("type", ""+typeList);// 1.定期理财  2.债权转让  默认为1
+		param.put("type", ""+typeList);// 1.定期  2.债权转让  默认为1
 		param.put("start", "" + (page * pageSize));//从start条记录开始（默认0）
 		param.put("limit", "" + pageSize);//取limit条记录（默认5）
 		param.put("title", queryText);//模糊查询

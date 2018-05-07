@@ -19,7 +19,7 @@ public class RefreshTab {
     /**
      * 刷新tab
      * @param tabType 从0开始
-     * @param //listType 如果tab是产品列表的时候,1定期理财,2债权转让,3定存宝(其他tab传0)
+     * @param //listType 如果tab是产品列表的时候,1定期,2债权转让,3定存宝(其他tab传0)
      */
     public RefreshTab(int tabType) {
         this.tabType = tabType;

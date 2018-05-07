@@ -10,7 +10,7 @@ public class RecordDetailBean {
     /**
      * protocolList : [{"title":"投资服务协议","url":"/loaninfo/loan_protocol_2?rid=47392"},{"title":"债权转让及回购协议","url":"/loaninfo/loan_protocol_carloan?rid=47392&loanId=971"}]
      * voucherMoney : 0.00
-     * loanType : 定期理财
+     * loanType : 定期
      * finishTime : 2016-12-30
      * loanState : 3
      * tenderTime : 2016-11-29 12:30:42
@@ -39,7 +39,7 @@ public class RecordDetailBean {
     public String info; //提示文案
     public int product;
     public int productType;//3为沈阳标
-    public int loanTypeNum;//1定期理财 2债权转让 3权益投资
+    public int loanTypeNum;//1定期 2债权转让 3权益投资
     public int recordId;
 
     /**

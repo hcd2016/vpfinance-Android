@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import cn.vpfinance.vpjr.gson.FinanceProduct;
 
 /**
- * 定期理财列表
+ * 定期列表
  */
 public class RegularProductList {
     public boolean success;
@@ -13,7 +13,7 @@ public class RegularProductList {
     public int page;
 
     /*
-     * 理财列表顶部预留一个固定的产品位，产品位跳转到H5详情页。
+     * 列表顶部预留一个固定的产品位，产品位跳转到H5详情页。
      */
     public boolean hasTopProduct;
     public String  topProductUrl;

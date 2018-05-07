@@ -3,6 +3,7 @@ package cn.vpfinance.vpjr.module.setting;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -20,6 +21,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArrayMap;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -74,6 +76,7 @@ import cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.user.BindBankHintActivity;
 import cn.vpfinance.vpjr.module.user.personal.BankManageActivity;
+import cn.vpfinance.vpjr.util.AlertDialogUtils;
 import cn.vpfinance.vpjr.util.CameraGalleryUtils;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FileUtil;
@@ -255,8 +258,15 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         findViewById(R.id.changeHXPayPassword).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (user != null){
-                    String link = HttpService.mBaseUrl+"/hx/account/manage?userId="+user.getUserId();
+                if (mUserInfoBean != null || user != null){
+                    Long userId = user.getUserId();
+                    if (!"1".equals(mUserInfoBean.isOpen)){
+                        boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
+                        AlertDialogUtils.openBankAccount(PersonalInfoActivity.this,isRealName, userId.toString());
+                        return;
+                    }
+
+                    String link = HttpService.mBaseUrl+"/hx/account/manage?userId="+userId.toString();
                     gotoWeb(link,"修改交易密码");
                 }
             }
@@ -264,8 +274,15 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         findViewById(R.id.changeHXBindPhone).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (user != null){
-                    String link = HttpService.mBaseUrl+"/hx/account/manage?userId="+user.getUserId();
+                if (mUserInfoBean != null || user != null){
+                    Long userId = user.getUserId();
+                    if (!"1".equals(mUserInfoBean.isOpen)){
+                        boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
+                        AlertDialogUtils.openBankAccount(PersonalInfoActivity.this,isRealName, userId.toString());
+                        return;
+                    }
+
+                    String link = HttpService.mBaseUrl+"/hx/account/manage?userId="+userId;
                     gotoWeb(link,"修改绑定手机号");
                 }
             }
@@ -273,10 +290,13 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         findViewById(R.id.ll_bind_hx_bankcard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUserInfoBean == null || "1".equals(mUserInfoBean.isBindHxBank)){
-                    return;
-                }
-                if (user != null){
+                if (mUserInfoBean != null || user != null || "1".equals(mUserInfoBean.isBindHxBank)){
+                    Long userId = user.getUserId();
+                    if (!"1".equals(mUserInfoBean.isOpen)){
+                        boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
+                        AlertDialogUtils.openBankAccount(PersonalInfoActivity.this,isRealName, userId.toString());
+                        return;
+                    }
                     //跳转到存管绑卡第三方界面
                     BindBankHintActivity.goThis(PersonalInfoActivity.this,user.getUserId().toString());
                 }

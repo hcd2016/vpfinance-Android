@@ -53,6 +53,7 @@ import cn.vpfinance.vpjr.module.user.personal.InviteGiftActivity;
 import cn.vpfinance.vpjr.module.user.personal.MyMedalActivity;
 import cn.vpfinance.vpjr.module.user.personal.TicketActivity;
 import cn.vpfinance.vpjr.module.user.personal.TrialCoinActivity;
+import cn.vpfinance.vpjr.util.AlertDialogUtils;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
@@ -392,12 +393,8 @@ public class BankAccountFragment extends BaseFragment {
                 user = DBUtils.getUser(mContext);
                 if (user != null) {
                     Long userId = user.getUserId();
-                    if (TextUtils.isEmpty(realName)) {
-                        Utils.Toast(mContext, "开通存管账户前请先进行实名认证");
-                        gotoActivity(RealnameAuthActivity.class);
-                    } else {
-                        gotoWeb("/hx/account/create?userId=" + userId, "");
-                    }
+                    boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
+                    AlertDialogUtils.openBankAccount(getContext(),isRealName, userId.toString());
                 } else {
                     gotoActivity(LoginActivity.class);
                 }

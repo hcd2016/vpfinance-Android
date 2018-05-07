@@ -250,7 +250,7 @@
     <string name="mybid_posted_loan_no">借款编号:</string>
     <string name="mybid_posted_loan_status">还款中</string>
     <string name="mybid_posted_loan_date">投标时间:</string>
-    <string name="mybid_posted_loan_expected_return">预期收益:</string>
+    <string name="mybid_posted_loan_expected_return"></string>
     <string name="mybid_posted_loan_bid_amount">投标金额:</string>
     <string name="mybid_posted_loan_title">【成都时代店】车辆借款27万</string>
 	<string name="mybid_posted_loan_amount">金额:</string>

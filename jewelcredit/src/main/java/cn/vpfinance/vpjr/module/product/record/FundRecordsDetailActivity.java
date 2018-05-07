@@ -230,7 +230,7 @@ public class FundRecordsDetailActivity extends BaseActivity {
 
                     NewRegularProductActivity.goNewRegularProductActivity(this,(long) pid,0,"",true);
 
-                }else if (mBeanLoanTypeNum == 2){//1定期理财 2债权转让 3权益投资
+                }else if (mBeanLoanTypeNum == 2){//1定期 2债权转让 3权益投资
                     NewTransferProductActivity.goNewTransferProductActivity(this, (long)pid);
                 }else if (mBeanProductType == 3){
                     PresellProductActivity.goPresellProductActivity(this, "" + (long)pid);

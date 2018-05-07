@@ -17,7 +17,7 @@ import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.gson.FinanceProduct;
 
 /**
- * 定期理财
+ * 定期
  * 
  * @author cheungquentin
  *

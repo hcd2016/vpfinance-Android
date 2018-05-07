@@ -17,12 +17,12 @@ public class ServiceCmd {
 		CMD_authenQuery,//实名认证
 		CMD_realnameAuth,
 		CMD_HOME_INFO,//首页最新标的信息获取
-		CMD_getAutomaticProductList,//智存理财列表，详情
+		CMD_getAutomaticProductList,//智存列表，详情
 		CMD_BOND_PRODUCT_LIST,//获取债权转让标列表
-		CMD_AUTOMATIC,//智存理财
-		CMD_BUYTRANSFER,//购买智存理财
+		CMD_AUTOMATIC,//智存
+		CMD_BUYTRANSFER,//购买智存
 		CMD_getBidList,//产品列表
-		CMD_loanSignInfo,//定期理财产品详情
+		CMD_loanSignInfo,//定期产品详情
 		CMD_PLANK,//
 		CMD_addCard,//银行卡绑定,更改
 		CMD_getBankCard,//获取银行卡信息接口
@@ -123,8 +123,8 @@ public class ServiceCmd {
 		CMD_Webview_Share_Success,//获取webview分享成功后传递数据给后台
 		CMD_Transfer_cost,//转让手续费
 		CMD_Invest_Give_Iphone,//投资送iphone页面文案
-		CMD_Loan_Sign_List_New,//新的定期理财界面
-		CMD_loanSignInfo_New,//新的定期理财产品详情
+		CMD_Loan_Sign_List_New,//新的定期界面
+		CMD_loanSignInfo_New,//新的定期产品详情
 		CMD_Regular_Tab,//通用请求tab接口
 		CMD_Tab_Permission,//tab查看权限控制
 		CMD_Transfer_Product_Info,//债权转让基本信息
@@ -169,12 +169,12 @@ public class ServiceCmd {
             "Appmember/identityValidate",//实名认证
             "Appmember/identityValidate",
             "Appmember/lastestLoanSign",//首页最新标的信息获取
-            "AppDcb/dcblist",//智存理财列表，详情
+            "AppDcb/dcblist",//智存列表，详情
             "AppLoan/loanCirList",//获取债权转让标列表
-            "AppDcb/dcbinfo",//智存理财
-            "AppDcb/buyTransfer",//购买智存理财
+            "AppDcb/dcbinfo",//智存
+            "AppDcb/buyTransfer",//购买智存
             "AppLoan/loanSignList",//产品列表
-            "AppLoan/loanSignInfo",//定期理财产品详情
+            "AppLoan/loanSignInfo",//定期产品详情
             "AppPlank/plank",//
             "AppBankcard/addCard.json",//银行卡绑定,更改
             "AppBankcard/getBankCard",//获取银行卡信息
@@ -275,8 +275,8 @@ public class ServiceCmd {
             "newyear/shareAddDrawNum.htm",//获取webview分享成功后传递数据给后台
             "AppLoan/getDebtFee",//转让手续费
             "AppLoan/investPage",//投资送iphone页面文案
-			"AppLoan/loanSignListNew",//新的定期理财界面
-			"AppLoan/loanSignInfoNew",//新的定期理财产品详情
+			"AppLoan/loanSignListNew",//新的定期界面
+			"AppLoan/loanSignInfoNew",//新的定期产品详情
 			"cmd_regular_tab",//通用请求tab接口
 			"AppLoan/getAccessType",//tab查看权限控制
 			"AppLoan/showTabContent",//债权转让基本信息
