@@ -68,7 +68,6 @@ import cn.vpfinance.vpjr.util.Common;
 import de.greenrobot.dao.query.QueryBuilder;
 import de.greenrobot.event.EventBus;
 
-//import cn.vpfinance.vpjr.greendao.FinanceProductDao;
 
 public class RegularProductActivity extends BaseActivity implements HttpDownloader.HttpDownloaderListener{
 
