@@ -210,9 +210,9 @@ public class InvestSummaryType3Fragment extends BaseFragment implements OnChartV
                 String key = iterator.next();
                 double value = map.get(key);
                 mXValues.add(key);
-                String format = String.format("%.2f", value);
-                float val = Float.parseFloat(format);
-                mYValues.add(new Entry(val, mYValues.size()));
+//                String format = String.format("%.2f", value);
+//                float val = Float.parseFloat(format);
+                mYValues.add(new Entry((float) value, mYValues.size()));
 //                toastValues.add(new Pair<String, Float>(key, val));
             }
         }

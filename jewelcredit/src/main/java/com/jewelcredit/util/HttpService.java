@@ -4618,7 +4618,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         return httpClient.doPost(url, params, cmdId.ordinal(), false, false);
     }
 
-    public InvestSummaryTab3Bean onGetTenderPromit(JSONObject json) {
+    public InvestSummaryTab3Bean onGetTenderPromit(JSONObject json){
         InvestSummaryTab3Bean info = null;
         if (json != null) {
             info = new InvestSummaryTab3Bean();

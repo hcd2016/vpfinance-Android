@@ -45,7 +45,7 @@ public class MyMarkerView extends MarkerView {
 
             CandleEntry ce = (CandleEntry) e;
 
-            tvContent.setText("" + FormatUtils.formatNumberUnit(ce.getHigh()));
+            tvContent.setText("" + FormatUtils.formatDown2(ce.getHigh()));
         } else {
             String time = "";
             int index = e.getXIndex();
@@ -53,7 +53,7 @@ public class MyMarkerView extends MarkerView {
                 time = xValues.get(index);
             }
             tvContent.setGravity(Gravity.CENTER);
-            tvContent.setText(time + "\n¥" +FormatUtils.formatNumberUnit(e.getVal()));
+            tvContent.setText(time + "\n¥" +FormatUtils.formatDown2(e.getVal()));
         }
     }
 
