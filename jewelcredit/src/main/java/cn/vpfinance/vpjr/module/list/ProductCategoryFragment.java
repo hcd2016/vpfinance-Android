@@ -34,6 +34,7 @@ import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.home.NewSearchActivity;
 import cn.vpfinance.vpjr.util.Common;
+import cn.vpfinance.vpjr.util.Logger;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -99,6 +100,9 @@ public class ProductCategoryFragment extends BaseFragment {
             updateView(isShowDeposit);
         }*/
         if (reqId == ServiceCmd.CmdId.CMD_Loan_Sign_Type.ordinal()) {
+            Logger.e("Json:"+json.toString());
+//            String json2 = "{\"types\":[{\"name\":\"投资产品\",\"value\":\"1\"},{\"name\":\"转让专区\",\"value\":\"2\"}]}";
+//            String json3 = "";
             LoanSignTypeBean typeBean = new Gson().fromJson(json.toString(), LoanSignTypeBean.class);
             updateView(typeBean);
         }
@@ -176,8 +180,8 @@ public class ProductCategoryFragment extends BaseFragment {
             switch (type){
                 case Constant.TYPE_REGULAR:
                     return ProductListFragment.getInstance(Constant.TYPE_REGULAR);
-//                case Constant.TYPE_BANK:
-//                    return ProductListFragment.getInstance(Constant.TYPE_BANK);
+                case Constant.TYPE_BANK:
+                    return ProductListFragment.getInstance(Constant.TYPE_BANK);
                 case Constant.TYPE_TRANSFER:
                     return ProductListFragment.getInstance(Constant.TYPE_TRANSFER);
                 case Constant.TYPE_POOL:

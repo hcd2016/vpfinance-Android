@@ -173,6 +173,7 @@ public class NewSearchActivity extends BaseActivity {
                         }
                         break;*/
                     case Constant.TYPE_REGULAR:
+                    case Constant.TYPE_BANK:
                         if (mListAdapter != null) {
                             LoanSignListNewBean.LoansignsBean regularBean = mListAdapter.getItem(position);
                             if ((!isFinishing()) && regularBean != null && regularBean.loansign != null) {
@@ -213,9 +214,9 @@ public class NewSearchActivity extends BaseActivity {
         int currentListTabType = ((FinanceApplication) getApplication()).currentListTabType;
 
         switch (currentListTabType){
-//            case Constant.TYPE_BANK:
-//                mHttpService.getLoanSignListNew(Constant.TYPE_BANK, page * PAGE_SIZE, PAGE_SIZE, searchText);
-//                break;
+            case Constant.TYPE_BANK:
+                mHttpService.getLoanSignListNew(Constant.TYPE_BANK, page * PAGE_SIZE, PAGE_SIZE, searchText);
+                break;
             case Constant.TYPE_REGULAR:
                 mHttpService.getLoanSignListNew(Constant.TYPE_REGULAR, page * PAGE_SIZE, PAGE_SIZE, searchText);
                 break;

@@ -18,6 +18,6 @@ public interface Constant {
     /** 首页列表类型*/
     int TYPE_REGULAR = 1; //定期
     int TYPE_TRANSFER = 2; //债权转让
-//    int TYPE_BANK = 4; // "存管专区"
+    int TYPE_BANK = 4; // "存管专区"
     int TYPE_POOL = 5; // "智存投资"
 }

@@ -104,7 +104,7 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
             public void onItemClick(LoanSignListNewBean.LoansignsBean item) {
                 if (item != null && item.loansign != null) {
                     if (isAdded()) {
-                        if (typeList == Constant.TYPE_REGULAR){
+                        if (typeList == Constant.TYPE_REGULAR || typeList == Constant.TYPE_BANK){
                             if (item.loansign.productType == 3) {
                                 PresellProductActivity.goPresellProductActivity(getActivity(), "" + item.loansign.id);
                             } else {

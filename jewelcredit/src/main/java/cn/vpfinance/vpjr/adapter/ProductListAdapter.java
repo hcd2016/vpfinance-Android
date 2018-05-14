@@ -359,7 +359,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         e.printStackTrace();
                     }
 
-                    if (typeList == Constant.TYPE_REGULAR){
+                    if (typeList == Constant.TYPE_REGULAR || typeList == Constant.TYPE_BANK){
                         if (loansign.product == 4){//银行存管
                             holder.bankAccountStatus.setVisibility(View.VISIBLE);
                         }else{
