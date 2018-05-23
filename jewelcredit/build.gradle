@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from: 'tinker-support.gradle'
 android {
     /*compileSdkVersion 22
     buildToolsVersion "22.0.1"*/
@@ -33,12 +34,13 @@ android {
         resValue "string", "host", project.HOST
 
         manifestPlaceholders = [
-                GETUI_APP_ID : "3IlsqrpfoU51MJSVlhHUJ",
-                GETUI_APP_KEY : "Ssx3YHGQ4vAyOPKpFYiPd3",
-                GETUI_APP_SECRET : "eSgnHuXb7TA2UP9l2gtuO9"
+                GETUI_APP_ID    : "3IlsqrpfoU51MJSVlhHUJ",
+                GETUI_APP_KEY   : "Ssx3YHGQ4vAyOPKpFYiPd3",
+                GETUI_APP_SECRET: "eSgnHuXb7TA2UP9l2gtuO9"
         ]
         ndk {
-            abiFilters "armeabi", "armeabi-v7a", "x86","mips"
+            //设置支持的SO库架构
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
         }
 
         multiDexEnabled true
@@ -71,7 +73,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             signingConfig signingConfigs.release
         }
-        debug{
+        debug {
             minifyEnabled true
             zipAlignEnabled true
             shrinkResources true
@@ -101,7 +103,7 @@ android {
     }
 }
 repositories {
-    flatDir{
+    flatDir {
         dirs 'libs'
     }
 }
@@ -122,12 +124,10 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.6'
     //    compile 'com.loopj.android:android-async-http:1.4.9'
     compile files('libs/android-async-http-1.4.8.jar')
-    compile (name:'securePay-180419',ext:'aar')
+    compile(name: 'securePay-180419', ext: 'aar')
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.getui:sdk:2.10.2.0'
     testCompile 'junit:junit:4.12'
-
-    compile 'com.android.support:multidex:1.0.1'
 
     //内存泄漏leakcanary
 //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
@@ -135,6 +135,24 @@ dependencies {
 //    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     //FlycoTabLayout_Lib
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-
 //    compile 'com.github.czy1121:update:1.1.1'
+    compile "com.android.support:multidex:1.0.1" // 多dex配置
+    //注释掉原有bugly的仓库
+    //compile 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.3.2
+    compile 'com.tencent.bugly:crashreport_upgrade:1.3.1'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
+
+    //引入walle多渠道的依赖
+//    compile "com.meituan.android.walle:library:1.1.6"
 }
+
+/*
+walle {
+    // 指定渠道包的输出路径
+    apkOutputFolder = new File("${project.buildDir}/outputs/channels");
+    // 定制渠道包的APK的文件名称
+    apkFileNameFormat = '${appName}-${channel}-${buildType}-v${versionName}.apk';
+    // 渠道配置文件
+    channelFile = new File("${project.getProjectDir()}/channel")
+}*/

@@ -8,6 +8,9 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath "com.tencent.bugly:tinker-support:1.0.8"
+        //walle多渠道打包
+//        classpath 'com.meituan.android.walle:plugin:1.1.6'
     }
 }
 

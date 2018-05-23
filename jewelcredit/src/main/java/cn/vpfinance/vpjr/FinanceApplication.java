@@ -19,6 +19,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 
 import java.io.File;
 import java.util.Collections;
@@ -105,6 +107,11 @@ public class FinanceApplication extends Application {
         mAppContext = this;
         appContext = getApplicationContext();
 
+        // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
+        // 调试时，将第三个参数改为true
+        Bugly.init(this, "e0817679fa", true);
+
+
         if (Build.VERSION.SDK_INT >= 14) {
             registerActivityLifecycleCallbacks(new FishActivityLifecycleCallbacks());
         }
@@ -180,7 +187,10 @@ public class FinanceApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        // you must install multiDex whatever tinker is installed!
         MultiDex.install(this);
+        // 安装tinker
+        Beta.installTinker();
     }
 
     // 判断SD卡是否存在
