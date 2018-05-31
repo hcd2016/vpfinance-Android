@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="154dp"
+    android:layout_height="148dp">
+    <TextView
+        android:id="@+id/tvAddCoupon"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="兑换优惠券"
+        android:textColor="@color/text_1c1c1c"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="19dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider_color"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+    <TextView
+        android:id="@+id/tvGetCoupon"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="获取优惠券"
+        android:textColor="@color/text_1c1c1c"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="19dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider_color"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+    <TextView
+        android:id="@+id/tvRuleCoupon"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="优惠券使用规则"
+        android:textColor="@color/text_1c1c1c"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="19dp"/>
+</LinearLayout>

@@ -89,7 +89,7 @@
     <string name="login_username">手机号或邮箱</string>
     <string name="login_password">密码</string>
     <string name="login_commit">登录</string>
-    <string name="login_register">免费注册</string>
+    <string name="login_register">立即注册</string>
     <string name="login_forget_password">忘记密码</string>
     
     
@@ -408,4 +408,5 @@
     <string name="fund_flow_hint">温馨提示：由于银行返回数据存在延迟，资金流水在操作两小时后正常显示。</string>
     <string name="message_no_bind_bank">您未绑定银行卡</string>
     <string name="voucher_dongjie">\t 由于银行数据返回存在延迟，您投资提交的优惠券会被暂时冻结，如果投资失败或者未投资，优惠券会在30分钟左右后解冻</string>
+    <string name="coupon_empty_desc">您还没有优惠券哦\n推荐好友获取更多优惠券吧</string>
 </resources>

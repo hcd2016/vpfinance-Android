@@ -2,6 +2,7 @@ package cn.vpfinance.vpjr.module.home.fragment;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Build;
@@ -46,6 +47,8 @@ import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.AppmemberIndexBean;
 import cn.vpfinance.vpjr.gson.IndexPacketBean;
 import cn.vpfinance.vpjr.model.RefreshCountDown;
+import cn.vpfinance.vpjr.model.RefreshTab;
+import cn.vpfinance.vpjr.module.dialog.NewUserDialogActivity;
 import cn.vpfinance.vpjr.module.home.IndexRedPacketActivity;
 import cn.vpfinance.vpjr.module.home.InviteGiftIntroduceActivity;
 import cn.vpfinance.vpjr.module.home.NewWelfareActivity;
@@ -84,28 +87,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onPageStart("HomeFragment");
-        if (mHttpService != null) {
-            mHttpService.getAppmemberIndex(false);
-            mHttpService.getShareRedPacketList();
-        }
-        if (mBanner != null) {
-            mBanner.startTurning(3000);
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd("HomeFragment");
-        if (mBanner != null) {
-            mBanner.stopTurning();
-        }
     }
 
     @Override
@@ -157,6 +138,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             mHttpService = new HttpService(getActivity(), this);
         }
         mHttpService.getAppmemberIndex(false);
+        mHttpService.getShareRedPacketList();
 
         vSwipeRefreshLayout = ((SwipeRefreshLayout) view.findViewById(R.id.vSwipeRefreshLayout));
         vSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(mContext, R.color.main_color));
@@ -230,6 +212,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                             //设置指示器的方向
                             .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
                             .setBackgroundResource(R.drawable.img_loading);
+                    if (mBanner != null) {
+                        mBanner.startTurning(3000);
+                    }
                     mIsfirst = false;
                 }
 
@@ -368,6 +353,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     }
                 }
             }, Constant.delay);
+        }
+    }
+
+    public void onEventMainThread(RefreshTab event) {
+        if (event != null && isAdded()){
+            if (event.tabType == RefreshTab.TAB_HOME){
+                MobclickAgent.onPageStart("HomeFragment");
+                if (mBanner != null) {
+                    mBanner.startTurning(3000);
+                }
+            }else{
+                MobclickAgent.onPageEnd("HomeFragment");
+                if (mBanner != null) {
+                    mBanner.stopTurning();
+                }
+            }
         }
     }
 

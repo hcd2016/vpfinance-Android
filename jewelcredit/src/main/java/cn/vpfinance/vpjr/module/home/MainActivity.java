@@ -22,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.igexin.sdk.PushManager;
 import com.jewelcredit.model.AppUpdateInfo;
 import com.jewelcredit.util.AppState;
@@ -33,15 +34,21 @@ import com.umeng.fb.FeedbackAgent;
 
 import org.json.JSONObject;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.download.DownloadObserver;
 import cn.vpfinance.vpjr.download.SpUtils;
+import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.NewAppUpdateInfo;
 import cn.vpfinance.vpjr.gson.PersonalInfo;
+import cn.vpfinance.vpjr.gson.QueryPopUpBean;
 import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.NewUserDialogActivity;
 import cn.vpfinance.vpjr.module.dialog.UpdateDialogFragment;
 import cn.vpfinance.vpjr.module.gusturelock.LockActivity;
 import cn.vpfinance.vpjr.module.home.fragment.HomeFragment;
@@ -53,6 +60,7 @@ import cn.vpfinance.vpjr.module.user.fragment.BankAccountFragment;
 import cn.vpfinance.vpjr.module.user.fragment.OriginalAccountFragment;
 import cn.vpfinance.vpjr.service.DemoIntentService;
 import cn.vpfinance.vpjr.service.DemoPushService;
+import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.util.UpdateAppUtil;
 import cn.vpfinance.vpjr.view.popwindow.MainTab2Menu;
@@ -90,6 +98,7 @@ public class MainActivity extends BaseActivity {
     private ContentResolver mContentResolver;
     //    public int mineFragmentColor;
     private Pair<ContentResolver, UpdateAppUtil.DownloadObserver> downloadObserverPair;
+    private User user;
 
 
     @Override
@@ -135,6 +144,7 @@ public class MainActivity extends BaseActivity {
         //mHttpService.getVpUrl();
         initView();
         addListener();
+
     }
 
 
@@ -172,6 +182,14 @@ public class MainActivity extends BaseActivity {
             if (AppState.instance().logined()) {
                 switchToTab(2, false);
             }
+        }
+
+
+        //弹窗提醒用户
+        user = DBUtils.getUser(this);
+        if (((FinanceApplication) getApplication()).login && user != null) {
+            mHttpService.getQueryPopUp(user.getUserId().toString());
+            ((FinanceApplication) getApplication()).login = false;
         }
     }
 
@@ -376,13 +394,21 @@ public class MainActivity extends BaseActivity {
             if (appUpdateInfo != null) {
                 showUpdate(appUpdateInfo);
             }
-        }
-
-        if (reqId == ServiceCmd.CmdId.CMD_SERVICE_TIME.ordinal()) {
+        } else if (reqId == ServiceCmd.CmdId.CMD_SERVICE_TIME.ordinal()) {
             long serverTime = json.optLong("serverTime");
             long differTime = serverTime - System.currentTimeMillis();
             ((FinanceApplication) getApplication()).differTime = differTime;
 //            Logger.e("Main: serverTime = [" + serverTime + "], differTime = [" + differTime + "]");
+        } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_POP_UP.ordinal()) {
+            QueryPopUpBean bean = new Gson().fromJson(json.toString(), QueryPopUpBean.class);
+
+            if (bean != null && user != null){
+                String userId = user.getUserId().toString();
+                Set<String> values = SharedPreferencesHelper.getInstance(this).getSetValue(userId, new HashSet<String>());
+                if (!values.contains(String.valueOf(bean.returnType))){
+                    NewUserDialogActivity.goThis(this, json.toString());
+                }
+            }
         }
 
 //		if (reqId == ServiceCmd.CmdId.CMD_APPUPDATE.ordinal()) {

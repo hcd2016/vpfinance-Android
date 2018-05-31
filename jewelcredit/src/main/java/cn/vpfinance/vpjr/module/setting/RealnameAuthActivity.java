@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
 import cn.vpfinance.vpjr.greendao.DaoSession;
@@ -133,6 +134,10 @@ public class RealnameAuthActivity extends BaseActivity {
                     {
                         dao.insertOrReplace(user);
                     }
+                    gotoWeb("/hx/account/create?userId=" + user.getUserId(), "");
+                }
+                FinanceApplication application = (FinanceApplication) getApplication();
+                if (application.isFirstRegieter){
                     gotoWeb("/hx/account/create?userId=" + user.getUserId(), "");
                 }
                 finish();

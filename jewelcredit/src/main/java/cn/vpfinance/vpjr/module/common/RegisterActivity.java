@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jewelcredit.ui.widget.ActionBarLayout;
+import com.jewelcredit.ui.widget.ActionBarWhiteLayout;
 import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
@@ -81,8 +82,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, V
     }
 
     protected void initView() {
-        ActionBarLayout titlebar = (ActionBarLayout) findViewById(R.id.titleBar);
-        titlebar.setTitle("快速注册").setHeadBackVisible(View.VISIBLE);
+        ActionBarWhiteLayout titlebar = (ActionBarWhiteLayout) findViewById(R.id.titleBar);
+        titlebar.setTitle("注册").setHeadBackVisible(View.VISIBLE);
 
         mPhone = viewById(R.id.register_phone);
         mPassword = (TextView) findViewById(R.id.register_password);

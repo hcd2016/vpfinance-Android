@@ -49,17 +49,7 @@ public class VoucherV3Activity extends BaseActivity {
                 .setImageButtonRight(R.drawable.toolbar_add, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        VoucherDialogFragment voucherDialogFragment = new VoucherDialogFragment();
-                        voucherDialogFragment.setOnTextConfrimListener(new VoucherDialogFragment.onTextConfrimListener() {
-                            @Override
-                            public boolean onTextConfrim(String value) {
-                                if (value != null) {
-                                    mHttpService.voucherExchange(value);
-                                }
-                                return true;
-                            }
-                        });
-                        voucherDialogFragment.show(getSupportFragmentManager(), "VoucherDialog");
+
                     }
                 });
 
@@ -73,31 +63,14 @@ public class VoucherV3Activity extends BaseActivity {
         mIbInvite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InviteGiftActivity.goThis(mContext);
+
             }
         });
 
         mRadioGroup.check(R.id.canUse);
     }
 
-    @Override
-    public void onHttpSuccess(int reqId, JSONObject json) {
-        if (!isHttpHandle(json)) return;
-        if (reqId == ServiceCmd.CmdId.CMD_voucherExchange.ordinal()) {
-            if (json == null) {
-                return;
-            }
-            String msg = json.optString("msg");
-            String money = json.optString("money");
-            if ("1".equals(msg)) {
-                Toast.makeText(mContext, "恭喜您兑换了" + money + "元代金券!", Toast.LENGTH_LONG).show();
-            } else if ("0".equals(msg)) {
-                Toast.makeText(mContext, "输入兑换码有误！", Toast.LENGTH_SHORT).show();
-            } else if ("2".equals(msg)) {
-                Toast.makeText(mContext, "兑换码已使用！", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+
 
     private void selectTypeLoadView(int checkedId){
         FragmentManager fm = getSupportFragmentManager();

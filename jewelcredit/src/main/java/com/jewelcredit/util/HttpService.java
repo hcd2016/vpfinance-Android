@@ -98,7 +98,6 @@ import cn.vpfinance.vpjr.model.TransferRefundInfo;
 import cn.vpfinance.vpjr.model.Voucher;
 import cn.vpfinance.vpjr.model.VoucherArray;
 import cn.vpfinance.vpjr.module.user.personal.TrialCoinActivity;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import de.greenrobot.dao.query.QueryBuilder;
 
@@ -394,10 +393,10 @@ public class HttpService {
                     }
                     break;
                 case 2:
-                    if (errorCount > 0){
-                        msg = "用户名密码错误,你还有"+errorCount+"次机会";
-                    }else {//该账户已被锁定，请xx分钟后再试
-                        msg = "该账户已被锁定, 请"+(lockTime/1000/60)+"分钟后再试";
+                    if (errorCount > 0) {
+                        msg = "用户名密码错误,你还有" + errorCount + "次机会";
+                    } else {//该账户已被锁定，请xx分钟后再试
+                        msg = "该账户已被锁定, 请" + (lockTime / 1000 / 60) + "分钟后再试";
                     }
                     break;
                 default:
@@ -433,7 +432,7 @@ public class HttpService {
             errorMsg = "原密码输入错误";
         } else if (msgCode == 1) {
             errorMsg = "修改成功";
-        } else if( msgCode == 2){
+        } else if (msgCode == 2) {
             errorMsg = "新密码不能和旧密码一样";
         }
         mPasscodeErrmsg = errorMsg;
@@ -4618,7 +4617,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         return httpClient.doPost(url, params, cmdId.ordinal(), false, false);
     }
 
-    public InvestSummaryTab3Bean onGetTenderPromit(JSONObject json){
+    public InvestSummaryTab3Bean onGetTenderPromit(JSONObject json) {
         InvestSummaryTab3Bean info = null;
         if (json != null) {
             info = new InvestSummaryTab3Bean();
@@ -4716,7 +4715,7 @@ Type	Int	Banner类型	1. 链接  2.产品
             if (json != null) {
                 Gson gson = new Gson();
                 info = gson.fromJson("" + json, UserInfoBean.class);
-
+                if (info == null) return null;
                 SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(mContext);
                 boolean isOpen = "1".equals(info.isOpen) ? true : false;
                 preferencesHelper.putBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT, isOpen);
@@ -4728,7 +4727,7 @@ Type	Int	Banner类型	1. 链接  2.产品
                 preferencesHelper.putBooleanValue(SharedPreferencesHelper.KEY_IS_BIND_BANK, isBindHxBank);
 
                 boolean isAllowRecharge = "1".equals(info.isAllowRecharge) ? true : false;//1.允许充值2不允许充值
-                if (info.accountType == Constant.AccountLianLain){
+                if (info.accountType == Constant.AccountLianLain) {
                     preferencesHelper.putBooleanValue(SharedPreferencesHelper.KEY_ALLOW_RECHARGE, isAllowRecharge);
                 }
 
@@ -4747,45 +4746,45 @@ Type	Int	Banner类型	1. 链接  2.产品
                         e.printStackTrace();
                     }
                     //只保存连连账户的. 因为连连充值用到了
-                    if (info.accountType == Constant.AccountLianLain){
-                        try{
+                    if (info.accountType == Constant.AccountLianLain) {
+                        try {
                             user.setPreIncome(Double.parseDouble(info.preIncome));
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        try{
+                        try {
                             user.setInvest(Double.parseDouble(info.invest));
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        try{
+                        try {
                             user.setDSum(Double.parseDouble(info.dSum));
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        try{
+                        try {
                             user.setDBid(Double.parseDouble(info.dBid));
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        try{
+                        try {
                             user.setPaying(Double.parseDouble(info.paying));
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        try{
+                        try {
                             user.setFrozenAmtN(Double.parseDouble(info.frozenAmtN));
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        try{
+                        try {
                             user.setNetAsset(Double.parseDouble(info.netAsset));
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        try{
+                        try {
                             user.setCashBalance(Double.parseDouble(info.cashBalance));
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -5756,7 +5755,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 
-    public boolean getVerifyOldPhone(String phone, String smscode){
+    public boolean getVerifyOldPhone(String phone, String smscode) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_VERIFY_LOD_PHONE;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
@@ -5766,7 +5765,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 
-    public boolean getVerifyNewPhone(String phone, String smscode){
+    public boolean getVerifyNewPhone(String phone, String smscode) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_VERIFY_NEW_PHONE;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
@@ -5776,12 +5775,55 @@ Type	Int	Banner类型	1. 链接  2.产品
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 
-    public boolean getAgreeAutoTenderProtocol(){
+    public boolean getAgreeAutoTenderProtocol() {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_AGREE_AUTO_TENDER_PROTOCOL;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
         Map<String, String> param = new ArrayMap<String, String>();
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
+
+    public boolean getIsWelfare(String uid) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_IS_GET_WELFARE;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("uid", uid);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 获取所有优惠券列表
+     * @param couponType 1代金券 2预约卷  其他 全部
+     * @param type  1.可用代金券; 2.己使用代金券; 3.己过期代金券
+     * @param pageNum
+     * @return
+     */
+    public boolean getCouponList(int couponType, int type, int pageNum) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_COUPON_LIST;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("type", "" + type);
+        param.put("couponType", "" + couponType);
+        param.put("pageNum", "" + pageNum);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * APP查询弹窗内容
+     * @param uid
+     * @return
+     */
+    public boolean getQueryPopUp(String uid) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_QUERY_POP_UP;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("uid", uid);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+
 
 }

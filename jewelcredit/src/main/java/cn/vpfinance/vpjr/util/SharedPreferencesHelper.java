@@ -3,6 +3,8 @@ package cn.vpfinance.vpjr.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.Set;
+
 public class SharedPreferencesHelper {
 
     private SharedPreferences sp;
@@ -57,6 +59,16 @@ public class SharedPreferencesHelper {
         editor = sp.edit();
         editor.putString(key, value);
         editor.commit();
+    }
+
+    public void putSetValue(String key, Set<String> values){
+        editor = sp.edit();
+        editor.putStringSet(key,values);
+        editor.commit();
+    }
+
+    public Set<String> getSetValue(String key, Set<String> defaultSet){
+       return sp.getStringSet(key,defaultSet);
     }
 
     public void removeKey(String key)

@@ -24,7 +24,7 @@ public class HttpDownloader {
 
 	public HttpDownloader()
 	{
-		mClient.setMaxRetriesAndTimeout(3, 60000);
+		mClient.setMaxRetriesAndTimeout(3, 60000000);
 		mClient.setMaxConnections(20);
 		mClient.setEnableRedirects(true);
 	}

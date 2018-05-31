@@ -58,7 +58,6 @@
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <!--cn.vpfinance.vpjr.module.welcome.WelcomeActivity-->
     <application
         android:name="cn.vpfinance.vpjr.FinanceApplication"
         android:allowBackup="true"
@@ -77,6 +76,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name="cn.vpfinance.vpjr.module.dialog.NewUserDialogActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActivityTransparent"/>
+        <activity android:name="cn.vpfinance.vpjr.module.user.personal.CouponActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FinanceTheme"/>
         <activity
             android:name="cn.vpfinance.vpjr.module.setting.BindPhoneSuccessActivity"
             android:screenOrientation="portrait"/>
@@ -133,6 +138,9 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name="cn.vpfinance.vpjr.module.user.personal.MedalDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.vpfinance.vpjr.module.user.OpenBankHintActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="cn.vpfinance.vpjr.module.common.RegisterActivity"

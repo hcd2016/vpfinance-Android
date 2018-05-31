@@ -51,6 +51,7 @@ import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.view.MyCountDownTimer;
+import de.greenrobot.dao.DbUtils;
 
 /**
  * Created by Administrator on 2016/10/24.
@@ -655,7 +656,21 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 
                 if (mNewBaseInfoBean.product == 4 &&
                         !SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT)){
-                    Utils.Toast(getContext(),"请先开通存管账户");
+                    Utils.Toast(getContext(),"开通存管账户");
+                    new AlertDialog.Builder(getContext())
+                            .setTitle("开通存管账户")
+                            .setMessage("根据监管要求，请先开通银行存管账户")
+                            .setPositiveButton("立即开通", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    User user = DBUtils.getUser(mContext);
+                                    if (user != null){
+                                        gotoWeb("/hx/account/create?userId=" + user.getUserId(), "");
+                                    }
+                                }
+                            })
+                            .setNegativeButton("暂不",null)
+                            .show();
                     return;
                 }
 

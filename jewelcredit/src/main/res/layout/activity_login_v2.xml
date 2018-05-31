@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
 	android:descendantFocusability="beforeDescendants"
-	android:focusableInTouchMode="true">
+	android:focusableInTouchMode="true"
+	android:background="@color/white">
     
-	<com.jewelcredit.ui.widget.ActionBarLayout
+	<com.jewelcredit.ui.widget.ActionBarWhiteLayout
 		android:id="@+id/titleBar"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"/>
@@ -29,7 +29,7 @@
 			android:orientation="vertical">
 
 			<ImageView
-				android:layout_width="100dp"
+				android:layout_width="96dp"
 				android:layout_height="80dp"
 				android:background="@drawable/img_logo_v"
 				android:layout_gravity="center_horizontal"
@@ -40,11 +40,12 @@
 				android:layout_width="match_parent"
 				android:layout_height="@dimen/edittext_height"
 				style="@style/SampleEditTextStyle"
-				android:hint="请输入手机号码"
+				android:hint="请输入用户名/手机号"
 				android:layout_marginLeft="20dp"
 				android:layout_marginRight="20dp"
 				android:textColor="@color/text_black"
 				android:singleLine="true"
+				android:drawableLeft="@drawable/login_username"
 				android:background="@drawable/bg_edittext_radius">
 				<requestFocus/>
 			</cn.vpfinance.vpjr.view.EditTextWithDel>
@@ -55,11 +56,12 @@
 				android:layout_height="@dimen/edittext_height"
 				android:layout_marginTop="20dp"
 				style="@style/SamplePasswdTextStyle"
-				android:hint="请输入密码"
+				android:hint="请输入登录密码"
 				android:layout_marginLeft="20dp"
 				android:layout_marginRight="20dp"
 				android:textColor="@color/text_black"
 				android:singleLine="true"
+				android:drawableLeft="@drawable/login_password"
 				android:background="@drawable/bg_edittext_radius"/>
 
 			<Button
@@ -82,22 +84,22 @@
 				android:layout_marginLeft="20dp"
 				android:layout_marginRight="20dp">
 				<TextView
-					android:id="@+id/login_register"
+					android:id="@+id/login_forget"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textColor="@color/text_black"
-					android:text="@string/login_register"
+					android:textColor="@color/text_a6a6a6"
+					android:text="忘记密码"
 					android:textSize="@dimen/text_size_medium"/>
 				<View
 					android:layout_width="0dp"
 					android:layout_height="0dp"
 					android:layout_weight="1"/>
 				<TextView
-					android:id="@+id/login_forget"
+					android:id="@+id/login_register"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textColor="@color/text_black"
-					android:text="忘记密码？"
+					android:textColor="@color/text_a6a6a6"
+					android:text="@string/login_register"
 					android:textSize="@dimen/text_size_medium"/>
 			</LinearLayout>
 

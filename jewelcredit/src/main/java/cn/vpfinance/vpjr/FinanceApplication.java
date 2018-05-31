@@ -51,6 +51,7 @@ public class FinanceApplication extends Application {
 
     private static FinanceApplication mAppContext;
     private static Context appContext;
+    public boolean login = false;
 
     @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     class FishActivityLifecycleCallbacks implements ActivityLifecycleCallbacks {

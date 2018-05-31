@@ -208,7 +208,7 @@ public class MoreFragment2 extends BaseFragment implements View.OnClickListener 
                 gotoWeb("/registration/riskAgreement","风险提示");
                 break;
             case R.id.clickInfoShow:
-                gotoWeb("/to/single-10-92.htm","信息披露");
+                gotoWeb("/to/infoDisclosure","信息披露");
                 break;
 
         }

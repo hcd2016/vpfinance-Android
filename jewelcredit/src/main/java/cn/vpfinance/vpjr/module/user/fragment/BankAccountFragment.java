@@ -13,11 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
-import com.jewelcredit.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONObject;
@@ -30,16 +30,18 @@ import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.greendao.User;
+import cn.vpfinance.vpjr.gson.QueryPopUpBean;
 import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.NewUserDialogActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestProtocolActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestSettingActivity;
 import cn.vpfinance.vpjr.module.setting.PersonalInfoActivity;
-import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 import cn.vpfinance.vpjr.module.trade.RechargBankActivity;
 import cn.vpfinance.vpjr.module.trade.WithdrawBankActivity;
 import cn.vpfinance.vpjr.module.user.BindBankHintActivity;
+import cn.vpfinance.vpjr.module.user.OpenBankHintActivity;
 import cn.vpfinance.vpjr.module.user.asset.AccountEActivity;
 import cn.vpfinance.vpjr.module.user.asset.FundFlowActivity;
 import cn.vpfinance.vpjr.module.user.asset.FundOverViewActivity;
@@ -48,10 +50,10 @@ import cn.vpfinance.vpjr.module.user.asset.InvestSummaryActivity;
 import cn.vpfinance.vpjr.module.user.asset.QueryReturnMoneyListActivity;
 import cn.vpfinance.vpjr.module.user.asset.ReturnMoneyCalendarActivity;
 import cn.vpfinance.vpjr.module.user.asset.TransferProductListActivity;
+import cn.vpfinance.vpjr.module.user.personal.CouponActivity;
 import cn.vpfinance.vpjr.module.user.personal.InvestTopActivity;
 import cn.vpfinance.vpjr.module.user.personal.InviteGiftActivity;
 import cn.vpfinance.vpjr.module.user.personal.MyMedalActivity;
-import cn.vpfinance.vpjr.module.user.personal.TicketActivity;
 import cn.vpfinance.vpjr.module.user.personal.TrialCoinActivity;
 import cn.vpfinance.vpjr.util.AlertDialogUtils;
 import cn.vpfinance.vpjr.util.Common;
@@ -129,6 +131,7 @@ public class BankAccountFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
         mRefresh.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.account_bank_header));
         mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -153,6 +156,11 @@ public class BankAccountFragment extends BaseFragment {
         boolean isOpen = SharedPreferencesHelper.getInstance(mContext).getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT, false);
         mHeaderNoOpen.setVisibility(isOpen ? View.GONE : View.VISIBLE);
         mOpenContent.setVisibility(!isOpen ? View.GONE : View.VISIBLE);
+
+        FinanceApplication application = (FinanceApplication) getActivity().getApplication();
+        if (application.isFirstRegieter) {
+            OpenBankHintActivity.goThis(mContext);
+        }
     }
 
     @Override
@@ -211,86 +219,7 @@ public class BankAccountFragment extends BaseFragment {
         } else if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
             /** 第二种解析*/
             mUserInfoBean = mHttpService.onGetUserInfo(json);
-            if (mUserInfoBean == null) return;
-
-            if ("0".equals(mUserInfoBean.isNewUser)) {//老用户
-                titleBar.setActionLeft("查看连连账户", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ((MainActivity) getActivity()).switchToTab(4);
-                    }
-                });
-            }else{
-                titleBar.setActionLeftGone();
-            }
-
-            ivBandActive.setVisibility("1".equals(mUserInfoBean.isBindHxBank) ? View.GONE : View.VISIBLE);
-            if (!TextUtils.isEmpty(mUserInfoBean.customerType) && "2".equals(mUserInfoBean.customerType)) {
-                ivBandActive.setVisibility(View.GONE);
-            }
-            click_borrow_menu.setVisibility((!TextUtils.isEmpty(mUserInfoBean.isShowBorrowMenu) && "1".equals(mUserInfoBean.isShowBorrowMenu)) ? View.VISIBLE : View.GONE);
-            /*可用余额*/
-            String cashBalance = mUserInfoBean.cashBalance;
-            tvAvailableMoney.setText(TextUtils.isEmpty(cashBalance) ? "0.00" : FormatUtils.formatDown(cashBalance));
-            /*资金总额*/
-            String netAsset = mUserInfoBean.netAsset;
-            tvTotalMoney.setText(TextUtils.isEmpty(netAsset) ? "0.00" : FormatUtils.formatDown(netAsset));
-            /*累计收益*/
-            String realMoney = mUserInfoBean.realMoney;
-            tvTotalIncome.setText(TextUtils.isEmpty(realMoney) ? "0.00" : FormatUtils.formatDown(realMoney));
-
-//            if (!"1".equals(mUserInfoBean.accountType)) return;
-
-            tvUserName.setText("你好!" + mUserInfoBean.userName);
-            tvOpenBankAccount.setText("1".equals(mUserInfoBean.isAutoTender) ? "已开启" : "未开启");
-
-            boolean isOpen = "1".equals(mUserInfoBean.isOpen) ? true : false;
-//            SharedPreferencesHelper.getInstance(mContext).putBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT,isOpen);
-            mHeaderNoOpen.setVisibility(isOpen ? View.GONE : View.VISIBLE);
-            mOpenContent.setVisibility(!isOpen ? View.GONE : View.VISIBLE);
-
-            String tradeFlowRecordInfo = "" + mUserInfoBean.returnedCount;
-            String text = "近七日有" + tradeFlowRecordInfo + "笔回款";
-            tvReturnMoneyCount.setText(text);
-
-            canUseNum.setText("0".equals(mUserInfoBean.canUseTotal) ? "" : mUserInfoBean.canUseTotal + "张券可使用");
-
-            tvReturnMoneyPrincipal.setText(mUserInfoBean.capitalAmountSum);//待回款本金
-            tvReturnMoneyIncome.setText(mUserInfoBean.profitAmountSum);//待回款利息
-
-            myDescribe.setText(TextUtils.isEmpty(mUserInfoBean.signature) ? "未设置签名" : mUserInfoBean.signature);//个人签名
-
-            SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(getActivity());
-
-            realName = mUserInfoBean.realName;
-
-            voucher_count = TextUtils.isEmpty(mUserInfoBean.canUseVoucher) ? "" : mUserInfoBean.canUseVoucher;
-            addrate_count = TextUtils.isEmpty(mUserInfoBean.canUseCoupon) ? "" : mUserInfoBean.canUseCoupon;
-            presell_count = TextUtils.isEmpty(mUserInfoBean.canUseBookCoupon) ? "" : mUserInfoBean.canUseBookCoupon;
-
-            //打败人数百分比
-            killPercent = mUserInfoBean.number;
-
-            if (user != null) {
-//                mHttpService.getFundOverInfo("" + user.getUserId(),accountType);
-
-                String mHeadImgUrl = json.optString("headImg");
-                mHeadImgUrl = HttpService.mBaseUrl + mHeadImgUrl;
-                String userHeadUrl = sp.getStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId());
-                if (TextUtils.isEmpty(userHeadUrl) || !mHeadImgUrl.equals(userHeadUrl)) {
-                    sp.putStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId(), mHeadImgUrl);
-                }
-                String headUrl = SharedPreferencesHelper.getInstance(getActivity()).getStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId());
-                if (headUrl == null) {
-                    userHead.setImageResource(R.drawable.user_head);
-                } else {
-                    ImageLoader imageLoader = ImageLoader.getInstance();
-                    imageLoader.displayImage(headUrl, userHead);
-                }
-            }
-            if (!TextUtils.isEmpty(mUserInfoBean.isBindHxBank)) {
-                ((FinanceApplication) getActivity().getApplication()).isBindBank = mUserInfoBean.isBindHxBank;
-            }
+            initUser();
         }
     }
 
@@ -299,6 +228,89 @@ public class BankAccountFragment extends BaseFragment {
     private String voucher_count;
     private String addrate_count;
     private String presell_count;
+
+    private void initUser(){
+        if (mUserInfoBean == null) return;
+
+        if ("0".equals(mUserInfoBean.isNewUser)) {//老用户
+            titleBar.setActionLeft("查看连连账户", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((MainActivity) getActivity()).switchToTab(4);
+                }
+            });
+        } else {
+            titleBar.setActionLeftGone();
+        }
+
+        ivBandActive.setVisibility("1".equals(mUserInfoBean.isBindHxBank) ? View.GONE : View.VISIBLE);
+        if (!TextUtils.isEmpty(mUserInfoBean.customerType) && "2".equals(mUserInfoBean.customerType)) {
+            ivBandActive.setVisibility(View.GONE);
+        }
+        click_borrow_menu.setVisibility((!TextUtils.isEmpty(mUserInfoBean.isShowBorrowMenu) && "1".equals(mUserInfoBean.isShowBorrowMenu)) ? View.VISIBLE : View.GONE);
+        /*可用余额*/
+        String cashBalance = mUserInfoBean.cashBalance;
+        tvAvailableMoney.setText(TextUtils.isEmpty(cashBalance) ? "0.00" : FormatUtils.formatDown(cashBalance));
+        /*资金总额*/
+        String netAsset = mUserInfoBean.netAsset;
+        tvTotalMoney.setText(TextUtils.isEmpty(netAsset) ? "0.00" : FormatUtils.formatDown(netAsset));
+        /*累计收益*/
+        String realMoney = mUserInfoBean.realMoney;
+        tvTotalIncome.setText(TextUtils.isEmpty(realMoney) ? "0.00" : FormatUtils.formatDown(realMoney));
+
+//            if (!"1".equals(mUserInfoBean.accountType)) return;
+
+        tvUserName.setText("你好!" + mUserInfoBean.userName);
+        tvOpenBankAccount.setText("1".equals(mUserInfoBean.isAutoTender) ? "已开启" : "未开启");
+
+        boolean isOpen = "1".equals(mUserInfoBean.isOpen) ? true : false;
+//            SharedPreferencesHelper.getInstance(mContext).putBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT,isOpen);
+        mHeaderNoOpen.setVisibility(isOpen ? View.GONE : View.VISIBLE);
+        mOpenContent.setVisibility(!isOpen ? View.GONE : View.VISIBLE);
+
+        String tradeFlowRecordInfo = "" + mUserInfoBean.returnedCount;
+        String text = "近七日有" + tradeFlowRecordInfo + "笔回款";
+        tvReturnMoneyCount.setText(text);
+
+        canUseNum.setText("0".equals(mUserInfoBean.canUseTotal) ? "" : mUserInfoBean.canUseTotal + "张券可使用");
+
+        tvReturnMoneyPrincipal.setText(mUserInfoBean.capitalAmountSum);//待回款本金
+        tvReturnMoneyIncome.setText(mUserInfoBean.profitAmountSum);//待回款利息
+
+        myDescribe.setText(TextUtils.isEmpty(mUserInfoBean.signature) ? "未设置签名" : mUserInfoBean.signature);//个人签名
+
+        SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(getActivity());
+
+        realName = mUserInfoBean.realName;
+
+        voucher_count = TextUtils.isEmpty(mUserInfoBean.canUseVoucher) ? "" : mUserInfoBean.canUseVoucher;
+        addrate_count = TextUtils.isEmpty(mUserInfoBean.canUseCoupon) ? "" : mUserInfoBean.canUseCoupon;
+        presell_count = TextUtils.isEmpty(mUserInfoBean.canUseBookCoupon) ? "" : mUserInfoBean.canUseBookCoupon;
+
+        //打败人数百分比
+        killPercent = mUserInfoBean.number;
+
+        if (user != null) {
+//                mHttpService.getFundOverInfo("" + user.getUserId(),accountType);
+
+            String mHeadImgUrl = mUserInfoBean.headImg;
+            mHeadImgUrl = HttpService.mBaseUrl + mHeadImgUrl;
+            String userHeadUrl = sp.getStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId());
+            if (TextUtils.isEmpty(userHeadUrl) || !mHeadImgUrl.equals(userHeadUrl)) {
+                sp.putStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId(), mHeadImgUrl);
+            }
+            String headUrl = SharedPreferencesHelper.getInstance(getActivity()).getStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId());
+            if (headUrl == null) {
+                userHead.setImageResource(R.drawable.user_head);
+            } else {
+                ImageLoader imageLoader = ImageLoader.getInstance();
+                imageLoader.displayImage(headUrl, userHead);
+            }
+        }
+        if (!TextUtils.isEmpty(mUserInfoBean.isBindHxBank)) {
+            ((FinanceApplication) getActivity().getApplication()).isBindBank = mUserInfoBean.isBindHxBank;
+        }
+    }
 
     @Override
     public void onHttpError(int reqId, String errmsg) {
@@ -367,8 +379,8 @@ public class BankAccountFragment extends BaseFragment {
                     int accountType = Constant.AccountLianLain;
                     String isBindBank = ((FinanceApplication) getActivity().getApplication()).isBindBank;
 
-                    if (mUserInfoBean != null && mUserInfoBean.autoTenderProtocol != 1){
-                        AutoInvestProtocolActivity.goThis(getContext(),accountType,cashBalance, isAutoTender,isBindBank);
+                    if (mUserInfoBean != null && mUserInfoBean.autoTenderProtocol != 1) {
+                        AutoInvestProtocolActivity.goThis(getContext(), accountType, cashBalance, isAutoTender, isBindBank);
                         return;
                     }
 
@@ -384,7 +396,8 @@ public class BankAccountFragment extends BaseFragment {
                 TrialCoinActivity.goThis(mContext, Constant.AccountBank);
                 break;
             case R.id.clickVoucher:
-                TicketActivity.goThis(mContext, Constant.AccountBank, voucher_count, addrate_count, presell_count);
+//                TicketActivity.goThis(mContext, Constant.AccountBank, voucher_count, addrate_count, presell_count);
+                CouponActivity.goThis(mContext);
                 break;
             case R.id.click_account_e:
                 gotoActivity(AccountEActivity.class);
@@ -393,8 +406,10 @@ public class BankAccountFragment extends BaseFragment {
                 user = DBUtils.getUser(mContext);
                 if (user != null) {
                     Long userId = user.getUserId();
-                    boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
-                    AlertDialogUtils.openBankAccount(getContext(),isRealName, userId.toString());
+                    if (mUserInfoBean != null) {
+                        boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
+                        AlertDialogUtils.openBankAccount(getContext(), isRealName, userId.toString());
+                    }
                 } else {
                     gotoActivity(LoginActivity.class);
                 }

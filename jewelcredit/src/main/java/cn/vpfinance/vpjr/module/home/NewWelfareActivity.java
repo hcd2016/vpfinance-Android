@@ -1,5 +1,7 @@
 package cn.vpfinance.vpjr.module.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,20 +9,28 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.AppState;
+import com.jewelcredit.util.HttpService;
+import com.jewelcredit.util.ServiceCmd;
+import com.jewelcredit.util.Utils;
 import com.nineoldandroids.view.ViewHelper;
+
+import org.json.JSONObject;
 
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.User;
+import cn.vpfinance.vpjr.gson.IsGetWelfareBean;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.common.RegisterActivity;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
-import cn.vpfinance.vpjr.util.AlertDialogUtils;
+import cn.vpfinance.vpjr.module.user.BindBankHintActivity;
+import cn.vpfinance.vpjr.module.user.OpenBankHintActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.StatusBarCompat1;
 import cn.vpfinance.vpjr.view.HideTitleScrollView;
@@ -32,23 +42,32 @@ public class NewWelfareActivity extends BaseActivity {
 
     private ActionBarLayout titleBar;
     private HideTitleScrollView hideTitleScrollView;
-    private Button clickToRegister;
-    private Button clickToProve;
-    private Button clickToInvest;
-    private ImageView ivRegister;
-    private ImageView ivRealName;
+    private Button btnToRegister;
+    private Button btnToBindBank;
+    private Button btnToInvest;
     private RelativeLayout titleBar2;
+    private boolean logined;
+    private HttpService mHttpService;
+    private TextView tvRegister;
+    private TextView tvBindBank;
+    private TextView tvInvest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_welfare);
-        ivRegister = ((ImageView) findViewById(R.id.ivRegister));
-        ivRealName = ((ImageView) findViewById(R.id.ivRealName));
+
+        mHttpService = new HttpService(this, this);
+
+        logined = AppState.instance().logined();
 
         titleBar = ((ActionBarLayout) findViewById(R.id.titleBar));
         titleBar.setHeadBackVisible(View.VISIBLE).setTitle("新手大礼包");
         titleBar2 = (RelativeLayout)findViewById(R.id.titleBar2);
+        tvRegister = ((TextView) findViewById(R.id.tvRegister));
+        tvBindBank = ((TextView) findViewById(R.id.tvBindBank));
+        tvInvest = ((TextView) findViewById(R.id.tvInvest));
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) titleBar2.getLayoutParams();
             int top = StatusBarCompat1.getStatusBarHeight(this);
@@ -72,59 +91,84 @@ public class NewWelfareActivity extends BaseActivity {
             }
         });
 
-        clickToRegister = ((Button) findViewById(R.id.clickToRegister));
-        clickToRegister.setOnClickListener(new View.OnClickListener() {
+        btnToRegister = ((Button) findViewById(R.id.btnToRegister));
+        btnToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gotoActivity(RegisterActivity.class);
             }
         });
 
-        clickToProve = ((Button) findViewById(R.id.clickToProve));
-        clickToProve.setOnClickListener(new View.OnClickListener() {
+        btnToBindBank = ((Button) findViewById(R.id.btnToBindBank));
+        btnToBindBank.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (AppState.instance().logined()) {
-                    gotoActivity(RealnameAuthActivity.class);
-                } else {
-                    AlertDialogUtils.showAlertDialog(NewWelfareActivity.this, "您未登录", "取消", "前去登录", LoginActivity.class);
+                User user = DBUtils.getUser(NewWelfareActivity.this);
+                if (logined && user != null){
+                    if (!TextUtils.isEmpty(user.getRealName())){
+                        RealnameAuthActivity.goThis(NewWelfareActivity.this);
+                        Utils.Toast("请先去实名认证");
+                    }else{
+                        BindBankHintActivity.goThis(NewWelfareActivity.this,user.getUserId().toString());
+                    }
+                }else{
+                    new AlertDialog.Builder(NewWelfareActivity.this)
+                            .setMessage("请先去登录")
+                            .setPositiveButton("登录", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    gotoActivity(LoginActivity.class);
+                                }
+                            })
+                            .setNegativeButton("取消",null)
+                            .show();
                 }
+//
             }
         });
-        clickToInvest = ((Button) findViewById(R.id.clickToInvest));
-        clickToInvest.setOnClickListener(new View.OnClickListener() {
+        btnToInvest = ((Button) findViewById(R.id.btnToInvest));
+        btnToInvest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NewWelfareActivity.this, MainActivity.class);
                 intent.putExtra(MainActivity.SWITCH_TAB_NUM,1);
-                startActivity(intent);
-                finish();
+                gotoActivity(intent);
             }
         });
     }
 
     @Override
+    public void onHttpSuccess(int reqId, JSONObject json) {
+        super.onHttpSuccess(reqId, json);
+        if (reqId == ServiceCmd.CmdId.CMD_IS_GET_WELFARE.ordinal()){
+            IsGetWelfareBean isGetWelfareBean = new Gson().fromJson(json.toString(), IsGetWelfareBean.class);
+            tvRegister.setVisibility(isGetWelfareBean.register == 1 ? View.VISIBLE : View.INVISIBLE);
+            tvBindBank.setVisibility(isGetWelfareBean.addCard == 1 ? View.VISIBLE : View.INVISIBLE);
+            tvInvest.setVisibility(isGetWelfareBean.firstInvest == 1 ? View.VISIBLE : View.INVISIBLE);
+
+            btnToRegister.setEnabled(isGetWelfareBean.register == 0);
+            btnToBindBank.setEnabled(isGetWelfareBean.addCard == 0);
+            btnToInvest.setEnabled(isGetWelfareBean.firstInvest == 0);
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+
         if (AppState.instance().logined()){
-            ivRegister.setBackgroundResource(R.drawable.bg_new_welfare_registed);
-            clickToRegister.setVisibility(View.GONE);
 
             User user = DBUtils.getUser(this);
-            if (user != null) {
-                if (!TextUtils.isEmpty(user.getRealName())){
-                    ivRealName.setBackgroundResource(R.drawable.bg_new_welfare_rename);
-                    clickToProve.setVisibility(View.GONE);
-                }
-            }else{
-                ivRealName.setBackgroundResource(R.drawable.bg_new_welfare3);
-                clickToProve.setVisibility(View.VISIBLE);
+            if (user != null){
+                mHttpService.getIsWelfare(user.getId().toString());
             }
-
         }else{
-            ivRegister.setBackgroundResource(R.drawable.bg_new_welfare2);
-            clickToRegister.setVisibility(View.VISIBLE);
+            tvRegister.setVisibility(View.INVISIBLE);
+            tvBindBank.setVisibility(View.INVISIBLE);
+            tvInvest.setVisibility(View.INVISIBLE);
+            btnToRegister.setEnabled(true);
+            btnToBindBank.setEnabled(true);
+            btnToInvest.setEnabled(true);
         }
-
     }
 }

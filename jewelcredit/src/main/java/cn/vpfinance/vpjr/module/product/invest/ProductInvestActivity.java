@@ -116,7 +116,6 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     private double voucherValue = 0;
     private double voucherrate = 0;
     private int usableVoucherCount = 0;
-    private static final int RET_CODE_VOUCHER = 100;
     private String vouchers;
 
     private int[] vouchersArray = null;//已选优惠券id

@@ -237,7 +237,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
             tvInvestType.setText("0".equals(bean.loanType) ? R.string.unlimited : R.string.selected);
             tvRefundType.setText("0".equals(bean.refundWay) ? R.string.unlimited : R.string.selected);
             tvRiskLevel.setText("0".equals(bean.securityLevel) ? R.string.unlimited : R.string.selected);
-            tvAuthorization.setText(bean.isHXAutoPlank == 1 ? "已授权" : "未授权");
+            tvAuthorization.setText(bean.isHXAutoPlank == 1 ? "已授权" : "去授权");
         }
     }
 

@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.jewelcredit.ui.widget.ActionBarLayout;
+import com.jewelcredit.ui.widget.ActionBarWhiteLayout;
 import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
@@ -106,8 +107,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 	}
 	
 	protected void initView() {
-		ActionBarLayout titlebar = (ActionBarLayout) findViewById(R.id.titleBar);
-		titlebar.setTitle("会员登录").setHeadBackVisible(View.VISIBLE);
+		ActionBarWhiteLayout titlebar = (ActionBarWhiteLayout) findViewById(R.id.titleBar);
+		titlebar.setTitle("登录").setImageButtonLeft(R.drawable.toolbar_x, new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 
 		usernameEd = (EditTextWithDel)findViewById(R.id.login_username);
 		usernameEd.setText(AppState.instance().getLoginUserName());
@@ -304,6 +310,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 				setResult(RESULT_OK, intent);
 				//清理login present标志
 				HttpService.clearPresentLoginFlag();
+				((FinanceApplication) getApplication()).login = true;
 				startActivity(new Intent(this, LockSetupActivity.class));
 				finish();
 			}

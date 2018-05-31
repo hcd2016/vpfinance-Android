@@ -100,7 +100,6 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
     private HttpService mHttpService;
     private LinearLayout paypassword;
     private LinearLayout forgetPayPassword;
-    private UserDao userDao;
     private User user;
     private TextView tvUserName;
     private TextView userPhone;
@@ -414,7 +413,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                     preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, newUserName);
                 }
                 user.setUserName(newUserName);
-                userDao.insertOrReplace(user);
+                DBUtils.getUserDao(PersonalInfoActivity.this).insertOrReplace(user);
                 tvUserName.setText(newUserName);
             } else if ("2".equals(ret)) {
                 Toast.makeText(this, "用户名已经被占用", Toast.LENGTH_SHORT).show();
@@ -426,6 +425,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
             mHttpService.onGetUserInfo(json, user);
             mUserInfoBean = mHttpService.onGetUserInfo(json);
+            if (mUserInfoBean == null)  return;
             mHeadImgUrl = mUserInfoBean.headImg;
             mHeadImgUrl = HttpService.mBaseUrl + mHeadImgUrl;
 

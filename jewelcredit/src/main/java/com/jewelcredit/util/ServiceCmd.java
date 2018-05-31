@@ -153,6 +153,9 @@ public class ServiceCmd {
 		CMD_VERIFY_LOD_PHONE,//验证原手机号
 		CMD_VERIFY_NEW_PHONE,//验证新手机号
 		CMD_AGREE_AUTO_TENDER_PROTOCOL,//是否同意自动投标
+		CMD_IS_GET_WELFARE,//是否已领取福利
+		CMD_COUPON_LIST,//获取所有优惠券列表
+		CMD_QUERY_POP_UP,//APP查询弹窗内容
 	}
 
     public static String[] methods = {
@@ -305,6 +308,9 @@ public class ServiceCmd {
 			"Appregister/verifySmsCode",//验证原手机号
 			"Appmember/validatePhone",//验证新手机号
 			"Appmember_index/agreeAutoTenderProtocol",//是否同意自动投标
+			"Appmember/queryIsSend",//是否已领取福利
+			"AppCoupon/couponList",//获取所有优惠券列表
+			"Appmember/queryPopUp",//APP查询弹窗内容
     };
 
     public static String getMethodName(CmdId methodId) {

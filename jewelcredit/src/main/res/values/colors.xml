@@ -64,6 +64,7 @@
     <color name="link_blue2">#007AFF </color>
     <color name="col_text_bold">#7c7c7c</color>
     <color name="col_text_hint">#b4b4b4</color>
+    <color name="text_a6a6a6">#a6a6a6</color>
 
     <color name="grey">#ffcccccc</color>
     <color name="translate_black">#aa000000</color>
@@ -103,6 +104,7 @@
 
     <color name="account_original_header">#FF5050</color>
     <color name="account_bank_header">#4B75CB</color>
+    <color name="text_EF7919">#EF7919</color>
 
 </resources>
 

@@ -3,7 +3,9 @@ package com.jewelcredit.ui.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.jewelcredit.util.Utils;
 
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.util.StatusBarCompat1;
@@ -37,6 +41,10 @@ public class ActionBarLayout extends RelativeLayout {
     private RelativeLayout mToolbarView;
 
     private View mFakeStatusBar;
+
+    public static final int TYPE_HIDDEN = 0;
+    public static final int TYPE_DOWN = 1;
+    public static final int TYPE_UP = 2;
 
     public ActionBarLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -89,6 +97,39 @@ public class ActionBarLayout extends RelativeLayout {
         mTitle.setText(title);
         return this;
     }
+
+    public ActionBarLayout setTitleClick(OnClickListener listener){
+        mTitle.setEnabled(true);
+        mTitle.setOnClickListener(listener);
+        return this;
+    }
+
+    /**
+     *
+     * @param status 0 隐藏, 1 箭头向下, 2 箭头向上
+     * @return
+     */
+    public ActionBarLayout setUpDown(int status){
+        switch (status){
+            case TYPE_HIDDEN:
+                mTitle.setCompoundDrawables(null,null,null,null);
+                break;
+            case TYPE_DOWN:
+                Drawable downDrawable = ContextCompat.getDrawable(mContext, R.drawable.toolbar_down);
+                downDrawable.setBounds(0,0,downDrawable.getMinimumWidth(), downDrawable.getMinimumHeight());
+                mTitle.setCompoundDrawables(null,null,downDrawable,null);
+                break;
+            case TYPE_UP:
+                Drawable upDrawable = ContextCompat.getDrawable(mContext, R.drawable.toolbar_up);
+                upDrawable.setBounds(0,0,upDrawable.getMinimumWidth(), upDrawable.getMinimumHeight());
+//                mTitle.setCompoundDrawablePadding(Utils.dip2px(mContext,));
+                mTitle.setCompoundDrawables(null,null,upDrawable,null);
+                break;
+        }
+        return this;
+    }
+
+
 
     public ActionBarLayout setColor(int color){
         mToolbarView.setBackgroundColor(color);
@@ -183,11 +224,13 @@ public class ActionBarLayout extends RelativeLayout {
 
     public ActionBarLayout reset() {
         mTitle.setVisibility(VISIBLE);
+        mTitle.setEnabled(false);
         mHeadBack.setVisibility(GONE);
         mActionLeft.setVisibility(GONE);
         mActionRight.setVisibility(GONE);
         mImageButtonRight.setVisibility(GONE);
         setColor(getResources().getColor(R.color.main_color));
+        setUpDown(TYPE_HIDDEN);
         return this;
     }
 }

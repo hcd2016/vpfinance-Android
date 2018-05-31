@@ -20,16 +20,8 @@ import de.greenrobot.dao.query.QueryBuilder;
  */
 public class DBUtils {
     public static User getUser(Context mContext){
-        DaoMaster.DevOpenHelper dbHelper;
-        SQLiteDatabase db;
-        DaoMaster daoMaster;
-        DaoSession daoSession;
 
-        dbHelper = new DaoMaster.DevOpenHelper(mContext, Config.DB_NAME , null);
-        db = dbHelper.getWritableDatabase();
-        daoMaster = new DaoMaster(db);
-        daoSession = daoMaster.newSession();
-        UserDao userDao = daoSession.getUserDao();
+        UserDao userDao = getUserDao(mContext);
 
         if(AppState.instance().logined())
         {
@@ -49,6 +41,20 @@ public class DBUtils {
         }
         return null;
     }
+    public static UserDao getUserDao(Context mContext){
+        DaoMaster.DevOpenHelper dbHelper;
+        SQLiteDatabase db;
+        DaoMaster daoMaster;
+        DaoSession daoSession;
+
+        dbHelper = new DaoMaster.DevOpenHelper(mContext, Config.DB_NAME , null);
+        db = dbHelper.getWritableDatabase();
+        daoMaster = new DaoMaster(db);
+        daoSession = daoMaster.newSession();
+        UserDao userDao = daoSession.getUserDao();
+        return userDao;
+    }
+
     public static BankCard getBankCardByDB(Context mContext){
         DaoMaster.DevOpenHelper dbHelper;
         SQLiteDatabase db;

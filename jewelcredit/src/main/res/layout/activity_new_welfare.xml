@@ -12,61 +12,125 @@
         android:layout_width="match_parent"
         android:background="#ff513f"
         android:layout_height="match_parent">
-        <ImageView
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_new_welfare1"/>
-        <ImageView
-            android:id="@+id/ivRegister"
+            android:layout_height="400dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/new_welfare_1"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp">
+                <TextView
+                    android:id="@+id/tvRegister"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="您已领取"
+                    android:textColor="@color/link_blue2"
+                    android:gravity="center"
+                    android:visibility="invisible"/>
+                <TextView
+                    android:id="@+id/tvBindBank"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="您已领取"
+                    android:textColor="@color/link_blue2"
+                    android:visibility="invisible"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/tvInvest"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="您已领取"
+                    android:textColor="@color/link_blue2"
+                    android:visibility="invisible"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_new_welfare2"/>
-        <Button
-            android:id="@+id/clickToRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_new_welfare1"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_height="520dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/new_welfare_2" />
+
+            <Button
+                android:id="@+id/btnToRegister"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/new_welfare_button"
+                android:text="立即注册"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="520dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/new_welfare_3" />
+
+            <Button
+                android:id="@+id/btnToBindBank"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/new_welfare_button"
+                android:text="立即绑卡"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="520dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/new_welfare_4" />
+
+            <Button
+                android:id="@+id/btnToInvest"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/new_welfare_button"
+                android:text="立即投资"
+                android:textColor="@color/white" />
+        </RelativeLayout>
 
         <ImageView
-            android:id="@+id/ivRealName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_new_welfare3"/>
-        <Button
-            android:id="@+id/clickToProve"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_new_welfare2"
-            android:layout_gravity="center_horizontal"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_new_welfare4"/>
-        <Button
-            android:id="@+id/clickToInvest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_new_welfare3"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="本活动自发布之日即可实行，结束时间将另行通知。"
-            android:layout_marginTop="60dp"
-            android:textSize="@dimen/text_size_12"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/white"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="微品金融将保留对以上规则、条件和流程进行适当调整的权利。"
-            android:layout_marginBottom="30dp"
-            android:textSize="@dimen/text_size_12"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/white"/>
+            android:layout_height="900dp"
+            android:background="@drawable/new_welfare_5"/>
 
     </LinearLayout>
 </cn.vpfinance.vpjr.view.HideTitleScrollView>

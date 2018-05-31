@@ -29,6 +29,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/account_bank_header"
                     android:orientation="vertical"
+                    android:visibility="visible"
                     tools:visibility="gone">
 
                     <RelativeLayout
@@ -87,7 +88,9 @@
                     android:id="@+id/open_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -544,6 +547,238 @@
                                 android:textColor="@color/normal_text_color" />
                         </LinearLayout>
                     </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:background="@color/bg_gray2" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/click_auto_invest_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="35dp"
+                        android:paddingRight="23dp"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:drawableLeft="@drawable/icon_zidongtoubiao"
+                            android:drawablePadding="15dp"
+                            android:gravity="center_vertical"
+                            android:text="自动投标"
+                            android:textColor="@color/text_333333"
+                            android:textSize="15sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/tv_open_bank_account"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="8dp"
+                            android:gravity="center"
+                            android:textColor="@color/text_333333"
+                            tools:text="已开启" />
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:background="@drawable/nav_next" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/mine_divider_margin_left"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/divider_color" />
+
+                    <LinearLayout
+                        android:id="@+id/click_account_e"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="35dp"
+                        android:paddingRight="23dp"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:drawableLeft="@drawable/icon_ezhanghu"
+                            android:drawablePadding="15dp"
+                            android:gravity="center_vertical"
+                            android:text="我的存管账户"
+                            android:textColor="@color/text_333333"
+                            android:textSize="15sp" />
+                        <ImageView
+                            android:id="@+id/ivUpdateHxTag"
+                            android:layout_width="70dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/hx_update_tag"
+                            android:layout_marginBottom="10dp"
+                            android:visibility="gone"/>
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:id="@+id/img_dot1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center"
+                            android:src="@drawable/img_dot"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:background="@drawable/nav_next" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/mine_divider_margin_left"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/divider_color" />
+                    <LinearLayout
+                        android:id="@+id/clickTrialCoin"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="35dp"
+                        android:paddingRight="23dp"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:drawableLeft="@drawable/my_experience_money"
+                            android:drawablePadding="15dp"
+                            android:gravity="center_vertical"
+                            android:text="我的体验金"
+                            android:textColor="@color/text_333333"
+                            android:textSize="15sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:id="@+id/img_dot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center"
+                            android:src="@drawable/img_dot"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:background="@drawable/nav_next" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/mine_divider_margin_left"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/divider_color" />
+
+                    <LinearLayout
+                        android:id="@+id/clickVoucher"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="35dp"
+                        android:paddingRight="23dp"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:drawableLeft="@drawable/my_voucher"
+                            android:drawablePadding="15dp"
+                            android:gravity="center_vertical"
+                            android:text="我的优惠券"
+                            android:textColor="@color/text_333333"
+                            android:textSize="15sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/canUseNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="8dp"
+                            android:gravity="center"
+                            android:textColor="@color/text_999999"
+                            tools:text="2张未使用" />
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:background="@drawable/nav_next" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginLeft="@dimen/mine_divider_margin_left"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/divider_color" />
+
+                    <LinearLayout
+                        android:id="@+id/clickInviteGift"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="35dp"
+                        android:paddingRight="23dp"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:drawableLeft="@drawable/invite_gift"
+                            android:drawablePadding="15dp"
+                            android:gravity="center_vertical"
+                            android:text="邀请有礼"
+                            android:textColor="@color/text_333333"
+                            android:textSize="15sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="13dp"
+                            android:background="@drawable/nav_next" />
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
@@ -553,10 +788,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@color/white">
 
                         <LinearLayout
-                            android:id="@+id/click_auto_invest_setting"
+                            android:id="@+id/invest_top"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
                             android:gravity="center"
@@ -568,108 +804,10 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:drawableLeft="@drawable/icon_zidongtoubiao"
+                                android:drawableLeft="@drawable/invest_top"
                                 android:drawablePadding="15dp"
                                 android:gravity="center_vertical"
-                                android:text="自动投标"
-                                android:textColor="@color/text_333333"
-                                android:textSize="15sp" />
-
-                            <View
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1" />
-
-                            <TextView
-                                android:id="@+id/tv_open_bank_account"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="8dp"
-                                android:gravity="center"
-                                android:textColor="@color/text_333333"
-                                tools:text="已开启" />
-
-                            <ImageView
-                                android:layout_width="8dp"
-                                android:layout_height="13dp"
-                                android:background="@drawable/nav_next" />
-                        </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:layout_marginLeft="@dimen/mine_divider_margin_left"
-                            android:layout_marginRight="20dp"
-                            android:background="@color/divider_color" />
-
-                        <LinearLayout
-                            android:id="@+id/click_account_e"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:paddingLeft="35dp"
-                            android:paddingRight="23dp"
-                            android:background="@color/white">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:drawableLeft="@drawable/icon_ezhanghu"
-                                android:drawablePadding="15dp"
-                                android:gravity="center_vertical"
-                                android:text="我的存管账户"
-                                android:textColor="@color/text_333333"
-                                android:textSize="15sp" />
-                            <ImageView
-                                android:id="@+id/ivUpdateHxTag"
-                                android:layout_width="70dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/hx_update_tag"
-                                android:layout_marginBottom="10dp"
-                                android:visibility="gone"/>
-                            <View
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1" />
-
-                            <ImageView
-                                android:id="@+id/img_dot1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="10dp"
-                                android:gravity="center"
-                                android:src="@drawable/img_dot"
-                                android:visibility="gone" />
-
-                            <ImageView
-                                android:layout_width="8dp"
-                                android:layout_height="13dp"
-                                android:background="@drawable/nav_next" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:layout_marginLeft="@dimen/mine_divider_margin_left"
-                            android:layout_marginRight="20dp"
-                            android:background="@color/divider_color" />
-                        <LinearLayout
-                            android:id="@+id/clickTrialCoin"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:paddingLeft="35dp"
-                            android:paddingRight="23dp"
-                            android:background="@color/white">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:drawableLeft="@drawable/my_experience_money"
-                                android:drawablePadding="15dp"
-                                android:gravity="center_vertical"
-                                android:text="我的体验金"
+                                android:text="投资风云榜"
                                 android:textColor="@color/text_333333"
                                 android:textSize="15sp" />
 
@@ -677,15 +815,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1" />
-
-                            <ImageView
-                                android:id="@+id/img_dot"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="10dp"
-                                android:gravity="center"
-                                android:src="@drawable/img_dot"
-                                android:visibility="gone" />
 
                             <ImageView
                                 android:layout_width="8dp"
@@ -701,7 +830,7 @@
                             android:background="@color/divider_color" />
 
                         <LinearLayout
-                            android:id="@+id/clickVoucher"
+                            android:id="@+id/my_medal"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
                             android:gravity="center"
@@ -713,10 +842,10 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:drawableLeft="@drawable/my_voucher"
+                                android:drawableLeft="@drawable/my_medal"
                                 android:drawablePadding="15dp"
                                 android:gravity="center_vertical"
-                                android:text="我的优惠券"
+                                android:text="我的勋章"
                                 android:textColor="@color/text_333333"
                                 android:textSize="15sp" />
 
@@ -724,15 +853,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1" />
-
-                            <TextView
-                                android:id="@+id/canUseNum"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="8dp"
-                                android:gravity="center"
-                                android:textColor="@color/text_999999"
-                                tools:text="2张未使用" />
 
                             <ImageView
                                 android:layout_width="8dp"
@@ -748,195 +868,76 @@
                             android:background="@color/divider_color" />
 
                         <LinearLayout
-                            android:id="@+id/clickInviteGift"
+                            android:id="@+id/click_risk_evaluating"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:gravity="center"
-                            android:orientation="horizontal"
                             android:paddingLeft="35dp"
                             android:paddingRight="23dp"
+                            android:orientation="horizontal"
+                            android:gravity="center"
                             android:background="@color/white">
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:drawableLeft="@drawable/invite_gift"
-                                android:drawablePadding="15dp"
+                                android:text="风险评测"
                                 android:gravity="center_vertical"
-                                android:text="邀请有礼"
-                                android:textColor="@color/text_333333"
-                                android:textSize="15sp" />
-
+                                android:drawableLeft="@drawable/ic_risk_evaluating"
+                                android:drawablePadding="15dp"
+                                android:textSize="15sp"
+                                android:textColor="@color/normal_text_color"/>
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1" />
-
+                                android:layout_weight="1"/>
                             <ImageView
-                                android:layout_width="8dp"
-                                android:layout_height="13dp"
-                                android:background="@drawable/nav_next" />
+                                android:layout_width="6dp"
+                                android:layout_height="11dp"
+                                android:background="@drawable/nav_next"/>
                         </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="6dp"
-                            android:background="@color/bg_gray2" />
+                            android:layout_height="1px"
+                            android:layout_marginLeft="@dimen/mine_divider_margin_left"
+                            android:layout_marginRight="20dp"
+                            android:background="@color/divider_color" />
 
                         <LinearLayout
+                            android:id="@+id/click_borrow_menu"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:background="@color/white">
-
-                            <LinearLayout
-                                android:id="@+id/invest_top"
-                                android:layout_width="match_parent"
-                                android:layout_height="48dp"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                android:paddingLeft="35dp"
-                                android:paddingRight="23dp"
-                                android:background="@color/white">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:drawableLeft="@drawable/invest_top"
-                                    android:drawablePadding="15dp"
-                                    android:gravity="center_vertical"
-                                    android:text="投资风云榜"
-                                    android:textColor="@color/text_333333"
-                                    android:textSize="15sp" />
-
-                                <View
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1" />
-
-                                <ImageView
-                                    android:layout_width="8dp"
-                                    android:layout_height="13dp"
-                                    android:background="@drawable/nav_next" />
-                            </LinearLayout>
-
+                            android:layout_height="48dp"
+                            android:paddingLeft="35dp"
+                            android:paddingRight="23dp"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:background="@color/white"
+                            android:visibility="gone"
+                            tools:visibility="visible">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="我要借款"
+                                android:gravity="center_vertical"
+                                android:drawableLeft="@drawable/ic_borrow_menu"
+                                android:drawablePadding="15dp"
+                                android:textSize="15sp"
+                                android:textColor="@color/normal_text_color"/>
                             <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1px"
-                                android:layout_marginLeft="@dimen/mine_divider_margin_left"
-                                android:layout_marginRight="20dp"
-                                android:background="@color/divider_color" />
-
-                            <LinearLayout
-                                android:id="@+id/my_medal"
-                                android:layout_width="match_parent"
-                                android:layout_height="48dp"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                android:paddingLeft="35dp"
-                                android:paddingRight="23dp"
-                                android:background="@color/white">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:drawableLeft="@drawable/my_medal"
-                                    android:drawablePadding="15dp"
-                                    android:gravity="center_vertical"
-                                    android:text="我的勋章"
-                                    android:textColor="@color/text_333333"
-                                    android:textSize="15sp" />
-
-                                <View
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1" />
-
-                                <ImageView
-                                    android:layout_width="8dp"
-                                    android:layout_height="13dp"
-                                    android:background="@drawable/nav_next" />
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1px"
-                                android:layout_marginLeft="@dimen/mine_divider_margin_left"
-                                android:layout_marginRight="20dp"
-                                android:background="@color/divider_color" />
-
-                            <LinearLayout
-                                android:id="@+id/click_risk_evaluating"
-                                android:layout_width="match_parent"
-                                android:layout_height="48dp"
-                                android:paddingLeft="35dp"
-                                android:paddingRight="23dp"
-                                android:orientation="horizontal"
-                                android:gravity="center"
-                                android:background="@color/white">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:text="风险评测"
-                                    android:gravity="center_vertical"
-                                    android:drawableLeft="@drawable/ic_risk_evaluating"
-                                    android:drawablePadding="15dp"
-                                    android:textSize="15sp"
-                                    android:textColor="@color/normal_text_color"/>
-                                <View
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"/>
-                                <ImageView
-                                    android:layout_width="6dp"
-                                    android:layout_height="11dp"
-                                    android:background="@drawable/nav_next"/>
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1px"
-                                android:layout_marginLeft="@dimen/mine_divider_margin_left"
-                                android:layout_marginRight="20dp"
-                                android:background="@color/divider_color" />
-
-                            <LinearLayout
-                                android:id="@+id/click_borrow_menu"
-                                android:layout_width="match_parent"
-                                android:layout_height="48dp"
-                                android:paddingLeft="35dp"
-                                android:paddingRight="23dp"
-                                android:orientation="horizontal"
-                                android:gravity="center"
-                                android:background="@color/white"
-                                android:visibility="gone"
-                                tools:visibility="visible">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:text="我要借款"
-                                    android:gravity="center_vertical"
-                                    android:drawableLeft="@drawable/ic_borrow_menu"
-                                    android:drawablePadding="15dp"
-                                    android:textSize="15sp"
-                                    android:textColor="@color/normal_text_color"/>
-                                <View
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"/>
-                                <ImageView
-                                    android:layout_width="6dp"
-                                    android:layout_height="11dp"
-                                    android:background="@drawable/nav_next"/>
-                            </LinearLayout>
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"/>
+                            <ImageView
+                                android:layout_width="6dp"
+                                android:layout_height="11dp"
+                                android:background="@drawable/nav_next"/>
                         </LinearLayout>
-
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp"
-                            android:background="@color/bg_gray2" />
                     </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@color/bg_gray2" />
                 </LinearLayout>
             </LinearLayout>
 
