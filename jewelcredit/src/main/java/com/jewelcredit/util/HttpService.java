@@ -5823,6 +5823,19 @@ Type	Int	Banner类型	1. 链接  2.产品
         param.put("uid", uid);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
+    /**
+     * 启动APP查询用户投标状态
+     * @param uid
+     * @return
+     */
+    public boolean getQueryAutoPlankStatus(String uid) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_QUERY_AUTO_PLANK_STATUS;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("uid", uid);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
 
 
 

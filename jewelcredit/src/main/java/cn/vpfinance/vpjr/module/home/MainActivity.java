@@ -34,6 +34,7 @@ import com.umeng.fb.FeedbackAgent;
 
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,6 +46,7 @@ import cn.vpfinance.vpjr.download.SpUtils;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.NewAppUpdateInfo;
 import cn.vpfinance.vpjr.gson.PersonalInfo;
+import cn.vpfinance.vpjr.gson.QueryAutoStatusBean;
 import cn.vpfinance.vpjr.gson.QueryPopUpBean;
 import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
@@ -144,7 +146,6 @@ public class MainActivity extends BaseActivity {
         //mHttpService.getVpUrl();
         initView();
         addListener();
-
     }
 
 
@@ -189,6 +190,7 @@ public class MainActivity extends BaseActivity {
         user = DBUtils.getUser(this);
         if (((FinanceApplication) getApplication()).login && user != null) {
             mHttpService.getQueryPopUp(user.getUserId().toString());
+            mHttpService.getQueryAutoPlankStatus(user.getUserId().toString());
             ((FinanceApplication) getApplication()).login = false;
         }
     }
@@ -402,26 +404,14 @@ public class MainActivity extends BaseActivity {
         } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_POP_UP.ordinal()) {
             QueryPopUpBean bean = new Gson().fromJson(json.toString(), QueryPopUpBean.class);
 
-            if (bean != null && user != null){
+            if (bean != null && user != null) {
                 String userId = user.getUserId().toString();
-                Set<String> values = SharedPreferencesHelper.getInstance(this).getSetValue(userId, new HashSet<String>());
-                if (!values.contains(String.valueOf(bean.returnType))){
+                Set<String> values = SharedPreferencesHelper.getInstance(this).getSetValue("NewUserPop_" + userId, new HashSet<String>());
+                if (!values.contains(bean.bigType)) {
                     NewUserDialogActivity.goThis(this, json.toString());
                 }
             }
-        }
-
-//		if (reqId == ServiceCmd.CmdId.CMD_APPUPDATE.ordinal()) {
-//			info = new AppUpdateInfo();
-//			mHttpService.onGetVersion2(json, info);
-//			if (info != null & (!TextUtils.isEmpty(info.appVersion))){
-//				if (Utils.compareVersion(info.appVersion, Utils.getVersion(this)) > 0) {
-//					//有更新
-//					showDialogUpdate();
-//				}
-//			}
-//		}
-        if (reqId == ServiceCmd.CmdId.CMD_GetVpUrl.ordinal()) {
+        } else if (reqId == ServiceCmd.CmdId.CMD_GetVpUrl.ordinal()) {
             String url = json.optString("url");
             if (!TextUtils.isEmpty(url)) {
                 //gotoWeb(url,"测试");
@@ -451,6 +441,12 @@ public class MainActivity extends BaseActivity {
 
         } else if (reqId == ServiceCmd.CmdId.CMD_commonLoanDesc.ordinal()) {
             PersonalInfo info = mHttpService.onGetPersonal(json);
+        } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_AUTO_PLANK_STATUS.ordinal()){
+            QueryAutoStatusBean autoStatusBean = new Gson().fromJson(json.toString(), QueryAutoStatusBean.class);
+            if (autoStatusBean != null && !TextUtils.isEmpty(autoStatusBean.autoPlankStatus)
+                    && ("2".equals(autoStatusBean.autoPlankStatus) || "3".equals(autoStatusBean.autoPlankStatus))){
+                showAutoStatus(autoStatusBean.autoPlankStatus);
+            }
         }
     }
 
@@ -573,51 +569,52 @@ public class MainActivity extends BaseActivity {
         }
     };
 
-    /*private void showDialogUpdate() {
-        View dialogView = View.inflate(this, R.layout.dialog_update_version, null);
-        final AlertDialog dialog = new AlertDialog.Builder(this).create();
-        dialog.show();
-        Window dialogWindow = dialog.getWindow();
-        dialogWindow.setContentView(dialogView);
-        WindowManager.LayoutParams p = dialogWindow.getAttributes();
-        p.width = WindowManager.LayoutParams.MATCH_PARENT;
-        p.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        dialogWindow.setAttributes(p);
-
-        TextView tvVersion = (TextView) dialogView.findViewById(R.id.tvVersion);
-        TextView tvUpdateLog = (TextView) dialogView.findViewById(R.id.tvUpdateLog);
-        TextView dialogCancel = (TextView) dialogView.findViewById(R.id.dialogCancel);
-        TextView dialogOk = (TextView) dialogView.findViewById(R.id.dialogOk);
-
-        tvVersion.setText("发现新版本 " + info.appVersion);
-        tvUpdateLog.setText(Html.fromHtml(info.updateLog));
-        dialogCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialogOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                download(info.downloadUrl);
-                dialog.dismiss();
-            }
-        });
-    }*/
-
-    /*public long download(String url) {
-        if (!ApkUpdateUtils.canDownloadState(this)) {
-            Toast.makeText(this, "下载服务未启用,请您启用", Toast.LENGTH_SHORT).show();
-            ApkUpdateUtils.showDownloadSetting(this);
-            return -1L;
+    /**
+     * 1或null 可用、2 超额 、3 过期
+     */
+    private void showAutoStatus(String status) {
+        String title = "";
+        String message = "";
+        switch (status) {
+            case "2":
+                title = "自动投标超额提醒";
+                message = "您的自动投标总额已达到上限,请重新授权";
+                break;
+            case "3":
+                title = "自动投标授权过期提醒";
+                message = "您的自动投标已超过约定时间,请重新授权";
+                break;
         }
-        if (!TextUtils.isEmpty(url)) {
-            long id = ApkUpdateUtils.download(this, url, getResources().getString(R.string.app_name));
-            return id;
-        }
-        return -1L;
-    }*/
+        if (!TextUtils.isEmpty(title) || !TextUtils.isEmpty(message))   return;
+        new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("重新授权", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //todo
+                    }
+                })
+                .setNegativeButton("暂不", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Calendar calendar = Calendar.getInstance();
+                        int year = calendar.get(Calendar.YEAR);
+                        int month = calendar.get(Calendar.MONTH) + 1;
+                        int day = calendar.get(Calendar.DAY_OF_MONTH) + 1;
+                        String data = year + "-" + month + "-" + day;
+                        SharedPreferencesHelper.getInstance(MainActivity.this).putStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME, data);
+                    }
+                })
+                .setNeutralButton("不再提醒", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SharedPreferencesHelper.getInstance(MainActivity.this).putStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME, "2020-02-02");
+                    }
+                })
+                .create()
+                .show();
+    }
 
     @Override
     protected void onDestroy() {

@@ -156,6 +156,7 @@ public class ServiceCmd {
 		CMD_IS_GET_WELFARE,//是否已领取福利
 		CMD_COUPON_LIST,//获取所有优惠券列表
 		CMD_QUERY_POP_UP,//APP查询弹窗内容
+		CMD_QUERY_AUTO_PLANK_STATUS,//启动APP查询用户投标状态
 	}
 
     public static String[] methods = {
@@ -311,6 +312,7 @@ public class ServiceCmd {
 			"Appmember/queryIsSend",//是否已领取福利
 			"AppCoupon/couponList",//获取所有优惠券列表
 			"Appmember/queryPopUp",//APP查询弹窗内容
+			"Appmember/queryAutoPlankStatus",//启动APP查询用户投标状态
     };
 
     public static String getMethodName(CmdId methodId) {

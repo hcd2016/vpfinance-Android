@@ -59,6 +59,7 @@ public class ProductInvestListFragment extends BaseFragment {
     private final static int PAGE_SIZE = 10;
     private int totalCount;
     private long serverTime;
+    private boolean isPageAdd = false;
 
     public static ProductInvestListFragment newInstance(long pid, int type, int frequency, boolean isDeposit,long serviceTime) {
         ProductInvestListFragment frag = new ProductInvestListFragment();
@@ -119,7 +120,7 @@ public class ProductInvestListFragment extends BaseFragment {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == view.getCount() - 1) {
-                    page++;
+                    isPageAdd = true;
                     mRefresh.setRefreshing(true);
                     if (is_deposit) {
                         mHttpService.getProductInvestRecordForDeposit("" + pid, page, PAGE_SIZE,serverTime);// PAGE_SIZE
@@ -131,8 +132,6 @@ public class ProductInvestListFragment extends BaseFragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                // TODO Auto-generated method stub
-
             }
         });
 
@@ -171,6 +170,8 @@ public class ProductInvestListFragment extends BaseFragment {
         if (json == null || !isAdded()) return;
 
         if (reqId == ServiceCmd.CmdId.CMD_getLoanBidList.ordinal() || reqId == ServiceCmd.CmdId.CMD_getLoanBidListForDeposit.ordinal()) {
+            page++;
+            isPageAdd = false;
             ArrayList<LoanRecord> loanList = mHttpService.onGetProductInvestRecord(json);
             if (loanList != null && isAdded() && mListAdapter != null) {
                 allList.addAll(loanList);

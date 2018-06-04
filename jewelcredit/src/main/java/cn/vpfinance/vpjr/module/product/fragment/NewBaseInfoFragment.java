@@ -51,7 +51,6 @@ import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.view.MyCountDownTimer;
-import de.greenrobot.dao.DbUtils;
 
 /**
  * Created by Administrator on 2016/10/24.

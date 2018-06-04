@@ -76,8 +76,8 @@ public class NewUserDialogActivity extends Activity {
         User user = DBUtils.getUser(this);
         if (user != null) {
             String userId = user.getUserId().toString();
-            Set<String> values = SharedPreferencesHelper.getInstance(this).getSetValue(userId, new HashSet<String>());
-            values.add(String.valueOf(bean.returnType));
+            Set<String> values = SharedPreferencesHelper.getInstance(this).getSetValue("NewUserPop_"+userId, new HashSet<String>());
+            values.add(bean.bigType);
             SharedPreferencesHelper.getInstance(this).putSetValue(userId, values);
         }
 
