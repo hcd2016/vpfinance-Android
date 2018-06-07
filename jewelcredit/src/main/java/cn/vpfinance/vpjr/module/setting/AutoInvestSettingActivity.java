@@ -1,5 +1,7 @@
 package cn.vpfinance.vpjr.module.setting;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
@@ -11,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
@@ -27,7 +30,9 @@ import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.AutoInvestSettingBean;
+import cn.vpfinance.vpjr.gson.QueryAutoStatusBean;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.util.AlertDialogUtils;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
@@ -68,6 +73,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
     LinearLayout containerSetting;
 
     private int accountType;
+    private int autoInvestStatus;
     private HttpService mHttpService;
     public static final String ACCOUNT_BALANCE = "account_balance";
     public static final String IS_OPEN_AUTO_INVEST = "is_open_auto_invest";
@@ -144,6 +150,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
+
             accountType = intent.getIntExtra(Constant.AccountType, Constant.AccountLianLain);
 //
             String balance = intent.getStringExtra(ACCOUNT_BALANCE);
@@ -152,10 +159,8 @@ public class AutoInvestSettingActivity extends BaseActivity {
             allowPub.setChecked(isOpen);
 
             boolean isOpenBankAccount = "1".equals(intent.getStringExtra(IS_OPEN_BANK_ACCOUNT));
-            ButterKnife.findById(this, R.id.click_authorization).setVisibility(isOpenBankAccount ? View.VISIBLE : View.GONE);
+//            ButterKnife.findById(this, R.id.click_authorization).setVisibility(isOpenBankAccount ? View.VISIBLE : View.GONE);
         }
-
-        mHttpService.getAutoInvestSettingGet();
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,6 +232,9 @@ public class AutoInvestSettingActivity extends BaseActivity {
             }
         } else if (ServiceCmd.CmdId.CMD_Auto_Plan_Setting_Get.ordinal() == reqId) {
             bean = mHttpService.getOnAutoInvestSettingGet(json);
+
+            mHttpService.getQueryAutoPlankStatus(userId.toString());
+
             //显示之前设置的参数
             allowPub.setChecked(bean.isAutoPlank == 1);
             etReserveMoney.setText("" + bean.userRemainingMoney);
@@ -238,7 +246,25 @@ public class AutoInvestSettingActivity extends BaseActivity {
             tvRefundType.setText("0".equals(bean.refundWay) ? R.string.unlimited : R.string.selected);
             tvRiskLevel.setText("0".equals(bean.securityLevel) ? R.string.unlimited : R.string.selected);
             tvAuthorization.setText(bean.isHXAutoPlank == 1 ? "已授权" : "去授权");
+
+        } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_AUTO_PLANK_STATUS.ordinal()){
+            QueryAutoStatusBean autoStatusBean = new Gson().fromJson(json.toString(), QueryAutoStatusBean.class);
+            if (autoStatusBean != null && !TextUtils.isEmpty(autoStatusBean.autoPlankStatus)
+                    && ("2".equals(autoStatusBean.autoPlankStatus) || "3".equals(autoStatusBean.autoPlankStatus))){
+                autoInvestStatus = Integer.parseInt(autoStatusBean.autoPlankStatus);
+                if (autoInvestStatus == 2){//2超额 3过期
+                    tvAuthorization.setText("已超额");
+                }else if (autoInvestStatus == 3){
+                    tvAuthorization.setText("已过期");
+                }
+            }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mHttpService.getAutoInvestSettingGet();
     }
 
     @Override
@@ -357,8 +383,24 @@ public class AutoInvestSettingActivity extends BaseActivity {
                 }
                 break;
             case R.id.click_authorization:
-                if (bean.isHXAutoPlank != 1) {
+                if (bean == null) return;
+                if (autoInvestStatus == 2){//2超额
+                    AutoInvestOverInfoActivity.goThis(AutoInvestSettingActivity.this);
+                }else if (autoInvestStatus == 3){//3过期
                     gotoWeb("hx/loansign/authAutoBid?userId=" + userId, "自动授权");
+                }else if (bean.isHXAutoPlank == 0) {//去授权
+                    gotoWeb("hx/loansign/authAutoBid?userId=" + userId, "自动授权");
+                }else if (bean.isHXAutoPlank == 1){//已授权
+                    new AlertDialog.Builder(this)
+                            .setMessage("需要撤销自动投标授权?")
+                            .setPositiveButton("取消", null)
+                            .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    AutoInvestCancelInfoActivity.goThis(AutoInvestSettingActivity.this);
+                                }
+                            })
+                            .show();
                 }
                 break;
         }

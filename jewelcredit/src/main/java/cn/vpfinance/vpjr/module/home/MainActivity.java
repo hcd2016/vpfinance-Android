@@ -57,6 +57,7 @@ import cn.vpfinance.vpjr.module.home.fragment.HomeFragment;
 import cn.vpfinance.vpjr.module.list.ProductCategoryFragment;
 import cn.vpfinance.vpjr.module.more.MoreFragment2;
 import cn.vpfinance.vpjr.module.product.success.ProductInvestSuccessActivity;
+import cn.vpfinance.vpjr.module.setting.AutoInvestOverInfoActivity;
 import cn.vpfinance.vpjr.module.setting.PasswordChangeActivity;
 import cn.vpfinance.vpjr.module.user.fragment.BankAccountFragment;
 import cn.vpfinance.vpjr.module.user.fragment.OriginalAccountFragment;
@@ -185,7 +186,6 @@ public class MainActivity extends BaseActivity {
             }
         }
 
-
         //弹窗提醒用户
         user = DBUtils.getUser(this);
         if (((FinanceApplication) getApplication()).login && user != null) {
@@ -303,52 +303,24 @@ public class MainActivity extends BaseActivity {
     }
 
     public void switchToTab(int tab, boolean smooth) {
-//        String str = "";
-//        if (HttpService.mBaseUrl.contains("http://www.vpfinance.cn/") || HttpService.mBaseUrl.contains("https://www.vpfinance.cn/")) {
-//            str = getString(R.string.app_name);
-//        } else {
-//            str = HttpService.mBaseUrl;
-//        }
         switch (tab) {
             case 0:
-//                EventBus.getDefault().post(new RefreshTab(RefreshTab.TAB_HOME, RefreshTab.LIST_NONE));
                 EventBus.getDefault().post(new RefreshTab(RefreshTab.TAB_HOME));
                 mViewPager.setCurrentItem(0, smooth);
                 ((RadioButton) findViewById(R.id.maintab_home_radiobtn)).setChecked(true);
-//                titleBar.reset().setTitle(str);
                 mLastRadioId = R.id.maintab_home_radiobtn;
                 break;
 
             case 1:
                 EventBus.getDefault().post(new RefreshTab(RefreshTab.TAB_LIST));
-//                EventBus.getDefault().post(new RefreshTab(RefreshTab.TAB_LIST, ((FinanceApplication) getApplication()).mCurrentProductListTab));
 
                 mViewPager.setCurrentItem(1, smooth);
                 ((RadioButton) findViewById(R.id.maintab_plan_radiobtn)).setChecked(true);
-//                titleBar.reset().setTitle("产品列表").setImageButtonLeft(R.drawable.ic_mine_top_info, new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        gotoWeb("/AppContent/productdescription", "名词解释");
-//                    }
-//                }).setImageButtonRight(R.drawable.ic_menu_search, new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent(MainActivity.this, NewSearchActivity.class);
-//                        gotoActivity(intent);
-//                    }
-//                });
                 mLastRadioId = R.id.maintab_plan_radiobtn;
                 break;
 
             case 2:
                 EventBus.getDefault().post(new RefreshTab(RefreshTab.TAB_MINE));
-//                EventBus.getDefault().post(new RefreshTab(RefreshTab.TAB_MINE, RefreshTab.LIST_NONE));
-                //新老用户
-//                final boolean isNewUser = SharedPreferencesHelper.getInstance(MainActivity.this).getBooleanValue(SharedPreferencesHelper.KEY_IS_NEW_USER, false);
-//                mViewPager.setCurrentItem(isNewUser ? 4 : 2, smooth);
-//                if (isNewUser) {
-//                    mineFragmentColor = getResources().getColor(R.color.account_bank_header);
-//                }
                 mViewPager.setCurrentItem(2, smooth);
                 ((RadioButton) findViewById(R.id.maintab_mine_radiobtn)).setChecked(true);
 
@@ -404,7 +376,7 @@ public class MainActivity extends BaseActivity {
         } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_POP_UP.ordinal()) {
             QueryPopUpBean bean = new Gson().fromJson(json.toString(), QueryPopUpBean.class);
 
-            if (bean != null && user != null) {
+            if (bean != null && bean.returnType != 0 && user != null) {
                 String userId = user.getUserId().toString();
                 Set<String> values = SharedPreferencesHelper.getInstance(this).getSetValue("NewUserPop_" + userId, new HashSet<String>());
                 if (!values.contains(bean.bigType)) {
@@ -418,21 +390,6 @@ public class MainActivity extends BaseActivity {
             }
         } else if (reqId == ServiceCmd.CmdId.CMD_querySessionStatus.ordinal()) {
 
-            /*boolean loged = mHttpService.onQuerySessionStatus(json);
-            if (AppState.instance().logined() && !loged) {
-                AppState.instance().logout();
-//				startActivity(new Intent(this, LoginActivity.class));
-//				Toast.makeText(this, "会话超时，请重新登录。", Toast.LENGTH_SHORT).show();
-            }
-            if (!loged) {
-                SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
-                String lockPattenString = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING, null);
-                if (lockPattenString != null) {
-                    Intent intent = new Intent(this, LockActivity.class);
-                    intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
-                    startActivity(intent);
-                }
-            }*/
         } else if (reqId == ServiceCmd.CmdId.CMD_GETUI_loginSendMess.ordinal()) {
             SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
             if (!TextUtils.isEmpty(uid) && !TextUtils.isEmpty(cid)) {
@@ -441,10 +398,10 @@ public class MainActivity extends BaseActivity {
 
         } else if (reqId == ServiceCmd.CmdId.CMD_commonLoanDesc.ordinal()) {
             PersonalInfo info = mHttpService.onGetPersonal(json);
-        } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_AUTO_PLANK_STATUS.ordinal()){
+        } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_AUTO_PLANK_STATUS.ordinal()) {
             QueryAutoStatusBean autoStatusBean = new Gson().fromJson(json.toString(), QueryAutoStatusBean.class);
             if (autoStatusBean != null && !TextUtils.isEmpty(autoStatusBean.autoPlankStatus)
-                    && ("2".equals(autoStatusBean.autoPlankStatus) || "3".equals(autoStatusBean.autoPlankStatus))){
+                    && ("2".equals(autoStatusBean.autoPlankStatus) || "3".equals(autoStatusBean.autoPlankStatus))) {
                 showAutoStatus(autoStatusBean.autoPlankStatus);
             }
         }
@@ -572,27 +529,28 @@ public class MainActivity extends BaseActivity {
     /**
      * 1或null 可用、2 超额 、3 过期
      */
-    private void showAutoStatus(String status) {
+    private void showAutoStatus(final String status) {
         String title = "";
         String message = "";
-        switch (status) {
-            case "2":
-                title = "自动投标超额提醒";
-                message = "您的自动投标总额已达到上限,请重新授权";
-                break;
-            case "3":
-                title = "自动投标授权过期提醒";
-                message = "您的自动投标已超过约定时间,请重新授权";
-                break;
+        if ("2".equals(status)) {
+            title = "自动投标超额提醒";
+            message = "您的自动投标总额已达到上限,请重新授权";
+        } else if ("3".equals(status)) {
+            title = "自动投标授权过期提醒";
+            message = "您的自动投标已超过约定时间,请重新授权";
         }
-        if (!TextUtils.isEmpty(title) || !TextUtils.isEmpty(message))   return;
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(message)) return;
         new AlertDialog.Builder(this)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("重新授权", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //todo
+                        if ("2".equals(status)) {
+                            AutoInvestOverInfoActivity.goThis(MainActivity.this);
+                        } else if ("3".equals(status)) {
+                            gotoWeb("hx/loansign/authAutoBid?userId=" + user.getUserId(), "自动授权");
+                        }
                     }
                 })
                 .setNegativeButton("暂不", new DialogInterface.OnClickListener() {

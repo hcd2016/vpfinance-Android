@@ -29,8 +29,63 @@
                     android:layout_height="wrap_content"
                     android:background="@color/account_bank_header"
                     android:orientation="vertical"
-                    android:visibility="visible"
-                    tools:visibility="gone">
+                    android:visibility="visible">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="82dp"
+                        android:orientation="horizontal">
+
+                        <cn.vpfinance.vpjr.view.CircleImg
+                            android:id="@+id/userHead2"
+                            android:layout_width="54dp"
+                            android:layout_height="54dp"
+                            android:layout_marginLeft="25dp"
+                            app:border_width="1px"
+                            android:layout_marginTop="25dp"
+                            android:src="@drawable/icon_mine_header" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="30dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tvUserName2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:gravity="center"
+                                    android:maxWidth="120dp"
+                                    android:singleLine="true"
+                                    android:textColor="@color/white"
+                                    android:textSize="15sp"
+                                    tools:text="你好！一帆" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/myDescribe2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="150dp"
+                                android:layout_marginTop="5dp"
+                                android:drawableRight="@drawable/edit_describe"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxEms="8"
+                                android:singleLine="true"
+                                android:textColor="@color/white"
+                                android:textSize="13sp"
+                                tools:text="钱在我手，想投就投" />
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                     <RelativeLayout
                         android:id="@+id/header_no_open_inside"
@@ -556,105 +611,112 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                     <LinearLayout
-                        android:id="@+id/click_auto_invest_setting"
+                        android:id="@+id/noOpenHidden"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingLeft="35dp"
-                        android:paddingRight="23dp"
-                        android:background="@color/white">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:id="@+id/click_auto_invest_setting"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingLeft="35dp"
+                            android:paddingRight="23dp"
+                            android:background="@color/white">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:drawableLeft="@drawable/icon_zidongtoubiao"
-                            android:drawablePadding="15dp"
-                            android:gravity="center_vertical"
-                            android:text="自动投标"
-                            android:textColor="@color/text_333333"
-                            android:textSize="15sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:drawableLeft="@drawable/icon_zidongtoubiao"
+                                android:drawablePadding="15dp"
+                                android:gravity="center_vertical"
+                                android:text="自动投标"
+                                android:textColor="@color/text_333333"
+                                android:textSize="15sp" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/tv_open_bank_account"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="8dp"
+                                android:gravity="center"
+                                android:textColor="@color/text_333333"
+                                tools:text="已开启" />
+
+                            <ImageView
+                                android:layout_width="8dp"
+                                android:layout_height="13dp"
+                                android:background="@drawable/nav_next" />
+                        </LinearLayout>
 
                         <View
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="@dimen/mine_divider_margin_left"
+                            android:layout_marginRight="20dp"
+                            android:background="@color/divider_color" />
 
-                        <TextView
-                            android:id="@+id/tv_open_bank_account"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="8dp"
+                        <LinearLayout
+                            android:id="@+id/click_account_e"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
                             android:gravity="center"
-                            android:textColor="@color/text_333333"
-                            tools:text="已开启" />
+                            android:orientation="horizontal"
+                            android:paddingLeft="35dp"
+                            android:paddingRight="23dp"
+                            android:background="@color/white">
 
-                        <ImageView
-                            android:layout_width="8dp"
-                            android:layout_height="13dp"
-                            android:background="@drawable/nav_next" />
-                    </LinearLayout>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:layout_marginLeft="@dimen/mine_divider_margin_left"
-                        android:layout_marginRight="20dp"
-                        android:background="@color/divider_color" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:drawableLeft="@drawable/icon_ezhanghu"
+                                android:drawablePadding="15dp"
+                                android:gravity="center_vertical"
+                                android:text="我的存管账户"
+                                android:textColor="@color/text_333333"
+                                android:textSize="15sp" />
+                            <ImageView
+                                android:id="@+id/ivUpdateHxTag"
+                                android:layout_width="70dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/hx_update_tag"
+                                android:layout_marginBottom="10dp"
+                                android:visibility="gone"/>
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1" />
 
-                    <LinearLayout
-                        android:id="@+id/click_account_e"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingLeft="35dp"
-                        android:paddingRight="23dp"
-                        android:background="@color/white">
+                            <ImageView
+                                android:id="@+id/img_dot1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="10dp"
+                                android:gravity="center"
+                                android:src="@drawable/img_dot"
+                                android:visibility="gone" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:drawableLeft="@drawable/icon_ezhanghu"
-                            android:drawablePadding="15dp"
-                            android:gravity="center_vertical"
-                            android:text="我的存管账户"
-                            android:textColor="@color/text_333333"
-                            android:textSize="15sp" />
-                        <ImageView
-                            android:id="@+id/ivUpdateHxTag"
-                            android:layout_width="70dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/hx_update_tag"
-                            android:layout_marginBottom="10dp"
-                            android:visibility="gone"/>
+                            <ImageView
+                                android:layout_width="8dp"
+                                android:layout_height="13dp"
+                                android:background="@drawable/nav_next" />
+                        </LinearLayout>
+
                         <View
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1" />
-
-                        <ImageView
-                            android:id="@+id/img_dot1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="10dp"
-                            android:gravity="center"
-                            android:src="@drawable/img_dot"
-                            android:visibility="gone" />
-
-                        <ImageView
-                            android:layout_width="8dp"
-                            android:layout_height="13dp"
-                            android:background="@drawable/nav_next" />
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="@dimen/mine_divider_margin_left"
+                            android:layout_marginRight="20dp"
+                            android:background="@color/divider_color" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:layout_marginLeft="@dimen/mine_divider_margin_left"
-                        android:layout_marginRight="20dp"
-                        android:background="@color/divider_color" />
                     <LinearLayout
                         android:id="@+id/clickTrialCoin"
                         android:layout_width="match_parent"

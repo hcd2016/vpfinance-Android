@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/mActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/auto_invest_over_info"
+        android:layout_marginTop="23dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginRight="21dp"
+        android:textColor="@color/text_1c1c1c"
+        android:textSize="@dimen/text_size_16"
+        android:layout_below="@id/mActionBar"/>
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SubmitButtonStyle"
+        android:background="@drawable/bg_btn_submit"
+        android:layout_alignParentBottom="true"
+        android:text="下一步"/>
+</RelativeLayout>

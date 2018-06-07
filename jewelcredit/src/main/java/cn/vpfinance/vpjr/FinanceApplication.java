@@ -31,11 +31,14 @@ import cn.vpfinance.vpjr.module.common.RegisterActivity;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.view.ImageLoaderWithCookie;
 
+import static com.tencent.bugly.beta.tinker.TinkerManager.getApplication;
+
 public class FinanceApplication extends Application {
     public String currentPid;
     public RegisterActivity.OpenRedPacket openRedPacket;
     public boolean isCheckUpdate = true;
     public String isBindBank = "1";
+    public boolean isOpenHx = false;
     public int saveMineTabSelected = 0;
 
     public long differTime = 0L;
@@ -109,6 +112,8 @@ public class FinanceApplication extends Application {
         appContext = getApplicationContext();
 
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
+        // TODO 设置开发设备
+        Bugly.setIsDevelopmentDevice(getApplication(), true);
         // 调试时，将第三个参数改为true
         Bugly.init(this, "e0817679fa", true);
 

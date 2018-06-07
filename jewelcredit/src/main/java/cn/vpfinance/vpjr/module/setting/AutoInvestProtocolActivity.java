@@ -22,6 +22,7 @@ public class AutoInvestProtocolActivity extends BaseActivity{
     private String cashBalance = "";
     private String isAutoTender = "";
     private String isBindBank = "";
+    private int status = 0;
     private HttpService mHttpService;
 
     public static void goThis(Context context,int accountType,String cashBalance,String isAutoTender,String isBindBank){

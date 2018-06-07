@@ -126,8 +126,7 @@ public class RealnameAuthActivity extends BaseActivity {
             Toast.makeText(this, tip ,Toast.LENGTH_SHORT).show();
 
             if (msg == 1) {
-                if (user != null)
-                {
+                if (user != null) {
                     user.setRealName(userRealname);
                     user.setIdentityCard(idCard);
                     if(dao!=null)
@@ -136,10 +135,7 @@ public class RealnameAuthActivity extends BaseActivity {
                     }
                     gotoWeb("/hx/account/create?userId=" + user.getUserId(), "");
                 }
-                FinanceApplication application = (FinanceApplication) getApplication();
-                if (application.isFirstRegieter){
-                    gotoWeb("/hx/account/create?userId=" + user.getUserId(), "");
-                }
+
                 finish();
             }
 

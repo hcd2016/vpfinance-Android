@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="cn.vpfinance.android"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -76,6 +77,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name="cn.vpfinance.vpjr.module.setting.AutoInvestCancelInfoActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cn.vpfinance.vpjr.module.setting.AutoInvestCancelSmsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cn.vpfinance.vpjr.module.setting.AutoInvestCancelSuccessActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cn.vpfinance.vpjr.module.setting.AutoInvestOverInfoActivity" android:screenOrientation="portrait"/>
+        <activity android:name="cn.vpfinance.vpjr.module.setting.AutoInvestOverSmsActivity" android:screenOrientation="portrait"/>
         <activity android:name="cn.vpfinance.vpjr.module.dialog.NewUserDialogActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityTransparent"/>
@@ -749,6 +755,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
     </application>
 
 </manifest>

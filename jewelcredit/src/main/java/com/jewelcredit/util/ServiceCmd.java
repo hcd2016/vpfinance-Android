@@ -157,6 +157,8 @@ public class ServiceCmd {
 		CMD_COUPON_LIST,//获取所有优惠券列表
 		CMD_QUERY_POP_UP,//APP查询弹窗内容
 		CMD_QUERY_AUTO_PLANK_STATUS,//启动APP查询用户投标状态
+		CMD_unAuthAutoBid ,//撤销自动投标授权
+		CMD_HX_SEND_SMS ,//发送华兴短信验证码
 	}
 
     public static String[] methods = {
@@ -313,6 +315,8 @@ public class ServiceCmd {
 			"AppCoupon/couponList",//获取所有优惠券列表
 			"Appmember/queryPopUp",//APP查询弹窗内容
 			"Appmember/queryAutoPlankStatus",//启动APP查询用户投标状态
+			"hx/loansign/unAuthAutoBid" ,//撤销自动投标授权
+			"hx/loansign/sendsms" ,//发送华兴短信验证码
     };
 
     public static String getMethodName(CmdId methodId) {

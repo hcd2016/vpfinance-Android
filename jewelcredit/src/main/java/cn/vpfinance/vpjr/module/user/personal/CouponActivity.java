@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -47,6 +48,9 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
     SlidingTabLayout mTab;
     @Bind(R.id.mVp)
     ViewPager mVp;
+    @Bind(R.id.vRootView)
+    LinearLayout vRootView;
+
     private HttpService mHttpService;
 
     private int type = CouponFragment.TYPE_ALL;
@@ -99,9 +103,9 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         menuWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         menuWindow.setOutsideTouchable(true);
         menuWindow.setTouchable(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            menuWindow.showAsDropDown(mActionBar, -20, 0, Gravity.RIGHT);
-        }
+
+        menuWindow.showAtLocation(mActionBar,Gravity.TOP|Gravity.RIGHT, 0, mActionBar.getMeasuredHeight());
+
         rightView.findViewById(R.id.tvAddCoupon).setOnClickListener(this);
         rightView.findViewById(R.id.tvGetCoupon).setOnClickListener(this);
         rightView.findViewById(R.id.tvRuleCoupon).setOnClickListener(this);
@@ -121,9 +125,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
                 mActionBar.setUpDown(ActionBarLayout.TYPE_DOWN);
             }
         });
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            statusWindow.showAsDropDown(mActionBar, 0, 0, Gravity.BOTTOM);
-        }
+        statusWindow.showAtLocation(mActionBar, Gravity.TOP, 0, mActionBar.getMeasuredHeight());
         switch (type){
             case CouponFragment.TYPE_ALL:
                 ((RadioButton) view.findViewById(R.id.mRbAll)).setChecked(true);

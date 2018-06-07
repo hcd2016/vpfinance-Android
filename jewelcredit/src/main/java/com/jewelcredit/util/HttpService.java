@@ -5837,6 +5837,36 @@ Type	Int	Banner类型	1. 链接  2.产品
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 
+    /**
+     * 撤销自动投标授权
+     * @param userId
+     * @param dynamicPassword 短信验证码
+     * @return
+     */
+    public boolean getUnAuthAutoBid(String userId, String dynamicPassword){
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_unAuthAutoBid;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("userId", userId);
+        param.put("dynamicPassword", dynamicPassword);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
 
+    /**
+     * 发送华兴短信验证码
+     * @param userId
+     * @param type 1：自动投标撤销  2：自动还款撤销 0：默认
+     * @return
+     */
+    public boolean getHxSendSms(String userId, int type){
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_HX_SEND_SMS;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("userId", userId);
+        param.put("type", String.valueOf(type));
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
 
 }

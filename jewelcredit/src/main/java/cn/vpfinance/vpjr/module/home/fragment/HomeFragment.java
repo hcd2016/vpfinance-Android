@@ -122,6 +122,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 }
                 String activiceUrl = "/AppContent/toPlatformBox" + uid;
                 gotoWeb(activiceUrl, "活动专区");
+//                throw new RuntimeException("这个是测试Bug");
             }
         });
         informs = ((VerticalScrollTextView) view.findViewById(R.id.informs));

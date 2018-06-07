@@ -32,14 +32,10 @@ import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.greendao.BankCard;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.UserInfoBean;
-import cn.vpfinance.vpjr.module.dialog.OpenBankDialog;
 import cn.vpfinance.vpjr.module.dialog.RechargeCloseDialog;
 import cn.vpfinance.vpjr.module.home.MainActivity;
-import cn.vpfinance.vpjr.module.setting.AutoInvestProtocolActivity;
-import cn.vpfinance.vpjr.module.setting.AutoInvestSettingActivity;
 import cn.vpfinance.vpjr.module.setting.MyDescribeAcitvity;
 import cn.vpfinance.vpjr.module.setting.PersonalInfoActivity;
-import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 import cn.vpfinance.vpjr.module.trade.WithdrawDepositActivity;
 import cn.vpfinance.vpjr.module.user.PersonalCardActivity;
 import cn.vpfinance.vpjr.module.user.asset.FundFlowActivity;
@@ -99,8 +95,6 @@ public class OriginalAccountFragment extends BaseFragment {
     @Bind(R.id.content_kill_percent)
     LinearLayout content_kill_percent;
 
-    @Bind(R.id.tv_open_bank_account)
-    TextView tvOpenBankAccount;
     @Bind(R.id.click_recharge)
     TextView tvRecharge;
     @Bind(R.id.isAllowRecharge)
@@ -135,11 +129,6 @@ public class OriginalAccountFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        FinanceApplication application = (FinanceApplication) getActivity().getApplication();
-        if (application.isFirstRegieter) {
-            RealnameAuthActivity.goThis(mContext);
-            application.isFirstRegieter = false;
-        }
 
         titleBar.reset()
                 .setTitle("我的账户")
@@ -251,7 +240,7 @@ public class OriginalAccountFragment extends BaseFragment {
                 return;
             }*/
             //老用户未开通银行存管
-            FinanceApplication application = (FinanceApplication) getActivity().getApplication();
+            /*FinanceApplication application = (FinanceApplication) getActivity().getApplication();
             try{
                 if (DBUtils.getUser(mContext) != null && application.isLogin && !"1".equals(mUserInfoBean.isOpen) && !"1".equals(mUserInfoBean.isNewUser)) {
                     OpenBankDialog dialog = new OpenBankDialog();
@@ -260,7 +249,7 @@ public class OriginalAccountFragment extends BaseFragment {
                 }
             }catch (Exception e){
                 e.printStackTrace();
-            }
+            }*/
 
 //            if (!"0".equals(mUserInfoBean.accountType)) return;
 
@@ -290,7 +279,6 @@ public class OriginalAccountFragment extends BaseFragment {
                 level.setText(mUserInfoBean.level);//等级
             }
             myDescribe.setText(TextUtils.isEmpty(mUserInfoBean.signature) ? "未设置签名" : mUserInfoBean.signature);//个人签名
-            tvOpenBankAccount.setText("1".equals(mUserInfoBean.isAutoTender) ? "已开启" : "未开启");
 
             String isTender = mUserInfoBean.isTender;
             content_kill_percent.setVisibility("1".equals(isTender) ? View.VISIBLE : View.GONE);
@@ -405,8 +393,6 @@ public class OriginalAccountFragment extends BaseFragment {
             R.id.click_my_transfer,
             R.id.click_fund_flow,
             R.id.click_invest_summary,
-            R.id.clickTravel,
-            R.id.click_auto_invest_setting,
             R.id.click_withdraw,
             R.id.click_recharge,
             R.id.click_setup_guide,
@@ -472,33 +458,6 @@ public class OriginalAccountFragment extends BaseFragment {
             case R.id.click_invest_summary:
                 gotoActivity(new Intent(mContext, InvestSummaryActivity.class).putExtra(Constant.AccountType, accountType));
                 break;
-
-            case R.id.clickTravel:
-                Long id = user.getUserId();
-                gotoWeb("/h5/xingya/appitem?uid=" + id, "玩赚旅游");
-                break;
-            case R.id.click_auto_invest_setting:
-
-                if (mUserInfoBean != null) {
-                    String cashBalance = mUserInfoBean.cashBalance;
-                    String isAutoTender = mUserInfoBean.isAutoTender;
-                    int accountType = Constant.AccountLianLain;
-                    String isBindBank = ((FinanceApplication) getActivity().getApplication()).isBindBank;
-
-                    if (mUserInfoBean != null && mUserInfoBean.autoTenderProtocol != 1){
-                        AutoInvestProtocolActivity.goThis(getContext(),accountType,cashBalance, isAutoTender,isBindBank);
-                        return;
-                    }
-
-                    Intent autoInvestIntent = new Intent(getContext(), AutoInvestSettingActivity.class);
-                    autoInvestIntent.putExtra(Constant.AccountType, Constant.AccountLianLain);
-                    autoInvestIntent.putExtra(AutoInvestSettingActivity.ACCOUNT_BALANCE, cashBalance);
-                    autoInvestIntent.putExtra(AutoInvestSettingActivity.IS_OPEN_AUTO_INVEST, isAutoTender);
-                    autoInvestIntent.putExtra(AutoInvestSettingActivity.IS_OPEN_BANK_ACCOUNT,isBindBank);
-                    gotoActivity(autoInvestIntent);
-                }
-                break;
-
         }
     }
 

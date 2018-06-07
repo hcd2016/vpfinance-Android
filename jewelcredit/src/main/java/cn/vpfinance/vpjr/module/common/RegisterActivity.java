@@ -350,6 +350,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, V
                     openRedPacket.resPhone = rsaPhoneNum;
                     FinanceApplication application = (FinanceApplication) getApplication();
                     application.openRedPacket = openRedPacket;
+                    application.isFirstRegieter = true;
                 }
             }
         }
@@ -372,16 +373,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener, V
                 }
             }
 
+
             Intent intent = new Intent();
             setResult(RESULT_OK, intent);
             //清理login present标志
             HttpService.clearPresentLoginFlag();
             startActivity(new Intent(this, LockSetupActivity.class));
-
-            FinanceApplication application = (FinanceApplication) getApplication();
-//            Map<String, Boolean> guideConfig = application.guideConfig;
-//            guideConfig.put(FinanceApplication.SHOW_SETUP_GUIDE, true);
-            application.isFirstRegieter = true;
 
             finish();
         }

@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +16,6 @@ import com.jewelcredit.util.Utils;
 
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.download.SpUtils;
-import cn.vpfinance.vpjr.greendao.User;
-import cn.vpfinance.vpjr.module.common.WebViewActivity;
 import cn.vpfinance.vpjr.module.dialog.CommonDialogFragment;
 import cn.vpfinance.vpjr.module.dialog.RechargeCloseDialog;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;

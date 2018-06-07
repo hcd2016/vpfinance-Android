@@ -33,7 +33,7 @@ public class CouponBean {
              * remark : 投资任意定期投资产品可用(限30天以上的产品使用)
              */
 
-            public int couponType;
+            public int couponType; //1代金券 2预约券
             public String denomination;
             public String expiredTm;
             public String couponName;

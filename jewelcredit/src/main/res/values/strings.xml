@@ -409,4 +409,7 @@
     <string name="message_no_bind_bank">您未绑定银行卡</string>
     <string name="voucher_dongjie">\t 由于银行数据返回存在延迟，您投资提交的优惠券会被暂时冻结，如果投资失败或者未投资，优惠券会在30分钟左右后解冻</string>
     <string name="coupon_empty_desc">您还没有优惠券哦\n推荐好友获取更多优惠券吧</string>
+    <string name="auto_invest_cancel_info">撤销后您将不能对微品金融平台系统的标的进行自动投标。</string>
+    <string name="auto_invest_cancel_success_hint">请前往\"我的账户 - 自动投标 - 存管授权状态\"进行设置。</string>
+    <string name="auto_invest_over_info">您的自动投标总额已达到上限，需先撤销原自动投标授权后重新授权。</string>
 </resources>

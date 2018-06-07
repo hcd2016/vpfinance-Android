@@ -51,7 +51,6 @@ public class OpenBankHintActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        ((FinanceApplication)getApplication()).isFirstRegieter = false;
         super.onDestroy();
     }
 }
