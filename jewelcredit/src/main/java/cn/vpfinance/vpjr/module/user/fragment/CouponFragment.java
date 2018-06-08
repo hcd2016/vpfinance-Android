@@ -53,8 +53,8 @@ public class CouponFragment extends BaseFragment {
     LinearLayout mEmpty;
     @Bind(R.id.mRecommend)
     Button mRecommend;
-    @Bind(R.id.mRefresh)
-    SwipeRefreshLayout mRefresh;
+//    @Bind(R.id.mRefresh)
+//    SwipeRefreshLayout mRefresh;
     @Bind(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
 
@@ -93,16 +93,16 @@ public class CouponFragment extends BaseFragment {
             type = arguments.getInt("type");
         }
 
-        mRefresh.setColorSchemeResources(R.color.main_color);
-        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                page = 1;
-                totalCount = 0;
-                data.clear();
-                request();
-            }
-        });
+//        mRefresh.setColorSchemeResources(R.color.main_color);
+//        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                page = 1;
+//                totalCount = 0;
+//                data.clear();
+//                request();
+//            }
+//        });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new CouponAdapter(getContext(), status);
@@ -137,13 +137,12 @@ public class CouponFragment extends BaseFragment {
     @Override
     public void onHttpSuccess(int reqId, JSONObject json) {
         super.onHttpSuccess(reqId, json);
-        mRefresh.setRefreshing(false);
+//        mRefresh.setRefreshing(false);
         if (reqId == ServiceCmd.CmdId.CMD_COUPON_LIST.ordinal()) {
             CouponBean couponBean = new Gson().fromJson(json.toString(), CouponBean.class);
             if (couponBean != null && couponBean.myCouponDto != null){
                 if (couponBean.myCouponDto.myCouponListDtos != null && couponBean.myCouponDto.myCouponListDtos.size() != 0) {
                     data.addAll(couponBean.myCouponDto.myCouponListDtos);
-                    adapter.setData(data);
                 }
                 if (status == CouponFragment.STATUS_USED){
                     totalCount = couponBean.myCouponDto.useCount;
@@ -153,17 +152,14 @@ public class CouponFragment extends BaseFragment {
                     totalCount = couponBean.myCouponDto.expiredCount;
                 }
             }
-
-            if (data.size() == 0){
-                mEmpty.setVisibility(View.VISIBLE);
-            }else{
-                mEmpty.setVisibility(View.GONE);
-            }
+            adapter.setData(data);
+            mEmpty.setVisibility(data.size() == 0 ? View.VISIBLE : View.GONE);
+            page++;
         }
     }
 
     public void onEventMainThread(EventBusCoupon event) {
-        mRefresh.setRefreshing(true);
+//        mRefresh.setRefreshing(true);
         type = event.type;
         page = 1;
         totalCount = 0;
@@ -173,7 +169,6 @@ public class CouponFragment extends BaseFragment {
 
     private void request() {
         mHttpService.getCouponList(type, status, page);
-        page++;
     }
 
     @Override

@@ -117,7 +117,6 @@ public class FinanceApplication extends Application {
         // 调试时，将第三个参数改为true
         Bugly.init(this, "e0817679fa", true);
 
-
         if (Build.VERSION.SDK_INT >= 14) {
             registerActivityLifecycleCallbacks(new FishActivityLifecycleCallbacks());
         }

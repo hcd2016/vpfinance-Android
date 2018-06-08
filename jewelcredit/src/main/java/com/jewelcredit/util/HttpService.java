@@ -5780,6 +5780,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
         Map<String, String> param = new ArrayMap<String, String>();
+        param.put("autoTenderProtocol","1");
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 

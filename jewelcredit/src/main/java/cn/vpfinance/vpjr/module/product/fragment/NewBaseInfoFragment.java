@@ -46,6 +46,7 @@ import cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity;
 import cn.vpfinance.vpjr.gson.DepositTab1Bean;
 import cn.vpfinance.vpjr.gson.NewBaseInfoBean;
 import cn.vpfinance.vpjr.model.DepositInvestInfo;
+import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
@@ -664,7 +665,12 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                                 public void onClick(DialogInterface dialog, int which) {
                                     User user = DBUtils.getUser(mContext);
                                     if (user != null){
-                                        gotoWeb("/hx/account/create?userId=" + user.getUserId(), "");
+                                        if (TextUtils.isEmpty(user.getRealName())){
+                                            RealnameAuthActivity.goThis(getContext());
+                                            Utils.Toast("请先去实名认证");
+                                        }else{
+                                            gotoWeb("/hx/account/create?userId=" + user.getUserId(), "");
+                                        }
                                     }
                                 }
                             })

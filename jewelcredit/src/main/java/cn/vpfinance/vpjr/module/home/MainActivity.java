@@ -195,6 +195,8 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+
+
     @Override
     protected void onRestart() {
         super.onRestart();

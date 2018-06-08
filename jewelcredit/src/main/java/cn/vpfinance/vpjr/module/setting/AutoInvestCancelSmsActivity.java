@@ -88,7 +88,7 @@ public class AutoInvestCancelSmsActivity extends BaseActivity {
         if (reqId == ServiceCmd.CmdId.CMD_HX_SEND_SMS.ordinal()){
             if ("success".equals(json.optString("result"))){
                 mDelaySeconds = 60;
-                mSmsHandler.postDelayed(mSmsCallback, 0);
+                mSmsHandler.postDelayed(mSmsCallback, 1000);
             }else{
                 Utils.Toast(json.optString("message"));
             }

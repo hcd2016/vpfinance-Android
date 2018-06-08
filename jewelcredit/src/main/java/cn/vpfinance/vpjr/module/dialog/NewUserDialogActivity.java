@@ -153,10 +153,10 @@ public class NewUserDialogActivity extends BaseActivity {
         findViewById(R.id.vButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
                 Intent intent = new Intent(NewUserDialogActivity.this, MainActivity.class);
                 intent.putExtra(MainActivity.SWITCH_TAB_NUM, 1);
                 startActivity(intent);
+                finish();
             }
         });
         try {
@@ -239,9 +239,9 @@ public class NewUserDialogActivity extends BaseActivity {
             } else if (!isOpenHx) {
                 gotoWeb("/hx/account/create?userId=" + user.getUserId(),"");
             } else {
-                finish();
                 BindBankHintActivity.goThis(NewUserDialogActivity.this, user.getUserId().toString());
             }
+            finish();
         }
     }
 
