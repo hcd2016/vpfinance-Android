@@ -354,7 +354,6 @@ public class ProductInvestSuccessActivity extends BaseActivity implements View.O
             @Override
             public void onShare(Platform platform,
                                 cn.sharesdk.framework.Platform.ShareParams paramsToShare) {
-                // TODO Auto-generated method stub
                 if ("SinaWeibo".equals(platform.getName())) {
                     paramsToShare.setText(text + " " + link);
 

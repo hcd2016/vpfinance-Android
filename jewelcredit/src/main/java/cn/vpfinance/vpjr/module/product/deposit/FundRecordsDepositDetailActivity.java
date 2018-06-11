@@ -84,7 +84,6 @@ public class FundRecordsDepositDetailActivity extends BaseActivity {
                 }
                 break;
             case R.id.click_look_refund_time:
-                //TODO
                 InvestRecordRefundActivity.goInvestRecordRefund(this,1,""+recordPoolId);
                 break;
         }

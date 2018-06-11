@@ -98,7 +98,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         if (intent != null) {
             str = intent.getStringExtra(KEY_URL);
             title = intent.getStringExtra(KEY_TITLE);
-            //TODO 统一 ： 微品金融
+            //统一 ： 微品金融
 //            title = DEFAULT_TITLE;
             if (intent.getBooleanExtra(IS_GET_TUI, false)) {
                 //个推点击了过来的就友盟统计
@@ -587,7 +587,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         link = HttpService.mBaseUrl + Uri.parse(link).getPath();
 //        Logger.e("title:"+title+",text:"+text+",imageUrl:"+imageUrl+",link:"+link);
         //imageUrl为空时，就算有link也只是单纯的文字，不能跳转（微信）
-        //TODO 注意:大坑,图片先要下载到本地
+        // 注意:大坑,图片先要下载到本地
         //link为空时，只会有图片，连接文案都没有（微信）
 
         imageUrl = FileUtil.netPath2LocalPath(imageUrl);//网络地址转为本地地址

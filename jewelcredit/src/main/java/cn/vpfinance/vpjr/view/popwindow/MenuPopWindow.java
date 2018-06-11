@@ -86,7 +86,7 @@ public abstract class MenuPopWindow{
 
 
     public void showAsDropDown(View anchor, int xoff, int yoff, int gravity){
-        //TODO 第一次没数据，测量有问题,lv写死宽度
+        //第一次没数据，测量有问题,lv写死宽度
         view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         int viewWidth = view.getMeasuredWidth();
         WindowManager systemService = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);

@@ -105,7 +105,7 @@ public class LockPatternView extends View {
     private boolean mEnableHapticFeedback = false;//触摸感
     private boolean mPatternInProgress = false;
 
-    private float mDiameterFactor = 0.10f; // TODO: move to attrs
+    private float mDiameterFactor = 0.10f; // move to attrs
     private final int mStrokeAlpha = 128;
     private float mHitFactor = 0.6f;
 
@@ -272,7 +272,7 @@ public class LockPatternView extends View {
 
         mPathPaint.setAntiAlias(true);
         mPathPaint.setDither(true);
-        mPathPaint.setColor(Color.WHITE);   // TODO this should be from the style
+        mPathPaint.setColor(Color.WHITE);   // this should be from the style
         mPathPaint.setAlpha(mStrokeAlpha);
         mPathPaint.setStyle(Paint.Style.STROKE);
         mPathPaint.setStrokeJoin(Paint.Join.ROUND);
@@ -854,7 +854,6 @@ public class LockPatternView extends View {
                 mInProgressX = centerX + dx;
                 mInProgressY = centerY + dy;
             }
-            // TODO: Infinite loop here...
             invalidate();
         }
 
@@ -880,7 +879,6 @@ public class LockPatternView extends View {
             }
         }
 
-        // TODO: the path should be created and cached every time we hit-detect a cell
         // only the last segment of the path should be computed here
         // draw the path of the pattern (unless the user is in progress, and
         // we are in stealth mode)

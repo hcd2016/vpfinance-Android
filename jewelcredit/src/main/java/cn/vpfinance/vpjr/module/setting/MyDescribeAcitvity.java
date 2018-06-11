@@ -67,20 +67,17 @@ public class MyDescribeAcitvity extends BaseActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // TODO Auto-generated method stub
             temp = s;
         }
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count,
                                       int after) {
-            // TODO Auto-generated method stub
             //          mTextView.setText(s);//将输入的内容实时显示
         }
 
         @Override
         public void afterTextChanged(Editable s) {
-            // TODO Auto-generated method stub
             editStart = mEditDes.getSelectionStart();
             editEnd = mEditDes.getSelectionEnd();
             mMaxTv.setText(temp.length() + "/32");

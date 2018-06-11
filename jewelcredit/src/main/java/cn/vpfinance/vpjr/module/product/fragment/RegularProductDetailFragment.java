@@ -261,7 +261,7 @@ public class RegularProductDetailFragment extends BaseFragment implements View.O
                 if (product == null)
                     return;
                 int loanstate = (int) product.getLoanstate();
-                //TODO 不做判断，因为fragment只会在预售标到了的时候才会有这个唯一的请求，刷新标
+                //不做判断，因为fragment只会在预售标到了的时候才会有这个唯一的请求，刷新标
                 // tvStartBuy.setVisibility(View.GONE);
                 long time = product.getBidEndTime() - System.currentTimeMillis();
                 time = time / 1000;

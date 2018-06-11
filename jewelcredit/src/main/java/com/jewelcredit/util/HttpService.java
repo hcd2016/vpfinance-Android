@@ -2781,7 +2781,7 @@ views        	int	浏览数
 //				p.setSpeech("");
 //				p.setViews(0);
                 if (loansignbasic != null) {
-                    String reward = loansignbasic.optString("reward");//TODO ???
+                    String reward = loansignbasic.optString("reward");//
                     String assure = loansignbasic.optString("assure");//担保方名称
                     String behoof = loansignbasic.optString("behoof");//借款方借款用途
                     String bidTime = loansignbasic.optString("bidTime");//招标期限

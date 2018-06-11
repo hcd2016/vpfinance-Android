@@ -172,13 +172,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 
 	        @Override
 	        public void afterTextChanged(Editable s) {
-	            // TODO Auto-generated method stub
 
 	        }
 
 	        @Override
 	        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-	            // TODO Auto-generated method stub
 
 	        }
 
@@ -355,8 +353,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 	
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
-        // TODO Auto-generated method stub  
-        super.onActivityResult(requestCode, resultCode, data);  
+        super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && AppState.instance().logined()){
         	// 回到首页
         	Intent intent = new Intent();  

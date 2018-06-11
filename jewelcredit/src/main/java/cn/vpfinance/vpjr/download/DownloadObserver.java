@@ -23,7 +23,6 @@ public class DownloadObserver extends ContentObserver {
     @SuppressLint("NewApi")
     public DownloadObserver(Handler handler, Context context, long downId) {
         super(handler);
-        // TODO Auto-generated constructor stub
         this.mHandler = handler;
         this.mContext = context;
         mDownloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);

@@ -113,7 +113,7 @@ public class FinanceApplication extends Application {
 
         // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
         // TODO 设置开发设备
-        Bugly.setIsDevelopmentDevice(getApplication(), true);
+//        Bugly.setIsDevelopmentDevice(getApplication(), true);
         // 调试时，将第三个参数改为true
         Bugly.init(this, "e0817679fa", true);
 

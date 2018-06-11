@@ -208,7 +208,7 @@ public class TransferProductExecuteNowActivity extends BaseActivity {
                 });
                 tidf.show(getSupportFragmentManager(), "inputPwd");
             } else if (accountType == Constant.AccountBank) {
-                //TODO 转让规则匹配
+                //转让规则匹配
 //                mHttpService.getBankTransfeVerify(recordId, "" + money);
                 String url = "hx/creditassignment/apply?investId=" + recordId + "&transferMoney=" + moneyStr;
                 gotoWeb(url, "转让债权");

@@ -41,7 +41,7 @@ public class NoRepayListActivity extends BaseActivity {
             if (list != null){
                 listView.setAdapter(new MyAdapter(list,mContext));
             }else{
-                //todo
+                //
             }
         }
     }

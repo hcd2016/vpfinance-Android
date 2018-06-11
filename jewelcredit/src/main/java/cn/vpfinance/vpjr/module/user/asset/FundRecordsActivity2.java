@@ -413,7 +413,6 @@ public class FundRecordsActivity2 extends BaseActivity implements View.OnClickLi
 			@Override
 			public void onShare(Platform platform,
 								cn.sharesdk.framework.Platform.ShareParams paramsToShare) {
-				// TODO Auto-generated method stub
 				if ("SinaWeibo".equals(platform.getName())) {
 					paramsToShare.setText(text + " " +link);
 

@@ -220,7 +220,7 @@ public class RegularProductBorrowerFragment extends BaseFragment implements View
                 if (!TextUtils.isEmpty(product.getBorrower())) {
                     tvBorrowerName.setText(product.getBorrower());
                 }
-                //TODO 不做判断，因为fragment只会在预售标到了的时候才会有这个唯一的请求，刷新标
+                //不做判断，因为fragment只会在预售标到了的时候才会有这个唯一的请求，刷新标
                 long time = product.getBidEndTime() - System.currentTimeMillis();
                 time = time / 1000;
                 if (time > 0 && time < 30 * 24 * 60 * 60) {

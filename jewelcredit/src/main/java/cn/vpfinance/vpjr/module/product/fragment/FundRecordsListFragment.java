@@ -110,7 +110,6 @@ public class FundRecordsListFragment extends BaseFragment implements AdapterView
 			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem,
 								 int visibleItemCount, int totalItemCount) {
-				// TODO Auto-generated method stub
 
 			}
 		});

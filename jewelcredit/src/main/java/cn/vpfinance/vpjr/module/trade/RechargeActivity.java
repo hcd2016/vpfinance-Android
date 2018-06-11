@@ -84,9 +84,9 @@ public class RechargeActivity extends BaseActivity implements OnClickListener {
                         JSONObject objContent = BaseHelper.string2JSON(strRet);
                         String retCode = objContent.optString("ret_code");
                         String retMsg = objContent.optString("ret_msg");
-                        // TODO 先判断状态码，状态码为 成功或处理中 的需要 验签
+                        // 先判断状态码，状态码为 成功或处理中 的需要 验签
                         if (Constants.RET_CODE_SUCCESS.equals(retCode)) {
-                            // TODO 卡前置模式返回的银行卡绑定协议号，用来下次支付时使用，此处仅作为示例使用。正式接入时去掉
+                            // 卡前置模式返回的银行卡绑定协议号，用来下次支付时使用，此处仅作为示例使用。正式接入时去掉
 //							if (pay_type_flag == 1) {
 //								TextView tv_agree_no = (TextView) findViewById(R.id.tv_agree_no);
 //								tv_agree_no.setVisibility(View.VISIBLE);
@@ -112,7 +112,7 @@ public class RechargeActivity extends BaseActivity implements OnClickListener {
                                 BaseHelper.showDialog(RechargeActivity.this, "提示",
                                         "支付成功",
                                         android.R.drawable.ic_dialog_alert, okListener);
-                                // TODO 支付成功后续处理
+                                // 支付成功后续处理
 
                                 ArrayMap<String, String> map = new ArrayMap<String, String>();
                                 map.put("result", "ok");

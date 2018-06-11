@@ -54,14 +54,11 @@ public class MarqueeTextView extends TextView implements Runnable,
                 new OnGestureListener() {
                     @Override
                     public boolean onSingleTapUp(MotionEvent e) {
-                        // TODO Auto-generated method stub
                         return false;
                     }
 
                     @Override
                     public void onShowPress(MotionEvent e) {
-                        // TODO Auto-generated method stub
-
                     }
 
                     @Override
@@ -69,13 +66,12 @@ public class MarqueeTextView extends TextView implements Runnable,
                                             float distanceX, float distanceY) {
                         mCoordinateX += (int) distanceX;
                         scrollTo(mCoordinateX, 0);
-                        // TODO:设置偏移量，distanceX为滑动距离
+                        // 设置偏移量，distanceX为滑动距离
                         return true;
                     }
 
                     @Override
                     public void onLongPress(MotionEvent e) {
-                        // TODO Auto-generated method stub
 
                     }
 
@@ -87,7 +83,6 @@ public class MarqueeTextView extends TextView implements Runnable,
 
                     @Override
                     public boolean onDown(MotionEvent e) {
-                        // TODO Auto-generated method stub
                         return false;
                     }
                 });

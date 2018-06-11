@@ -98,7 +98,6 @@ public class PlatformGridViewAdapter extends BaseAdapter implements View.OnClick
 			logo = disabled ? customerLogo.disableLogo : customerLogo.enableLogo;
 			label = customerLogo.label;
 			view.setOnClickListener(this);
-			//TODO 需要整理
 		//	view.setOnClickListener(((CustomerLogo) item).listener);
 		}
 		String checkedResName = directOnlyPosition != -1 && directOnlyPosition != position ? "skyblue_platform_checked_disabled" : "skyblue_platform_checked";

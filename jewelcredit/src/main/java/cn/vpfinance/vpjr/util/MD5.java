@@ -17,7 +17,6 @@ public class MD5 {
             try {
 				md.update(input.getBytes("UTF-8"));
 			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             BigInteger hash = new BigInteger(1, md.digest());

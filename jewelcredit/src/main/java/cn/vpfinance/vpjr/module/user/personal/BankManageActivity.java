@@ -158,7 +158,6 @@ public class BankManageActivity extends BaseActivity implements OnItemClickListe
 			
 			@Override
 			public void onItemClick(int itemPosition) {
-				// TODO Auto-generated method stub
 				if(itemPosition == 0) {
 //					BankManageActivity.this.delCard();
 					mHttpService.delBankCard();
@@ -178,8 +177,7 @@ public class BankManageActivity extends BaseActivity implements OnItemClickListe
 	/*
 	@Override  
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
-        // TODO Auto-generated method stub  
-        super.onActivityResult(requestCode, resultCode, data);  
+        super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == 1){
         	doGetBankList();
         }
