@@ -16,7 +16,7 @@
             android:id="@+id/voucher_bg"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            tools:background="@drawable/bg_coupon">
+            android:background="@drawable/bg_coupon">
             <RelativeLayout
                 android:id="@+id/llHeader"
                 android:layout_width="120dp"
@@ -71,6 +71,17 @@
                     tools:text="2015.10.18到期"
                     android:layout_alignParentBottom="true"/>
             </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/ivStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/voucher_dongjie"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                tools:visibility="visible"/>
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

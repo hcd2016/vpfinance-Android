@@ -235,9 +235,7 @@ public class CouponFragment extends BaseFragment {
                             holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_presell_header_nousable));
                             break;
                     }
-                    if (bean.voucherStatus == 2){
-                        holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_presell_header_nousable));
-                    }
+                    holder.ivStatus.setVisibility(bean.voucherStatus == 2 ? View.VISIBLE : View.GONE);
                     holder.presellName.setText("预");
                     holder.voucher_get.setText(bean.getWay);
                     holder.voucher_time.setText("有效期至"+ bean.expiredTm);
@@ -255,9 +253,7 @@ public class CouponFragment extends BaseFragment {
                             holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_voucher_header_nousable));
                             break;
                     }
-                    if (bean.voucherStatus == 2){
-                        holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_voucher_header_nousable));
-                    }
+                    holder.ivStatus.setVisibility(bean.voucherStatus == 2 ? View.VISIBLE : View.GONE);
                     holder.presellName.setText(bean.denomination);
                     holder.voucher_get.setText(bean.getWay);
                     holder.voucher_time.setText("有效期至"+ bean.expiredTm);
@@ -283,6 +279,7 @@ public class CouponFragment extends BaseFragment {
             TextView voucher_get;
             TextView voucher_time;
             ListView mListView;
+            ImageView ivStatus;
             public CouponViewHolder(View itemView) {
                 super(itemView);
                 voucherState = (ImageView) itemView.findViewById(R.id.voucherState);
@@ -290,6 +287,7 @@ public class CouponFragment extends BaseFragment {
                 voucher_get = (TextView) itemView.findViewById(R.id.voucher_get);
                 voucher_time = (TextView) itemView.findViewById(R.id.voucher_time);
                 mListView = (ListView)itemView.findViewById(R.id.mListView);
+                ivStatus = (ImageView)itemView.findViewById(R.id.ivStatus);
             }
         }
     }
