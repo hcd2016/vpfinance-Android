@@ -169,6 +169,8 @@ public class AutoInvestSettingActivity extends BaseActivity {
                 requestAutoSetting(allowPub.isChecked());
             }
         });
+
+        mHttpService.getAutoInvestSettingGet();
     }
 
     private void requestAutoSetting(boolean isOpen) {
@@ -264,7 +266,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mHttpService.getAutoInvestSettingGet();
+
     }
 
     @Override
