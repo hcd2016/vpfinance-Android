@@ -22,6 +22,7 @@ public class CouponBean {
         public int expiredCount;
         public int unUseCount;
         public int useCount;
+        public String sumAmount;
         public List<MyCouponListDtosBean> myCouponListDtos;
 
         public static class MyCouponListDtosBean {

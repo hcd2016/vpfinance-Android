@@ -3,7 +3,6 @@ package cn.vpfinance.vpjr.module.user.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,6 +31,7 @@ import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.gson.CouponBean;
 import cn.vpfinance.vpjr.model.EventBusCoupon;
+import cn.vpfinance.vpjr.module.user.personal.CouponActivity;
 import cn.vpfinance.vpjr.module.user.personal.InviteGiftActivity;
 import de.greenrobot.event.EventBus;
 
@@ -53,10 +53,12 @@ public class CouponFragment extends BaseFragment {
     LinearLayout mEmpty;
     @Bind(R.id.mRecommend)
     Button mRecommend;
-//    @Bind(R.id.mRefresh)
+    //    @Bind(R.id.mRefresh)
 //    SwipeRefreshLayout mRefresh;
     @Bind(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
+    @Bind(R.id.tvSumAmount)
+    TextView tvSumAmount;
 
     private int page = 1;
     private HttpService mHttpService;
@@ -119,7 +121,7 @@ public class CouponFragment extends BaseFragment {
                         && lastVisibleItemPosition == totalItemCount - 1
                         && visibleItemCount > 0) {
                     //加载更多
-                    if (data.size() < totalCount){
+                    if (data.size() < totalCount) {
                         request();
                     }
                 }
@@ -140,16 +142,28 @@ public class CouponFragment extends BaseFragment {
 //        mRefresh.setRefreshing(false);
         if (reqId == ServiceCmd.CmdId.CMD_COUPON_LIST.ordinal()) {
             CouponBean couponBean = new Gson().fromJson(json.toString(), CouponBean.class);
-            if (couponBean != null && couponBean.myCouponDto != null){
+            if (couponBean != null && couponBean.myCouponDto != null) {
                 if (couponBean.myCouponDto.myCouponListDtos != null && couponBean.myCouponDto.myCouponListDtos.size() != 0) {
                     data.addAll(couponBean.myCouponDto.myCouponListDtos);
                 }
-                if (status == CouponFragment.STATUS_USED){
+                if (status == CouponFragment.STATUS_USED) {
                     totalCount = couponBean.myCouponDto.useCount;
-                }else if (status == CouponFragment.STATUS_UNUSED){
+                    tvSumAmount.setText("已使用代金券总额： " + couponBean.myCouponDto.sumAmount + "元");
+                } else if (status == CouponFragment.STATUS_UNUSED) {
                     totalCount = couponBean.myCouponDto.unUseCount;
-                }else if (status == CouponFragment.STATUS_INVALID){
+                    tvSumAmount.setText("未使用代金券总额： " + couponBean.myCouponDto.sumAmount + "元");
+                } else if (status == CouponFragment.STATUS_INVALID) {
                     totalCount = couponBean.myCouponDto.expiredCount;
+                    tvSumAmount.setText("已过期代金券总额： " + couponBean.myCouponDto.sumAmount + "元");
+                }
+                if (page == 1) {
+                    String[] titles = new String[]{"未使用(" + couponBean.myCouponDto.unUseCount + ")", "已使用(" + couponBean.myCouponDto.useCount + ")", "已失效(" + couponBean.myCouponDto.expiredCount + ")"};
+                    ((CouponActivity) getActivity()).setPageTitle(titles);
+                }
+                if (type == CouponFragment.TYPE_PRESELL) {
+                    tvSumAmount.setVisibility(View.INVISIBLE);
+                } else {
+                    tvSumAmount.setVisibility(View.VISIBLE);
                 }
             }
             adapter.setData(data);
@@ -190,22 +204,22 @@ public class CouponFragment extends BaseFragment {
     }
 
     @OnClick({R.id.mRecommend})
-    public void click(View view){
-        switch (view.getId()){
+    public void click(View view) {
+        switch (view.getId()) {
             case R.id.mRecommend:
                 InviteGiftActivity.goThis(getContext());
                 break;
         }
     }
 
-    public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponViewHolder>{
+    public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponViewHolder> {
 
         private Context mContext;
         //    private int type;
 //        private int status;
         private List<CouponBean.MyCouponDtoBean.MyCouponListDtosBean> data;
 
-        public CouponAdapter(Context mContext,  int status) {
+        public CouponAdapter(Context mContext, int status) {
             this.mContext = mContext;
 //        this.type = type;
 //            this.status = status;
@@ -213,7 +227,7 @@ public class CouponFragment extends BaseFragment {
 
         @Override
         public CouponViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new CouponViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_coupon,parent,false));
+            return new CouponViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_coupon, parent, false));
         }
 
         @Override
@@ -222,9 +236,9 @@ public class CouponFragment extends BaseFragment {
             //强制关闭复用
 //            holder.setIsRecyclable(false);
             CouponBean.MyCouponDtoBean.MyCouponListDtosBean bean = data.get(position);
-            if (bean != null){
-                if (bean.couponType == 2){//1代金券 2预约券
-                    switch (status){
+            if (bean != null) {
+                if (bean.couponType == 2) {//1代金券 2预约券
+                    switch (status) {
                         case CouponFragment.STATUS_UNUSED:
                             holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_presell_header_usable));
                             break;
@@ -235,16 +249,14 @@ public class CouponFragment extends BaseFragment {
                             holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_presell_header_nousable));
                             break;
                     }
-                    if (bean.voucherStatus == 2){
-                        holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_presell_header_nousable));
-                    }
+                    holder.ivStatus.setVisibility(bean.voucherStatus == 2 ? View.VISIBLE : View.GONE);
                     holder.presellName.setText("预");
                     holder.voucher_get.setText(bean.getWay);
-                    holder.voucher_time.setText("有效期至"+ bean.expiredTm);
+                    holder.voucher_time.setText("有效期至" + bean.expiredTm);
                     ArrayAdapter arrayAdapter = new ArrayAdapter(mContext, R.layout.item_coupon_remark, R.id.tvInfo, bean.remarkList);
                     holder.mListView.setAdapter(arrayAdapter);
-                }else if (bean.couponType == 1){
-                    switch (status){
+                } else if (bean.couponType == 1) {
+                    switch (status) {
                         case CouponFragment.STATUS_UNUSED:
                             holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_voucher_header_usable));
                             break;
@@ -255,12 +267,10 @@ public class CouponFragment extends BaseFragment {
                             holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_voucher_header_nousable));
                             break;
                     }
-                    if (bean.voucherStatus == 2){
-                        holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_voucher_header_nousable));
-                    }
+                    holder.ivStatus.setVisibility(bean.voucherStatus == 2 ? View.VISIBLE : View.GONE);
                     holder.presellName.setText(bean.denomination);
                     holder.voucher_get.setText(bean.getWay);
-                    holder.voucher_time.setText("有效期至"+ bean.expiredTm);
+                    holder.voucher_time.setText("有效期至" + bean.expiredTm);
                     ArrayAdapter arrayAdapter = new ArrayAdapter(mContext, R.layout.item_coupon_remark, R.id.tvInfo, bean.remarkList);
                     holder.mListView.setAdapter(arrayAdapter);
                 }
@@ -277,19 +287,22 @@ public class CouponFragment extends BaseFragment {
             notifyDataSetChanged();
         }
 
-        public class CouponViewHolder extends RecyclerView.ViewHolder{
+        public class CouponViewHolder extends RecyclerView.ViewHolder {
             ImageView voucherState;
             TextView presellName;
             TextView voucher_get;
             TextView voucher_time;
             ListView mListView;
+            ImageView ivStatus;
+
             public CouponViewHolder(View itemView) {
                 super(itemView);
                 voucherState = (ImageView) itemView.findViewById(R.id.voucherState);
                 presellName = (TextView) itemView.findViewById(R.id.presellName);
                 voucher_get = (TextView) itemView.findViewById(R.id.voucher_get);
                 voucher_time = (TextView) itemView.findViewById(R.id.voucher_time);
-                mListView = (ListView)itemView.findViewById(R.id.mListView);
+                mListView = (ListView) itemView.findViewById(R.id.mListView);
+                ivStatus = (ImageView) itemView.findViewById(R.id.ivStatus);
             }
         }
     }

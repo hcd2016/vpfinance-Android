@@ -362,14 +362,18 @@ public class FormatUtils {
     public static String checkDot(String text){
         String temp = "";
         String[] split = text.split(",");
-        for (int i=0; i<split.length; i++){
-            String s = split[i];
-            if (null != s && s.length() != 0){
-                temp = temp + s + ",";
+        try{
+            for (int i=0; i<split.length; i++){
+                String s = split[i];
+                if (null != s && s.length() != 0){
+                    temp = temp + s + ",";
+                }
             }
-        }
-        if (",".equals(temp.substring(temp.length()-1))){
-            temp = temp.substring(0,temp.length()-1);
+            if (",".equals(temp.substring(temp.length()-1))){
+                temp = temp.substring(0,temp.length()-1);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return temp;
     }

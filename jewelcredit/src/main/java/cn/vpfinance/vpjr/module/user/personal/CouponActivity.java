@@ -91,9 +91,14 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         fragments.add(CouponFragment.getInstance(type, CouponFragment.STATUS_INVALID));
 
         mVp.setOffscreenPageLimit(3);
-        mVp.setAdapter(new MyAdapter(getSupportFragmentManager(), fragments));
+        MyAdapter adapter = new MyAdapter(getSupportFragmentManager(), fragments);
+        mVp.setAdapter(adapter);
 
         String[] titles = new String[]{"未使用", "已使用", "已失效"};
+        mTab.setViewPager(mVp, titles);
+    }
+
+    public void setPageTitle(String[] titles){
         mTab.setViewPager(mVp, titles);
     }
 
@@ -109,7 +114,6 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         rightView.findViewById(R.id.tvAddCoupon).setOnClickListener(this);
         rightView.findViewById(R.id.tvGetCoupon).setOnClickListener(this);
         rightView.findViewById(R.id.tvRuleCoupon).setOnClickListener(this);
-
     }
 
     private void popTitle() {
