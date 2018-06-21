@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -98,7 +97,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         mTab.setViewPager(mVp, titles);
     }
 
-    public void setPageTitle(String[] titles){
+    public void setPageTitle(String[] titles) {
         mTab.setViewPager(mVp, titles);
     }
 
@@ -109,7 +108,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         menuWindow.setOutsideTouchable(true);
         menuWindow.setTouchable(true);
 
-        menuWindow.showAtLocation(mActionBar,Gravity.TOP|Gravity.RIGHT, 0, mActionBar.getMeasuredHeight());
+        menuWindow.showAtLocation(mActionBar, Gravity.TOP | Gravity.RIGHT, 0, mActionBar.getMeasuredHeight());
 
         rightView.findViewById(R.id.tvAddCoupon).setOnClickListener(this);
         rightView.findViewById(R.id.tvGetCoupon).setOnClickListener(this);
@@ -119,7 +118,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
     private void popTitle() {
         mActionBar.setUpDown(ActionBarLayout.TYPE_UP);
         View view = LayoutInflater.from(this).inflate(R.layout.layout_coupon_title, null, false);
-        statusWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, Utils.dip2px(this, 70), true);
+        statusWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, Utils.dip2px(this,70), true);
         statusWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         statusWindow.setOutsideTouchable(true);
         statusWindow.setTouchable(true);
@@ -127,10 +126,11 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onDismiss() {
                 mActionBar.setUpDown(ActionBarLayout.TYPE_DOWN);
+                backgroundAlpha(1f);
             }
         });
         statusWindow.showAtLocation(mActionBar, Gravity.TOP, 0, mActionBar.getMeasuredHeight());
-        switch (type){
+        switch (type) {
             case CouponFragment.TYPE_ALL:
                 ((RadioButton) view.findViewById(R.id.mRbAll)).setChecked(true);
                 break;
@@ -150,18 +150,28 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
                 }
                 switch (checkedId) {
                     case R.id.mRbAll:
+                        mActionBar.setTitle("我的优惠券");
                         type = CouponFragment.TYPE_ALL;
                         break;
                     case R.id.mRbVoucher:
+                        mActionBar.setTitle("代金券");
                         type = CouponFragment.TYPE_VOUCHER;
                         break;
                     case R.id.mRbPresell:
+                        mActionBar.setTitle("预约券");
                         type = CouponFragment.TYPE_PRESELL;
                         break;
                 }
                 EventBus.getDefault().post(new EventBusCoupon(type));
             }
         });
+        backgroundAlpha(0.4f);
+    }
+
+    private void backgroundAlpha(float f) {
+        WindowManager.LayoutParams lp =getWindow().getAttributes();
+        lp.alpha = f;
+        getWindow().setAttributes(lp);
     }
 
     @Override
