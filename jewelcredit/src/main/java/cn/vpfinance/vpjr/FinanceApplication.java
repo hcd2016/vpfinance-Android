@@ -11,6 +11,7 @@ import android.support.annotation.RequiresApi;
 import android.support.multidex.MultiDex;
 
 import com.jewelcredit.util.AppState;
+import com.mob.MobSDK;
 import com.nostra13.universalimageloader.cache.disc.DiskCache;
 import com.nostra13.universalimageloader.cache.disc.impl.LimitedAgeDiskCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -116,6 +117,8 @@ public class FinanceApplication extends Application {
 //        Bugly.setIsDevelopmentDevice(getApplication(), true);
         // 调试时，将第三个参数改为true
         Bugly.init(this, "e0817679fa", true);
+
+        MobSDK.init(this,"770d9303300c","1a46b4a2687480f5b71dba8e6c83b1f0");
 
         if (Build.VERSION.SDK_INT >= 14) {
             registerActivityLifecycleCallbacks(new FishActivityLifecycleCallbacks());

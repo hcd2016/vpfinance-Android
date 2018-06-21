@@ -94,7 +94,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         MyAdapter adapter = new MyAdapter(getSupportFragmentManager(), fragments);
         mVp.setAdapter(adapter);
 
-        String[] titles = new String[]{"未使用", "已使用", "已失效"};
+        String[] titles = new String[]{"未使用", "已使用", "已过期"};
         mTab.setViewPager(mVp, titles);
     }
 

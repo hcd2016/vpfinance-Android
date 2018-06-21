@@ -381,7 +381,7 @@ public class FundRecordsActivity2 extends BaseActivity implements View.OnClickLi
 	private void showShare(final String text, String imageUrl, final String link) {
 		if (TextUtils.isEmpty(link))	return;
 
-		ShareSDK.initSDK(this);
+//		ShareSDK.initSDK(this);
 		OnekeyShare oks = new OnekeyShare();
 		//关闭sso授权
 		oks.disableSSOWhenAuthorize();

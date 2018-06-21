@@ -592,7 +592,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
         imageUrl = FileUtil.netPath2LocalPath(imageUrl);//网络地址转为本地地址
         if (TextUtils.isEmpty(imageUrl)) return;
-        ShareSDK.initSDK(this);
+//        ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();

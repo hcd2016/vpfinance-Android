@@ -282,7 +282,7 @@ public class ProductInvestSuccessByActiveActivity extends BaseActivity implement
         //imageUrl为空时，就算有link也只是单纯的文字，不能跳转（微信）
         //link为空时，只会有图片，连接文案都没有（微信）
         //Logger.e("title:"+title+",text:"+text+",imageUrl:"+imageUrl+",link:"+link);
-        ShareSDK.initSDK(this);
+//        ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();

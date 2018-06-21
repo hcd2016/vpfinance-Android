@@ -25,9 +25,7 @@ import java.util.List;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.Platform.ShareParams;
-import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.onekeyshare.PlatformListFakeActivity;
 import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.system.email.Email;
@@ -38,7 +36,6 @@ import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
-import cn.vpfinance.vpjr.util.Common;
 
 //import com.google.zxing.BarcodeFormat;
 //import com.google.zxing.EncodeHintType;
@@ -270,14 +267,14 @@ public class MyQRcodeActivity extends BaseActivity implements View.OnClickListen
     }
     private void showShare2Platform(String platform,String text){
 
-        ShareSDK.initSDK(this);
+//        ShareSDK.initSDK(this);
         final OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         //不同平台的分享参数，请看文档
         oks.setText(text);
         //oks.setSilent(silent);
-        oks.setDialogMode();
+//        oks.setDialogMode(false);
         oks.disableSSOWhenAuthorize();
         if (platform != null) {
             oks.setPlatform(platform);
@@ -293,7 +290,7 @@ public class MyQRcodeActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void showShare(final String text, String imageUrl,String link) {
-        ShareSDK.initSDK(this);
+//        ShareSDK.initSDK(this);
         final OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
@@ -332,13 +329,7 @@ public class MyQRcodeActivity extends BaseActivity implements View.OnClickListen
                 Toast.makeText(MyQRcodeActivity.this, "已经复制到剪切版", Toast.LENGTH_SHORT).show();
             }
         };
-        oks.setCustomerLogo(logo,logo,"复制链接",listener);
-
-        oks.setOnShareButtonClickListener(new PlatformListFakeActivity.OnShareButtonClickListener() {
-            @Override
-            public void onClick(View v, List<Object> checkPlatforms) {
-            }
-        });
+//        oks.setCustomerLogo(logo,logo,"复制链接",listener);
 
         oks.show(this);
     }
