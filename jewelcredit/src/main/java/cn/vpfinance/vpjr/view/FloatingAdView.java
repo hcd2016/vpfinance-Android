@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
 import cn.vpfinance.android.R;
@@ -62,7 +63,8 @@ public class FloatingAdView extends ImageView {
         //判断滑动是否完成
         if (mScroller.computeScrollOffset()) {
             //完成滑动，getCurrX()、getCurrY()为mScroller当前水平滚动的位置
-            ((View) getParent()).scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+            //((View) getParent()).
+            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
             invalidate();
         }
     }
@@ -84,9 +86,12 @@ public class FloatingAdView extends ImageView {
                 //保证浮标在屏幕能移动
                 //mActionBarHeight和底部tab栏高度一致
                 if ((rawY - y - mStatusBarHeight - mActionBarHeight + moveY - mSelfHeight/2 < 0) || (rawY - y + moveY + getHeight() + mActionBarHeight > mScreenHeight)) {
-                    ((View) getParent()).scrollBy(-moveX, 0);
+                    //((View) getParent()).
+                    scrollBy(-moveX, 0);
+//                    ((RelativeLayout) getParent()).updateViewLayout(this,);
                 }else {
-                    ((View) getParent()).scrollBy(-moveX, -moveY);
+                    //((View) getParent()).
+                    scrollBy(-moveX, -moveY);
                 }
 
                 break;

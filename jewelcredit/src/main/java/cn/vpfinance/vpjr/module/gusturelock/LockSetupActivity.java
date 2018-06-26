@@ -299,7 +299,7 @@ public class LockSetupActivity extends Activity implements
         }
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(MainActivity.SWITCH_TAB_NUM, 0);
+        intent.putExtra(MainActivity.SWITCH_TAB_NUM, 2);
         startActivity(intent);
         finish();
     }

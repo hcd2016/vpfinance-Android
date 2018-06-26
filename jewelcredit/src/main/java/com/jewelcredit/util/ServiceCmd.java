@@ -160,6 +160,7 @@ public class ServiceCmd {
 		CMD_unAuthAutoBid ,//撤销自动投标授权
 		CMD_HX_SEND_SMS ,//发送华兴短信验证码
 		CMD_HX_IS_UPDATE ,//华兴接口是否已经更新
+		CMD_CREATE_ACCOUNT_TIME ,//判断用户hx存管账户开户时间
 	}
 
     public static String[] methods = {
@@ -319,14 +320,15 @@ public class ServiceCmd {
 			"hx/loansign/unAuthAutoBid" ,//撤销自动投标授权
 			"hx/loansign/sendsms" ,//发送华兴短信验证码
 			"Appmember/isUpdate" ,//华兴接口是否已经更新
-    };
+			"Appmember/createAccountTime" ,//判断用户hx存管账户开户时间
+	};
 
     public static String getMethodName(CmdId methodId) {
         int ordinal = methodId.ordinal();
         if (ordinal < 0 || ordinal >= methods.length)
-            return "";
+			return "";
 
-        return methods[ordinal];
+		return methods[ordinal];
     }
 
 }

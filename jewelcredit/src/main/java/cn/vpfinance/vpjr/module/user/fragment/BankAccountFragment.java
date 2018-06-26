@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.test.mock.MockApplication;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,11 +32,9 @@ import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.QueryAutoStatusBean;
-import cn.vpfinance.vpjr.gson.QueryPopUpBean;
 import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.dialog.HxUpdateDialog;
-import cn.vpfinance.vpjr.module.dialog.NewUserDialogActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestProtocolActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestSettingActivity;
@@ -60,7 +57,6 @@ import cn.vpfinance.vpjr.module.user.personal.InvestTopActivity;
 import cn.vpfinance.vpjr.module.user.personal.InviteGiftActivity;
 import cn.vpfinance.vpjr.module.user.personal.MyMedalActivity;
 import cn.vpfinance.vpjr.module.user.personal.TrialCoinActivity;
-import cn.vpfinance.vpjr.util.AlertDialogUtils;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
@@ -180,7 +176,6 @@ public class BankAccountFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         user = DBUtils.getUser(mContext);
-        User user = DBUtils.getUser(mContext);
         if (user != null) {
             realName = user.getRealName();
             boolean booleanValue = SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue("firstInto_" + user.getUserId(), true);
@@ -198,7 +193,6 @@ public class BankAccountFragment extends BaseFragment {
         }
 
         loadDate();
-        mHttpService.getHxIsUpdate();
     }
 
     @Override
@@ -211,6 +205,7 @@ public class BankAccountFragment extends BaseFragment {
             String userNo = AppState.instance().getLoginUserInfo().userNo;
             String sesnId = AppState.instance().getSessionCode();
             mHttpService.getBankCard(sesnId);
+            mHttpService.getHxIsUpdate();
         }
     }
 
@@ -240,28 +235,35 @@ public class BankAccountFragment extends BaseFragment {
             /** 第二种解析*/
             mUserInfoBean = mHttpService.onGetUserInfo(json);
             initUser();
-        } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_AUTO_PLANK_STATUS.ordinal()){
+        } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_AUTO_PLANK_STATUS.ordinal()) {
             QueryAutoStatusBean autoStatusBean = new Gson().fromJson(json.toString(), QueryAutoStatusBean.class);
-            if (autoStatusBean != null && !TextUtils.isEmpty(autoStatusBean.autoPlankStatus)){
-                if ("2".equals(autoStatusBean.autoPlankStatus)){//超额
+            if (autoStatusBean != null && !TextUtils.isEmpty(autoStatusBean.autoPlankStatus)) {
+                if ("2".equals(autoStatusBean.autoPlankStatus)) {//超额
                     tvOpenBankAccount.setText("已超额");
-                }else if ("3".equals(autoStatusBean.autoPlankStatus)){//过期
+                } else if ("3".equals(autoStatusBean.autoPlankStatus)) {//过期
                     tvOpenBankAccount.setText("已过期");
                 }
             }
-        } else if (reqId == ServiceCmd.CmdId.CMD_HX_IS_UPDATE.ordinal()){
+        } else if (reqId == ServiceCmd.CmdId.CMD_HX_IS_UPDATE.ordinal()) {
             //0是未更新 1是更新
             String isUpdate = json.optString("AppIsUpdate");
 //            String isUpdate = "1";
-            if ("1".equals(isUpdate)){
+            if ("1".equals(isUpdate)) {
                 mCLickAccountE.setVisibility(View.GONE);
-                boolean isShow = SharedPreferencesHelper.getInstance(getContext()).getBooleanValue(SharedPreferencesHelper.KEY_HX_UPDATE_DIALOG_SHOW, false);
-                if (!isShow){
-                    new HxUpdateDialog().show(getChildFragmentManager(),"HxUpdateDialog");
-                    SharedPreferencesHelper.getInstance(getContext()).putBooleanValue(SharedPreferencesHelper.KEY_HX_UPDATE_DIALOG_SHOW,true);
+                if (user != null) {
+                    mHttpService.getCreateAccountTime(user.getUserId().toString());
                 }
-            }else{
+            } else {
                 mCLickAccountE.setVisibility(View.VISIBLE);
+            }
+        } else if (reqId == ServiceCmd.CmdId.CMD_CREATE_ACCOUNT_TIME.ordinal()) {
+            String status = json.optString("status");
+            if ("true".equalsIgnoreCase(status)) {
+                boolean isShow = SharedPreferencesHelper.getInstance(getContext()).getBooleanValue(SharedPreferencesHelper.KEY_HX_UPDATE_DIALOG_SHOW, false);
+                if (!isShow) {
+                    new HxUpdateDialog().show(getChildFragmentManager(), "HxUpdateDialog");
+                    SharedPreferencesHelper.getInstance(getContext()).putBooleanValue(SharedPreferencesHelper.KEY_HX_UPDATE_DIALOG_SHOW, true);
+                }
             }
         }
     }
@@ -272,7 +274,7 @@ public class BankAccountFragment extends BaseFragment {
     private String addrate_count;
     private String presell_count;
 
-    private void initUser(){
+    private void initUser() {
         if (mUserInfoBean == null) return;
 
         if ("0".equals(mUserInfoBean.isNewUser)) {//老用户
@@ -458,11 +460,11 @@ public class BankAccountFragment extends BaseFragment {
                     Long userId = user.getUserId();
                     if (mUserInfoBean != null) {
                         boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
-                        if (!isRealName){
+                        if (!isRealName) {
                             Utils.Toast("开通存管账户前请先进行实名认证");
                             RealnameAuthActivity.goThis(getContext());
-                        }else{
-                            gotoWeb("/hx/account/create?userId=" + userId,"");
+                        } else {
+                            gotoWeb("/hx/account/create?userId=" + userId, "");
                         }
                     }
                 } else {

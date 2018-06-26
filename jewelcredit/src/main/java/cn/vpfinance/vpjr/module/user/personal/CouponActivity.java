@@ -125,7 +125,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         shadowContainer.setMinimumHeight(heightPixels - mActionBar.getMeasuredHeight() - radioGroup.getMeasuredHeight());
 //        shadowContainer.setAlpha(0.3F);
 
-        statusWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+        statusWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, heightPixels - mActionBar.getMeasuredHeight(), true);
         statusWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         statusWindow.setOutsideTouchable(true);
         statusWindow.setTouchable(true);

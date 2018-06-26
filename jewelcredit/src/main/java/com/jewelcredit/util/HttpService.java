@@ -5881,4 +5881,17 @@ Type	Int	Banner类型	1. 链接  2.产品
         Map<String, String> param = new ArrayMap<String, String>();
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
+
+    /**
+     * 判断用户hx存管账户开户时间 true  就弹窗  false  不弹
+     * @return
+     */
+    public boolean getCreateAccountTime(String userId){
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_CREATE_ACCOUNT_TIME;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("userId",userId);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
 }

@@ -94,6 +94,15 @@ public class ScreenUtil {
         return outMetrics.heightPixels;
     }
 
+    public static int getScreenWidth(Context context)
+    {
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.widthPixels;
+    }
+
     /**
      * 设置手机屏幕亮度变暗
      */
