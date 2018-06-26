@@ -223,16 +223,26 @@
     <RelativeLayout
         android:id="@+id/floatingAdViewParent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
         <cn.vpfinance.vpjr.view.FloatingAdView
             android:id="@+id/floatingAdView"
-            android:layout_width="@dimen/floationadview_width_height"
-            android:layout_height="@dimen/floationadview_width_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="50dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_12"
+            android:visibility="gone"
+            tools:visibility="visible"></cn.vpfinance.vpjr.view.FloatingAdView>
+        <cn.vpfinance.vpjr.view.FloatingAdView
+            android:id="@+id/floatingAdView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="130dp"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_12"
             android:visibility="gone"

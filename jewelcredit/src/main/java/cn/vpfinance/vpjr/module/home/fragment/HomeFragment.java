@@ -72,12 +72,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ConvenientBanner mBanner;
 
     private FloatingAdView mFloatingAdView;
+    private FloatingAdView mFloatingAdView2;
     private RelativeLayout mRelativeLayout;
     private LinearLayoutForListView mDepositProduct;
     private LinearLayoutForListView mRegularProduct;
     private LinearLayout mBusinessMode;
     private boolean mIsfirst = true;//是否是第一次加载数据进来，
     private SwipeRefreshLayout vSwipeRefreshLayout;
+    private boolean hasFloating = false;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -132,6 +134,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         view.findViewById(R.id.clickInviteGift).setOnClickListener(this);
         view.findViewById(R.id.clickHelp).setOnClickListener(this);
         mFloatingAdView = ((FloatingAdView) view.findViewById(R.id.floatingAdView));
+        mFloatingAdView2 = ((FloatingAdView) view.findViewById(R.id.floatingAdView2));
         mDepositProduct = ((LinearLayoutForListView) view.findViewById(R.id.deposit_products));
         mRegularProduct = ((LinearLayoutForListView) view.findViewById(R.id.regular_products));
 
@@ -140,6 +143,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
         mHttpService.getAppmemberIndex(false);
         mHttpService.getShareRedPacketList();
+        mHttpService.getHomeEvent();
 
         vSwipeRefreshLayout = ((SwipeRefreshLayout) view.findViewById(R.id.vSwipeRefreshLayout));
         vSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(mContext, R.color.main_color));
@@ -148,6 +152,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             public void onRefresh() {
                 mHttpService.getShareRedPacketList();
                 mHttpService.getAppmemberIndex(false);
+                mHttpService.getHomeEvent();
             }
         });
 
@@ -163,6 +168,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         int mStatusBarHeight = frame.top;
         int mActionBarHeight = (int) (getActivity().getResources().getDimension(R.dimen.bar_height));
         mFloatingAdView.setExtraHeight(mStatusBarHeight, mActionBarHeight);
+        mFloatingAdView2.setExtraHeight(mStatusBarHeight, mActionBarHeight);
 
         mBanner = ((ConvenientBanner) view.findViewById(R.id.convenientBanner));
     }
@@ -179,11 +185,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         if (req == ServiceCmd.CmdId.CMD_SHARE_RED_PACKET_LIST.ordinal()) {
             final String content = json.toString();
             IndexPacketBean indexPacketBean = new Gson().fromJson(content, IndexPacketBean.class);
-            if (indexPacketBean.count == 0) {
-                mHttpService.getHomeEvent();
-            } else {
+            if (indexPacketBean.count != 0) {
                 mRelativeLayout.setVisibility(View.VISIBLE);
                 mFloatingAdView.setVisibility(View.VISIBLE);
+                hasFloating = true;
                 mFloatingAdView.setImageResource(R.drawable.index_red_packet);
                 mFloatingAdView.setOnFloatingAdClickListener(new FloatingAdView.onFloadingAdClickListener() {
                     @Override
@@ -238,7 +243,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             String showImage = json.optString("showImage");
             if ("true".equals(showImage)) {
                 mRelativeLayout.setVisibility(View.VISIBLE);
-                mFloatingAdView.setVisibility(View.VISIBLE);
+                mFloatingAdView2.setVisibility(View.VISIBLE);
+                hasFloating = true;
                 String imageUrl = json.optString("imageUrl");
                 //android端后台只返回一个url，不携带参数。如果登陆状态本地手动添加userAppId
                 String tempUrl = json.optString("pageUrl") + "?TYPE=android";
@@ -251,8 +257,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 }
                 final String pageUrl = tempUrl;
                 //Logger.e("pageUrl:"+pageUrl);
-                ImageLoader.getInstance().displayImage(HttpService.mBaseUrl + imageUrl + "3.png", mFloatingAdView);
-                mFloatingAdView.setOnFloatingAdClickListener(new FloatingAdView.onFloadingAdClickListener() {
+                ImageLoader.getInstance().displayImage(HttpService.mBaseUrl + imageUrl, mFloatingAdView2);
+                mFloatingAdView2.setOnFloatingAdClickListener(new FloatingAdView.onFloadingAdClickListener() {
                     @Override
                     public void onAdClick() {
                         if (!TextUtils.isEmpty(pageUrl))
@@ -260,8 +266,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     }
                 });
             } else {
-                mFloatingAdView.setVisibility(View.GONE);
-                mRelativeLayout.setVisibility(View.GONE);
+                mFloatingAdView2.setVisibility(View.GONE);
+//                mRelativeLayout.setVisibility(View.GONE);
             }
         }
     }

@@ -53,6 +53,7 @@ import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.product.invest.BankInvestSuccessHintActivity;
+import cn.vpfinance.vpjr.module.welcome.WelcomeActivity;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FileUtil;
@@ -205,31 +206,30 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         //Logger.e("loadUrl:"+url);
         if (!isFinishing()) {
             String cookieText = getCookieText();
-            synchronousWebCookies(this, url, cookieText);
+//            synchronousWebCookies(this, url, cookieText);
+            syncCookie(url,cookieText);
             web.loadUrl(url);
         }
     }
 
-    public static void synchronousWebCookies(Context context, String url, String cookies) {
-        if (!TextUtils.isEmpty(url))
-            if (!TextUtils.isEmpty(cookies)) {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                    CookieSyncManager.createInstance(context);
-                }
-                CookieManager cookieManager = CookieManager.getInstance();
-                cookieManager.setAcceptCookie(true);
-                cookieManager.removeSessionCookie();// 移除
-                cookieManager.removeAllCookie();
-                StringBuilder sbCookie = new StringBuilder();//创建一个拼接cookie的容器,为什么这么拼接，大家查阅一下http头Cookie的结构
-                sbCookie.append(cookies);//拼接sessionId
-//                 sbCookie.append(String.format(";domain=%s", ""));
-//                 sbCookie.append(String.format(";path=%s", ""));
-                String cookieValue = sbCookie.toString();
-                cookieManager.setCookie(url, cookieValue);//为url设置cookie
-                CookieSyncManager.getInstance().sync();//同步cookie
-                String newCookie = cookieManager.getCookie(url);
-                Logger.e("同步后cookie", newCookie);
-            }
+    /**
+     * 将cookie同步到WebView
+     * @param url WebView要加载的url
+     * @param cookie 要同步的cookie
+     * @return true 同步cookie成功，false同步cookie失败
+     * @Author JPH
+     */
+    public boolean syncCookie(String url,String cookie) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            CookieSyncManager.createInstance(WebViewActivity.this);
+        }
+        CookieManager cookieManager = CookieManager.getInstance();
+        String[] split = cookie.split(";");
+        for (String s : split) {
+            cookieManager.setCookie(url, s);//如果没有特殊需求，这里只需要将session id以"key=value"形式作为cookie即可
+        }
+        String newCookie = cookieManager.getCookie(url);
+        return TextUtils.isEmpty(newCookie)?false:true;
     }
 
     /**
@@ -308,6 +308,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 if (this.webView.canGoBack()) {
                     this.webView.goBack();
                 } else {
+                    if (WelcomeActivity.WelcomeEventUrl.equals(str)){
+                        Intent main = new Intent(this, MainActivity.class);
+                        startActivity(main);
+                    }
                     finish();
                 }
                 isShare(webView.getOriginalUrl());
@@ -317,6 +321,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                     this.webView.goForward();
                 break;
             case R.id.close:
+                if (WelcomeActivity.WelcomeEventUrl.equals(str)){
+                    Intent main = new Intent(this, MainActivity.class);
+                    startActivity(main);
+                }
                 finish();
                 break;
             case R.id.webview_refresh:

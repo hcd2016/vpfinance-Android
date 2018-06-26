@@ -159,6 +159,7 @@ public class ServiceCmd {
 		CMD_QUERY_AUTO_PLANK_STATUS,//启动APP查询用户投标状态
 		CMD_unAuthAutoBid ,//撤销自动投标授权
 		CMD_HX_SEND_SMS ,//发送华兴短信验证码
+		CMD_HX_IS_UPDATE ,//华兴接口是否已经更新
 	}
 
     public static String[] methods = {
@@ -317,6 +318,7 @@ public class ServiceCmd {
 			"Appmember/queryAutoPlankStatus",//启动APP查询用户投标状态
 			"hx/loansign/unAuthAutoBid" ,//撤销自动投标授权
 			"hx/loansign/sendsms" ,//发送华兴短信验证码
+			"Appmember/isUpdate" ,//华兴接口是否已经更新
     };
 
     public static String getMethodName(CmdId methodId) {

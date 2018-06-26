@@ -3,13 +3,16 @@ package cn.vpfinance.vpjr.module.welcome;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.jewelcredit.model.VersionModel;
 import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
@@ -30,19 +33,27 @@ public class WelcomeActivity extends BaseActivity {
 
 	ImageView mSplashImage;
 	private HttpService mHttpService;
-	private VersionModel mVersionModel;
 	DisplayImageOptions imageOptions;
+	private TextView btnGoHome;
+	private ImageButton btnGoEvent;
+
+	public static final String WelcomeEventUrl = "https://www.vpfinance.cn/AppContent/content?topicId=1238";
+	private CountDownTimer countDownTimer;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome);
+
+		btnGoHome = ((TextView) findViewById(R.id.btnGoHome));
+		btnGoEvent = ((ImageButton) findViewById(R.id.btnGoEvent));
+
 		SharedPreferencesHelper.getInstance(this).removeKey(SharedPreferencesHelper.MINE_NO_SHOW_INFO);
 		imageOptions = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.welcome_general_v1)
-				.showImageForEmptyUri(R.drawable.welcome_general_v1)
-				.showImageOnFail(R.drawable.welcome_general_v1)
+				.showImageOnLoading(R.drawable.welcome_general)
+				.showImageForEmptyUri(R.drawable.welcome_general)
+				.showImageOnFail(R.drawable.welcome_general)
 				.cacheInMemory(false)
 				.cacheOnDisk(true)
 				.bitmapConfig(Bitmap.Config.RGB_565)
@@ -64,15 +75,25 @@ public class WelcomeActivity extends BaseActivity {
 		PushAgent.getInstance(this).onAppStart();
 
 		mHttpService = new HttpService(this, this);
-		mVersionModel = new VersionModel();
 
 		mSplashImage.startAnimation(animation);
 
+		countDownTimer = new CountDownTimer(4000, 1000) {
+			@Override
+			public void onTick(long l) {
+//						Logger.e("l: "+l);
+				btnGoHome.setText("跳过 " + (l / 1000));
+			}
+
+			@Override
+			public void onFinish() {
+				goHome();
+			}
+		};
+
 		animation.setAnimationListener(new Animation.AnimationListener() {
 			public void onAnimationEnd(Animation paramAnonymousAnimation) {
-//				mHttpService.checkAppVersion();
-				goHome();
-				return;
+				countDownTimer.start();
 			}
 
 			public void onAnimationRepeat(Animation paramAnonymousAnimation) {
@@ -81,15 +102,26 @@ public class WelcomeActivity extends BaseActivity {
 			public void onAnimationStart(Animation paramAnonymousAnimation) {
 			}
 		});
-
+		btnGoHome.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				goHome();
+			}
+		});
+		btnGoEvent.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				countDownTimer.cancel();
+				gotoWeb(WelcomeEventUrl,"");
+				finish();
+			}
+		});
 		mHttpService.guidePage();
-
 	}
 
 	private void goHome() {
 		Intent intent = new Intent();
 		if(AppState.instance().appUsed()) {
-//		if(false) {
 			intent.setClass(WelcomeActivity.this, MainActivity.class);
 		} else {
 			intent.setClass(WelcomeActivity.this, WelcomeGuideActivity.class);

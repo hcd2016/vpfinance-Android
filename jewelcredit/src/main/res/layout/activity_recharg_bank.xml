@@ -57,14 +57,63 @@
                 android:layout_marginRight="20dp"
                 android:background="@color/divider_color" />
 
-            <TextView
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:id="@+id/tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的银行卡转账到存管账户"
+                    android:textColor="@color/text_999999" />
+                <ImageView
+                    android:id="@+id/ivWhat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/wenhao_icon"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/containerAccountName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:text="我的银行卡转账到存管账户"
-                android:textColor="@color/text_999999" />
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="户名："
+                    android:textColor="@color/text_999999"
+                    android:textSize="@dimen/text_size_12" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="深圳五维微品金融信息服务有限公司"
+                    android:textColor="@color/text_999999"
+                    android:textSize="@dimen/text_size_12" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/btnCopy2"
+                    android:layout_width="45dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/shape_radius18_red"
+                    android:text="复制"
+                    android:textColor="@color/white"
+                    android:textSize="13dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -75,18 +124,19 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="存管账户："
                     android:textColor="@color/text_999999"
-                    android:textSize="15dp" />
+                    android:textSize="@dimen/text_size_12" />
                 <TextView
                     android:id="@+id/tvBankAccountNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="8595855855255896068"
                     android:textColor="@color/text_999999"
-                    android:textSize="15dp" />
+                    android:textSize="@dimen/text_size_12" />
                 <View
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -94,7 +144,7 @@
 
                 <Button
                     android:id="@+id/btnCopy"
-                    android:layout_width="55dp"
+                    android:layout_width="45dp"
                     android:layout_height="25dp"
                     android:background="@drawable/shape_radius18_red"
                     android:text="复制"
@@ -103,6 +153,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -111,7 +162,7 @@
                 android:layout_marginTop="10dp"
                 android:text="开户行查找方式：城市商业银行-广东华兴银行汕头分行"
                 android:textColor="@color/text_999999"
-                android:textSize="13dp" />
+                android:textSize="@dimen/text_size_12" />
 
         </LinearLayout>
 

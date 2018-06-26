@@ -1,5 +1,6 @@
 package cn.vpfinance.vpjr.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -10,6 +11,7 @@ import android.widget.Scroller;
 
 import cn.vpfinance.android.R;
 
+@SuppressLint("AppCompatCustomView")
 public class FloatingAdView extends ImageView {
 
     private Scroller mScroller;

@@ -77,7 +77,6 @@ public class NewSelectVoucherActivity extends BaseActivity implements View.OnCli
             mVoucherEvent = bundle.getParcelable(ProductInvestActivity.VOUCHEREVENT);
             mAddRateInfo = bundle.getParcelable(ProductInvestActivity.ADDRATEEVENT);
         }
-
         init();
     }
 

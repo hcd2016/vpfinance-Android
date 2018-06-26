@@ -42,6 +42,7 @@ public class SharedPreferencesHelper {
     public static final String KEY_IS_BIND_BANK = "key_is_bind_bank";//
     public static final String KEY_ALLOW_RECHARGE = "key_allow_recharge_lianlian";//
     public static final String KEY_SHOW_AUTO_STATUS_TIME = "key_show_auto_status_time";//首页显示自动投标状态的时间
+    public static final String KEY_HX_UPDATE_DIALOG_SHOW = "key_hx_update_dialog_show";//华兴接口更新了显示弹窗一次
 
     private SharedPreferencesHelper(Context context){
         sp = context.getSharedPreferences(PRES_NAME, Context.MODE_PRIVATE);
@@ -126,4 +127,5 @@ public class SharedPreferencesHelper {
         editor.clear();
         editor.commit();
     }
+
 }

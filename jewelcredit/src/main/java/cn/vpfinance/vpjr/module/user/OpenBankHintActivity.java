@@ -5,8 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.RelativeLayout;
 
+import com.jewelcredit.util.HttpService;
+import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
+
+import org.json.JSONObject;
 
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.FinanceApplication;
@@ -17,6 +22,8 @@ import cn.vpfinance.vpjr.util.DBUtils;
 
 public class OpenBankHintActivity extends BaseActivity {
 
+    private RelativeLayout rootContainer;
+
     public static void goThis(Context context) {
         Intent intent = new Intent(context, OpenBankHintActivity.class);
         context.startActivity(intent);
@@ -26,6 +33,11 @@ public class OpenBankHintActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_bank_hint);
+
+        rootContainer = ((RelativeLayout) findViewById(R.id.rootContainer));
+
+        new HttpService(this,this).getHxIsUpdate();
+
         findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +59,21 @@ public class OpenBankHintActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onHttpSuccess(int reqId, JSONObject json) {
+        super.onHttpSuccess(reqId, json);
+        if (reqId == ServiceCmd.CmdId.CMD_HX_IS_UPDATE.ordinal()){
+            //0是未更新 1是更新
+            String isUpdate = json.optString("AppIsUpdate");
+//            String isUpdate = "1";
+            if ("1".equals(isUpdate)){
+                rootContainer.setBackgroundResource(R.drawable.open_bank_hint_hx_update);
+            }else{
+                rootContainer.setBackgroundResource(R.drawable.open_bank_hint);
+            }
+        }
     }
 
     @Override

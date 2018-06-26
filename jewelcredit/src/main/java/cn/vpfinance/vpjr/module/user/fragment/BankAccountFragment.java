@@ -36,6 +36,7 @@ import cn.vpfinance.vpjr.gson.QueryAutoStatusBean;
 import cn.vpfinance.vpjr.gson.QueryPopUpBean;
 import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.HxUpdateDialog;
 import cn.vpfinance.vpjr.module.dialog.NewUserDialogActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestProtocolActivity;
@@ -124,6 +125,8 @@ public class BankAccountFragment extends BaseFragment {
     ActionBarLayout titleBar;
     @Bind(R.id.noOpenHidden)
     LinearLayout noOpenHidden;
+    @Bind(R.id.click_account_e)
+    LinearLayout mCLickAccountE;
 
     private User user;
     private HttpService mHttpService;
@@ -195,6 +198,7 @@ public class BankAccountFragment extends BaseFragment {
         }
 
         loadDate();
+        mHttpService.getHxIsUpdate();
     }
 
     @Override
@@ -244,6 +248,20 @@ public class BankAccountFragment extends BaseFragment {
                 }else if ("3".equals(autoStatusBean.autoPlankStatus)){//过期
                     tvOpenBankAccount.setText("已过期");
                 }
+            }
+        } else if (reqId == ServiceCmd.CmdId.CMD_HX_IS_UPDATE.ordinal()){
+            //0是未更新 1是更新
+            String isUpdate = json.optString("AppIsUpdate");
+//            String isUpdate = "1";
+            if ("1".equals(isUpdate)){
+                mCLickAccountE.setVisibility(View.GONE);
+                boolean isShow = SharedPreferencesHelper.getInstance(getContext()).getBooleanValue(SharedPreferencesHelper.KEY_HX_UPDATE_DIALOG_SHOW, false);
+                if (!isShow){
+                    new HxUpdateDialog().show(getChildFragmentManager(),"HxUpdateDialog");
+                    SharedPreferencesHelper.getInstance(getContext()).putBooleanValue(SharedPreferencesHelper.KEY_HX_UPDATE_DIALOG_SHOW,true);
+                }
+            }else{
+                mCLickAccountE.setVisibility(View.VISIBLE);
             }
         }
     }

@@ -118,17 +118,25 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
     private void popTitle() {
         mActionBar.setUpDown(ActionBarLayout.TYPE_UP);
         View view = LayoutInflater.from(this).inflate(R.layout.layout_coupon_title, null, false);
-        statusWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, Utils.dip2px(this,70), true);
-        statusWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        final LinearLayout shadowContainer = (LinearLayout) view.findViewById(R.id.shadowContainer);
+        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.mRadioGroup);
+
+        int heightPixels = getResources().getDisplayMetrics().heightPixels;
+        shadowContainer.setMinimumHeight(heightPixels - mActionBar.getMeasuredHeight() - radioGroup.getMeasuredHeight());
+//        shadowContainer.setAlpha(0.3F);
+
+        statusWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+        statusWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         statusWindow.setOutsideTouchable(true);
         statusWindow.setTouchable(true);
         statusWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
                 mActionBar.setUpDown(ActionBarLayout.TYPE_DOWN);
-                backgroundAlpha(1f);
+//                backgroundAlpha(1f);
             }
         });
+
         statusWindow.showAtLocation(mActionBar, Gravity.TOP, 0, mActionBar.getMeasuredHeight());
         switch (type) {
             case CouponFragment.TYPE_ALL:
@@ -141,7 +149,12 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
                 ((RadioButton) view.findViewById(R.id.mRbPresell)).setChecked(true);
                 break;
         }
-        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.mRadioGroup);
+        shadowContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                statusWindow.dismiss();
+            }
+        });
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -165,7 +178,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
                 EventBus.getDefault().post(new EventBusCoupon(type));
             }
         });
-        backgroundAlpha(0.4f);
+//        backgroundAlpha(0.4f);
     }
 
     private void backgroundAlpha(float f) {
