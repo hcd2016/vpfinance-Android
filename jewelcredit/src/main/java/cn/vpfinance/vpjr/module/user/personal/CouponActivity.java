@@ -201,13 +201,16 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
                 return;
             }
             String msg = json.optString("msg");
-            String money = json.optString("money");
-            if ("1".equals(msg)) {
-                Toast.makeText(this, "恭喜您兑换了" + money + "元代金券!", Toast.LENGTH_LONG).show();
-            } else if ("0".equals(msg)) {
-                Toast.makeText(this, "输入兑换码有误！", Toast.LENGTH_SHORT).show();
+//            String money = json.optString("money");
+            if ("3".equals(msg)) {
+                EventBus.getDefault().post(new EventBusCoupon(type));
+                Toast.makeText(this, "恭喜您兑换成功", Toast.LENGTH_LONG).show();
+            } else if ("1".equals(msg)) {
+                Toast.makeText(this, "兑换码不正确", Toast.LENGTH_SHORT).show();
             } else if ("2".equals(msg)) {
-                Toast.makeText(this, "兑换码已使用！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "兑换码已使用", Toast.LENGTH_SHORT).show();
+            } else if ("4".equals(msg)){
+                Toast.makeText(this, "兑换码已过期", Toast.LENGTH_SHORT).show();
             }
         }
     }

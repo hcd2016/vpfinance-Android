@@ -15,11 +15,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="20dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
                 android:background="@drawable/dialog_hx_update_title" />
         </LinearLayout>
 
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="23dp"
-            android:text="存管账户合规改造通知"
+            android:text="存管系统升级通知"
             android:textColor="#e93934"
             android:gravity="center"
             android:textSize="@dimen/text_size_18" />
