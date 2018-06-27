@@ -55,11 +55,11 @@ public class ProductInvestListFragment extends BaseFragment {
 
     private SwipeRefreshLayout mRefresh = null;
 
-    private int page;
+    private int page = 0;
     private final static int PAGE_SIZE = 10;
     private int totalCount;
     private long serverTime;
-    private boolean isPageAdd = false;
+    private boolean requesting = false;//
 
     public static ProductInvestListFragment newInstance(long pid, int type, int frequency, boolean isDeposit,long serviceTime) {
         ProductInvestListFragment frag = new ProductInvestListFragment();
@@ -88,12 +88,19 @@ public class ProductInvestListFragment extends BaseFragment {
         }
 
         mListAdapter = new InvestAdapter(getActivity());
+        page = 0;
+        request();
+    }
 
-        if (is_deposit) {
-            mHttpService.getProductInvestRecordForDeposit("" + pid, 0, PAGE_SIZE,serverTime);// PAGE_SIZE
-        } else {
-            mHttpService.getProductInvestRecord("" + pid, 0, PAGE_SIZE,serverTime);// PAGE_SIZE
+    private void request(){
+        if (!requesting){
+            if (is_deposit) {
+                mHttpService.getProductInvestRecordForDeposit("" + pid, page, PAGE_SIZE,serverTime);// PAGE_SIZE
+            } else {
+                mHttpService.getProductInvestRecord("" + pid, page, PAGE_SIZE,serverTime);// PAGE_SIZE
+            }
         }
+        requesting = true;
     }
 
     @Override
@@ -105,11 +112,8 @@ public class ProductInvestListFragment extends BaseFragment {
         mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (is_deposit) {
-                    mHttpService.getProductInvestRecordForDeposit("" + pid, 0, PAGE_SIZE,serverTime);// PAGE_SIZE
-                } else {
-                    mHttpService.getProductInvestRecord("" + pid, 0, PAGE_SIZE,serverTime);// PAGE_SIZE
-                }
+                page = 0;
+                request();
             }
         });
         mListView.setEmptyView(mTextView);
@@ -120,13 +124,7 @@ public class ProductInvestListFragment extends BaseFragment {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if (view.getLastVisiblePosition() == view.getCount() - 1) {
-                    isPageAdd = true;
-                    mRefresh.setRefreshing(true);
-                    if (is_deposit) {
-                        mHttpService.getProductInvestRecordForDeposit("" + pid, page, PAGE_SIZE,serverTime);// PAGE_SIZE
-                    } else {
-                        mHttpService.getProductInvestRecord("" + pid, page, PAGE_SIZE,serverTime);// PAGE_SIZE
-                    }
+                    request();
                 }
             }
 
@@ -140,14 +138,17 @@ public class ProductInvestListFragment extends BaseFragment {
         mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                allList.clear();
-                page = 0;
-                mRefresh.setRefreshing(true);
-                if (is_deposit) {
-                    mHttpService.getProductInvestRecordForDeposit("" + pid, 0, PAGE_SIZE,serverTime);// PAGE_SIZE
-                } else {
-                    mHttpService.getProductInvestRecord("" + pid, 0, PAGE_SIZE,serverTime);// PAGE_SIZE
+                if (!requesting){
+                    allList.clear();
+                    page = 0;
+                    mRefresh.setRefreshing(true);
+                    if (is_deposit) {
+                        mHttpService.getProductInvestRecordForDeposit("" + pid, 0, PAGE_SIZE,serverTime);// PAGE_SIZE
+                    } else {
+                        mHttpService.getProductInvestRecord("" + pid, 0, PAGE_SIZE,serverTime);// PAGE_SIZE
+                    }
                 }
+                requesting = true;
             }
         });
 
@@ -171,7 +172,7 @@ public class ProductInvestListFragment extends BaseFragment {
 
         if (reqId == ServiceCmd.CmdId.CMD_getLoanBidList.ordinal() || reqId == ServiceCmd.CmdId.CMD_getLoanBidListForDeposit.ordinal()) {
             page++;
-            isPageAdd = false;
+            requesting = false;
             ArrayList<LoanRecord> loanList = mHttpService.onGetProductInvestRecord(json);
             if (loanList != null && isAdded() && mListAdapter != null) {
                 allList.addAll(loanList);

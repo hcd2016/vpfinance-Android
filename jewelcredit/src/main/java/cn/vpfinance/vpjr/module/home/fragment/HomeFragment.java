@@ -55,13 +55,13 @@ import cn.vpfinance.vpjr.module.home.NewWelfareActivity;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.ScreenUtil;
+import cn.vpfinance.vpjr.view.FloatingAdView;
 import cn.vpfinance.vpjr.view.LinearLayoutForListView;
 import cn.vpfinance.vpjr.view.VerticalScrollTextView;
 import de.greenrobot.event.EventBus;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
-    private static final int REFRESH_HOME = 1;
     private Context mContext;
     private HttpService mHttpService;
     private int xDeltaRedPacket;
@@ -81,8 +81,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private LinearLayout mBusinessMode;
     private boolean mIsfirst = true;//是否是第一次加载数据进来，
     private SwipeRefreshLayout vSwipeRefreshLayout;
-    private ImageView floatingAdView2;
-    private ImageView mFloatingAdView;
+//    private ImageView floatingAdView2;
+//    private ImageView mFloatingAdView;
+    private FloatingAdView mFloatingAdView;
+    private FloatingAdView mFloatingAdView2;
+    private RelativeLayout mRelativeLayout;
+    private RelativeLayout mRelativeLayout2;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -106,6 +110,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_home, null);
 
+        mRelativeLayout = ((RelativeLayout) view.findViewById(R.id.floatingAdViewParent));
+        mRelativeLayout2 = ((RelativeLayout) view.findViewById(R.id.floatingAdViewParent2));
+        mFloatingAdView = ((FloatingAdView) view.findViewById(R.id.floatingAdView));
+        mFloatingAdView2 = ((FloatingAdView) view.findViewById(R.id.floatingAdView2));
+
         String str = "";
         if (HttpService.mBaseUrl.contains("http://www.vpfinance.cn/") || HttpService.mBaseUrl.contains("https://www.vpfinance.cn/")) {
             str = getString(R.string.app_name);
@@ -113,8 +122,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             str = HttpService.mBaseUrl;
         }
         ((ActionBarLayout) view.findViewById(R.id.titleBar)).reset().setTitle(str);
-        floatingAdView2 = ((ImageView) view.findViewById(R.id.floatingAdView2));
-        mFloatingAdView = ((ImageView) view.findViewById(R.id.floatingAdView));
+//        floatingAdView2 = ((ImageView) view.findViewById(R.id.floatingAdView2));
+//        mFloatingAdView = ((ImageView) view.findViewById(R.id.floatingAdView));
 
         view.findViewById(R.id.informs_more).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,10 +190,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             IndexPacketBean indexPacketBean = new Gson().fromJson(content, IndexPacketBean.class);
             if (indexPacketBean.count != 0) {
 //            if (true) {
-                mFloatingAdView.setVisibility(View.VISIBLE);
-                createRedPacketFloating(content);
+                mRelativeLayout.setVisibility(View.VISIBLE);
+//                hasFloating = true;
+                mFloatingAdView.setImageResource(R.drawable.index_red_packet);
+                mFloatingAdView.setOnFloatingAdClickListener(new FloatingAdView.onFloadingAdClickListener() {
+                    @Override
+                    public void onAdClick() {
+                        IndexRedPacketActivity.goThis(mContext, content);
+                    }
+                });
             }else{
-                mFloatingAdView.setVisibility(View.GONE);
+                mRelativeLayout.setVisibility(View.GONE);
             }
         }
         if (req == ServiceCmd.CmdId.CMD_APPMEMBER_INDEX.ordinal()) {
@@ -241,11 +257,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         tempUrl = tempUrl + "&userAppId=" + user.getUserId();
                     }
                 }
-                String pageUrl = tempUrl;
-                floatingAdView2.setVisibility(View.VISIBLE);
-                createActiveFloating(HttpService.mBaseUrl + imageUrl, pageUrl);
+                final String pageUrl = tempUrl;
+                mRelativeLayout.setVisibility(View.VISIBLE);
+                ImageLoader.getInstance().displayImage(HttpService.mBaseUrl + imageUrl, mFloatingAdView2);
+                mFloatingAdView2.setOnFloatingAdClickListener(new FloatingAdView.onFloadingAdClickListener() {
+                    @Override
+                    public void onAdClick() {
+                        if (!TextUtils.isEmpty(pageUrl))
+                            gotoWeb(pageUrl, "");
+                    }
+                });
             }else{
-                floatingAdView2.setVisibility(View.GONE);
+                mRelativeLayout2.setVisibility(View.GONE);
             }
         }
     }
@@ -422,7 +445,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    long downTime = 0;
+    /*long downTime = 0;
     private void createRedPacketFloating(final String content) {
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -558,5 +581,5 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 return false;
             }
         });
-    }
+    }*/
 }
