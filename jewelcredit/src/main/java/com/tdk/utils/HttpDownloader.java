@@ -24,9 +24,13 @@ public class HttpDownloader {
 
 	public HttpDownloader()
 	{
-		mClient.setMaxRetriesAndTimeout(3, 60000000);
+//		mClient.setMaxRetriesAndTimeout(3, 60000000);
 		mClient.setMaxConnections(20);
+		mClient.setConnectTimeout(36000);
+		mClient.setTimeout(36000);
+		mClient.setResponseTimeout(36000);
 		mClient.setEnableRedirects(true);
+
 	}
 
 	public static void doGet(String url, JsonHttpResponseHandler respHandler)

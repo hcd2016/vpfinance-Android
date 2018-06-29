@@ -2,7 +2,6 @@ package cn.vpfinance.vpjr.module.home.fragment;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Build;
@@ -13,6 +12,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -28,6 +28,7 @@ import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
+import com.jewelcredit.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -48,12 +49,12 @@ import cn.vpfinance.vpjr.gson.AppmemberIndexBean;
 import cn.vpfinance.vpjr.gson.IndexPacketBean;
 import cn.vpfinance.vpjr.model.RefreshCountDown;
 import cn.vpfinance.vpjr.model.RefreshTab;
-import cn.vpfinance.vpjr.module.dialog.NewUserDialogActivity;
 import cn.vpfinance.vpjr.module.home.IndexRedPacketActivity;
 import cn.vpfinance.vpjr.module.home.InviteGiftIntroduceActivity;
 import cn.vpfinance.vpjr.module.home.NewWelfareActivity;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
+import cn.vpfinance.vpjr.util.ScreenUtil;
 import cn.vpfinance.vpjr.view.FloatingAdView;
 import cn.vpfinance.vpjr.view.LinearLayoutForListView;
 import cn.vpfinance.vpjr.view.VerticalScrollTextView;
@@ -61,9 +62,12 @@ import de.greenrobot.event.EventBus;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
-    private static final int REFRESH_HOME = 1;
     private Context mContext;
     private HttpService mHttpService;
+    private int xDeltaRedPacket;
+    private int yDeltaRedPacket;
+    private int xDeltaActive;
+    private int yDeltaActive;
 
     private View view;
     private ArrayList<Pair<String, String>> informsList = new ArrayList<>();
@@ -71,13 +75,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private ConvenientBanner mBanner;
 
-    private FloatingAdView mFloatingAdView;
-    private RelativeLayout mRelativeLayout;
+    private RelativeLayout rootView;
     private LinearLayoutForListView mDepositProduct;
     private LinearLayoutForListView mRegularProduct;
     private LinearLayout mBusinessMode;
     private boolean mIsfirst = true;//是否是第一次加载数据进来，
     private SwipeRefreshLayout vSwipeRefreshLayout;
+//    private ImageView floatingAdView2;
+//    private ImageView mFloatingAdView;
+    private FloatingAdView mFloatingAdView;
+    private FloatingAdView mFloatingAdView2;
+    private RelativeLayout mRelativeLayout;
+    private RelativeLayout mRelativeLayout2;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -101,6 +110,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_home, null);
 
+        mRelativeLayout = ((RelativeLayout) view.findViewById(R.id.floatingAdViewParent));
+        mRelativeLayout2 = ((RelativeLayout) view.findViewById(R.id.floatingAdViewParent2));
+        mFloatingAdView = ((FloatingAdView) view.findViewById(R.id.floatingAdView));
+        mFloatingAdView2 = ((FloatingAdView) view.findViewById(R.id.floatingAdView2));
+
         String str = "";
         if (HttpService.mBaseUrl.contains("http://www.vpfinance.cn/") || HttpService.mBaseUrl.contains("https://www.vpfinance.cn/")) {
             str = getString(R.string.app_name);
@@ -108,9 +122,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             str = HttpService.mBaseUrl;
         }
         ((ActionBarLayout) view.findViewById(R.id.titleBar)).reset().setTitle(str);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            titleBar.setFakeStatusBar(true);
-//        }
+//        floatingAdView2 = ((ImageView) view.findViewById(R.id.floatingAdView2));
+//        mFloatingAdView = ((ImageView) view.findViewById(R.id.floatingAdView));
 
         view.findViewById(R.id.informs_more).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,11 +140,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         });
         informs = ((VerticalScrollTextView) view.findViewById(R.id.informs));
         mBusinessMode = ((LinearLayout) view.findViewById(R.id.business_mode));
-        mRelativeLayout = ((RelativeLayout) view.findViewById(R.id.floatingAdViewParent));
+        rootView = ((RelativeLayout) view.findViewById(R.id.rootView));
+
         view.findViewById(R.id.clickNewWelfare).setOnClickListener(this);
         view.findViewById(R.id.clickInviteGift).setOnClickListener(this);
         view.findViewById(R.id.clickHelp).setOnClickListener(this);
-        mFloatingAdView = ((FloatingAdView) view.findViewById(R.id.floatingAdView));
+
         mDepositProduct = ((LinearLayoutForListView) view.findViewById(R.id.deposit_products));
         mRegularProduct = ((LinearLayoutForListView) view.findViewById(R.id.regular_products));
 
@@ -140,6 +154,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
         mHttpService.getAppmemberIndex(false);
         mHttpService.getShareRedPacketList();
+        mHttpService.getHomeEvent();
 
         vSwipeRefreshLayout = ((SwipeRefreshLayout) view.findViewById(R.id.vSwipeRefreshLayout));
         vSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(mContext, R.color.main_color));
@@ -148,6 +163,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             public void onRefresh() {
                 mHttpService.getShareRedPacketList();
                 mHttpService.getAppmemberIndex(false);
+                mHttpService.getHomeEvent();
             }
         });
 
@@ -157,13 +173,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
-        //获得状态栏高度
-        Rect frame = new Rect();
-        getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
-        int mStatusBarHeight = frame.top;
-        int mActionBarHeight = (int) (getActivity().getResources().getDimension(R.dimen.bar_height));
-        mFloatingAdView.setExtraHeight(mStatusBarHeight, mActionBarHeight);
-
         mBanner = ((ConvenientBanner) view.findViewById(R.id.convenientBanner));
     }
 
@@ -179,11 +188,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         if (req == ServiceCmd.CmdId.CMD_SHARE_RED_PACKET_LIST.ordinal()) {
             final String content = json.toString();
             IndexPacketBean indexPacketBean = new Gson().fromJson(content, IndexPacketBean.class);
-            if (indexPacketBean.count == 0) {
-                mHttpService.getHomeEvent();
-            } else {
+            if (indexPacketBean.count != 0) {
+//            if (true) {
                 mRelativeLayout.setVisibility(View.VISIBLE);
-                mFloatingAdView.setVisibility(View.VISIBLE);
+//                hasFloating = true;
                 mFloatingAdView.setImageResource(R.drawable.index_red_packet);
                 mFloatingAdView.setOnFloatingAdClickListener(new FloatingAdView.onFloadingAdClickListener() {
                     @Override
@@ -191,6 +199,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         IndexRedPacketActivity.goThis(mContext, content);
                     }
                 });
+            }else{
+                mRelativeLayout.setVisibility(View.GONE);
             }
         }
         if (req == ServiceCmd.CmdId.CMD_APPMEMBER_INDEX.ordinal()) {
@@ -237,8 +247,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         if (req == ServiceCmd.CmdId.CMD_Home_Event.ordinal()) {
             String showImage = json.optString("showImage");
             if ("true".equals(showImage)) {
-                mRelativeLayout.setVisibility(View.VISIBLE);
-                mFloatingAdView.setVisibility(View.VISIBLE);
                 String imageUrl = json.optString("imageUrl");
                 //android端后台只返回一个url，不携带参数。如果登陆状态本地手动添加userAppId
                 String tempUrl = json.optString("pageUrl") + "?TYPE=android";
@@ -250,18 +258,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     }
                 }
                 final String pageUrl = tempUrl;
-                //Logger.e("pageUrl:"+pageUrl);
-                ImageLoader.getInstance().displayImage(HttpService.mBaseUrl + imageUrl + "3.png", mFloatingAdView);
-                mFloatingAdView.setOnFloatingAdClickListener(new FloatingAdView.onFloadingAdClickListener() {
+                mRelativeLayout.setVisibility(View.VISIBLE);
+                ImageLoader.getInstance().displayImage(HttpService.mBaseUrl + imageUrl, mFloatingAdView2);
+                mFloatingAdView2.setOnFloatingAdClickListener(new FloatingAdView.onFloadingAdClickListener() {
                     @Override
                     public void onAdClick() {
                         if (!TextUtils.isEmpty(pageUrl))
                             gotoWeb(pageUrl, "");
                     }
                 });
-            } else {
-                mFloatingAdView.setVisibility(View.GONE);
-                mRelativeLayout.setVisibility(View.GONE);
+            }else{
+                mRelativeLayout2.setVisibility(View.GONE);
             }
         }
     }
@@ -358,13 +365,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void onEventMainThread(RefreshTab event) {
-        if (event != null && isAdded()){
-            if (event.tabType == RefreshTab.TAB_HOME){
+        if (event != null && isAdded()) {
+            if (event.tabType == RefreshTab.TAB_HOME) {
                 MobclickAgent.onPageStart("HomeFragment");
                 if (mBanner != null) {
                     mBanner.startTurning(3000);
                 }
-            }else{
+            } else {
                 MobclickAgent.onPageEnd("HomeFragment");
                 if (mBanner != null) {
                     mBanner.stopTurning();
@@ -437,4 +444,142 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
     }
+
+    /*long downTime = 0;
+    private void createRedPacketFloating(final String content) {
+
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        final int screenWidth = ScreenUtil.getScreenWidth(getContext());
+        final int screenHeight = ScreenUtil.getScreenHeight(getContext());
+
+        final int maxLeftMargin = screenWidth - mFloatingAdView.getMeasuredWidth();
+        final int maxTopMargin = screenHeight - mFloatingAdView.getMeasuredHeight();
+
+        layoutParams.leftMargin = maxLeftMargin;
+        layoutParams.topMargin = maxTopMargin;
+
+        mFloatingAdView.setLayoutParams(layoutParams);
+
+        mFloatingAdView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int x = (int) event.getRawX();
+                final int y = (int) event.getRawY();
+//                Log.d(TAG, "onTouch: x= " + x + "y=" + y);
+
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        downTime = System.currentTimeMillis();
+                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                        xDeltaRedPacket = x - params.leftMargin;
+                        yDeltaRedPacket = y - params.topMargin;
+//                        Log.d(TAG, "ACTION_DOWN: xDelta= " + xDelta + "yDelta=" + yDelta);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                        int xDistance = x - xDeltaRedPacket;
+                        int yDistance = y - yDeltaRedPacket;
+//                        Log.d(TAG, "ACTION_MOVE: xDistance= " + xDistance + "yDistance=" + yDistance);
+                        if (xDistance > maxLeftMargin) {
+                            xDistance = maxLeftMargin;
+                        } else if (xDistance < 0) {
+                            xDistance = 0;
+                        }
+                        if (yDistance > maxTopMargin) {
+                            yDistance = maxTopMargin;
+                        } else if (yDistance < 0) {
+                            yDistance = 0;
+                        }
+                        layoutParams.leftMargin = xDistance;
+                        layoutParams.topMargin = yDistance;
+                        view.setLayoutParams(layoutParams);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (System.currentTimeMillis() - downTime < 150){
+                            IndexRedPacketActivity.goThis(mContext, content);
+                        }else{
+                            RelativeLayout.LayoutParams layoutParamsUp = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                            if ((screenWidth / 2) > mFloatingAdView.getLeft()+mFloatingAdView.getMeasuredWidth()/2) {
+                                layoutParamsUp.leftMargin = 0;
+                            } else {
+                                layoutParamsUp.leftMargin = maxLeftMargin;
+                            }
+                            view.setLayoutParams(layoutParamsUp);
+                        }
+                        break;
+                }
+                rootView.invalidate();
+                return false;
+            }
+        });
+    }
+
+    private void createActiveFloating(String url, final String pageUrl) {
+        ImageLoader.getInstance().displayImage(url, floatingAdView2);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        final int screenWidth = ScreenUtil.getScreenWidth(getContext());
+        final int screenHeight = ScreenUtil.getScreenHeight(getContext());
+
+        final int maxLeftMargin = screenWidth - floatingAdView2.getMeasuredWidth();
+        final int maxTopMargin = screenHeight - floatingAdView2.getMeasuredHeight();
+
+        layoutParams.leftMargin = maxLeftMargin;
+        layoutParams.topMargin = maxTopMargin - Utils.dip2px(getContext(),50);
+
+        floatingAdView2.setLayoutParams(layoutParams);
+
+        floatingAdView2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int x = (int) event.getRawX();
+                final int y = (int) event.getRawY();
+//                Log.d(TAG, "onTouch: x= " + x + "y=" + y);
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        downTime = System.currentTimeMillis();
+                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                        xDeltaActive = x - params.leftMargin;
+                        yDeltaActive = y - params.topMargin;
+//                        Log.d(TAG, "ACTION_DOWN: xDelta= " + xDelta + "yDelta=" + yDelta);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                        int xDistance = x - xDeltaActive;
+                        int yDistance = y - yDeltaActive;
+                        if (xDistance > maxLeftMargin) {
+                            xDistance = maxLeftMargin;
+                        } else if (xDistance < 0) {
+                            xDistance = 0;
+                        }
+                        if (yDistance > maxTopMargin) {
+                            yDistance = maxTopMargin;
+                        } else if (yDistance < 0) {
+                            yDistance = 0;
+                        }
+                        layoutParams.leftMargin = xDistance;
+                        layoutParams.topMargin = yDistance;
+                        view.setLayoutParams(layoutParams);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (System.currentTimeMillis() - downTime < 150){
+                            if (!TextUtils.isEmpty(pageUrl))
+                                gotoWeb(pageUrl, "");
+                        }else{
+                            RelativeLayout.LayoutParams layoutParamsUp = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                            if ((screenWidth / 2) > (floatingAdView2.getLeft()+floatingAdView2.getMeasuredWidth()/2)) {
+                                layoutParamsUp.leftMargin = 0;
+                            } else {
+                                layoutParamsUp.leftMargin = maxLeftMargin;
+                            }
+                            view.setLayoutParams(layoutParamsUp);
+                        }
+                        break;
+                }
+                rootView.invalidate();
+                return false;
+            }
+        });
+    }*/
 }

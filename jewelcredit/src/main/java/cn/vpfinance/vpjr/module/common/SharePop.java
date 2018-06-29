@@ -69,7 +69,7 @@ public class SharePop extends PopupWindow {
         // 设置SelectPicPopupWindow弹出窗体的宽
         this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         // 设置SelectPicPopupWindow弹出窗体的高
-        this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        this.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         // 设置SelectPicPopupWindow弹出窗体可点击
         this.setFocusable(true);
         // 设置SelectPicPopupWindow弹出窗体动画效果
@@ -132,7 +132,7 @@ public class SharePop extends PopupWindow {
         if (TextUtils.isEmpty(link))
             return;
 
-        ShareSDK.initSDK(mContext);
+//        ShareSDK.initSDK(mContext);
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
@@ -144,7 +144,7 @@ public class SharePop extends PopupWindow {
         oks.setSite(mTitle);
         oks.setSiteUrl(link);
         //oks.setSilent(silent);
-        oks.setDialogMode();
+//        oks.setDialogMode();
         if(!TextUtils.isEmpty(mImageUrl))
         {
             oks.setImagePath(mImageUrl);

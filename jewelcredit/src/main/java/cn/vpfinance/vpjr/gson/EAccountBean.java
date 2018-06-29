@@ -25,7 +25,16 @@ public class EAccountBean {
     private String name;
     private String bankName;
     private String cashBalance;
+    private String vpSuperviseAccount;//华兴转账公共账户
     private int customerType; //1个人账户2对公账户
+
+    public String getVpSuperviseAccount() {
+        return vpSuperviseAccount;
+    }
+
+    public void setVpSuperviseAccount(String vpSuperviseAccount) {
+        this.vpSuperviseAccount = vpSuperviseAccount;
+    }
 
     public int getCustomerType() {
         return customerType;

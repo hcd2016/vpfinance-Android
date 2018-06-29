@@ -1,15 +1,18 @@
 package cn.vpfinance.vpjr.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
 import cn.vpfinance.android.R;
 
+@SuppressLint("AppCompatCustomView")
 public class FloatingAdView extends ImageView {
 
     private Scroller mScroller;
@@ -83,6 +86,7 @@ public class FloatingAdView extends ImageView {
                 //mActionBarHeight和底部tab栏高度一致
                 if ((rawY - y - mStatusBarHeight - mActionBarHeight + moveY - mSelfHeight/2 < 0) || (rawY - y + moveY + getHeight() + mActionBarHeight > mScreenHeight)) {
                     ((View) getParent()).scrollBy(-moveX, 0);
+//                    ((RelativeLayout) getParent()).updateViewLayout(this,);
                 }else {
                     ((View) getParent()).scrollBy(-moveX, -moveY);
                 }

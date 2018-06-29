@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -94,11 +93,11 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         MyAdapter adapter = new MyAdapter(getSupportFragmentManager(), fragments);
         mVp.setAdapter(adapter);
 
-        String[] titles = new String[]{"未使用", "已使用", "已失效"};
+        String[] titles = new String[]{"未使用", "已使用", "已过期"};
         mTab.setViewPager(mVp, titles);
     }
 
-    public void setPageTitle(String[] titles){
+    public void setPageTitle(String[] titles) {
         mTab.setViewPager(mVp, titles);
     }
 
@@ -109,7 +108,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         menuWindow.setOutsideTouchable(true);
         menuWindow.setTouchable(true);
 
-        menuWindow.showAtLocation(mActionBar,Gravity.TOP|Gravity.RIGHT, 0, mActionBar.getMeasuredHeight());
+        menuWindow.showAtLocation(mActionBar, Gravity.TOP | Gravity.RIGHT, 0, mActionBar.getMeasuredHeight());
 
         rightView.findViewById(R.id.tvAddCoupon).setOnClickListener(this);
         rightView.findViewById(R.id.tvGetCoupon).setOnClickListener(this);
@@ -119,18 +118,27 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
     private void popTitle() {
         mActionBar.setUpDown(ActionBarLayout.TYPE_UP);
         View view = LayoutInflater.from(this).inflate(R.layout.layout_coupon_title, null, false);
-        statusWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, Utils.dip2px(this, 70), true);
-        statusWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        final LinearLayout shadowContainer = (LinearLayout) view.findViewById(R.id.shadowContainer);
+        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.mRadioGroup);
+
+        int heightPixels = getResources().getDisplayMetrics().heightPixels;
+        shadowContainer.setMinimumHeight(heightPixels - mActionBar.getMeasuredHeight() - radioGroup.getMeasuredHeight());
+//        shadowContainer.setAlpha(0.3F);
+
+        statusWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, heightPixels - mActionBar.getMeasuredHeight(), true);
+        statusWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         statusWindow.setOutsideTouchable(true);
         statusWindow.setTouchable(true);
         statusWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
                 mActionBar.setUpDown(ActionBarLayout.TYPE_DOWN);
+//                backgroundAlpha(1f);
             }
         });
+
         statusWindow.showAtLocation(mActionBar, Gravity.TOP, 0, mActionBar.getMeasuredHeight());
-        switch (type){
+        switch (type) {
             case CouponFragment.TYPE_ALL:
                 ((RadioButton) view.findViewById(R.id.mRbAll)).setChecked(true);
                 break;
@@ -141,7 +149,12 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
                 ((RadioButton) view.findViewById(R.id.mRbPresell)).setChecked(true);
                 break;
         }
-        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.mRadioGroup);
+        shadowContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                statusWindow.dismiss();
+            }
+        });
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -150,18 +163,28 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
                 }
                 switch (checkedId) {
                     case R.id.mRbAll:
+                        mActionBar.setTitle("我的优惠券");
                         type = CouponFragment.TYPE_ALL;
                         break;
                     case R.id.mRbVoucher:
+                        mActionBar.setTitle("代金券");
                         type = CouponFragment.TYPE_VOUCHER;
                         break;
                     case R.id.mRbPresell:
+                        mActionBar.setTitle("预约券");
                         type = CouponFragment.TYPE_PRESELL;
                         break;
                 }
                 EventBus.getDefault().post(new EventBusCoupon(type));
             }
         });
+//        backgroundAlpha(0.4f);
+    }
+
+    private void backgroundAlpha(float f) {
+        WindowManager.LayoutParams lp =getWindow().getAttributes();
+        lp.alpha = f;
+        getWindow().setAttributes(lp);
     }
 
     @Override
@@ -178,13 +201,16 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
                 return;
             }
             String msg = json.optString("msg");
-            String money = json.optString("money");
-            if ("1".equals(msg)) {
-                Toast.makeText(this, "恭喜您兑换了" + money + "元代金券!", Toast.LENGTH_LONG).show();
-            } else if ("0".equals(msg)) {
-                Toast.makeText(this, "输入兑换码有误！", Toast.LENGTH_SHORT).show();
+//            String money = json.optString("money");
+            if ("3".equals(msg)) {
+                EventBus.getDefault().post(new EventBusCoupon(type));
+                Toast.makeText(this, "恭喜您兑换成功", Toast.LENGTH_LONG).show();
+            } else if ("1".equals(msg)) {
+                Toast.makeText(this, "兑换码不正确", Toast.LENGTH_SHORT).show();
             } else if ("2".equals(msg)) {
-                Toast.makeText(this, "兑换码已使用！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "兑换码已使用", Toast.LENGTH_SHORT).show();
+            } else if ("4".equals(msg)){
+                Toast.makeText(this, "兑换码已过期", Toast.LENGTH_SHORT).show();
             }
         }
     }

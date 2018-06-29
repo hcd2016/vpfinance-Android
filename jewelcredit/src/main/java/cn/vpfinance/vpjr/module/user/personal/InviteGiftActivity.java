@@ -152,7 +152,7 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
     }
 
     private void showShare(String text, String imageUrl,String link) {
-        ShareSDK.initSDK(this);
+//        ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();

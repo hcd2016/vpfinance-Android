@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:background="@drawable/shape_radius5_white"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dialog_hx_update_title" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:text="存管系统升级通知"
+            android:textColor="#e93934"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_18" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginTop="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#454545"
+                    android:text="@string/hx_update"/>
+            </LinearLayout>
+        </ScrollView>
+        <!--<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="2dp"
+            android:text="应中国互联网金融协会要求，华兴银行现对用户存管账户进行合规改造，内容如下："
+            android:textColor="#454545" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="2dp"
+            android:text="1、不再显示用户的存管账户号；"
+            android:textColor="#454545" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="2dp"
+            android:text="2、用户进行转账充值不再转入用户存管账户号，改为转入微品金融在华兴银行的平台监管账户号，再由华兴银行匹配客户信息进行分账处理；"
+            android:textColor="#454545" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="2dp"
+            android:text="3、本次改动不会对支付渠道充值流程及提现功能造成影响；"
+            android:textColor="#454545" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="2dp"
+            android:text="4、所有流程均在华兴银行监管之下进行，微品金融不会接触到用户资金，如有疑问，请联系微品金融客服，或直接咨询华兴银行客服。"
+            android:textColor="#454545" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="2dp"
+            android:text="微品金融致力于打造合规透明的平台，让用户足不出户实现财富增值。"
+            android:textColor="#454545" />-->
+
+        <Button
+            android:id="@+id/close"
+            style="@style/SubmitButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="22dp"
+            android:layout_marginTop="22dp"
+            android:text="知道了" />
+    </LinearLayout>
+</FrameLayout>

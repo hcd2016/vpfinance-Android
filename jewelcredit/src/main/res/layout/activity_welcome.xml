@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -9,7 +9,25 @@
         android:id="@+id/welcome_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/welcome_general_v1"
+        android:background="@drawable/welcome_general"
         android:scaleType="centerCrop" />
-
-</LinearLayout>
+    <TextView
+        android:id="@+id/btnGoHome"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:text="跳过 3"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="@drawable/shape_radius18_white"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"/>
+    <ImageButton
+        android:id="@+id/btnGoEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_welcome_into"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="65dp"/>
+</RelativeLayout>

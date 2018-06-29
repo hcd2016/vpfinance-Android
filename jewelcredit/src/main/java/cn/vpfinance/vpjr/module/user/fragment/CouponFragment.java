@@ -157,7 +157,7 @@ public class CouponFragment extends BaseFragment {
                     tvSumAmount.setText("已过期代金券总额： " + couponBean.myCouponDto.sumAmount + "元");
                 }
                 if (page == 1) {
-                    String[] titles = new String[]{"未使用(" + couponBean.myCouponDto.unUseCount + ")", "已使用(" + couponBean.myCouponDto.useCount + ")", "已失效(" + couponBean.myCouponDto.expiredCount + ")"};
+                    String[] titles = new String[]{"未使用(" + couponBean.myCouponDto.unUseCount + ")", "已使用(" + couponBean.myCouponDto.useCount + ")", "已过期(" + couponBean.myCouponDto.expiredCount + ")"};
                     ((CouponActivity) getActivity()).setPageTitle(titles);
                 }
                 if (type == CouponFragment.TYPE_PRESELL) {
