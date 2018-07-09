@@ -34,6 +34,8 @@ import com.umeng.fb.FeedbackAgent;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -531,7 +533,7 @@ public class MainActivity extends BaseActivity {
     /**
      * 1或null 可用、2 超额 、3 过期
      */
-    private void showAutoStatus(final String status) {
+    private void showAutoStatus(String status) {
         String title = "";
         String message = "";
         if ("2".equals(status)) {
@@ -541,7 +543,31 @@ public class MainActivity extends BaseActivity {
             title = "自动投标授权过期提醒";
             message = "您的自动投标已超过约定时间,请重新授权";
         }
-        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(message)) return;
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(message) || user == null) return;
+        String value = SharedPreferencesHelper.getInstance(MainActivity.this).getStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME);
+        if (TextUtils.isEmpty(value)){
+            showAutoStatusDialog(title,message, status);
+        }else{
+            String[] split = value.split("_");
+            if (split != null && split.length == 2){
+                if (split[0].equalsIgnoreCase(user.getUserId().toString())){
+                    try {
+                        long time = new SimpleDateFormat("yyyy-MM-dd").parse(split[1]).getTime();
+                        if (time < System.currentTimeMillis()){
+                            showAutoStatusDialog(title,message, status);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    showAutoStatusDialog(title,message, status);
+                }
+            }
+        }
+
+    }
+
+    private void showAutoStatusDialog(String title,String message,final String status){
         new AlertDialog.Builder(this)
                 .setTitle(title)
                 .setMessage(message)
@@ -563,13 +589,13 @@ public class MainActivity extends BaseActivity {
                         int month = calendar.get(Calendar.MONTH) + 1;
                         int day = calendar.get(Calendar.DAY_OF_MONTH) + 1;
                         String data = year + "-" + month + "-" + day;
-                        SharedPreferencesHelper.getInstance(MainActivity.this).putStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME, data);
+                        SharedPreferencesHelper.getInstance(MainActivity.this).putStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME, user.getUserId() + "_" + data);
                     }
                 })
                 .setNeutralButton("不再提醒", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        SharedPreferencesHelper.getInstance(MainActivity.this).putStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME, "2020-02-02");
+                        SharedPreferencesHelper.getInstance(MainActivity.this).putStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME, user.getUserId() + "_" + "2024-02-02");
                     }
                 })
                 .create()

@@ -205,7 +205,6 @@ public class BankAccountFragment extends BaseFragment {
             String userNo = AppState.instance().getLoginUserInfo().userNo;
             String sesnId = AppState.instance().getSessionCode();
             mHttpService.getBankCard(sesnId);
-            mHttpService.getHxIsUpdate();
         }
     }
 
@@ -245,16 +244,9 @@ public class BankAccountFragment extends BaseFragment {
                 }
             }
         } else if (reqId == ServiceCmd.CmdId.CMD_HX_IS_UPDATE.ordinal()) {
-            //0是未更新 1是更新
-            String isUpdate = json.optString("AppIsUpdate");
-//            String isUpdate = "1";
-            if ("1".equals(isUpdate)) {
-                mCLickAccountE.setVisibility(View.GONE);
-                if (user != null) {
-                    mHttpService.getCreateAccountTime(user.getUserId().toString());
-                }
-            } else {
-                mCLickAccountE.setVisibility(View.VISIBLE);
+            mCLickAccountE.setVisibility(View.GONE);
+            if (user != null) {
+                mHttpService.getCreateAccountTime(user.getUserId().toString());
             }
         } else if (reqId == ServiceCmd.CmdId.CMD_CREATE_ACCOUNT_TIME.ordinal()) {
             String status = json.optString("status");

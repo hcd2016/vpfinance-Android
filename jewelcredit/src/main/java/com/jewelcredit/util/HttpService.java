@@ -5874,13 +5874,13 @@ Type	Int	Banner类型	1. 链接  2.产品
      * 华兴接口是否更新
      * @return
      */
-    public boolean getHxIsUpdate(){
+    /*public boolean getHxIsUpdate(){
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_HX_IS_UPDATE;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
         Map<String, String> param = new ArrayMap<String, String>();
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
-    }
+    }*/
 
     /**
      * 判断用户hx存管账户开户时间 true  就弹窗  false  不弹

@@ -10,7 +10,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.jewelcredit.util.AppState;
+import com.jewelcredit.util.HttpService;
+import com.tdk.utils.HttpDownloader;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cn.vpfinance.android.R;
@@ -40,20 +43,46 @@ public class Common {
             if (loginStatus == 0) {
                 if (!isShowing) {
                     isShowing = true;
-                    String message = json.optString("message");
-                    new AlertDialog.Builder(context)
-                            .setMessage(message)
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    AppState.instance().logout();
-                                    Intent intent = new Intent(context, MainActivity.class);
-                                    intent.putExtra(MainActivity.SWITCH_TAB_NUM, 0);
-                                    context.startActivity(intent);
-                                    isShowing = false;
-                                }
-                            })
-                            .create().show();
+                    if (AppState.instance().logined()){
+                        SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(context);
+                        String saved_name = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME);
+                        String saved_logPwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD);
+                        new HttpService(context, new HttpDownloader.HttpDownloaderListener() {
+                            @Override
+                            public void onHttpSuccess(int reqId, JSONObject json) {
+                                Logger.e("自动登录啦,难受啊马飞");
+                            }
+
+                            @Override
+                            public void onHttpSuccess(int reqId, JSONArray json) {
+                                Logger.e("自动登录啦,难受啊马飞");
+                            }
+
+                            @Override
+                            public void onHttpCache(int reqId) {
+                            }
+
+                            @Override
+                            public void onHttpError(int reqId, String errmsg) {
+                            }
+                        }).userLogin(saved_name, saved_logPwd);
+                    }else{
+                        //您还没有登陆
+                        String message = json.optString("message");
+                        new AlertDialog.Builder(context)
+                                .setMessage(message)
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        AppState.instance().logout();
+                                        Intent intent = new Intent(context, MainActivity.class);
+                                        intent.putExtra(MainActivity.SWITCH_TAB_NUM, 0);
+                                        context.startActivity(intent);
+                                    }
+                                })
+                                .create().show();
+                    }
+                    isShowing = false;
                 }
             } else if (loginStatus == 2) {
                 if (!isShowing) {
