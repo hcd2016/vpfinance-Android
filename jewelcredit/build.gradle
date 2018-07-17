@@ -87,9 +87,13 @@ android {
         vpfinance {}
         xiaomi {}
         yingyongbao{}
-//        _360 {}
+        _360 {}
+        wandoujia {}
+        oppo{}
+        vivo{}
+        huawei{}
+        meizu{}
 //        baidu {}
-//        wandoujia {}
 //        appchina {}
 //        umeng {}
     }

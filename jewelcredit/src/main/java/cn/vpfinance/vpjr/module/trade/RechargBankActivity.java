@@ -81,9 +81,9 @@ public class RechargBankActivity extends BaseActivity {
         if (!isHttpHandle(json)) return;
         if (reqId == ServiceCmd.CmdId.CMD_E_Account.ordinal()) {
             EAccountBean eAccountBean = new Gson().fromJson(json.toString(), EAccountBean.class);
-            tvAccountName.setText(eAccountBean.getVpAccount());
-            tvAccountNum.setText(eAccountBean.getVpAccountName());
-            tvAccountBank.setText("开户行查找方式："+eAccountBean.getVpOpenName());
+//            tvAccountName.setText(eAccountBean.getVpAccount());
+//            tvAccountNum.setText(eAccountBean.getVpAccountName());
+//            tvAccountBank.setText("开户行查找方式："+eAccountBean.getVpOpenName());
         }
     }
 

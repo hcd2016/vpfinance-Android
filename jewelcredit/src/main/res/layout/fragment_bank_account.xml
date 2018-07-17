@@ -669,7 +669,8 @@
                             android:orientation="horizontal"
                             android:paddingLeft="35dp"
                             android:paddingRight="23dp"
-                            android:background="@color/white">
+                            android:background="@color/white"
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="wrap_content"

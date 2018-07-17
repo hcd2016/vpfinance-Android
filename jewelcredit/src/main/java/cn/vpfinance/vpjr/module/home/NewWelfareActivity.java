@@ -160,7 +160,7 @@ public class NewWelfareActivity extends BaseActivity {
 
             User user = DBUtils.getUser(this);
             if (user != null){
-                mHttpService.getIsWelfare(user.getId().toString());
+                mHttpService.getIsWelfare(user.getUserId().toString());
             }
         }else{
             tvRegister.setVisibility(View.INVISIBLE);
