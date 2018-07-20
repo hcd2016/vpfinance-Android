@@ -3,16 +3,15 @@ package cn.vpfinance.vpjr.module.home.fragment;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.ArrayMap;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -28,7 +27,6 @@ import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
-import com.jewelcredit.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -51,10 +49,11 @@ import cn.vpfinance.vpjr.model.RefreshCountDown;
 import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.home.IndexRedPacketActivity;
 import cn.vpfinance.vpjr.module.home.InviteGiftIntroduceActivity;
+import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.home.NewWelfareActivity;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
+import cn.vpfinance.vpjr.module.trade.RechargeActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
-import cn.vpfinance.vpjr.util.ScreenUtil;
 import cn.vpfinance.vpjr.view.FloatingAdView;
 import cn.vpfinance.vpjr.view.LinearLayoutForListView;
 import cn.vpfinance.vpjr.view.VerticalScrollTextView;
@@ -64,10 +63,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private Context mContext;
     private HttpService mHttpService;
-    private int xDeltaRedPacket;
-    private int yDeltaRedPacket;
-    private int xDeltaActive;
-    private int yDeltaActive;
 
     private View view;
     private ArrayList<Pair<String, String>> informsList = new ArrayList<>();
@@ -444,142 +439,4 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
     }
-
-    /*long downTime = 0;
-    private void createRedPacketFloating(final String content) {
-
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        final int screenWidth = ScreenUtil.getScreenWidth(getContext());
-        final int screenHeight = ScreenUtil.getScreenHeight(getContext());
-
-        final int maxLeftMargin = screenWidth - mFloatingAdView.getMeasuredWidth();
-        final int maxTopMargin = screenHeight - mFloatingAdView.getMeasuredHeight();
-
-        layoutParams.leftMargin = maxLeftMargin;
-        layoutParams.topMargin = maxTopMargin;
-
-        mFloatingAdView.setLayoutParams(layoutParams);
-
-        mFloatingAdView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                final int x = (int) event.getRawX();
-                final int y = (int) event.getRawY();
-//                Log.d(TAG, "onTouch: x= " + x + "y=" + y);
-
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_DOWN:
-                        downTime = System.currentTimeMillis();
-                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                        xDeltaRedPacket = x - params.leftMargin;
-                        yDeltaRedPacket = y - params.topMargin;
-//                        Log.d(TAG, "ACTION_DOWN: xDelta= " + xDelta + "yDelta=" + yDelta);
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                        int xDistance = x - xDeltaRedPacket;
-                        int yDistance = y - yDeltaRedPacket;
-//                        Log.d(TAG, "ACTION_MOVE: xDistance= " + xDistance + "yDistance=" + yDistance);
-                        if (xDistance > maxLeftMargin) {
-                            xDistance = maxLeftMargin;
-                        } else if (xDistance < 0) {
-                            xDistance = 0;
-                        }
-                        if (yDistance > maxTopMargin) {
-                            yDistance = maxTopMargin;
-                        } else if (yDistance < 0) {
-                            yDistance = 0;
-                        }
-                        layoutParams.leftMargin = xDistance;
-                        layoutParams.topMargin = yDistance;
-                        view.setLayoutParams(layoutParams);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if (System.currentTimeMillis() - downTime < 150){
-                            IndexRedPacketActivity.goThis(mContext, content);
-                        }else{
-                            RelativeLayout.LayoutParams layoutParamsUp = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                            if ((screenWidth / 2) > mFloatingAdView.getLeft()+mFloatingAdView.getMeasuredWidth()/2) {
-                                layoutParamsUp.leftMargin = 0;
-                            } else {
-                                layoutParamsUp.leftMargin = maxLeftMargin;
-                            }
-                            view.setLayoutParams(layoutParamsUp);
-                        }
-                        break;
-                }
-                rootView.invalidate();
-                return false;
-            }
-        });
-    }
-
-    private void createActiveFloating(String url, final String pageUrl) {
-        ImageLoader.getInstance().displayImage(url, floatingAdView2);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        final int screenWidth = ScreenUtil.getScreenWidth(getContext());
-        final int screenHeight = ScreenUtil.getScreenHeight(getContext());
-
-        final int maxLeftMargin = screenWidth - floatingAdView2.getMeasuredWidth();
-        final int maxTopMargin = screenHeight - floatingAdView2.getMeasuredHeight();
-
-        layoutParams.leftMargin = maxLeftMargin;
-        layoutParams.topMargin = maxTopMargin - Utils.dip2px(getContext(),50);
-
-        floatingAdView2.setLayoutParams(layoutParams);
-
-        floatingAdView2.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                final int x = (int) event.getRawX();
-                final int y = (int) event.getRawY();
-//                Log.d(TAG, "onTouch: x= " + x + "y=" + y);
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_DOWN:
-                        downTime = System.currentTimeMillis();
-                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                        xDeltaActive = x - params.leftMargin;
-                        yDeltaActive = y - params.topMargin;
-//                        Log.d(TAG, "ACTION_DOWN: xDelta= " + xDelta + "yDelta=" + yDelta);
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                        int xDistance = x - xDeltaActive;
-                        int yDistance = y - yDeltaActive;
-                        if (xDistance > maxLeftMargin) {
-                            xDistance = maxLeftMargin;
-                        } else if (xDistance < 0) {
-                            xDistance = 0;
-                        }
-                        if (yDistance > maxTopMargin) {
-                            yDistance = maxTopMargin;
-                        } else if (yDistance < 0) {
-                            yDistance = 0;
-                        }
-                        layoutParams.leftMargin = xDistance;
-                        layoutParams.topMargin = yDistance;
-                        view.setLayoutParams(layoutParams);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        if (System.currentTimeMillis() - downTime < 150){
-                            if (!TextUtils.isEmpty(pageUrl))
-                                gotoWeb(pageUrl, "");
-                        }else{
-                            RelativeLayout.LayoutParams layoutParamsUp = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                            if ((screenWidth / 2) > (floatingAdView2.getLeft()+floatingAdView2.getMeasuredWidth()/2)) {
-                                layoutParamsUp.leftMargin = 0;
-                            } else {
-                                layoutParamsUp.leftMargin = maxLeftMargin;
-                            }
-                            view.setLayoutParams(layoutParamsUp);
-                        }
-                        break;
-                }
-                rootView.invalidate();
-                return false;
-            }
-        });
-    }*/
 }

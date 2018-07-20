@@ -397,7 +397,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.umeng.fb.ConversationActivity"/>
 
-        <service
+        <!--<service
             android:name="com.umeng.update.net.DownloadingService"
             android:process=":DownloadingService">
         </service>
@@ -405,9 +405,9 @@
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
+        </activity>-->
 
-        <!-- LLYT SDK START -->
+        <!-- llyt SDK start -->
         <activity
             android:name="com.yintong.secure.activity.BaseActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -628,10 +628,10 @@
         </service>
 
         <!-- V1.3.0添加的service，负责下载通知的资源 -->
-        <service android:name="com.umeng.message.UmengDownloadResourceService"/>
+        <!--<service android:name="com.umeng.message.UmengDownloadResourceService"/>
         <service
             android:name="cn.vpfinance.vpjr.service.MyPushIntentService"
-            android:process=":push"/>
+            android:process=":push"/>-->
 
         <!-- 个推SDK配置开始 V2.9.5.0-->
         <!-- 配置的第三方参数属性 -->

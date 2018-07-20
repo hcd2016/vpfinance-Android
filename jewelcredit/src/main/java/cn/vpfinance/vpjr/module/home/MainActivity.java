@@ -108,7 +108,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
+        //{"mac":"9c:2e:a1:d1:75:4b","device_id":"9c:2e:a1:d1:75:4b"}
         self = this;
 
         super.onCreate(savedInstanceState);

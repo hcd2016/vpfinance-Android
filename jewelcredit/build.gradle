@@ -93,17 +93,10 @@ android {
         vivo{}
         huawei{}
         meizu{}
-//        baidu {}
-//        appchina {}
-//        umeng {}
     }
 
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-    }
-
-    repositories {
-        maven { url "https://jitpack.io" }
     }
 }
 repositories {

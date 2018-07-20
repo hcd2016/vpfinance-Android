@@ -22,6 +22,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+import com.umeng.commonsdk.UMConfigure;
 
 import java.io.File;
 import java.util.Collections;
@@ -123,6 +124,9 @@ public class FinanceApplication extends Application {
         if (Build.VERSION.SDK_INT >= 14) {
             registerActivityLifecycleCallbacks(new FishActivityLifecycleCallbacks());
         }
+
+//        UMConfigure.setLogEnabled(true);
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "554c085a67e58e76a2005d67");
 
         AppState.instance().init(this);
         AppState.instance().genUserKey();
