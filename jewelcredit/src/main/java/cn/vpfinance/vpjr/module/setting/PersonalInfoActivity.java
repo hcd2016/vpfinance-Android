@@ -371,7 +371,8 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         });
 
         boolean isNewUser = SharedPreferencesHelper.getInstance(this).getBooleanValue(SharedPreferencesHelper.KEY_IS_NEW_USER, false);
-        findViewById(R.id.container_lianlian).setVisibility(isNewUser ? View.GONE : View.VISIBLE);
+//        findViewById(R.id.container_lianlian).setVisibility(isNewUser ? View.GONE : View.VISIBLE);
+        findViewById(R.id.container_lianlian).setVisibility(View.GONE);
     }
 
     @Override

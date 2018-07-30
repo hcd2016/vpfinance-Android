@@ -19,7 +19,6 @@ import cn.vpfinance.vpjr.download.SpUtils;
 import cn.vpfinance.vpjr.module.dialog.CommonDialogFragment;
 import cn.vpfinance.vpjr.module.dialog.RechargeCloseDialog;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
-import cn.vpfinance.vpjr.module.trade.RechargeActivity;
 
 
 /**
@@ -125,7 +124,7 @@ public class AlertDialogUtils {
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        context.startActivity(new Intent(context, RechargeActivity.class));
+//                        context.startActivity(new Intent(context, RechargeActivity.class));
                     }
                 })
                 .setNegativeButton("取消",null)

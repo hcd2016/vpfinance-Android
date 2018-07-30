@@ -57,7 +57,6 @@ import cn.vpfinance.vpjr.model.VoucherEvent;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.product.success.ProductInvestSuccessActivity;
-import cn.vpfinance.vpjr.module.trade.RechargeActivity;
 import cn.vpfinance.vpjr.util.AlertDialogUtils;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
@@ -624,7 +623,8 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                 }
                 tvUseVoucher.setText(mTotalCount + usableVoucherCount + "张可用");
             }
-        } else if (reqId == ServiceCmd.CmdId.CMD_PLANK.ordinal()) {
+        }
+        /*else if (reqId == ServiceCmd.CmdId.CMD_PLANK.ordinal()) {
             if (json != null) {
 
                 if (investLoadingDialog != null){
@@ -684,7 +684,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                 }
                 MobclickAgent.onEvent(this, "Buy", map);
             }
-        }
+        }*/
     }
 
     @Override

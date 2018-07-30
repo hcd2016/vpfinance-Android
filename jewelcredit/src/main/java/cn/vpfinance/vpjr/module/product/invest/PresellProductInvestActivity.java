@@ -43,9 +43,7 @@ import cn.vpfinance.vpjr.model.FundOverInfo;
 import cn.vpfinance.vpjr.model.PresellProductInfo;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.product.success.ProductInvestSuccessActivity;
-import cn.vpfinance.vpjr.module.trade.RechargeActivity;
 import cn.vpfinance.vpjr.util.AlertDialogUtils;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 
 /**
@@ -279,7 +277,7 @@ public class PresellProductInvestActivity extends BaseActivity implements View.O
             }
             tvBalance.setText("" + mCanBuyMoney);
         }
-        if (reqId == ServiceCmd.CmdId.CMD_PLANK.ordinal()) {
+        /*if (reqId == ServiceCmd.CmdId.CMD_PLANK.ordinal()) {
             if (json != null) {
 
                 ArrayMap<String,String> map = new ArrayMap<String,String>();
@@ -316,7 +314,7 @@ public class PresellProductInvestActivity extends BaseActivity implements View.O
                 }
                 MobclickAgent.onEvent(this, "Buy", map);
             }
-        }
+        }*/
     }
     @Override
     public void onHttpError(int reqId, String errmsg) {

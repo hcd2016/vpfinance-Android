@@ -269,7 +269,7 @@ public class BankAccountFragment extends BaseFragment {
     private void initUser() {
         if (mUserInfoBean == null) return;
 
-        if ("0".equals(mUserInfoBean.isNewUser)) {//老用户
+        /*if ("0".equals(mUserInfoBean.isNewUser)) {//老用户
             titleBar.setActionLeft("查看连连账户", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -278,7 +278,7 @@ public class BankAccountFragment extends BaseFragment {
             });
         } else {
             titleBar.setActionLeftGone();
-        }
+        }*/
 
         ivBandActive.setVisibility("1".equals(mUserInfoBean.isBindHxBank) ? View.GONE : View.VISIBLE);
         if (!TextUtils.isEmpty(mUserInfoBean.customerType) && "2".equals(mUserInfoBean.customerType)) {

@@ -62,7 +62,6 @@ import cn.vpfinance.vpjr.module.product.success.ProductInvestSuccessActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestOverInfoActivity;
 import cn.vpfinance.vpjr.module.setting.PasswordChangeActivity;
 import cn.vpfinance.vpjr.module.user.fragment.BankAccountFragment;
-import cn.vpfinance.vpjr.module.user.fragment.OriginalAccountFragment;
 import cn.vpfinance.vpjr.service.DemoIntentService;
 import cn.vpfinance.vpjr.service.DemoPushService;
 import cn.vpfinance.vpjr.util.DBUtils;
@@ -120,15 +119,6 @@ public class MainActivity extends BaseActivity {
 
         FeedbackAgent agent = new FeedbackAgent(this);
         agent.sync();
-
-//        mineFragmentColor = getResources().getColor(R.color.account_bank_header);
-//        mHomeFragment = HomeFragment.newInstance();
-
-//        productCategoryFragment = ProductCategoryFragment.newInstance();
-
-//        newMineFragment = new NewMineFragment();
-//        mineFragment = new MineFragment();
-//        moreFragment = MoreFragment2.newInstance();
 
         mHttpService = new HttpService(this, this);
         String version = Utils.getVersion(this);
@@ -210,7 +200,7 @@ public class MainActivity extends BaseActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.homePager);
         MyAdapter mTabsAdapter = new MyAdapter(getSupportFragmentManager());
-        mViewPager.setOffscreenPageLimit(5);
+        mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(mTabsAdapter);
         radioGroup = (RadioGroup) findViewById(R.id.maintab_radiogroup);
 
@@ -231,9 +221,6 @@ public class MainActivity extends BaseActivity {
                             break;
                         case R.id.maintab_plan_radiobtn:
                             switchToTab(1);
-//                            if (!SharedPreferencesHelper.getInstance(MainActivity.this).getBooleanValue(ListMaskingActivity.IS_SHOW_MASKING, false)) {
-//                                startActivity(new Intent(MainActivity.this, ListMaskingActivity.class));
-//                            }
                             break;
                         case R.id.maintab_mine_radiobtn:
                             if (!AppState.instance().logined()) {
@@ -273,9 +260,6 @@ public class MainActivity extends BaseActivity {
                     return new BankAccountFragment();
                 case 3:
                     return MoreFragment2.newInstance();
-                case 4:
-//                    return new NewMineFragment();
-                    return new OriginalAccountFragment();
                 default:
                     break;
             }
@@ -284,7 +268,7 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return 5;
+            return 4;
         }
 
         @Override

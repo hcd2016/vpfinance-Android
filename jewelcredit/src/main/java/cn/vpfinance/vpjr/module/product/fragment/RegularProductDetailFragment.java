@@ -42,7 +42,6 @@ import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.dialog.TextInputDialogFragment;
 import cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity;
 import cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity;
-import cn.vpfinance.vpjr.module.trade.RechargeActivity;
 import cn.vpfinance.vpjr.module.product.record.TransferAvailableTimeActivity;
 import cn.vpfinance.vpjr.module.voucher.VoucherActivity2;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
@@ -274,7 +273,7 @@ public class RegularProductDetailFragment extends BaseFragment implements View.O
             }
         }
 
-        if (reqId == ServiceCmd.CmdId.CMD_PLANK.ordinal() && isAdded()) {
+       /* if (reqId == ServiceCmd.CmdId.CMD_PLANK.ordinal() && isAdded()) {
             if (json != null && isAdded()) {
 
                 ArrayMap<String, String> map = new ArrayMap<String, String>();
@@ -300,7 +299,7 @@ public class RegularProductDetailFragment extends BaseFragment implements View.O
                 MobclickAgent.onEvent(getActivity(), "Buy", map);
 
             }
-        }
+        }*/
     }
 
 

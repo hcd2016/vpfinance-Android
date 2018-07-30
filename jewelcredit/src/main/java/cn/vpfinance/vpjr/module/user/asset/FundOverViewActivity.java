@@ -28,9 +28,7 @@ import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.module.dialog.RechargeCloseDialog;
 import cn.vpfinance.vpjr.module.trade.RechargBankActivity;
-import cn.vpfinance.vpjr.module.trade.RechargeActivity;
 import cn.vpfinance.vpjr.module.trade.WithdrawBankActivity;
-import cn.vpfinance.vpjr.module.trade.WithdrawDepositActivity;
 import cn.vpfinance.vpjr.util.AlertDialogUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.view.CirclePercentView;
@@ -175,7 +173,7 @@ public class FundOverViewActivity extends BaseActivity implements View.OnClickLi
 
             case R.id.clickWithdrawal:
                 if (accountType == 0){
-                    startActivity(new Intent(this, WithdrawDepositActivity.class));
+//                    startActivity(new Intent(this, WithdrawDepositActivity.class));
                 }else{
                     Intent intent = new Intent(this, WithdrawBankActivity.class);
                     intent.putExtra(WithdrawBankActivity.CASHBALANCE,cashBalanceStr);
