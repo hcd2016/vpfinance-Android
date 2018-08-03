@@ -107,6 +107,10 @@
             android:screenOrientation="portrait"
             android:uiOptions="splitActionBarWhenNarrow">
         </activity>
+        <activity android:name="cn.vpfinance.vpjr.module.common.CaptchaActivity"/>
+        <activity android:name="cn.vpfinance.vpjr.module.common.LoginPasswordActivity"/>
+        <activity android:name="cn.vpfinance.vpjr.module.common.RegisterCompanyInfoActivity"/>
+        <activity android:name="cn.vpfinance.vpjr.module.common.ForgetLoginPasswordActivity"/>
         <activity
             android:name="cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"

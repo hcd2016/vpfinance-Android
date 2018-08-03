@@ -5780,7 +5780,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
         Map<String, String> param = new ArrayMap<String, String>();
-        param.put("autoTenderProtocol","1");
+        param.put("autoTenderProtocol", "1");
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 
@@ -5795,8 +5795,9 @@ Type	Int	Banner类型	1. 链接  2.产品
 
     /**
      * 获取所有优惠券列表
+     *
      * @param couponType 1代金券 2预约卷  其他 全部
-     * @param type  1.可用代金券; 2.己使用代金券; 3.己过期代金券
+     * @param type       1.可用代金券; 2.己使用代金券; 3.己过期代金券
      * @param pageNum
      * @return
      */
@@ -5813,6 +5814,7 @@ Type	Int	Banner类型	1. 链接  2.产品
 
     /**
      * APP查询弹窗内容
+     *
      * @param uid
      * @return
      */
@@ -5824,8 +5826,10 @@ Type	Int	Banner类型	1. 链接  2.产品
         param.put("uid", uid);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
+
     /**
      * 启动APP查询用户投标状态
+     *
      * @param uid
      * @return
      */
@@ -5840,11 +5844,12 @@ Type	Int	Banner类型	1. 链接  2.产品
 
     /**
      * 撤销自动投标授权
+     *
      * @param userId
      * @param dynamicPassword 短信验证码
      * @return
      */
-    public boolean getUnAuthAutoBid(String userId, String dynamicPassword){
+    public boolean getUnAuthAutoBid(String userId, String dynamicPassword) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_unAuthAutoBid;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
@@ -5856,11 +5861,12 @@ Type	Int	Banner类型	1. 链接  2.产品
 
     /**
      * 发送华兴短信验证码
+     *
      * @param userId
-     * @param type 1：自动投标撤销  2：自动还款撤销 0：默认
+     * @param type   1：自动投标撤销  2：自动还款撤销 0：默认
      * @return
      */
-    public boolean getHxSendSms(String userId, int type){
+    public boolean getHxSendSms(String userId, int type) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_HX_SEND_SMS;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
@@ -5871,27 +5877,94 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 华兴接口是否更新
-     * @return
-     */
-    /*public boolean getHxIsUpdate(){
-        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_HX_IS_UPDATE;
-        String method = ServiceCmd.getMethodName(cmdId);
-        String url = getServiceUrl(method);
-        Map<String, String> param = new ArrayMap<String, String>();
-        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
-    }*/
-
-    /**
      * 判断用户hx存管账户开户时间 true  就弹窗  false  不弹
+     *
      * @return
      */
-    public boolean getCreateAccountTime(String userId){
+    public boolean getCreateAccountTime(String userId) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_CREATE_ACCOUNT_TIME;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
         Map<String, String> param = new ArrayMap<String, String>();
-        param.put("userId",userId);
+        param.put("userId", userId);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    public boolean getCaptchaImage() {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_REGISTER_CAPTCHA_IMAGE;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    public boolean getCheckCaptchaImage(String code, String phone, String recommend) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_REGISTER_CHECK_CAPTCHA_IMAGE;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("code", code);
+        param.put("phone", phone);
+        param.put("recommend", recommend);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 短信验证码
+     *
+     * @param phone
+     * @param type  类型(注册传1)
+     * @return
+     */
+    public boolean getCaptchaSms(String phone, String type) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_REGISTER_CAPTCHA_SMS;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("phone", phone);
+        param.put("type", type);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    public boolean getRegisterCaptchaSms(String phone) {
+        return getCaptchaSms(phone, "1");
+    }
+
+    /**
+     * 语音验证码
+     *
+     * @param phone
+     * @param type  类型(注册传1)
+     * @return
+     */
+    public boolean getCaptchaVoice(String phone, String type) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_REGISTER_CAPTCHA_VOICE;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("phone", phone);
+        param.put("type", type);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    public boolean getRegisterCaptchaVoice(String phone) {
+        return getCaptchaVoice(phone, "1");
+    }
+
+    /**
+     * 校验短信或者语音验证码
+     *
+     * @param phone
+     * @param smscode
+     * @return
+     */
+    public boolean getCheckCaptchaSmsVoice(String phone, String smscode) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_REGISTER_CHECK_CAPTCHA_SMS_VOICE;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("phone", phone);
+        param.put("smscode", smscode);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 }

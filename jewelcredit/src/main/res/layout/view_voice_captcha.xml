@@ -10,7 +10,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:textSize="@dimen/text_size_12"
-        android:text="收不到验证码？试一试获取"/>
+        android:text="收不到验证码？试试获取"/>
     <TextView
         android:id="@+id/voiceCaptcha"
         android:layout_width="wrap_content"
@@ -19,5 +19,6 @@
         android:paddingBottom="10dp"
         android:textSize="@dimen/text_size_12"
         android:textColor="@color/link_blue"
-        android:text="语音验证码"/>
+        android:text="语音验证码"
+        android:paddingLeft="6dp"/>
 </LinearLayout>

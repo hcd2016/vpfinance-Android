@@ -202,6 +202,14 @@ public class ActionBarWhiteLayout extends RelativeLayout {
         return this;
     }
 
+    public ActionBarWhiteLayout setActionRight(String actionCap) {
+        if (!TextUtils.isEmpty(actionCap)) {
+            mActionRight.setVisibility(VISIBLE);
+            mActionRight.setText(actionCap);
+        }
+        return this;
+    }
+
     public ActionBarWhiteLayout setActionRight(String actionCap, OnClickListener actionCallback) {
         if (!TextUtils.isEmpty(actionCap)) {
             mActionRight.setVisibility(VISIBLE);

@@ -27,11 +27,12 @@
             android:paddingRight="25dp">
 
             <cn.vpfinance.vpjr.view.EditTextWithDel
-                android:id="@+id/register_phone"
+                android:id="@+id/etPhone"
                 style="@style/SampleNumberEditStyle"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/edittext_height"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
                 android:layout_marginTop="25dp"
+                android:drawablePadding="10dp"
                 android:drawableLeft="@drawable/login_username"
                 android:hint="@string/register_phone">
 
@@ -39,59 +40,64 @@
             </cn.vpfinance.vpjr.view.EditTextWithDel>
 
             <cn.vpfinance.vpjr.view.EditTextWithDel
-                android:id="@+id/register_password"
-                style="@style/SamplePasswdTextStyle"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/edittext_height"
+                android:id="@+id/etEmail"
+                style="@style/SampleNumberEditStyle"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
                 android:layout_marginTop="25dp"
-                android:drawableLeft="@drawable/login_password"
-                android:hint="请设置密码，6-20个字符" />
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/login_icon_email"
+                android:hint="请输入邮箱">
 
-            <TextView
-                android:id="@+id/tvPasswordStrength"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <requestFocus />
+            </cn.vpfinance.vpjr.view.EditTextWithDel>
 
-            <RelativeLayout
+            <cn.vpfinance.vpjr.view.EditTextWithDel
+                android:id="@+id/etCompanyPhone"
+                style="@style/SampleNumberEditStyle"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/edittext_height"
+                android:layout_height="44dp"
+                android:layout_marginTop="25dp"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/register_recommend"
+                android:hint="请输入经办人手机号"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
                 android:layout_marginTop="25dp"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/register_fetch_passcode_btn"
-                    style="@style/SubmitButtonStyle"
-                    android:layout_width="138dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:text="@string/register_fetch_passcode" />
-
                 <EditText
-                    android:id="@+id/register_passcode"
-                    style="@style/NumberEditStyle"
-                    android:layout_width="match_parent"
+                    android:id="@+id/etImageCaptcha"
+                    style="@style/EditTextStyle"
                     android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
                     android:layout_marginRight="14dp"
-                    android:layout_toLeftOf="@id/register_fetch_passcode_btn"
                     android:drawableLeft="@drawable/register_code"
-                    android:drawablePadding="5dp"
-                    android:hint="@string/hint_captcha" />
+                    android:drawablePadding="10dp"
+                    android:hint="请输入图形验证码" />
 
-            </RelativeLayout>
+                <ImageView
+                    android:id="@+id/ivCaptcha"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
 
-            <include layout="@layout/view_voice_captcha" />
-
-            <EditText
-                android:id="@+id/invitee"
+            <cn.vpfinance.vpjr.view.EditTextWithDel
+                android:id="@+id/etRecommendPhone"
                 style="@style/EditTextStyle"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/edittext_height"
+                android:layout_marginTop="25dp"
                 android:drawableLeft="@drawable/register_recommend"
-                android:drawablePadding="5dp"
+                android:drawablePadding="10dp"
                 android:hint="请输入推荐人手机号或四位推荐码" />
 
             <Button
-                android:id="@+id/register_commit_btn"
+                android:id="@+id/btnRegister"
                 style="@style/SubmitButtonStyle"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/submit_button_height"
@@ -100,7 +106,7 @@
                 android:text="@string/register_commit" />
 
             <LinearLayout
-                android:id="@+id/register_checkbox"
+                android:id="@+id/containerProtocol"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -112,7 +118,7 @@
                     android:layout_height="wrap_content">
 
                     <CheckBox
-                        android:id="@+id/cb_protocol"
+                        android:id="@+id/cbProtocol"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_marginRight="5dp"
@@ -128,7 +134,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/register_protocol"
+                    android:id="@+id/tvProtocol1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -136,7 +142,7 @@
                     android:textColor="@color/link_blue" />
 
                 <TextView
-                    android:id="@+id/register_protocol2"
+                    android:id="@+id/tvProtocol2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -144,7 +150,7 @@
                     android:textColor="@color/link_blue" />
 
                 <TextView
-                    android:id="@+id/register_protocol3"
+                    android:id="@+id/tvProtocol3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"

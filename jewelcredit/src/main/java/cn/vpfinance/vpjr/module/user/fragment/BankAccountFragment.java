@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -34,6 +35,7 @@ import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.QueryAutoStatusBean;
 import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.common.WebViewActivity;
 import cn.vpfinance.vpjr.module.dialog.HxUpdateDialog;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestProtocolActivity;
@@ -73,16 +75,12 @@ public class BankAccountFragment extends BaseFragment {
 
     @Bind(R.id.header_no_open)
     public LinearLayout mHeaderNoOpen;
-    @Bind(R.id.header_no_open_inside)
-    public RelativeLayout mHeaderNoOpenInside;
     @Bind(R.id.header)
     public RelativeLayout mHeader;
     @Bind(R.id.refresh)
     SwipeRefreshLayout mRefresh;
     @Bind(R.id.tvUserName)
     TextView tvUserName;
-    @Bind(R.id.tvUserName2)
-    TextView tvUserName2;
     @Bind(R.id.tvReturnMoneyCount)
     TextView tvReturnMoneyCount;
     @Bind(R.id.tvReturnMoneyPrincipal)
@@ -91,12 +89,8 @@ public class BankAccountFragment extends BaseFragment {
     TextView tvReturnMoneyIncome;
     @Bind(R.id.myDescribe)
     TextView myDescribe;
-    @Bind(R.id.myDescribe2)
-    TextView myDescribe2;
     @Bind(R.id.userHead)
     CircleImg userHead;
-    @Bind(R.id.userHead2)
-    CircleImg userHead2;
     @Bind(R.id.tvTotalMoney)
     TextView tvTotalMoney;
     @Bind(R.id.tvAvailableMoney)
@@ -123,12 +117,20 @@ public class BankAccountFragment extends BaseFragment {
     LinearLayout noOpenHidden;
     @Bind(R.id.click_account_e)
     LinearLayout mCLickAccountE;
+    @Bind(R.id.click_open_bank_account)
+    Button click_open_bank_account;
+    @Bind(R.id.tvNoOpenHint)
+    TextView tvNoOpenHint;
+    @Bind(R.id.tvNoOpenHint2)
+    TextView tvNoOpenHint2;
 
     private User user;
     private HttpService mHttpService;
     private UserInfoBean mUserInfoBean;
     private int accountType = 1;
     private String realName;
+    private boolean isOpen;
+    private boolean isBindBank;
 
 //    private int autoInvestStatus = 0; // 0忽略 2超额 3过期
 
@@ -154,7 +156,6 @@ public class BankAccountFragment extends BaseFragment {
         });
         mHeader.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.account_bank_header));
         mHeaderNoOpen.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.account_bank_header));
-        mHeaderNoOpenInside.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.account_bank_header));
 
         titleBar.reset()
                 .setTitle("我的账户")
@@ -166,10 +167,30 @@ public class BankAccountFragment extends BaseFragment {
                     }
                 });
 
-        boolean isOpen = SharedPreferencesHelper.getInstance(mContext).getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT, false);
-        mHeaderNoOpen.setVisibility(isOpen ? View.GONE : View.VISIBLE);
-        mOpenContent.setVisibility(!isOpen ? View.GONE : View.VISIBLE);
-        noOpenHidden.setVisibility(!isOpen ? View.GONE : View.VISIBLE);
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(mContext);
+        isOpen = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT, false);
+        isBindBank = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_BIND_BANK, false);
+        if (!isOpen){
+            mHeaderNoOpen.setVisibility(View.VISIBLE);
+            mOpenContent.setVisibility(View.GONE);
+            noOpenHidden.setVisibility(View.GONE);
+            click_open_bank_account.setText("开通存管账户");
+            tvNoOpenHint.setText("为了保障您的资金安全 需先开通存管账户");
+            tvNoOpenHint2.setVisibility(View.VISIBLE);
+            tvNoOpenHint2.setText("开通后10分钟左右可以查看开通结果 请勿重复操作");
+
+        }else if (!isBindBank){
+            mHeaderNoOpen.setVisibility(View.VISIBLE);
+            mOpenContent.setVisibility(View.GONE);
+            noOpenHidden.setVisibility(View.GONE);
+            click_open_bank_account.setText("绑卡激活");
+            tvNoOpenHint.setText("开通了银行存管的用户 需绑定银行卡激活账户");
+            tvNoOpenHint2.setVisibility(View.GONE);
+        }else{
+            mHeaderNoOpen.setVisibility(View.GONE);
+            mOpenContent.setVisibility(View.VISIBLE);
+            noOpenHidden.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -298,7 +319,6 @@ public class BankAccountFragment extends BaseFragment {
 //            if (!"1".equals(mUserInfoBean.accountType)) return;
 
         tvUserName.setText("你好!" + mUserInfoBean.userName);
-        tvUserName2.setText("你好!" + mUserInfoBean.userName);
         tvOpenBankAccount.setText("1".equals(mUserInfoBean.isAutoTender) ? "已开启" : "未开启");
 
         boolean isOpen = "1".equals(mUserInfoBean.isOpen) ? true : false;
@@ -318,7 +338,6 @@ public class BankAccountFragment extends BaseFragment {
         tvReturnMoneyIncome.setText(mUserInfoBean.profitAmountSum);//待回款利息
 
         myDescribe.setText(TextUtils.isEmpty(mUserInfoBean.signature) ? "未设置签名" : mUserInfoBean.signature);//个人签名
-        myDescribe2.setText(TextUtils.isEmpty(mUserInfoBean.signature) ? "未设置签名" : mUserInfoBean.signature);//个人签名
 
         SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(getActivity());
 
@@ -343,11 +362,9 @@ public class BankAccountFragment extends BaseFragment {
             String headUrl = SharedPreferencesHelper.getInstance(getActivity()).getStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId());
             if (headUrl == null) {
                 userHead.setImageResource(R.drawable.user_head);
-                userHead2.setImageResource(R.drawable.user_head);
             } else {
                 ImageLoader imageLoader = ImageLoader.getInstance();
                 imageLoader.displayImage(headUrl, userHead);
-                imageLoader.displayImage(headUrl, userHead2);
             }
             //查询是否自动投标 超额或过期
             mHttpService.getQueryAutoPlankStatus(user.getUserId().toString());
@@ -370,10 +387,23 @@ public class BankAccountFragment extends BaseFragment {
             R.id.clickInviteGift,
             R.id.invest_top,
             R.id.my_medal,
-
+            R.id.tvOpenGuide,
             R.id.click_risk_evaluating})
     public void click(View view) {
         switch (view.getId()) {
+            case R.id.tvOpenGuide:
+                boolean isPersonType = ((FinanceApplication) getActivity().getApplication()).isPersonType;
+                if (!isOpen){
+                    //图文指引
+                    if(isPersonType){
+                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideOpen",null);
+                    }else{
+                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideOpen?company=1",null);
+                    }
+                }else if (!isBindBank){
+                    //TODO
+                }
+                break;
             case R.id.clickInviteGift:
                 InviteGiftActivity.goThis(mContext);
                 break;
@@ -450,14 +480,19 @@ public class BankAccountFragment extends BaseFragment {
                 user = DBUtils.getUser(mContext);
                 if (user != null) {
                     Long userId = user.getUserId();
-                    if (mUserInfoBean != null) {
-                        boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
-                        if (!isRealName) {
-                            Utils.Toast("开通存管账户前请先进行实名认证");
-                            RealnameAuthActivity.goThis(getContext());
-                        } else {
-                            gotoWeb("/hx/account/create?userId=" + userId, "");
+                    if (!isOpen){
+                        if (mUserInfoBean != null) {
+                            boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
+                            if (!isRealName) {
+                                Utils.Toast("开通存管账户前请先进行实名认证");
+                                RealnameAuthActivity.goThis(getContext());
+                            } else {
+                                gotoWeb("/hx/account/create?userId=" + userId, "");
+                            }
                         }
+                    }else if (!isBindBank){
+                        //跳转到存管绑卡第三方界面
+                        BindBankHintActivity.goThis(getContext(),userId.toString());
                     }
                 } else {
                     gotoActivity(LoginActivity.class);

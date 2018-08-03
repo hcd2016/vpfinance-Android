@@ -37,7 +37,6 @@ import static com.tencent.bugly.beta.tinker.TinkerManager.getApplication;
 
 public class FinanceApplication extends Application {
     public String currentPid;
-    public RegisterActivity.OpenRedPacket openRedPacket;
     public boolean isCheckUpdate = true;
     public String isBindBank = "1";
     public boolean isOpenHx = false;
@@ -45,6 +44,7 @@ public class FinanceApplication extends Application {
 
     public long differTime = 0L;
     public int currentListTabType = Constant.TYPE_REGULAR;
+    public boolean isPersonType = true;
 //    public static final String SHOW_SETUP_GUIDE = "show_setup_guide";
     /**
      * 是否进入向导设置

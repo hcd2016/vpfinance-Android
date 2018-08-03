@@ -22,6 +22,73 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="82dp"
+                    android:id="@+id/header"
+                    android:background="@color/account_bank_header">
+
+                    <cn.vpfinance.vpjr.view.CircleImg
+                        android:id="@+id/userHead"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:layout_marginLeft="25dp"
+                        app:border_width="1px"
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/icon_mine_header" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_toRightOf="@id/userHead"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvUserName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxWidth="120dp"
+                                android:singleLine="true"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                tools:text="你好！一帆" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/myDescribe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="150dp"
+                            android:layout_marginTop="5dp"
+                            android:drawableRight="@drawable/edit_describe"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxEms="8"
+                            android:singleLine="true"
+                            android:textColor="@color/white"
+                            android:textSize="13sp"
+                            tools:text="钱在我手，想投就投" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivBandActive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/bangkajihuo"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/header_no_open"
@@ -29,78 +96,30 @@
                     android:layout_height="wrap_content"
                     android:background="@color/account_bank_header"
                     android:orientation="vertical"
-                    android:visibility="gone">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="82dp"
-                        android:orientation="horizontal">
+                    android:gravity="center_horizontal">
 
-                        <cn.vpfinance.vpjr.view.CircleImg
-                            android:id="@+id/userHead2"
-                            android:layout_width="54dp"
-                            android:layout_height="54dp"
-                            android:layout_marginLeft="25dp"
-                            app:border_width="1px"
-                            android:layout_marginTop="25dp"
-                            android:src="@drawable/icon_mine_header" />
+                    <ImageView
+                        android:layout_width="280dp"
+                        android:layout_height="130dp"
+                        android:background="@drawable/pic_cunguan"
+                        android:layout_marginTop="20dp"/>
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="30dp"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:id="@+id/tvUserName2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:ellipsize="end"
-                                    android:gravity="center"
-                                    android:maxWidth="120dp"
-                                    android:singleLine="true"
-                                    android:textColor="@color/white"
-                                    android:textSize="15sp"
-                                    tools:text="你好！一帆" />
-                            </LinearLayout>
-
-                            <TextView
-                                android:id="@+id/myDescribe2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="150dp"
-                                android:layout_marginTop="5dp"
-                                android:drawableRight="@drawable/edit_describe"
-                                android:ellipsize="end"
-                                android:gravity="center"
-                                android:maxEms="8"
-                                android:singleLine="true"
-                                android:textColor="@color/white"
-                                android:textSize="13sp"
-                                tools:text="钱在我手，想投就投" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/header_no_open_inside"
-                        android:layout_width="match_parent"
-                        android:layout_height="197dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_marginTop="19.5dp"
-                        android:background="@color/account_bank_header"
-                        android:elevation="2dp">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/pic_cunguan"/>
-                    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tvNoOpenHint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="为了保障您的资金安全 需先开通存管账户"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="40dp"
+                        android:textSize="@dimen/text_size_12"/>
+                    <TextView
+                        android:id="@+id/tvNoOpenHint2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开通后10分钟左右可以查看开通结果 请勿重复操作"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="5dp"
+                        android:textSize="@dimen/text_size_12"/>
 
                     <Button
                         android:id="@+id/click_open_bank_account"
@@ -114,6 +133,16 @@
                         android:layout_marginBottom="20dp"
                         android:textColor="@color/text_333333"
                         android:textSize="@dimen/text_size_16" />
+
+                    <TextView
+                        android:id="@+id/tvOpenGuide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="查看图文指引"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="20dp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -150,72 +179,6 @@
                         android:orientation="vertical"
                         android:background="@color/account_bank_header">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="82dp"
-                            android:id="@+id/header">
-
-                            <cn.vpfinance.vpjr.view.CircleImg
-                                android:id="@+id/userHead"
-                                android:layout_width="54dp"
-                                android:layout_height="54dp"
-                                android:layout_marginLeft="25dp"
-                                app:border_width="1px"
-                                android:layout_marginTop="25dp"
-                                android:src="@drawable/icon_mine_header" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="30dp"
-                                android:layout_toRightOf="@id/userHead"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/tvUserName"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:ellipsize="end"
-                                        android:gravity="center"
-                                        android:maxWidth="120dp"
-                                        android:singleLine="true"
-                                        android:textColor="@color/white"
-                                        android:textSize="15sp"
-                                        tools:text="你好！一帆" />
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/myDescribe"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="150dp"
-                                    android:layout_marginTop="5dp"
-                                    android:drawableRight="@drawable/edit_describe"
-                                    android:ellipsize="end"
-                                    android:gravity="center"
-                                    android:maxEms="8"
-                                    android:singleLine="true"
-                                    android:textColor="@color/white"
-                                    android:textSize="13sp"
-                                    tools:text="钱在我手，想投就投" />
-                            </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/ivBandActive"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/bangkajihuo"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginTop="16dp"
-                                android:visibility="gone"
-                                tools:visibility="visible"/>
-                        </RelativeLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="74.5dp"

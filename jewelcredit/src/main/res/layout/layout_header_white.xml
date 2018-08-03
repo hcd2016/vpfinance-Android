@@ -47,20 +47,22 @@
 
         <RelativeLayout
             android:id="@+id/posRight"
-            android:layout_width="50dp"
+            android:minWidth="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:gravity="center_vertical"
+            android:layout_marginRight="20dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/actionRight"
                 style="@style/SingleLineTextStyle"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:text="设置"
-                android:textColor="@android:color/white"
+                android:text=""
+                android:textColor="@color/main_color"
                 android:layout_centerInParent="true"/>
 
             <ImageView
@@ -77,13 +79,11 @@
         <TextView
             android:id="@+id/title"
             style="@style/SingleLineTextStyle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/posRight"
-            android:layout_toRightOf="@id/posLeft"
             android:ellipsize="middle"
-            android:gravity="center"
+            android:layout_centerInParent="true"
             android:text="@string/app_name"
             android:textColor="@color/text_1c1c1c"
             android:textSize="18sp" />

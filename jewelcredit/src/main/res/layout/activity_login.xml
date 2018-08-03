@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-	android:descendantFocusability="beforeDescendants"
-	android:focusableInTouchMode="true"
 	android:background="@color/white">
     
 	<com.jewelcredit.ui.widget.ActionBarWhiteLayout
@@ -14,10 +12,8 @@
 
 	<ScrollView
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:scrollbars="none"
-		android:layout_below="@id/titleBar">
-
+		android:layout_height="match_parent"
+		android:scrollbars="none">
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -36,9 +32,9 @@
 				android:layout_marginBottom="30dp" />
 
 			<cn.vpfinance.vpjr.view.EditTextWithDel
-				android:id="@+id/login_username"
+				android:id="@+id/etUsername"
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/edittext_height"
+				android:layout_height="44dp"
 				style="@style/SampleEditTextStyle"
 				android:hint="请输入用户名/手机号"
 				android:layout_marginLeft="20dp"
@@ -51,9 +47,9 @@
 			</cn.vpfinance.vpjr.view.EditTextWithDel>
 
 			<cn.vpfinance.vpjr.view.EditTextWithDel
-				android:id="@+id/login_password"
+				android:id="@+id/etPassword"
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/edittext_height"
+				android:layout_height="44dp"
 				android:layout_marginTop="20dp"
 				style="@style/SamplePasswdTextStyle"
 				android:hint="请输入登录密码"
@@ -65,7 +61,7 @@
 				android:background="@drawable/bg_edittext_radius"/>
 
 			<Button
-				android:id="@+id/login_commit_btn"
+				android:id="@+id/btnLogin"
 				android:layout_width="match_parent"
 				android:layout_height="@dimen/submit_button_height"
 				android:layout_marginTop="42dp"
@@ -84,7 +80,7 @@
 				android:layout_marginLeft="20dp"
 				android:layout_marginRight="20dp">
 				<TextView
-					android:id="@+id/login_forget"
+					android:id="@+id/tvForget"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:textColor="@color/text_a6a6a6"
@@ -95,7 +91,7 @@
 					android:layout_height="0dp"
 					android:layout_weight="1"/>
 				<TextView
-					android:id="@+id/login_register"
+					android:id="@+id/tvRegister"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:textColor="@color/text_a6a6a6"
@@ -103,8 +99,44 @@
 					android:textSize="@dimen/text_size_medium"/>
 			</LinearLayout>
 
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center"
+				android:layout_marginTop="40dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginRight="20dp">
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:layout_weight="1"
+					android:background="#3d3d3d"/>
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="其他登录方式"
+					android:textColor="#3d3d3d"
+					android:layout_marginLeft="20dp"
+					android:textSize="@dimen/text_size_12"
+					android:layout_marginRight="20dp"/>
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:layout_weight="1"
+					android:background="#3d3d3d"/>
+			</LinearLayout>
+			<ImageButton
+				android:id="@+id/ibWeiXinLogin"
+				android:layout_width="40dp"
+				android:layout_height="40dp"
+				android:layout_gravity="center"
+				android:layout_marginTop="20dp"
+				android:layout_marginBottom="20dp"
+				android:background="@drawable/login_weixin"/>
+
 		</LinearLayout>
 
 	</ScrollView>
 
-</RelativeLayout>
+</LinearLayout>

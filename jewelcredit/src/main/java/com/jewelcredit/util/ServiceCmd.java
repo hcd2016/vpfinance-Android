@@ -161,6 +161,11 @@ public class ServiceCmd {
 		CMD_HX_SEND_SMS ,//发送华兴短信验证码
 		CMD_HX_IS_UPDATE ,//华兴接口是否已经更新
 		CMD_CREATE_ACCOUNT_TIME ,//判断用户hx存管账户开户时间
+		CMD_REGISTER_CAPTCHA_IMAGE ,//注册图形验证码
+		CMD_REGISTER_CHECK_CAPTCHA_IMAGE ,//注册验证图形验证码
+		CMD_REGISTER_CAPTCHA_SMS ,//注册短信验证码
+		CMD_REGISTER_CAPTCHA_VOICE ,//注册语音验证码
+		CMD_REGISTER_CHECK_CAPTCHA_SMS_VOICE ,//注册验证短信或语音验证码
 	}
 
     public static String[] methods = {
@@ -321,6 +326,11 @@ public class ServiceCmd {
 			"hx/loansign/sendsms" ,//发送华兴短信验证码
 			"Appmember/isUpdate" ,//华兴接口是否已经更新
 			"Appmember/createAccountTime" ,//判断用户hx存管账户开户时间
+			"register/sendImageCode" ,//注册图形验证码
+			"register/checkCode" ,//注册验证图形验证码
+			"register/sendSms" ,//注册短信验证码
+			"register/sendYuyinMess" ,//注册语音验证码
+			"register/verifySmsCode" ,//注册验证短信或语音验证码
 	};
 
     public static String getMethodName(CmdId methodId) {

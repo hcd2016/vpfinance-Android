@@ -32,8 +32,6 @@ import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.AutoInvestSettingBean;
 import cn.vpfinance.vpjr.gson.QueryAutoStatusBean;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
-import cn.vpfinance.vpjr.util.AlertDialogUtils;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.Logger;
@@ -144,7 +142,11 @@ public class AutoInvestSettingActivity extends BaseActivity {
         allowPub.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                containerSetting.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+                if (!"已授权".equals(tvAuthorization.getText().toString())) {
+                    Utils.Toast("请先进行授权");
+                } else {
+                    containerSetting.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+                }
             }
         });
 
@@ -206,7 +208,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
         String refundTypeStr = FormatUtils.checkDot(bean.refundWay);
         String riskLevelStr = bean.securityLevel;
         String voucherStr = FormatUtils.checkDot(bean.coupons);
-//        FormatUtils.
+
         mHttpService.getAutoInvestSetting(isOpen, reserveMoney, maxInvestMoney, "" + loanPeriodBegin, "" + loanPeriodEnd, "" + rateBegin, "" + rateEnd, investTypeStr, refundTypeStr, riskLevelStr, voucherStr);
     }
 
@@ -249,14 +251,14 @@ public class AutoInvestSettingActivity extends BaseActivity {
             tvRiskLevel.setText("0".equals(bean.securityLevel) ? R.string.unlimited : R.string.selected);
             tvAuthorization.setText(bean.isHXAutoPlank == 1 ? "已授权" : "去授权");
 
-        } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_AUTO_PLANK_STATUS.ordinal()){
+        } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_AUTO_PLANK_STATUS.ordinal()) {
             QueryAutoStatusBean autoStatusBean = new Gson().fromJson(json.toString(), QueryAutoStatusBean.class);
             if (autoStatusBean != null && !TextUtils.isEmpty(autoStatusBean.autoPlankStatus)
-                    && ("2".equals(autoStatusBean.autoPlankStatus) || "3".equals(autoStatusBean.autoPlankStatus))){
+                    && ("2".equals(autoStatusBean.autoPlankStatus) || "3".equals(autoStatusBean.autoPlankStatus))) {
                 autoInvestStatus = Integer.parseInt(autoStatusBean.autoPlankStatus);
-                if (autoInvestStatus == 2){//2超额 3过期
+                if (autoInvestStatus == 2) {//2超额 3过期
                     tvAuthorization.setText("已超额");
-                }else if (autoInvestStatus == 3){
+                } else if (autoInvestStatus == 3) {
                     tvAuthorization.setText("已过期");
                 }
             }
@@ -386,13 +388,13 @@ public class AutoInvestSettingActivity extends BaseActivity {
                 break;
             case R.id.click_authorization:
                 if (bean == null) return;
-                if (autoInvestStatus == 2){//2超额
+                if (autoInvestStatus == 2) {//2超额
                     AutoInvestOverInfoActivity.goThis(AutoInvestSettingActivity.this);
-                }else if (autoInvestStatus == 3){//3过期
+                } else if (autoInvestStatus == 3) {//3过期
                     gotoWeb("hx/loansign/authAutoBid?userId=" + userId, "自动授权");
-                }else if (bean.isHXAutoPlank == 0) {//去授权
+                } else if (bean.isHXAutoPlank == 0) {//去授权
                     gotoWeb("hx/loansign/authAutoBid?userId=" + userId, "自动授权");
-                }else if (bean.isHXAutoPlank == 1){//已授权
+                } else if (bean.isHXAutoPlank == 1) {//已授权
                     new AlertDialog.Builder(this)
                             .setMessage("需要撤销自动投标授权?")
                             .setPositiveButton("取消", null)
