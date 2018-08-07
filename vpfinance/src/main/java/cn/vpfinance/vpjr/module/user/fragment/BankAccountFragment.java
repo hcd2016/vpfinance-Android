@@ -35,7 +35,6 @@ import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.QueryAutoStatusBean;
 import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
-import cn.vpfinance.vpjr.module.common.WebViewActivity;
 import cn.vpfinance.vpjr.module.dialog.HxUpdateDialog;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestProtocolActivity;
@@ -447,7 +446,7 @@ public class BankAccountFragment extends BaseFragment {
             case R.id.recharge:
                 gotoActivity(RechargBankActivity.class);
                 break;
-            case R.id.click_auto_invest_setting:
+            case R.id.click_auto_invest_setting://自动投标
                 if (mUserInfoBean != null) {
                     String cashBalance = mUserInfoBean.cashBalance;
                     String isAutoTender = mUserInfoBean.isAutoTender;

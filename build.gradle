@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "com.tencent.bugly:tinker-support:latest.release"
         //walle多渠道打包
 //        classpath 'com.meituan.android.walle:plugin:1.1.6'
@@ -20,6 +20,7 @@ allprojects {
         maven {
             url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/"
         }
+        google()
         mavenCentral()
         maven { url "https://jitpack.io" }
     }

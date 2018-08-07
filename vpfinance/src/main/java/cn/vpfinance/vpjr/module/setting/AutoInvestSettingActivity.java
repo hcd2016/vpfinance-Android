@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -147,6 +149,21 @@ public class AutoInvestSettingActivity extends BaseActivity {
                 } else {
                     containerSetting.setVisibility(isChecked ? View.VISIBLE : View.GONE);
                 }
+
+                //处理保存按钮置灰
+                if (null != bean) {
+                    int isAutoPlank = 0;
+                    if (isChecked) {
+                        isAutoPlank = 1;
+                    } else {
+                        isAutoPlank = 0;
+                    }
+                    if (bean.isAutoPlank != isAutoPlank) {
+                        btnSubmit.setEnabled(true);
+                    } else {
+                        btnSubmit.setEnabled(false);
+                    }
+                }
             }
         });
 
@@ -173,6 +190,47 @@ public class AutoInvestSettingActivity extends BaseActivity {
         });
 
         mHttpService.getAutoInvestSettingGet();
+        etReserveMoney.addTextChangedListener(new TextWatcher() {//账户保留金额监听
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s.toString()) && bean.userRemainingMoney != Double.parseDouble(s.toString())) {//账户保留金额发生了变化
+                    btnSubmit.setEnabled(true);
+                } else {
+                    btnSubmit.setEnabled(false);
+                }
+            }
+        });
+
+        etMaxInvestMoney.addTextChangedListener(new TextWatcher() {//最大投资金额监听
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s.toString()) && bean.userMaxLoanMoney != Double.parseDouble(s.toString())) {//最大投资金额发生了变化
+                    btnSubmit.setEnabled(true);
+                } else {
+                    btnSubmit.setEnabled(false);
+                }
+            }
+        });
     }
 
     private void requestAutoSetting(boolean isOpen) {
@@ -283,7 +341,10 @@ public class AutoInvestSettingActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (data == null || bean == null) return;
         if (requestCode == REQUEST_CODE_INVEST_TYPE) {
-            bean.loanType = data.getStringExtra(ARGS_INVEST_TYPE_VALUE);
+            if (!bean.loanType.equals(data.getStringExtra(ARGS_INVEST_TYPE_VALUE))) {//状态已改变
+                btnSubmit.setEnabled(true);
+                bean.loanType = data.getStringExtra(ARGS_INVEST_TYPE_VALUE);
+            }
             Logger.e("bean.loanType:" + bean.loanType);
             if ("0".equals(bean.loanType)) {
                 tvInvestType.setText(R.string.unlimited);
@@ -291,7 +352,10 @@ public class AutoInvestSettingActivity extends BaseActivity {
                 tvInvestType.setText(R.string.selected);
             }
         } else if (requestCode == REQUEST_CODE_REFUND_TYPE) {
-            bean.refundWay = data.getStringExtra(ARGS_REFUND_TYPE_VALUE);
+            if (!bean.refundWay.equals(data.getStringExtra(ARGS_REFUND_TYPE_VALUE))) {//状态已改变
+                btnSubmit.setEnabled(true);
+                bean.refundWay = data.getStringExtra(ARGS_REFUND_TYPE_VALUE);
+            }
             Logger.e("bean.refundWay:" + bean.refundWay);
             if ("0".equals(bean.refundWay)) {
                 tvRefundType.setText(R.string.unlimited);
@@ -299,7 +363,10 @@ public class AutoInvestSettingActivity extends BaseActivity {
                 tvRefundType.setText(R.string.selected);
             }
         } else if (requestCode == REQUEST_CODE_RISK_LEVEL) {
-            bean.securityLevel = data.getStringExtra(ARGS_RISK_LEVEL_VALUE);
+            if (!bean.securityLevel.equals(data.getStringExtra(ARGS_RISK_LEVEL_VALUE))) {//状态已改变
+                btnSubmit.setEnabled(true);
+                bean.securityLevel = data.getStringExtra(ARGS_RISK_LEVEL_VALUE);
+            }
             Logger.e("bean.securityLevel:" + bean.securityLevel);
             if ("0".equals(bean.securityLevel)) {
                 tvRiskLevel.setText(R.string.unlimited);
@@ -307,8 +374,11 @@ public class AutoInvestSettingActivity extends BaseActivity {
                 tvRiskLevel.setText(R.string.selected);
             }
         } else if (requestCode == REQUEST_CODE_BORROW_TIME) {
-            bean.loanPeriodBegin = data.getIntExtra(ARGS_BORROW_TIME_BEGIN_VALUE, 0);
-            bean.loanPeriodEnd = data.getIntExtra(ARGS_BORROW_TIME_END_VALUE, 0);
+            if (bean.loanPeriodBegin != data.getIntExtra(ARGS_BORROW_TIME_BEGIN_VALUE, 0) || bean.loanPeriodEnd != data.getIntExtra(ARGS_BORROW_TIME_END_VALUE, 0)) {//状态已改变
+                btnSubmit.setEnabled(true);
+                bean.loanPeriodBegin = data.getIntExtra(ARGS_BORROW_TIME_BEGIN_VALUE, 0);
+                bean.loanPeriodEnd = data.getIntExtra(ARGS_BORROW_TIME_END_VALUE, 0);
+            }
             Logger.e("bean.loanPeriodBegin:" + bean.loanPeriodBegin + "---" + "bean.loanPeriodEnd:" + bean.loanPeriodEnd);
             if (bean.loanPeriodBegin == 1 && bean.loanPeriodEnd == 24) {
                 tvBorrowTime.setText(R.string.unlimited);
@@ -316,8 +386,11 @@ public class AutoInvestSettingActivity extends BaseActivity {
                 tvBorrowTime.setText(bean.loanPeriodBegin + "-" + bean.loanPeriodEnd + "个月");
             }
         } else if (requestCode == REQUEST_CODE_RATE) {
-            bean.rateBegin = data.getIntExtra(ARGS_RATE_BEGIN_VALUE, 0);
-            bean.rateEnd = data.getIntExtra(ARGS_RATE_END_VALUE, 0);
+            if (bean.rateBegin != data.getIntExtra(ARGS_RATE_BEGIN_VALUE, 0) || bean.rateEnd != data.getIntExtra(ARGS_RATE_END_VALUE, 0)) {//状态已改变
+                btnSubmit.setEnabled(true);
+                bean.rateBegin = data.getIntExtra(ARGS_RATE_BEGIN_VALUE, 0);
+                bean.rateEnd = data.getIntExtra(ARGS_RATE_END_VALUE, 0);
+            }
             Logger.e("bean.rateBegin:" + bean.rateBegin + "---" + "bean.rateEnd:" + bean.rateEnd);
             if (bean.rateBegin == 1 && bean.rateEnd == 12) {
                 tvRate.setText(R.string.unlimited);
@@ -325,7 +398,10 @@ public class AutoInvestSettingActivity extends BaseActivity {
                 tvRate.setText(bean.rateBegin + "-" + bean.rateEnd + "%");
             }
         } else if (requestCode == REQUEST_CODE_VOUCHER) {
-            bean.coupons = data.getStringExtra(ARGS_VOUCHER_VALUE);
+            if (!bean.coupons.equals(data.getStringExtra(ARGS_VOUCHER_VALUE))) {//状态已改变
+                btnSubmit.setEnabled(true);
+                bean.coupons = data.getStringExtra(ARGS_VOUCHER_VALUE);
+            }
             Logger.e("bean.coupons:" + bean.coupons);
             if (TextUtils.isEmpty(bean.coupons)) {
                 tvVoucher.setText(R.string.unselected);

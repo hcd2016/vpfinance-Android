@@ -1,11 +1,12 @@
 package cn.vpfinance.vpjr.gson;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/6/22.
  */
-public class UserInfoBean {
+public class UserInfoBean implements Serializable{
 
     /**
      * phone : 13418603191

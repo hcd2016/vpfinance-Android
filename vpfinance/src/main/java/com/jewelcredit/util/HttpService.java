@@ -103,7 +103,7 @@ import de.greenrobot.dao.query.QueryBuilder;
 
 
 public class HttpService {
-    //	public static String mBaseUrl = BaseUrl.mBaseUrl;
+//    	public static String mBaseUrl = BaseUrl.mBaseUrl;
     public static String mBaseUrl = "https://www.vpfinance.cn";
     public HttpLoader httpClient;
 

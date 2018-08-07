@@ -210,7 +210,6 @@
                 </LinearLayout>
 
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -366,7 +365,7 @@
                         android:background="@color/divider_color" />
 
                     <LinearLayout
-                        android:id="@+id/modifypasword"
+                        android:id="@+id/safety_centre"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:gravity="center"
@@ -379,7 +378,7 @@
                             android:layout_height="48dp"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
-                            android:text="修改登录密码"
+                            android:text="安全中心"
                             android:textColor="@color/text_1c1c1c" />
 
                         <View
@@ -393,39 +392,67 @@
                             android:background="@drawable/nav_next" />
                     </LinearLayout>
 
+                    <!--<LinearLayout-->
+                    <!--android:id="@+id/modifypasword"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="48dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:paddingLeft="15dp"-->
+                    <!--android:paddingRight="15dp">-->
+
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="48dp"-->
+                    <!--android:drawablePadding="10dp"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:text="修改登录密码"-->
+                    <!--android:textColor="@color/text_1c1c1c" />-->
+
+                    <!--<View-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1" />-->
+
+                    <!--<ImageView-->
+                    <!--android:layout_width="6dp"-->
+                    <!--android:layout_height="11dp"-->
+                    <!--android:background="@drawable/nav_next" />-->
+                    <!--</LinearLayout>-->
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
                         android:background="@color/divider_color" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp">
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="48dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:paddingLeft="15dp"-->
+                    <!--android:paddingRight="15dp">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:drawablePadding="10dp"
-                            android:gravity="center_vertical"
-                            android:text="手势密码"
-                            android:textColor="@color/text_1c1c1c" />
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:drawablePadding="10dp"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:text="手势密码"-->
+                    <!--android:textColor="@color/text_1c1c1c" />-->
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1" />
+                    <!--<View-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1" />-->
 
-                        <android.support.v7.widget.SwitchCompat
-                            android:id="@+id/switch1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="false" />
+                    <!--<android.support.v7.widget.SwitchCompat-->
+                    <!--android:id="@+id/switch1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:checked="false" />-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -434,6 +461,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -558,6 +586,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -575,7 +604,7 @@
                     </RelativeLayout>
 
                     <LinearLayout
-                        android:id="@+id/changeHXPayPassword"
+                        android:id="@+id/deposit_account_set"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:gravity="center"
@@ -588,7 +617,7 @@
                             android:layout_height="48dp"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
-                            android:text="修改交易密码"
+                            android:text="存管账户设置"
                             android:textColor="@color/text_1c1c1c" />
 
                         <View
@@ -602,38 +631,66 @@
                             android:background="@drawable/nav_next" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/divider_color" />
+                    <!--<LinearLayout-->
+                    <!--android:id="@+id/changeHXPayPassword"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="48dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:paddingLeft="15dp"-->
+                    <!--android:paddingRight="15dp">-->
 
-                    <LinearLayout
-                        android:id="@+id/changeHXBindPhone"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp">
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="48dp"-->
+                    <!--android:drawablePadding="10dp"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:text="修改交易密码"-->
+                    <!--android:textColor="@color/text_1c1c1c" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="48dp"
-                            android:drawablePadding="10dp"
-                            android:gravity="center_vertical"
-                            android:text="修改绑定手机号"
-                            android:textColor="@color/text_1c1c1c" />
+                    <!--<View-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1" />-->
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1" />
+                    <!--<ImageView-->
+                    <!--android:layout_width="6dp"-->
+                    <!--android:layout_height="11dp"-->
+                    <!--android:background="@drawable/nav_next" />-->
+                    <!--</LinearLayout>-->
 
-                        <ImageView
-                            android:layout_width="6dp"
-                            android:layout_height="11dp"
-                            android:background="@drawable/nav_next" />
-                    </LinearLayout>
+                    <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1px"-->
+                    <!--android:background="@color/divider_color" />-->
+
+                    <!--<LinearLayout-->
+                    <!--android:id="@+id/changeHXBindPhone"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="48dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:paddingLeft="15dp"-->
+                    <!--android:paddingRight="15dp">-->
+
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="48dp"-->
+                    <!--android:drawablePadding="10dp"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:text="修改绑定手机号"-->
+                    <!--android:textColor="@color/text_1c1c1c" />-->
+
+                    <!--<View-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1" />-->
+
+                    <!--<ImageView-->
+                    <!--android:layout_width="6dp"-->
+                    <!--android:layout_height="11dp"-->
+                    <!--android:background="@drawable/nav_next" />-->
+                    <!--</LinearLayout>-->
 
                     <View
                         android:layout_width="match_parent"
@@ -676,7 +733,6 @@
                             android:background="@drawable/nav_next" />
                     </LinearLayout>
                 </LinearLayout>
-
 
 
                 <RelativeLayout

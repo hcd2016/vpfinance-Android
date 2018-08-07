@@ -3,7 +3,6 @@ package cn.vpfinance.vpjr.module.setting;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -20,13 +19,10 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.ArrayMap;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -47,8 +43,6 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
-import com.umeng.analytics.MobclickAgent;
-import com.yintong.pay.utils.Md5Algorithm;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,11 +62,8 @@ import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.model.UserHeadEvent;
-import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.dialog.CommonDialogFragment;
 import cn.vpfinance.vpjr.module.dialog.MyDialogFragment;
-import cn.vpfinance.vpjr.module.dialog.TextInputDialogFragment;
-import cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.user.BindBankHintActivity;
 import cn.vpfinance.vpjr.module.user.personal.BankManageActivity;
@@ -90,6 +81,7 @@ import de.greenrobot.event.EventBus;
 
 /**
  * Created by Administrator on 2015/10/26.
+ * 设置
  */
 public class PersonalInfoActivity extends BaseActivity implements View.OnClickListener {
 
@@ -163,7 +155,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         forgetPayPassword = (LinearLayout) findViewById(R.id.forgetPayPassword);
         isReName = (TextView) findViewById(R.id.isReName);
         isBandCark = (TextView) findViewById(R.id.isBandCark);
-        lockSwitch = (SwitchCompat) findViewById(R.id.switch1);
+//        lockSwitch = (SwitchCompat) findViewById(R.id.switch1);
         mUserHead = (CircleImg) findViewById(R.id.userHead);
         user_background = (ImageView) findViewById(R.id.user_background);
         mViewLl = findViewById(R.id.view_ll);
@@ -240,7 +232,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         mPrivate_setting.setOnClickListener(this);
         mUserHead.setOnClickListener(this);
         user_background.setOnClickListener(this);
-        modifypasword.setOnClickListener(this);
+//        modifypasword.setOnClickListener(this);
         paypassword.setOnClickListener(this);
         ll_realname.setOnClickListener(this);
         ll_bindbankcard.setOnClickListener(this);
@@ -254,121 +246,146 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 chargeUserName();
             }
         });
-        findViewById(R.id.changeHXPayPassword).setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.deposit_account_set).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUserInfoBean != null || user != null){
+                if (mUserInfoBean != null || user != null) {
                     Long userId = user.getUserId();
-                    if (!"1".equals(mUserInfoBean.isOpen)){
+                    if (!"1".equals(mUserInfoBean.isOpen)) {
                         boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
-                        AlertDialogUtils.openBankAccount(PersonalInfoActivity.this,isRealName, userId.toString());
+                        AlertDialogUtils.openBankAccount(PersonalInfoActivity.this, isRealName, userId.toString());
                         return;
                     }
 
-                    String link = HttpService.mBaseUrl+"/hx/account/manage?userId="+userId.toString();
-                    gotoWeb(link,"修改交易密码");
+                    String link = HttpService.mBaseUrl + "/hx/account/manage?userId=" + userId.toString();
+                    gotoWeb(link, "存管账户设置");
+//                    启动存管账户设置
+                    DepositAccountSetActivity.startDepositAccountSetActivity(PersonalInfoActivity.this, mUserInfoBean);
                 }
             }
         });
-        findViewById(R.id.changeHXBindPhone).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mUserInfoBean != null || user != null){
-                    Long userId = user.getUserId();
-                    if (!"1".equals(mUserInfoBean.isOpen)){
-                        boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
-                        AlertDialogUtils.openBankAccount(PersonalInfoActivity.this,isRealName, userId.toString());
-                        return;
-                    }
-
-                    String link = HttpService.mBaseUrl+"/hx/account/manage?userId="+userId;
-                    gotoWeb(link,"修改绑定手机号");
-                }
-            }
-        });
+//        findViewById(R.id.changeHXPayPassword).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (mUserInfoBean != null || user != null){
+//                    Long userId = user.getUserId();
+//                    if (!"1".equals(mUserInfoBean.isOpen)){
+//                        boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
+//                        AlertDialogUtils.openBankAccount(PersonalInfoActivity.this,isRealName, userId.toString());
+//                        return;
+//                    }
+//
+//                    String link = HttpService.mBaseUrl+"/hx/account/manage?userId="+userId.toString();
+//                    gotoWeb(link,"修改交易密码");
+//                }
+//            }
+//        });
+//        findViewById(R.id.changeHXBindPhone).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (mUserInfoBean != null || user != null){
+//                    Long userId = user.getUserId();
+//                    if (!"1".equals(mUserInfoBean.isOpen)){
+//                        boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
+//                        AlertDialogUtils.openBankAccount(PersonalInfoActivity.this,isRealName, userId.toString());
+//                        return;
+//                    }
+//
+//                    String link = HttpService.mBaseUrl+"/hx/account/manage?userId="+userId;
+//                    gotoWeb(link,"修改绑定手机号");
+//                }
+//            }
+//        });
         findViewById(R.id.ll_bind_hx_bankcard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUserInfoBean != null || user != null || "1".equals(mUserInfoBean.isBindHxBank)){
+                if (mUserInfoBean != null || user != null || "1".equals(mUserInfoBean.isBindHxBank)) {
                     Long userId = user.getUserId();
-                    if (!"1".equals(mUserInfoBean.isOpen)){
+                    if (!"1".equals(mUserInfoBean.isOpen)) {
                         boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
-                        AlertDialogUtils.openBankAccount(PersonalInfoActivity.this,isRealName, userId.toString());
+                        AlertDialogUtils.openBankAccount(PersonalInfoActivity.this, isRealName, userId.toString());
                         return;
                     }
                     //跳转到存管绑卡第三方界面
-                    BindBankHintActivity.goThis(PersonalInfoActivity.this,user.getUserId().toString());
+                    BindBankHintActivity.goThis(PersonalInfoActivity.this, user.getUserId().toString());
                 }
             }
         });
 
-        SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(PersonalInfoActivity.this);
-        String lockStr = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING);
-        lockSwitch.setChecked(!TextUtils.isEmpty(lockStr));
-        lockSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        findViewById(R.id.safety_centre).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (!close) {
-                        if (!AppState.instance().logined()) {
-                            startActivity(new Intent(PersonalInfoActivity.this, LoginActivity.class));
-                            finish();
-                            return;
-                        }
-                        startActivity(new Intent(PersonalInfoActivity.this, LockSetupActivity.class));
-
-                        ArrayMap<String, String> map = new ArrayMap<String, String>();
-                        map.put("switch", "on");
-                        MobclickAgent.onEvent(PersonalInfoActivity.this, "GestureLock", map);
-                    }
-                    close = false;
-
-                } else {
-                    final SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(PersonalInfoActivity.this);
-                    String patternString = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING, null);
-                    if (patternString == null) {
-                        return;
-                    }
-
-                    TextInputDialogFragment tidf = TextInputDialogFragment.newInstance("登录验证", "请输入登录密码", false);
-                    tidf.setOnTextConfrimListener(new TextInputDialogFragment.onTextConfrimListener() {
-                        @Override
-                        public boolean onTextConfrim(String value) {
-                            if (value != null) {
-                                Md5Algorithm md5 = Md5Algorithm.getInstance();
-                                value = md5.md5Digest((value + HttpService.LOG_KEY).getBytes());
-                                String pwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD, null);
-                                if (value.equals(pwd)) {
-                                    preferencesHelper.removeKey(SharedPreferencesHelper.KEY_LOCK_STRING);
-                                    lockSwitch.setChecked(false);
-                                    close = false;
-
-                                    ArrayMap<String, String> map = new ArrayMap<String, String>();
-                                    map.put("switch", "off");
-                                    MobclickAgent.onEvent(PersonalInfoActivity.this, "GestureLock", map);
-
-                                    return true;
-                                } else {
-                                    Utils.Toast(PersonalInfoActivity.this, "密码错误!");
-                                    close = true;
-                                    lockSwitch.setChecked(true);
-                                }
-                            }
-                            return false;
-                        }
-                    });
-                    tidf.setOnTextCancleListener(new TextInputDialogFragment.onTextConfrimListener() {
-                        @Override
-                        public boolean onTextConfrim(String value) {
-                            close = true;
-                            lockSwitch.setChecked(true);
-                            return true;
-                        }
-                    });
-                    tidf.show(getSupportFragmentManager(), "inputPwd");
-                }
+            public void onClick(View v) {
+                SafetyCentreActivity.startActivity(PersonalInfoActivity.this);
             }
         });
+//        SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(PersonalInfoActivity.this);
+//        String lockStr = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING);
+//        lockSwitch.setChecked(!TextUtils.isEmpty(lockStr));
+//        lockSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if (b) {
+//                    if (!close) {
+//                        if (!AppState.instance().logined()) {
+//                            startActivity(new Intent(PersonalInfoActivity.this, LoginActivity.class));
+//                            finish();
+//                            return;
+//                        }
+//                        startActivity(new Intent(PersonalInfoActivity.this, LockSetupActivity.class));
+//
+//                        ArrayMap<String, String> map = new ArrayMap<String, String>();
+//                        map.put("switch", "on");
+//                        MobclickAgent.onEvent(PersonalInfoActivity.this, "GestureLock", map);
+//                    }
+//                    close = false;
+//
+//                } else {
+//                    final SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(PersonalInfoActivity.this);
+//                    String patternString = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING, null);
+//                    if (patternString == null) {
+//                        return;
+//                    }
+//
+//                    TextInputDialogFragment tidf = TextInputDialogFragment.newInstance("登录验证", "请输入登录密码", false);
+//                    tidf.setOnTextConfrimListener(new TextInputDialogFragment.onTextConfrimListener() {
+//                        @Override
+//                        public boolean onTextConfrim(String value) {
+//                            if (value != null) {
+//                                Md5Algorithm md5 = Md5Algorithm.getInstance();
+//                                value = md5.md5Digest((value + HttpService.LOG_KEY).getBytes());
+//                                String pwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD, null);
+//                                if (value.equals(pwd)) {
+//                                    preferencesHelper.removeKey(SharedPreferencesHelper.KEY_LOCK_STRING);
+//                                    lockSwitch.setChecked(false);
+//                                    close = false;
+//
+//                                    ArrayMap<String, String> map = new ArrayMap<String, String>();
+//                                    map.put("switch", "off");
+//                                    MobclickAgent.onEvent(PersonalInfoActivity.this, "GestureLock", map);
+//
+//                                    return true;
+//                                } else {
+//                                    Utils.Toast(PersonalInfoActivity.this, "密码错误!");
+//                                    close = true;
+//                                    lockSwitch.setChecked(true);
+//                                }
+//                            }
+//                            return false;
+//                        }
+//                    });
+//                    tidf.setOnTextCancleListener(new TextInputDialogFragment.onTextConfrimListener() {
+//                        @Override
+//                        public boolean onTextConfrim(String value) {
+//                            close = true;
+//                            lockSwitch.setChecked(true);
+//                            return true;
+//                        }
+//                    });
+//                    tidf.show(getSupportFragmentManager(), "inputPwd");
+//                }
+//            }
+//        });
 
         boolean isNewUser = SharedPreferencesHelper.getInstance(this).getBooleanValue(SharedPreferencesHelper.KEY_IS_NEW_USER, false);
 //        findViewById(R.id.container_lianlian).setVisibility(isNewUser ? View.GONE : View.VISIBLE);
@@ -382,9 +399,9 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         newUserName = TextUtils.isEmpty(newUserName) ? userName1 : newUserName;
 
         mHttpService.getUserInfo();
-        SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(PersonalInfoActivity.this);
-        String lockStr = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING);
-        lockSwitch.setChecked(!TextUtils.isEmpty(lockStr));
+//        SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(PersonalInfoActivity.this);
+//        String lockStr = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING);
+//        lockSwitch.setChecked(!TextUtils.isEmpty(lockStr));
 
         mHttpService.getBankCard(AppState.instance().getSessionCode());
         mHttpService.getUserInfo();
@@ -426,7 +443,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
             mHttpService.onGetUserInfo(json, user);
             mUserInfoBean = mHttpService.onGetUserInfo(json);
-            if (mUserInfoBean == null)  return;
+            if (mUserInfoBean == null) return;
             mHeadImgUrl = mUserInfoBean.headImg;
             mHeadImgUrl = HttpService.mBaseUrl + mHeadImgUrl;
 
@@ -440,9 +457,9 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             }
 
 
-            if ("1".equals(mUserInfoBean.isBindHxBank)){
+            if ("1".equals(mUserInfoBean.isBindHxBank)) {
                 isHxBandCarkStatus.setText("已激活");
-            }else{
+            } else {
                 isHxBandCarkStatus.setText("未激活");
             }
 
@@ -477,9 +494,9 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.modifypasword:
-                gotoActivity(PasswordChangeActivity.class);
-                break;
+//            case R.id.modifypasword:
+//                gotoActivity(PasswordChangeActivity.class);
+//                break;
             case R.id.paypassword:
                 Intent intent = new Intent();
                 intent.putExtra("index", 1);
