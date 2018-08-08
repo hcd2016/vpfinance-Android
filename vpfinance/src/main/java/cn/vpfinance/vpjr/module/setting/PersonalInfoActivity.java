@@ -543,8 +543,10 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 dialogFragment.show(getFragmentManager(), "CommonDialogFragment");
                 break;
             case R.id.ll_bindemail:
-                Intent intent1 = new Intent(PersonalInfoActivity.this, BindMailActivity2.class);
-                startActivity(intent1);
+//                Intent intent1 = new Intent(PersonalInfoActivity.this, BindMailActivity2.class);
+//                startActivity(intent1);
+                BindOrChangeEmailActivity.startBindOrChangeEmailActivity(this);
+//                EmailSMSVerificationActivity.startEmailSMSVerificationActivity(this);
                 break;
 //            case R.id.modifyUserName:
 //                gotoActivity(ModifyUserNameActivity.class);

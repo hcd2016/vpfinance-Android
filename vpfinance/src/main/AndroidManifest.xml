@@ -461,9 +461,18 @@
         <activity
             android:name="cn.vpfinance.vpjr.module.setting.SafetyCentreActivity"
             android:screenOrientation="portrait"></activity>
-        //绑定邮箱
+        //绑定/更换邮箱
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.BindOrChangeEmailActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        //绑定新邮箱
         <activity
             android:name="cn.vpfinance.vpjr.module.setting.BindEmailActivity"
+            android:screenOrientation="portrait"></activity>
+        //邮箱短信验证
+        <activity
+            android:name="cn.vpfinance.vpjr.module.setting.EmailSMSVerificationActivity"
             android:screenOrientation="portrait"></activity>
         <!-- LLYT SDK END -->
 
