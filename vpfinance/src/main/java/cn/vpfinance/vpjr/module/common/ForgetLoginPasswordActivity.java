@@ -9,6 +9,7 @@ import com.jewelcredit.ui.widget.ActionBarWhiteLayout;
 import com.jewelcredit.util.HttpService;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
@@ -34,6 +35,7 @@ public class ForgetLoginPasswordActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_login_password);
+        ButterKnife.bind(this);
 
         mHttpService = new HttpService(this, this);
         mHttpService.getCaptchaImage();
@@ -60,8 +62,14 @@ public class ForgetLoginPasswordActivity extends BaseActivity{
                 break;
             case R.id.btnNext:
                 int type = isPersonType ? CaptchaActivity.FORGET_LOGIN_PASSWORD_PERSON : CaptchaActivity.FORGET_LOGIN_PASSWORD_COMPANY;
-//TODO                CaptchaActivity.goThis(this,type,phone);
+//                CaptchaActivity.goThis(this,type,phone);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

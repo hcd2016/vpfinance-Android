@@ -193,7 +193,7 @@ public class AwardRecordForRegistActivity extends BaseActivity {
             holder.phone.setText(item.phone);
             holder.inviteTime.setText(item.inviteTime);
             holder.reward.setText(item.reward + "元");
-            holder.status.setText("0".equals(item.status) ? "有效" : "失效");
+            holder.status.setText("0".equals(item.status) ? "有效" : "到期");
             holder.period.setText(item.period + "个月");
 
             return view;

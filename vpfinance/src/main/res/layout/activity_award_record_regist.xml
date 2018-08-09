@@ -47,7 +47,7 @@
             android:layout_weight="1"
             android:textSize="16sp"
             android:gravity="center"
-            android:text="好友状态"/>
+            android:text="获益状态"/>
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"

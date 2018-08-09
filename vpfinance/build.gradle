@@ -3,7 +3,7 @@ apply from: 'tinker-support.gradle'
 android {
     /*compileSdkVersion 22
     buildToolsVersion "22.0.1"*/
-    compileSdkVersion project.ANDROID_BUILD_SDK_VERSION as int
+//    compileSdkVersion project.ANDROID_BUILD_SDK_VERSION as int
     /*
           android:versionCode="38"
           android:versionName="2.9.0"*/
@@ -106,6 +106,7 @@ android {
     repositories {
         maven { url "https://jitpack.io" }
     }
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
 }
 repositories {
@@ -120,10 +121,10 @@ dependencies {
     //compile 'com.squareup.okhttp:okhttp:2.4.0'
     api 'com.github.PhilJay:MPAndroidChart:v2.2.5'
     api files('libs/nineoldandroids-2.4.0.jar')
-    api 'com.android.support:design:25.3.0'
-    api 'com.android.support:support-v4:25.3.0'
-    api 'com.android.support:recyclerview-v7:25.3.0'
-    api 'com.android.support:appcompat-v7:25.3.0'
+    api 'com.android.support:design:27.0.1'
+    api 'com.android.support:support-v4:27.0.1'
+    api 'com.android.support:recyclerview-v7:27.0.1'
+    api 'com.android.support:appcompat-v7:27.0.1'
     //    compile 'junit:junit:4.12'
     api 'pl.droidsonroids.gif:android-gif-drawable:1.2.6'
     //    compile 'com.loopj.android:android-async-http:1.4.9'
@@ -152,6 +153,7 @@ dependencies {
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
     //引入walle多渠道的依赖
     //    compile "com.meituan.android.walle:library:1.1.6"
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
 }
 
 /*

@@ -326,10 +326,10 @@ public class ServiceCmd {
 			"hx/loansign/sendsms" ,//发送华兴短信验证码
 			"Appmember/isUpdate" ,//华兴接口是否已经更新
 			"Appmember/createAccountTime" ,//判断用户hx存管账户开户时间
-			"register/sendImageCode" ,//注册图形验证码
-			"register/checkCode" ,//注册验证图形验证码
-			"register/sendSms" ,//注册短信验证码
-			"register/sendYuyinMess" ,//注册语音验证码
+			"/user/register/sendImageCode" ,//注册图形验证码
+			"/user/register/verifyImageCode" ,//注册验证图形验证码
+			"/user/register/sendSms" ,//注册短信验证码
+			"/user/register/sendYuyinMess" ,//注册语音验证码
 			"register/verifySmsCode" ,//注册验证短信或语音验证码
 	};
 

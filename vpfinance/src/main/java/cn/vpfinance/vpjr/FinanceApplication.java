@@ -22,6 +22,8 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.commonsdk.UMConfigure;
 
 import java.io.File;
@@ -57,6 +59,8 @@ public class FinanceApplication extends Application {
     private static FinanceApplication mAppContext;
     private static Context appContext;
     public boolean login = false;
+    // IWXAPI是第三方app和微信通信的接口
+    public IWXAPI mWxApi;
 
     @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     class FishActivityLifecycleCallbacks implements ActivityLifecycleCallbacks {
@@ -120,6 +124,10 @@ public class FinanceApplication extends Application {
         Bugly.init(this, "e0817679fa", true);
 
         MobSDK.init(this,"770d9303300c","1a46b4a2687480f5b71dba8e6c83b1f0");
+
+        //初始化微信登录
+        mWxApi = WXAPIFactory.createWXAPI(this, Constant.WEIXIN_APP_ID, false);
+        mWxApi.registerApp(Constant.WEIXIN_APP_ID);
 
         if (Build.VERSION.SDK_INT >= 14) {
             registerActivityLifecycleCallbacks(new FishActivityLifecycleCallbacks());
