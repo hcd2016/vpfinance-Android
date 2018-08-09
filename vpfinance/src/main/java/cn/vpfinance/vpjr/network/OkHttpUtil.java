@@ -5,17 +5,19 @@ import android.support.v4.util.ArrayMap;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
- 
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class OkHttpUtil {
     private static final OkHttpClient mOkHttpClient = new OkHttpClient();
     static{
-        mOkHttpClient.setConnectTimeout(30, TimeUnit.SECONDS);
+        mOkHttpClient.newBuilder().connectTimeout(30, TimeUnit.SECONDS);
     }
 
     /**
@@ -31,21 +33,21 @@ public class OkHttpUtil {
 
     private static RequestBody newFinanceRequest(ArrayMap<String,String> param)
     {
-        FormEncodingBuilder builder = new FormEncodingBuilder();
+        MultipartBody.Builder builder = new MultipartBody.Builder();
         if(param!=null)
         {
             param.put("os","Android");
             param.put("version","1.0");
             for(Map.Entry<String, String> entry :param.entrySet())
             {
-                builder.add(entry.getKey(),entry.getValue());
+                builder.addFormDataPart(entry.getKey(),entry.getValue());
             }
         }
         return builder.build();
     }
 
 
-    public static Request newPostRequest(String url,ArrayMap<String,String> param)
+    public static Request newPostRequest(String url, ArrayMap<String,String> param)
     {
         Request request = new Request.Builder()
                 .url(url)
@@ -69,16 +71,17 @@ public class OkHttpUtil {
      */
     public static void enqueue(Request request){
         mOkHttpClient.newCall(request).enqueue(new Callback() {
-            
+
             @Override
-            public void onResponse(Response arg0) throws IOException {
-                
+            public void onFailure(Call call, IOException e) {
+
             }
-            
+
             @Override
-            public void onFailure(Request arg0, IOException arg1) {
-                
+            public void onResponse(Call call, Response response) throws IOException {
+
             }
+
         });
     }
 

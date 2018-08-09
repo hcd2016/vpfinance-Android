@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!--最高还款金额-->
+    <RelativeLayout
+        android:id="@+id/rl_most_repay_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="最高还款金额"
+            android:textColor="#a9abaf"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_most_repay_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="21dp"
+            android:text="20000000+8888.00元"
+            android:textColor="#a9abaf"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@+id/tv_most_repay_amount"
+            android:background="@color/gray_d5d" />
+    </RelativeLayout>
+
+    <!--最后还款日期-->
+    <RelativeLayout
+        android:id="@+id/rl_last_repay_date_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="最后还款日期"
+            android:textColor="#a9abaf"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_last_repay_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="21dp"
+            android:text="20000000+8888.00元"
+            android:textColor="#a9abaf"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@+id/tv_last_repay_date"
+            android:background="@color/gray_d5d" />
+    </RelativeLayout>
+
+    <!--实际还款金额-->
+    <RelativeLayout
+        android:id="@+id/tv_real_repay_amount_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="实际还款金额"
+            android:textColor="@color/text_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_real_repay_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="21dp"
+            android:text="20000000+8888.00元"
+            android:textColor="@color/bright_red"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@+id/tv_real_repay_amount"
+            android:background="@color/gray_d5d" />
+    </RelativeLayout>
+
+    <!--实际还款日-->
+    <RelativeLayout
+        android:id="@+id/rl_real_repay_date_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="实际还款日"
+            android:textColor="@color/text_333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_real_repay_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="21dp"
+            android:text="20000000+8888.00元"
+            android:textColor="@color/bright_red"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/bg_gray2" />
+
+    <RelativeLayout
+        android:id="@+id/rl_warning_desc_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="14dp">
+
+        <ImageView
+            android:id="@+id/iv_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="17dp"
+            android:src="@drawable/icon_warning" />
+
+        <TextView
+            android:id="@+id/tv_warning_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@+id/iv_warning"
+            android:paddingRight="21dp"
+            android:text="该产品采用浮动计息方式，最大还款日期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@+id/tv_warning_desc"
+            android:background="@color/bg_gray2" />
+    </RelativeLayout>
+</LinearLayout>

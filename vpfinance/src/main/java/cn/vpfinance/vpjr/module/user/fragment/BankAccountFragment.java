@@ -190,6 +190,9 @@ public class BankAccountFragment extends BaseFragment {
             mOpenContent.setVisibility(View.VISIBLE);
             noOpenHidden.setVisibility(View.VISIBLE);
         }
+        mHeaderNoOpen.setVisibility(View.GONE);
+        mOpenContent.setVisibility(View.VISIBLE);
+        noOpenHidden.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -278,6 +281,9 @@ public class BankAccountFragment extends BaseFragment {
                 }
             }
         }
+        mHeaderNoOpen.setVisibility(View.GONE);
+        mOpenContent.setVisibility(View.VISIBLE);
+        noOpenHidden.setVisibility(View.VISIBLE);
     }
 
 
@@ -498,7 +504,7 @@ public class BankAccountFragment extends BaseFragment {
                 }
                 break;
             case R.id.click_return_money_content://回款查询
-            case R.id.click_return_money_header:
+            case R.id.click_return_money_header://回款日历/回款查询
                 SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(FinanceApplication.getAppContext());
                 String state = sp.getStringValue(SharedPreferencesHelper.STATE_RETURN_CALENDER_OR_LIST);
                 if ("2".equals(state)) {

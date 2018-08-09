@@ -39,64 +39,81 @@
                 android:textColor="@color/text_1c1c1c"
                 android:textSize="18sp" />
             <ImageView
-                android:id="@+id/ivProductState"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/stype_bao"
-                android:layout_marginTop="3dp"
-                android:layout_marginLeft="5dp"/>
-            <ImageView
                 android:id="@+id/ivAllowTransfer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_zhuan"
-                android:layout_marginTop="3dp"
-                android:layout_marginLeft="3dp"
-                tools:visibility="visible"
-                android:visibility="gone"/>
-            <ImageView
-                android:id="@+id/isAllowTrip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/stype_lv"
-                android:layout_marginTop="3dp"
-                android:layout_marginLeft="3dp"
-                tools:visibility="visible"
-                android:visibility="gone"/>
-            <ImageView
-                android:id="@+id/ivCleanProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginTop="3dp"
-                android:background="@drawable/stype_clean"
-                android:layout_centerVertical="true"
-                tools:visibility="visible"
-                android:visibility="gone"/>
-            <TextView
-                android:id="@+id/tvAtrri"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/product_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gray"/>
-            <TextView
-                android:id="@+id/bankAccountStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/shape_bank_account_status"
-                android:gravity="center"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
-                android:text="银行存管"
-                android:textColor="@color/text_blue"
+                android:src="@drawable/icon_zhuan"
                 android:visibility="gone"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                tools:visibility="visible"
-                android:textSize="10sp" />
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/iv_fdjx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/icon_fdjx" />
+            <!--<ImageView-->
+                <!--android:id="@+id/ivProductState"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/stype_bao"-->
+                <!--android:layout_marginTop="3dp"-->
+                <!--android:layout_marginLeft="5dp"/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/ivAllowTransfer"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/ic_zhuan"-->
+                <!--android:layout_marginTop="3dp"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--tools:visibility="visible"-->
+                <!--android:visibility="gone"/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/isAllowTrip"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/stype_lv"-->
+                <!--android:layout_marginTop="3dp"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--tools:visibility="visible"-->
+                <!--android:visibility="gone"/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/ivCleanProduct"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:layout_marginTop="3dp"-->
+                <!--android:background="@drawable/stype_clean"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--tools:visibility="visible"-->
+                <!--android:visibility="gone"/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/tvAtrri"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_toRightOf="@id/product_name"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/gray"/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/bankAccountStatus"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:background="@drawable/shape_bank_account_status"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingTop="3dp"-->
+                <!--android:paddingBottom="3dp"-->
+                <!--android:text="银行存管"-->
+                <!--android:textColor="@color/text_blue"-->
+                <!--android:visibility="gone"-->
+                <!--android:paddingLeft="3dp"-->
+                <!--android:paddingRight="3dp"-->
+                <!--tools:visibility="visible"-->
+                <!--android:textSize="10sp" />-->
         </LinearLayout>
         <LinearLayout
             android:id="@+id/product_info"
@@ -118,7 +135,7 @@
                     tools:text="9.0%"
                     android:gravity="bottom|left"
                     android:textColor="@color/red_text"
-                    android:textSize="30sp"/>
+                    android:textSize="28sp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:gravity="left"

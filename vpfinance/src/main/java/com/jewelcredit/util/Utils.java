@@ -12,10 +12,14 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -53,6 +57,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.FinanceApplication;
@@ -683,6 +689,23 @@ public class Utils {
         SpannableStringBuilder style = new SpannableStringBuilder(str);
         style.setSpan(new AbsoluteSizeSpan(size, true), fstart, fend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         tv.setText(style);
+    }
+
+
+    /**
+     * 此方法用于不同版本的sdk调用获取颜色方法，23以上的sdk都是使用ContextCompat.getColor的形式
+     * 其他的老版本依然使用上下文的getResources方法
+     *
+     * @param id colorId
+     * @return
+     */
+    public static final int getColor(int id) {
+        final int version = Build.VERSION.SDK_INT;
+        if (version >= 23) {
+            return ContextCompat.getColor(FinanceApplication.getContext(), id);
+        } else {
+            return FinanceApplication.getContext().getResources().getColor(id);
+        }
     }
 }
 

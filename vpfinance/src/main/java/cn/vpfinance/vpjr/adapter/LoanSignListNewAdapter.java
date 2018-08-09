@@ -30,7 +30,6 @@ import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.gson.LoanSignListNewBean;
 import cn.vpfinance.vpjr.model.RefreshCountDown;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.view.MyCountDownTimer;
 import cn.vpfinance.vpjr.view.SmallCircularProgressView;
@@ -121,12 +120,12 @@ public class LoanSignListNewAdapter extends BaseAdapter{
                 holder.tvMonthInfo = (TextView) convertView.findViewById(R.id.tvMonthInfo);
                 holder.rewardIv = (ImageView) convertView.findViewById(R.id.rewardIv);
                 holder.ivAllowTransfer = (ImageView) convertView.findViewById(R.id.ivAllowTransfer);
-                holder.ivProductState = (ImageView) convertView.findViewById(R.id.ivProductState);
+//                holder.ivProductState = (ImageView) convertView.findViewById(R.id.ivProductState);
                 holder.circular = (SmallCircularProgressView) convertView.findViewById(R.id.circle);
-                holder.ivAllowTrip = (ImageView) convertView.findViewById(R.id.isAllowTrip);
-                holder.ivClean = (ImageView) convertView.findViewById(R.id.ivClean);
+//                holder.ivAllowTrip = (ImageView) convertView.findViewById(R.id.isAllowTrip);
+//                holder.ivClean = (ImageView) convertView.findViewById(R.id.ivClean);
                 holder.ivIphone7 = (ImageView) convertView.findViewById(R.id.iphone7);
-                holder.iv_sign_type = (ImageView) convertView.findViewById(R.id.iv_sign_type);
+//                holder.iv_sign_type = (ImageView) convertView.findViewById(R.id.iv_sign_type);
                 holder.bankAccountStatus = (TextView) convertView.findViewById(R.id.bankAccountStatus);
 
                 holder.countDown = (MyCountDownTimer)convertView.findViewById(R.id.countDown);
@@ -158,43 +157,43 @@ public class LoanSignListNewAdapter extends BaseAdapter{
                     rate *= 100;
 
                     Integer isAllowTrip = loansign.isAllowTrip;
-                    if (!TextUtils.isEmpty(isAllowTrip + "") && isAllowTrip == 1) {
-                        holder.ivAllowTrip.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.ivAllowTrip.setVisibility(View.GONE);
-                    }
+//                    if (!TextUtils.isEmpty(isAllowTrip + "") && isAllowTrip == 1) {
+//                        holder.ivAllowTrip.setVisibility(View.VISIBLE);
+//                    } else {
+//                        holder.ivAllowTrip.setVisibility(View.GONE);
+//                    }
                     int productType = loansign.productType;
-                    if (productType != 0 && loansign.product == 3 && productType == 5){
-                        holder.ivClean.setVisibility(View.VISIBLE);
-                    }else{
-                        holder.ivClean.setVisibility(View.GONE);
-                    }
+//                    if (productType != 0 && loansign.product == 3 && productType == 5){
+//                        holder.ivClean.setVisibility(View.VISIBLE);
+//                    }else{
+//                        holder.ivClean.setVisibility(View.GONE);
+//                    }
 
-                    switch (loansign.loansignTypeId) {//区分标的类型
-                        case 1://车贷宝
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_che);
-                            break;
-                        case 2://消费贷
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_xiao);
-                            break;
-                        case 8://供应链
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_gong);
-                            break;
-                        case 10://企业贷
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_qi);
-                            break;
-                        case 11://珠宝贷
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_zhu);
-                            break;
-                        case 12://融租宝
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_rong);
-                            break;
-                        case 13://个人标
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_ge);
-                            break;
-                    }
+//                    switch (loansign.loansignTypeId) {//区分标的类型
+//                        case 1://车贷宝
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_che);
+//                            break;
+//                        case 2://消费贷
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_xiao);
+//                            break;
+//                        case 8://供应链
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_gong);
+//                            break;
+//                        case 10://企业贷
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_qi);
+//                            break;
+//                        case 11://珠宝贷
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_zhu);
+//                            break;
+//                        case 12://融租宝
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_rong);
+//                            break;
+//                        case 13://个人标
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_ge);
+//                            break;
+//                    }
 
-                    Common.productSubType(mContext,holder.ivProductState,loansign.subType);
+//                    Common.productSubType(mContext,holder.ivProductState,loansign.subType);
 
 //                    double pro = 100 * product.total_tend_money/loansign.issueLoan;
 //                    String value = FormatUtils.formatDownByProgress(pro);
@@ -504,11 +503,11 @@ public class LoanSignListNewAdapter extends BaseAdapter{
         private TextView tvStatus;
         private ImageView rewardIv;
         private ImageView ivAllowTransfer;
-        private ImageView ivProductState;
-        private ImageView ivAllowTrip;
-        private ImageView ivClean;
+//        private ImageView ivProductState;
+//        private ImageView ivAllowTrip;
+//        private ImageView ivClean;
         private ImageView ivIphone7;
-        private ImageView iv_sign_type;
+//        private ImageView iv_sign_type;
 
         private SmallCircularProgressView circular;
     }

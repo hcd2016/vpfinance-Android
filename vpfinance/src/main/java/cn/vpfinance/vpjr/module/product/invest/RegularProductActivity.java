@@ -32,6 +32,15 @@ import java.util.List;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.base.BaseFragment;
+import cn.vpfinance.vpjr.greendao.DaoMaster;
+import cn.vpfinance.vpjr.greendao.DaoSession;
+import cn.vpfinance.vpjr.greendao.LoanRecord;
+import cn.vpfinance.vpjr.greendao.User;
+import cn.vpfinance.vpjr.greendao.UserDao;
+import cn.vpfinance.vpjr.gson.FinanceProduct;
+import cn.vpfinance.vpjr.gson.PersonalInfo;
+import cn.vpfinance.vpjr.model.Config;
+import cn.vpfinance.vpjr.model.RegularProductInfo;
 import cn.vpfinance.vpjr.module.product.fragment.PersonalProductRiskControlFragment;
 import cn.vpfinance.vpjr.module.product.fragment.ProductInvestListFragment;
 import cn.vpfinance.vpjr.module.product.fragment.ProductJewelryBaseInfoFragment;
@@ -53,18 +62,6 @@ import cn.vpfinance.vpjr.module.product.fragment.RegularProductJewelryRiskFragme
 import cn.vpfinance.vpjr.module.product.fragment.RegularProductProjectIntroductionFragment;
 import cn.vpfinance.vpjr.module.product.fragment.RegularProductQualificationMaterialFragment;
 import cn.vpfinance.vpjr.module.product.fragment.RegularProductRiskControlFragment;
-import cn.vpfinance.vpjr.greendao.DaoMaster;
-import cn.vpfinance.vpjr.greendao.DaoSession;
-import cn.vpfinance.vpjr.greendao.LoanRecord;
-import cn.vpfinance.vpjr.greendao.User;
-import cn.vpfinance.vpjr.greendao.UserDao;
-import cn.vpfinance.vpjr.gson.FinanceProduct;
-import cn.vpfinance.vpjr.gson.JewelryBean;
-import cn.vpfinance.vpjr.gson.PersonalInfo;
-import cn.vpfinance.vpjr.model.Config;
-import cn.vpfinance.vpjr.model.JewelryContentListEvent;
-import cn.vpfinance.vpjr.model.RegularProductInfo;
-import cn.vpfinance.vpjr.util.Common;
 import de.greenrobot.dao.query.QueryBuilder;
 import de.greenrobot.event.EventBus;
 
@@ -659,36 +656,36 @@ public class RegularProductActivity extends BaseActivity implements HttpDownload
 					prodType = product.getProduct();//这个是product，之前命名很奇怪
 					String productType = product.getProductType();
 
-					if ("6".equals(productType) && prodType==0){//珠宝贷productType=6,product=0
-						mTabsAdapter = new JewelryAdapter(supportFragmentManager,product.getPid(),product.getType());
-						mViewPager.setAdapter(mTabsAdapter);
-						mTabsAdapter.notifyDataSetChanged();
-						tabs.setViewPager(mViewPager);
-						JewelryBean jewelryBean = mHttpService.onGetProductJewelryInfo(json);
-						if (jewelryBean != null && jewelryBean.getContentList() != null && jewelryBean.getContentList().size() != 0){
-							EventBus.getDefault().post(new JewelryContentListEvent(jewelryBean.getContentList()));
-						}
-
-					}else if ("2".equals(productType) && prodType==0){//车贷productType=2,product=0
-
-						mTabsAdapter = new CarAdapter(supportFragmentManager,product.getPid(),product.getType());
-						mViewPager.setAdapter(mTabsAdapter);
-						mTabsAdapter.notifyDataSetChanged();
-						tabs.setViewPager(mViewPager);
-					}else if(prodType==2){//保理标productType=7,product=2（和接口反了）
-						mTabsAdapter = new BaoliAdapter(supportFragmentManager,product.getPid(),product.getType(),productType);
-						mViewPager.setAdapter(mTabsAdapter);
-						mTabsAdapter.notifyDataSetChanged();
-						tabs.setViewPager(mViewPager);
-					}else if (productLong == 3) {
-						mTabsAdapter = new PersonalAdapter(supportFragmentManager, mLid, mType);
-						mViewPager.setAdapter(mTabsAdapter);
-						tabs.setViewPager(mViewPager);
-					}else{
+//					if ("6".equals(productType) && prodType==0){//珠宝贷productType=6,product=0
+//						mTabsAdapter = new JewelryAdapter(supportFragmentManager,product.getPid(),product.getType());
+//						mViewPager.setAdapter(mTabsAdapter);
+//						mTabsAdapter.notifyDataSetChanged();
+//						tabs.setViewPager(mViewPager);
+//						JewelryBean jewelryBean = mHttpService.onGetProductJewelryInfo(json);
+//						if (jewelryBean != null && jewelryBean.getContentList() != null && jewelryBean.getContentList().size() != 0){
+//							EventBus.getDefault().post(new JewelryContentListEvent(jewelryBean.getContentList()));
+//						}
+//
+//					}else if ("2".equals(productType) && prodType==0){//车贷productType=2,product=0
+//
+//						mTabsAdapter = new CarAdapter(supportFragmentManager,product.getPid(),product.getType());
+//						mViewPager.setAdapter(mTabsAdapter);
+//						mTabsAdapter.notifyDataSetChanged();
+//						tabs.setViewPager(mViewPager);
+//					}else if(prodType==2){//保理标productType=7,product=2（和接口反了）
+//						mTabsAdapter = new BaoliAdapter(supportFragmentManager,product.getPid(),product.getType(),productType);
+//						mViewPager.setAdapter(mTabsAdapter);
+//						mTabsAdapter.notifyDataSetChanged();
+//						tabs.setViewPager(mViewPager);
+//					}else if (productLong == 3) {
+//						mTabsAdapter = new PersonalAdapter(supportFragmentManager, mLid, mType);
+//						mViewPager.setAdapter(mTabsAdapter);
+//						tabs.setViewPager(mViewPager);
+//					}else{
 						mTabsAdapter = new MyAdapter(supportFragmentManager,mLid,mType);
 						mViewPager.setAdapter(mTabsAdapter);
 						tabs.setViewPager(mViewPager);
-					}
+//					}
 				}
 				/*if (dao != null) {
 					dao.insertOrReplace(product);

@@ -21,16 +21,17 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import org.joda.time.Interval;
 import org.joda.time.Period;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.gson.LoanSignListNewBean;
 import cn.vpfinance.vpjr.model.RefreshCountDown;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.view.MyCountDownTimer;
 import cn.vpfinance.vpjr.view.SmallCircularProgressView;
@@ -197,43 +198,43 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     rate *= 100;
 
                     Integer isAllowTrip = loansign.isAllowTrip;
-                    if (!TextUtils.isEmpty(isAllowTrip + "") && isAllowTrip == 1) {
-                        holder.ivAllowTrip.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.ivAllowTrip.setVisibility(View.GONE);
-                    }
+//                    if (!TextUtils.isEmpty(isAllowTrip + "") && isAllowTrip == 1) {
+//                        holder.ivAllowTrip.setVisibility(View.VISIBLE);
+//                    } else {
+//                        holder.ivAllowTrip.setVisibility(View.GONE);
+//                    }
                     int productType = loansign.productType;
-                    if (productType != 0 && loansign.product == 3 && productType == 5){
-                        holder.ivClean.setVisibility(View.VISIBLE);
-                    }else{
-                        holder.ivClean.setVisibility(View.GONE);
-                    }
+//                    if (productType != 0 && loansign.product == 3 && productType == 5){
+//                        holder.ivClean.setVisibility(View.VISIBLE);
+//                    }else{
+//                        holder.ivClean.setVisibility(View.GONE);
+//                    }
 
-                    switch (loansign.loansignTypeId) {//区分标的类型
-                        case 1://车贷宝
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_che);
-                            break;
-                        case 2://消费贷
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_xiao);
-                            break;
-                        case 8://供应链
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_gong);
-                            break;
-                        case 10://企业贷
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_qi);
-                            break;
-                        case 11://珠宝贷
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_zhu);
-                            break;
-                        case 12://融租宝
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_rong);
-                            break;
-                        case 13://个人标
-                            holder.iv_sign_type.setImageResource(R.drawable.icon_ge);
-                            break;
-                    }
+//                    switch (loansign.loansignTypeId) {//区分标的类型
+//                        case 1://车贷宝
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_che);
+//                            break;
+//                        case 2://消费贷
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_xiao);
+//                            break;
+//                        case 8://供应链
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_gong);
+//                            break;
+//                        case 10://企业贷
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_qi);
+//                            break;
+//                        case 11://珠宝贷
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_zhu);
+//                            break;
+//                        case 12://融租宝
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_rong);
+//                            break;
+//                        case 13://个人标
+//                            holder.iv_sign_type.setImageResource(R.drawable.icon_ge);
+//                            break;
+//                    }
 
-                    Common.productSubType(mContext,holder.ivProductState,loansign.subType);
+//                    Common.productSubType(mContext,holder.ivProductState,loansign.subType);
 
 //                    double pro = 100 * product.total_tend_money/loansign.issueLoan;
 //                    String value = FormatUtils.formatDownByProgress(pro);
@@ -360,11 +361,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     }
 
                     if (typeList == Constant.TYPE_REGULAR || typeList == Constant.TYPE_BANK){
-                        if (loansign.product == 4){//银行存管
-                            holder.bankAccountStatus.setVisibility(View.VISIBLE);
-                        }else{
-                            holder.bankAccountStatus.setVisibility(View.GONE);
-                        }
+//                        if (loansign.product == 4){//银行存管
+//                            holder.bankAccountStatus.setVisibility(View.VISIBLE);
+//                        }else{
+//                            holder.bankAccountStatus.setVisibility(View.GONE);
+//                        }
                         if (loansign.loanType == 2){
                             holder.tvTerm.setText(loansign.month + "天");
                         }else{
@@ -388,7 +389,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     }else if (typeList == Constant.TYPE_TRANSFER){
                         holder.tvMonthInfo.setText("剩余期限");
                         holder.tvTotalMoneyInfo.setText("转让总额");
-                        holder.bankAccountStatus.setVisibility(View.GONE);
+//                        holder.bankAccountStatus.setVisibility(View.GONE);
                         if (loansign.loanType == 6 && loansign.refundWay == 3){
                             holder.tvTerm.setText(loansign.month + "天");
                         }else{
@@ -451,18 +452,18 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         ImageView rewardIv;
         @Bind(R.id.ivAllowTransfer)
         ImageView ivAllowTransfer;
-        @Bind(R.id.ivProductState)
-        ImageView ivProductState;
+//        @Bind(R.id.ivProductState)
+//        ImageView ivProductState;
         @Bind(R.id.circle)
         SmallCircularProgressView circular;
-        @Bind(R.id.isAllowTrip)
-        ImageView ivAllowTrip;
-        @Bind(R.id.ivClean)
-        ImageView ivClean;
-        @Bind(R.id.iv_sign_type)
-        ImageView iv_sign_type;
-        @Bind(R.id.bankAccountStatus)
-        TextView bankAccountStatus;
+//        @Bind(R.id.isAllowTrip)
+//        ImageView ivAllowTrip;
+//        @Bind(R.id.ivClean)
+//        ImageView ivClean;
+//        @Bind(R.id.iv_sign_type)
+//        ImageView iv_sign_type;
+//        @Bind(R.id.bankAccountStatus)
+//        TextView bankAccountStatus;
         @Bind(R.id.countDown)
         MyCountDownTimer countDown;
         @Bind(R.id.tv_addrate)

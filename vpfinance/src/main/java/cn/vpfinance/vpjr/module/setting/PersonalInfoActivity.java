@@ -35,14 +35,6 @@ import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,6 +70,15 @@ import cn.vpfinance.vpjr.util.VerifyUtils;
 import cn.vpfinance.vpjr.view.CircleImg;
 import cn.vpfinance.vpjr.view.popwindow.SelectPicPopupWindow;
 import de.greenrobot.event.EventBus;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by Administrator on 2015/10/26.
@@ -895,8 +896,8 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
 
         OkHttpClient okHttpClient = new OkHttpClient();
-        RequestBody requestBody = new MultipartBuilder()
-                .type(MultipartBuilder.FORM)
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
                 .addPart(Headers.of(
                         "Content-Disposition",
                         "form-data; name=\"userid\""),
@@ -914,12 +915,12 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
 
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Request request, IOException e) {
+            public void onFailure(Call call, IOException e) {
 
             }
 
             @Override
-            public void onResponse(Response response) throws IOException {
+            public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     JSONObject json = null;
                     try {

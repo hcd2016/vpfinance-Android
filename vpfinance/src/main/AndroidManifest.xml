@@ -453,26 +453,30 @@
         <activity
             android:name="cn.vpfinance.vpjr.module.user.asset.QueryReturnMoneyListActivity"
             android:screenOrientation="portrait" />
-        //存管账户设置
+        <!--存管账户设置-->
         <activity
             android:name="cn.vpfinance.vpjr.module.setting.DepositAccountSetActivity"
             android:screenOrientation="portrait" />
-        //安全中心
+        <!--安全中心-->
         <activity
             android:name="cn.vpfinance.vpjr.module.setting.SafetyCentreActivity"
             android:screenOrientation="portrait"></activity>
-        //绑定/更换邮箱
+        <!--绑定/更换邮箱-->
         <activity
             android:name="cn.vpfinance.vpjr.module.setting.BindOrChangeEmailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
-        //绑定新邮箱
+        <!--绑定新邮箱-->
         <activity
             android:name="cn.vpfinance.vpjr.module.setting.BindEmailActivity"
             android:screenOrientation="portrait"></activity>
-        //邮箱短信验证
+        <!--邮箱短信验证-->
         <activity
             android:name="cn.vpfinance.vpjr.module.setting.EmailSMSVerificationActivity"
+            android:screenOrientation="portrait"></activity>
+        <!--浮动计息回款计划-->
+        <activity
+            android:name="cn.vpfinance.vpjr.module.product.record.RepayFloatActivity"
             android:screenOrientation="portrait"></activity>
         <!-- LLYT SDK END -->
 

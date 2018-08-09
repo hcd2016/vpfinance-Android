@@ -29,21 +29,21 @@ import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseFragment;
-import cn.vpfinance.vpjr.module.product.BorrowerCreditActivity;
-import cn.vpfinance.vpjr.module.common.LoginActivity;
-import cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity;
-import cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity;
-import cn.vpfinance.vpjr.module.product.record.TransferAvailableTimeActivity;
 import cn.vpfinance.vpjr.greendao.LoanRecord;
 import cn.vpfinance.vpjr.gson.FinanceProduct;
 import cn.vpfinance.vpjr.gson.PersonalInfo;
 import cn.vpfinance.vpjr.model.RegularProductInfo;
-import cn.vpfinance.vpjr.util.Common;
+import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.product.BorrowerCreditActivity;
+import cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity;
+import cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity;
+import cn.vpfinance.vpjr.module.product.record.TransferAvailableTimeActivity;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.view.MyCountDownTimer;
 import de.greenrobot.event.EventBus;
 
 /**
+ * 个人标详情
  */
 public class RegularProductBorrowerFragment extends BaseFragment implements View.OnClickListener {
 
@@ -72,7 +72,7 @@ public class RegularProductBorrowerFragment extends BaseFragment implements View
     private TextView         detal_reward;
     private Button           btnInvest;
     private ImageView        ivAllowTransfer;
-    private ImageView        ivCleanProduct;
+//    private ImageView        ivCleanProduct;
     private LinearLayout     order_ll;
     private MyCountDownTimer order_countDown;
     private LinearLayout     ll_time;
@@ -105,8 +105,8 @@ public class RegularProductBorrowerFragment extends BaseFragment implements View
     View         divider_start_interest;
     @Bind(R.id.divider_invest_finish_time)
     View         divider_invest_finish_time;
-    @Bind(R.id.ivProductState)
-    ImageView    ivProductState;
+//    @Bind(R.id.ivProductState)
+//    ImageView    ivProductState;
     private boolean isOrder = false;
 
 
@@ -120,7 +120,7 @@ public class RegularProductBorrowerFragment extends BaseFragment implements View
     }
 
     private void initFind(View view) {
-        ivCleanProduct = ((ImageView) view.findViewById(R.id.ivCleanProduct));
+//        ivCleanProduct = ((ImageView) view.findViewById(R.id.ivCleanProduct));
 
         ivAllowTransfer = ((ImageView) view.findViewById(R.id.ivAllowTransfer));
         tvProductName = (TextView) view.findViewById(R.id.product_name);
@@ -184,9 +184,9 @@ public class RegularProductBorrowerFragment extends BaseFragment implements View
                 ivAllowTransfer.setVisibility(View.VISIBLE);
             }
             String productType = product.getProductType();
-            if (!TextUtils.isEmpty(productType)) {
-                ivCleanProduct.setVisibility("5".equals(productType) ? View.VISIBLE : View.GONE);
-            }
+//            if (!TextUtils.isEmpty(productType)) {
+//                ivCleanProduct.setVisibility("5".equals(productType) ? View.VISIBLE : View.GONE);
+//            }
 
             if (event.borrowerInfo != null) {
                 if (event.borrowerInfo.borrowedUse != null) {
@@ -460,7 +460,7 @@ public class RegularProductBorrowerFragment extends BaseFragment implements View
                     break;
             }
 
-            Common.productSubType(mContext,ivProductState,(int) product.getSubType());
+//            Common.productSubType(mContext,ivProductState,(int) product.getSubType());
         }
     }
 

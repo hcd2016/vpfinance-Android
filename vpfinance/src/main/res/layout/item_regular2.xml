@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bg_gray2"
-    android:layout_marginTop="7dp">
+    android:layout_marginTop="7dp"
+    android:background="@color/bg_gray2">
+
     <RelativeLayout
+        android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:paddingLeft="9dp"
-        android:background="@drawable/bg_white_corners"
-        android:id="@+id/rootView"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bg_white_corners"
+        android:paddingLeft="9dp">
+
         <LinearLayout
             android:id="@+id/titleArea"
             android:layout_width="wrap_content"
@@ -23,84 +24,101 @@
             android:layout_marginTop="13dp"
             android:gravity="center_vertical">
 
-            <ImageView
-                android:id="@+id/iv_sign_type"
-                android:layout_width="19dp"
-                android:layout_height="19dp"
-                android:layout_gravity="center_vertical"
-                tools:src="@drawable/icon_che"
-                />
+            <!--<ImageView-->
+            <!--android:id="@+id/iv_sign_type"-->
+            <!--android:layout_width="19dp"-->
+            <!--android:layout_height="19dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--tools:src="@drawable/icon_che"-->
+            <!--/>-->
             <TextView
                 android:id="@+id/item_loan_title"
-                android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:drawablePadding="8dp"
                 android:singleLine="true"
                 android:text="@string/app_name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/text_282828"
-                android:textSize="19sp"/>
+                android:textSize="19sp" />
 
-            <ImageView
-                android:id="@+id/ivProductState"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/item_loan_title"
-                android:background="@drawable/stype_bao"/>
+            <!--<ImageView-->
+            <!--android:id="@+id/ivProductState"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_toRightOf="@id/item_loan_title"-->
+            <!--android:background="@drawable/stype_bao"/>-->
 
+            <!--<ImageView-->
+            <!--android:id="@+id/ivAllowTransfer"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="3dp"-->
+            <!--android:layout_toRightOf="@id/item_loan_title"-->
+            <!--android:background="@drawable/ic_zhuan"-->
+            <!--android:visibility="gone"-->
+            <!--tools:visibility="visible"/>-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/isAllowTrip"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="3dp"-->
+            <!--android:layout_toRightOf="@id/item_loan_title"-->
+            <!--android:background="@drawable/stype_lv"-->
+            <!--android:visibility="gone"-->
+            <!--tools:visibility="visible"/>-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/ivClean"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="3dp"-->
+            <!--android:layout_toRightOf="@id/isAllowTrip"-->
+            <!--android:background="@drawable/stype_clean"-->
+            <!--android:visibility="gone"-->
+            <!--tools:visibility="visible"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/bankAccountStatus"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--android:background="@drawable/shape_bank_account_status"-->
+            <!--android:gravity="center"-->
+            <!--android:paddingTop="3dp"-->
+            <!--android:paddingBottom="3dp"-->
+            <!--android:text="银行存管"-->
+            <!--android:textColor="@color/text_blue"-->
+            <!--android:visibility="gone"-->
+            <!--android:paddingLeft="3dp"-->
+            <!--android:paddingRight="3dp"-->
+            <!--tools:visibility="visible"-->
+            <!--android:textSize="10sp" />-->
             <ImageView
                 android:id="@+id/ivAllowTransfer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="3dp"
-                android:layout_toRightOf="@id/item_loan_title"
-                android:background="@drawable/ic_zhuan"
-                android:visibility="gone"
-                tools:visibility="visible"/>
-
-            <ImageView
-                android:id="@+id/isAllowTrip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="3dp"
-                android:layout_toRightOf="@id/item_loan_title"
-                android:background="@drawable/stype_lv"
-                android:visibility="gone"
-                tools:visibility="visible"/>
-
-            <ImageView
-                android:id="@+id/ivClean"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="3dp"
-                android:layout_toRightOf="@id/isAllowTrip"
-                android:background="@drawable/stype_clean"
-                android:visibility="gone"
-                tools:visibility="visible"/>
-
-            <TextView
-                android:id="@+id/bankAccountStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/shape_bank_account_status"
-                android:gravity="center"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
-                android:text="银行存管"
-                android:textColor="@color/text_blue"
+                android:src="@drawable/icon_zhuan"
                 android:visibility="gone"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                tools:visibility="visible"
-                android:textSize="10sp" />
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/iv_fdjx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/icon_fdjx" />
         </LinearLayout>
 
         <LinearLayout
@@ -108,8 +126,8 @@
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_below="@id/titleArea"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/rl"
@@ -132,23 +150,25 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
                             android:gravity="bottom"
-                            android:orientation="horizontal"
-                            android:layout_marginLeft="5dp">
+                            android:orientation="horizontal">
+
                             <TextView
                                 android:id="@+id/item_loan_rate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/dark_red"
                                 android:textSize="22sp"
-                                tools:text="9.5"/>
+                                tools:text="9.5" />
+
                             <TextView
                                 android:id="@+id/item_loan_rate_percent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="%"
                                 android:textColor="@color/dark_red"
-                                android:textSize="14sp"
-                                android:text="%"/>
+                                android:textSize="14sp" />
                         </LinearLayout>
 
                         <TextView
@@ -156,14 +176,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_marginRight="12dp"
+                            android:layout_marginTop="8dp"
                             android:background="@drawable/bg_rate"
                             android:gravity="center|right"
                             android:textColor="@color/white"
                             android:visibility="gone"
                             tools:text="+0.2%"
-                            android:layout_marginRight="12dp"
-                            android:layout_marginTop="8dp"
-                            tools:visibility="visible"/>
+                            tools:visibility="visible" />
                     </RelativeLayout>
 
                     <TextView
@@ -174,7 +194,7 @@
                         android:layout_weight="1"
                         android:textColor="@color/text_282828"
                         android:textSize="16sp"
-                        tools:text="6个月"/>
+                        tools:text="6个月" />
 
                     <TextView
                         android:id="@+id/item_loan_totle"
@@ -184,7 +204,7 @@
                         android:layout_weight="1"
                         android:textColor="@color/text_282828"
                         android:textSize="16sp"
-                        tools:text="100万元"/>
+                        tools:text="100万元" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -199,7 +219,7 @@
                         android:layout_weight="0.9"
                         android:text="约定年利率"
                         android:textColor="@color/text_999999"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tvMonthInfo"
@@ -208,7 +228,7 @@
                         android:layout_weight="1"
                         android:text="投资期限"
                         android:textColor="@color/text_999999"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tvTotalMoneyInfo"
@@ -217,7 +237,7 @@
                         android:layout_weight="1"
                         android:text="投资总额"
                         android:textColor="@color/text_999999"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -225,7 +245,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                android:layout_weight="2.5"/>
+                android:layout_weight="2.5" />
 
         </LinearLayout>
 
@@ -235,21 +255,21 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
             android:orientation="vertical"
-            android:layout_marginBottom="10dp"
             android:visibility="gone"
             tools:visibility="visible">
 
             <TextView
                 android:layout_width="94dp"
                 android:layout_height="20dp"
+                android:layout_marginLeft="3dp"
                 android:background="@drawable/bg_order"
                 android:gravity="center"
                 android:text="预   售   中"
-                android:textSize="13sp"
                 android:textColor="@color/red_top"
-                android:layout_marginLeft="3dp"/>
+                android:textSize="13sp" />
 
             <cn.vpfinance.vpjr.view.MyCountDownTimer
                 android:id="@+id/countDown"
@@ -257,8 +277,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:visibility="visible"
-                custom:newLayout="@layout/layout_time_countdown3"
-                />
+                custom:newLayout="@layout/layout_time_countdown3" />
         </LinearLayout>
 
         <RelativeLayout
@@ -267,36 +286,39 @@
             android:layout_height="80dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginRight="20dp"
             android:visibility="visible">
 
             <RelativeLayout
                 android:layout_width="70dp"
-                android:layout_centerHorizontal="true"
-                android:layout_height="70dp">
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true">
+
                 <View
                     android:id="@+id/circle_background"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/bg_circle_progress"
                     android:layout_centerInParent="true"
-                    android:visibility="gone"/>
+                    android:background="@drawable/bg_circle_progress"
+                    android:visibility="gone" />
+
                 <cn.vpfinance.vpjr.view.SmallCircularProgressView
                     android:id="@+id/circle"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:visibility="visible"
-                    tools:visibility="visible"/>
+                    tools:visibility="visible" />
+
                 <TextView
                     android:id="@+id/status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    tools:text="10.00%"
                     android:textColor="@color/red_text"
                     android:textSize="12sp"
-                    android:visibility="visible"/>
+                    android:visibility="visible"
+                    tools:text="10.00%" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -305,18 +327,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ic_rate"/>
+            android:src="@drawable/ic_rate" />
 
         <ImageView
             android:id="@+id/iphone7"
             android:layout_width="100dp"
             android:layout_height="33dp"
+            android:layout_alignLeft="@+id/ll_Order"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/ll_Order"
             android:background="@drawable/ic_iphone7_index"
             android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_alignParentTop="true"
-            android:layout_alignLeft="@+id/ll_Order"
-            android:layout_alignStart="@+id/ll_Order" />
+            tools:visibility="visible" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -330,7 +352,7 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@color/red_text"
                 android:textSize="30sp"
-                tools:text="9.5%"/>
+                tools:text="9.5%" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -340,7 +362,7 @@
                 android:textColor="@color/white"
                 android:visibility="gone"
                 tools:text="+0.2%"
-                tools:visibility="visible"/>
+                tools:visibility="visible" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

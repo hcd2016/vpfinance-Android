@@ -102,6 +102,7 @@
     <color name="text_3c8ddf">#3c8ddf</color>
     <color name="text_4985ff">#4985FF</color>
     <color name="btn_blue">#1278ec</color>
+    <color name="gray_d5d">#d5d7db</color>
 
     <color name="account_original_header">#FF5050</color>
     <color name="account_bank_header">#4B75CB</color>

@@ -14,12 +14,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.google.gson.Gson;
 import com.jewelcredit.util.AppState;
+import com.jewelcredit.util.DifColorTextStringBuilder;
 import com.jewelcredit.util.HttpService;
+import com.jewelcredit.util.MyClickableSpan;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -36,18 +39,17 @@ import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.greendao.User;
-import cn.vpfinance.vpjr.module.dialog.InvestLianLianInformDialog;
-import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
-import cn.vpfinance.vpjr.module.product.invest.DepositInvestActivity;
-import cn.vpfinance.vpjr.module.common.LoginActivity;
-import cn.vpfinance.vpjr.module.product.record.NewRepayListActivity;
-import cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity;
-import cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity;
 import cn.vpfinance.vpjr.gson.DepositTab1Bean;
 import cn.vpfinance.vpjr.gson.NewBaseInfoBean;
 import cn.vpfinance.vpjr.model.DepositInvestInfo;
+import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.InvestLianLianInformDialog;
+import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
+import cn.vpfinance.vpjr.module.product.invest.DepositInvestActivity;
+import cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity;
+import cn.vpfinance.vpjr.module.product.record.NewRepayListActivity;
+import cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
@@ -63,16 +65,16 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     private static final int START_REFRESH = 100;
     @Bind(R.id.product_name)
     TextView mProductName;
-    @Bind(R.id.ivProductState)
-    ImageView mIvProductState;
+    //    @Bind(R.id.ivProductState)
+//    ImageView mIvProductState;
     @Bind(R.id.ivAllowTransfer)
     ImageView mIvAllowTransfer;
-    @Bind(R.id.isAllowTrip)
-    ImageView mIsAllowTrip;
-    @Bind(R.id.ivCleanProduct)
-    ImageView mIvCleanProduct;
-    @Bind(R.id.tvAtrri)
-    TextView mTvAtrri;
+    //    @Bind(R.id.isAllowTrip)
+//    ImageView mIsAllowTrip;
+//    @Bind(R.id.ivCleanProduct)
+//    ImageView mIvCleanProduct;
+//    @Bind(R.id.tvAtrri)
+//    TextView mTvAtrri;
     @Bind(R.id.product_name_state)
     LinearLayout mProductNameState;
     @Bind(R.id.product_rate)
@@ -119,8 +121,16 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     TextView product_total_money_text;
     @Bind(R.id.product_usable_buy_text)
     TextView product_usable_buy_text;
-    @Bind(R.id.bankAccountStatus)
-    TextView bankAccountStatus;
+    @Bind(R.id.iv_fdjx)
+    ImageView ivFdjx;
+    @Bind(R.id.iv_warning)
+    ImageView ivWarning;
+    @Bind(R.id.tv_warning_desc)
+    TextView tvWarningDesc;
+    @Bind(R.id.rl_warning_desc_container)
+    RelativeLayout rlWarningDescContainer;
+//    @Bind(R.id.bankAccountStatus)
+//    TextView bankAccountStatus;
 
     private HttpService mHttpService;
     public static final String EXTRA_PRODUCT_ID = "id";
@@ -138,10 +148,10 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 
     private long serverTime = System.currentTimeMillis();
 
-    private Handler mHandle = new Handler(){
+    private Handler mHandle = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case START_REFRESH:
                     mHttpService.getRegularTab(mRequestUrl);
                     break;
@@ -167,6 +177,22 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
         mHttpService = new HttpService(getActivity(), this);
         //        mHttpService.getFixProductNew("" + mLoanId, "" + mNativeId);
         initListener();
+
+        String content = "该产品采用浮动计息方式，最大还款日期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>";
+        DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
+        difColorTextStringBuilder.setContent(content)
+                .setHighlightContent("7.2%",R.color.red_text)
+                .setHighlightContent("7.5%",R.color.red_text)
+                .setHighlightContent("了解详情>>",R.color.red_text)
+                .setHighlightContent("了解详情>>", new MyClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+//                        todo
+                        Utils.Toast("点击了了解详情");
+                    }
+                })
+                .setTextView(tvWarningDesc)
+                .create();
         return view;
     }
 
@@ -187,11 +213,11 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     }
 
 
-    public static NewBaseInfoFragment newInstance(String url,boolean isDeposit) {
+    public static NewBaseInfoFragment newInstance(String url, boolean isDeposit) {
         NewBaseInfoFragment fragment = new NewBaseInfoFragment();
         Bundle args = new Bundle();
         args.putString(REQUEST_URL, url);
-        args.putBoolean(IS_DEPOSIT,isDeposit);
+        args.putBoolean(IS_DEPOSIT, isDeposit);
         fragment.setArguments(args);
         return fragment;
     }
@@ -200,7 +226,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-        if (mOrderCountDown != null){
+        if (mOrderCountDown != null) {
             mOrderCountDown.cancel();
         }
         mHandle.removeCallbacksAndMessages(null);
@@ -209,25 +235,25 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onHttpSuccess(int reqId, JSONObject json) {
         if (!isHttpHandle(json)) return;
-        if (reqId == ServiceCmd.CmdId.CMD_Bank_Real_Tender_Money.ordinal()){
+        if (reqId == ServiceCmd.CmdId.CMD_Bank_Real_Tender_Money.ordinal()) {
             realTenderMoney = mHttpService.getOnBankRealTenderMoney(json);
-            if (isOrder){
-                mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan - realTenderMoney)+ "元");//可购余额
-            }else{
+            if (isOrder) {
+                mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan - realTenderMoney) + "元");//可购余额
+            } else {
                 mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan - realTenderMoney) + "元");//可购余额
             }
 
-        }else if (reqId == ServiceCmd.CmdId.CMD_Regular_Tab.ordinal()) {
+        } else if (reqId == ServiceCmd.CmdId.CMD_Regular_Tab.ordinal()) {
             mHttpService.getServiceTime();
             try {
                 Gson gson = new Gson();
-                if (isDeposit){
+                if (isDeposit) {
                     depositTab1Bean = gson.fromJson(json.toString(), DepositTab1Bean.class);
                     product_usable_buy_text.setText("剩余金额");
                     product_total_money_text.setText("计划金额");
                     initData(depositTab1Bean);
                     initDepositBean(depositTab1Bean);
-                }else{
+                } else {
                     mNewBaseInfoBean = gson.fromJson(json.toString(), NewBaseInfoBean.class);
                     product_usable_buy_text.setText("可购余额");
                     product_total_money_text.setText("投资总额");
@@ -236,14 +262,14 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else if (reqId == ServiceCmd.CmdId.CMD_SERVICE_TIME.ordinal()) {
+        } else if (reqId == ServiceCmd.CmdId.CMD_SERVICE_TIME.ordinal()) {
             serverTime = json.optLong("serverTime");
         }
     }
 
-    private void initDepositBean(DepositTab1Bean bean){
-        if (bean == null)   return;
-        depositInvestInfo =  new DepositInvestInfo();
+    private void initDepositBean(DepositTab1Bean bean) {
+        if (bean == null) return;
+        depositInvestInfo = new DepositInvestInfo();
         depositInvestInfo.publishTime = bean.publishTime;
         depositInvestInfo.bookCouponNumber = bean.bookCouponNumber;
         depositInvestInfo.bookPercent = bean.bookPercent;
@@ -258,7 +284,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 
         List<DepositTab1Bean.DataBean> data = depositTab1Bean.data;
         for (DepositTab1Bean.DataBean dataBean : data) {
-            if ("还款方式".equals(dataBean.key)){
+            if ("还款方式".equals(dataBean.key)) {
                 depositInvestInfo.returnWay = dataBean.value;
                 break;
             }
@@ -278,8 +304,8 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void initData(DepositTab1Bean depositTab1Bean) {
-        if (depositTab1Bean != null){
-            if (depositTab1Bean.frequency == null){
+        if (depositTab1Bean != null) {
+            if (depositTab1Bean.frequency == null) {
                 depositTab1Bean.frequency = -1;
             }
             initViewAndData2(depositTab1Bean.data);
@@ -295,9 +321,9 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
             mProductUsableBuy.setText(FormatUtils.formatAbout(depositTab1Bean.surplusMoney) + "元");
 
             mTvInvestCount.setText("已有" + depositTab1Bean.buyCount + "人投资");
-            mIvProductState.setVisibility(View.GONE);
+//            mIvProductState.setVisibility(View.GONE);
 //            float pro = (float) ((issueloan - buyMoney) / issueloan);
-            float pro = (float)(depositTab1Bean.process);
+            float pro = (float) (depositTab1Bean.process);
 //            mProductProgress.setProgress(pro);
 
             loanstate = depositTab1Bean.loanState;
@@ -316,11 +342,11 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                     long currentTimeMillis = System.currentTimeMillis();
                     if (pro >= 100) {
                         state = "进行中";
-                        if (depositTab1Bean.canBuyMoney <= 0.005 ) {
+                        if (depositTab1Bean.canBuyMoney <= 0.005) {
                             state = "满标审核";
                         }
                         mInvest.setEnabled(false);
-                    }else if(depositTab1Bean.endTime <= currentTimeMillis){
+                    } else if (depositTab1Bean.endTime <= currentTimeMillis) {
                         state = getString(R.string.productState5);
                         mInvest.setEnabled(false);
                         mClickToAvailableTime.setVisibility(View.VISIBLE);
@@ -358,12 +384,12 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
             }
             mInvest.setText(state);
 
-            if (loanstate > 2){
+            if (loanstate > 2) {
                 //
             }
             if (1 == loanstate) {
                 long totleTime = depositTab1Bean.publishTime;
-                mOrderCountDown.setCountDownTime(mContext,totleTime);
+                mOrderCountDown.setCountDownTime(mContext, totleTime);
                 mOrderCountDown.setOnFinishListener(new MyCountDownTimer.onFinish() {
                     @Override
                     public void finish() {
@@ -394,7 +420,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 
     private void initData(NewBaseInfoBean mNewBaseInfoBean) {
         if (mNewBaseInfoBean != null) {
-            if (mNewBaseInfoBean.frequency == null){
+            if (mNewBaseInfoBean.frequency == null) {
                 mNewBaseInfoBean.frequency = -1;
             }
             initViewAndData(mNewBaseInfoBean.data);
@@ -413,7 +439,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 
 
             mProductName.setText(mNewBaseInfoBean.loanTitle);//标名
-            float v = (float)((mNewBaseInfoBean.rate - mNewBaseInfoBean.reward) * 100);
+            float v = (float) ((mNewBaseInfoBean.rate - mNewBaseInfoBean.reward) * 100);
             mProductRate.setText(FormatUtils.formatAbout(v) + "%");//约定年利率
             if (!TextUtils.isEmpty(mNewBaseInfoBean.issueloan + "")) {
                 //                mIssueloan = Double.parseDouble(mNewBaseInfoBean.issueloan+"");
@@ -422,19 +448,19 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
             mProductTotalMoney.setText(FormatUtils.formatDown2(mNewBaseInfoBean.issueloan / 10000) + "万");//投资总额
             mInvestTime.setText(mNewBaseInfoBean.month);//投资期限
 
-            if (mNewBaseInfoBean.product == 4){
-                bankAccountStatus.setVisibility(View.VISIBLE);
-            }else{
-                bankAccountStatus.setVisibility(View.GONE);
-            }
+//            if (mNewBaseInfoBean.product == 4){
+//                bankAccountStatus.setVisibility(View.VISIBLE);
+//            }else{
+//                bankAccountStatus.setVisibility(View.GONE);
+//            }
             if ("1".equals(mNewBaseInfoBean.status)) {
                 //预约标
-                mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan)+ "元");//可购余额
+                mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan) + "元");//可购余额
             } else {
-                if (mNewBaseInfoBean.product != 4){
+                if (mNewBaseInfoBean.product != 4) {
                     mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan - mNewBaseInfoBean.hadTenderMoney) + "元");//可购余额
-                }else{
-                    mHttpService.getBankRealTenderMoney(""+mNewBaseInfoBean.loanId);
+                } else {
+                    mHttpService.getBankRealTenderMoney("" + mNewBaseInfoBean.loanId);
                 }
             }
 
@@ -445,11 +471,11 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 mDetalReward.setText("+" + mNewBaseInfoBean.reward * 100 + "%");//加息
             }
 
-            if ("1".equals(mNewBaseInfoBean.isAllowTrip)) {//是否是旅游标
-                mIsAllowTrip.setVisibility(View.VISIBLE);
-            } else {
-                mIsAllowTrip.setVisibility(View.GONE);
-            }
+//            if ("1".equals(mNewBaseInfoBean.isAllowTrip)) {//是否是旅游标
+//                mIsAllowTrip.setVisibility(View.VISIBLE);
+//            } else {
+//                mIsAllowTrip.setVisibility(View.GONE);
+//            }
 
             if ("true".equals(mNewBaseInfoBean.allowTransfer)) {//是否允许转让
                 mIvAllowTransfer.setVisibility(View.VISIBLE);
@@ -476,7 +502,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
             String loanstate = mNewBaseInfoBean.status;
 
             String state = "立即投资";
-            if (!TextUtils.isEmpty(loanstate)){
+            if (!TextUtils.isEmpty(loanstate)) {
                 switch (loanstate) {//1未发布 2进行中 3回款中 4已完成
                     case "1":
                         state = getString(R.string.productState1);//待售
@@ -531,7 +557,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 }
             }
 
-            Common.productSubType(mContext, mIvProductState, mNewBaseInfoBean.subType);
+//            Common.productSubType(mContext, mIvProductState, mNewBaseInfoBean.subType);
 
             if ("1".equals(loanstate) && (!TextUtils.isEmpty(mNewBaseInfoBean.publishTime))) {
                 try {
@@ -539,7 +565,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                     long totleTime = Long.parseLong(publishTime);
                     if (!AppState.instance().logined()) {
                         mBtnOrder.setEnabled(true);
-                        mOrderCountDown.setCountDownTime(mContext,totleTime);
+                        mOrderCountDown.setCountDownTime(mContext, totleTime);
                     } else {
                         if (!TextUtils.isEmpty(mNewBaseInfoBean.bookCouponNumber) && 0 < Integer.parseInt(mNewBaseInfoBean.bookCouponNumber)) {
                             //有可使用状态的预约券
@@ -547,7 +573,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                             mOrderVoucherNum.setText("您有" + mNewBaseInfoBean.bookCouponNumber + "张预约券！点击进行预约。");
                             mBtnOrder.setEnabled(true);
                             mBtnOrder.setText("预约投资");
-                            mOrderCountDown.setCountDownTime(mContext,totleTime);
+                            mOrderCountDown.setCountDownTime(mContext, totleTime);
                         } else {
                             double orderMoney = mNewBaseInfoBean.issueloan * mNewBaseInfoBean.bookPercent - mNewBaseInfoBean.hadTenderMoney;
                             if (orderMoney <= 0) {
@@ -557,7 +583,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                                 //                            btnOrder.setText("预售中\n预约已满额");
                             }
                             mBtnOrder.setEnabled(false);
-                            mOrderCountDown.setCountDownTime(mContext,totleTime);
+                            mOrderCountDown.setCountDownTime(mContext, totleTime);
                         }
                     }
                 } catch (Exception e) {
@@ -581,7 +607,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 if ("2".equals(dataEntity.type)) {
                     view = View.inflate(mContext, R.layout.new_base_info_time_item, null);
                     ((TextView) view.findViewById(R.id.tvKey)).setText(dataEntity.key);
-                    ((MyCountDownTimer) view.findViewById(R.id.tvValue)).setCountDownTime(mContext,Long.parseLong(dataEntity.value));
+                    ((MyCountDownTimer) view.findViewById(R.id.tvValue)).setCountDownTime(mContext, Long.parseLong(dataEntity.value));
                 } else {
                     view = View.inflate(mContext, R.layout.new_base_info_basic_item, null);
                     ((TextView) view.findViewById(R.id.tvKey)).setText(dataEntity.key);
@@ -609,7 +635,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 if ("2".equals(dataEntity.type)) {
                     view = View.inflate(mContext, R.layout.new_base_info_time_item, null);
                     ((TextView) view.findViewById(R.id.tvKey)).setText(dataEntity.key);
-                    ((MyCountDownTimer) view.findViewById(R.id.tvValue)).setCountDownTime(mContext,Long.parseLong(dataEntity.value));
+                    ((MyCountDownTimer) view.findViewById(R.id.tvValue)).setCountDownTime(mContext, Long.parseLong(dataEntity.value));
                 } else {
                     view = View.inflate(mContext, R.layout.new_base_info_basic_item, null);
                     ((TextView) view.findViewById(R.id.tvKey)).setText(dataEntity.key);
@@ -645,18 +671,18 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                     break;
                 }
                 isNewUser = SharedPreferencesHelper.getInstance(mContext).getBooleanValue(SharedPreferencesHelper.KEY_IS_NEW_USER);
-                if (mNewBaseInfoBean == null){
+                if (mNewBaseInfoBean == null) {
                     return;
                 }
-                if (mNewBaseInfoBean.product != 4 && isNewUser){
+                if (mNewBaseInfoBean.product != 4 && isNewUser) {
                     InvestLianLianInformDialog dialog = new InvestLianLianInformDialog();
-                    dialog.show(getActivity().getFragmentManager(),"InvestLianLianInformDialog");
+                    dialog.show(getActivity().getFragmentManager(), "InvestLianLianInformDialog");
                     return;
                 }
 
                 if (mNewBaseInfoBean.product == 4 &&
-                        !SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT)){
-                    Utils.Toast(getContext(),"开通存管账户");
+                        !SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT)) {
+                    Utils.Toast(getContext(), "开通存管账户");
                     new AlertDialog.Builder(getContext())
                             .setTitle("开通存管账户")
                             .setMessage("根据监管要求，请先开通银行存管账户")
@@ -664,48 +690,48 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     User user = DBUtils.getUser(mContext);
-                                    if (user != null){
-                                        if (TextUtils.isEmpty(user.getRealName())){
+                                    if (user != null) {
+                                        if (TextUtils.isEmpty(user.getRealName())) {
                                             RealnameAuthActivity.goThis(getContext());
                                             Utils.Toast("请先去实名认证");
-                                        }else{
+                                        } else {
                                             gotoWeb("/hx/account/create?userId=" + user.getUserId(), "");
                                         }
                                     }
                                 }
                             })
-                            .setNegativeButton("暂不",null)
+                            .setNegativeButton("暂不", null)
                             .show();
                     return;
                 }
 
-                if (((NewRegularProductActivity) getActivity()).answerStatus == 2){
+                if (((NewRegularProductActivity) getActivity()).answerStatus == 2) {
                     new AlertDialog.Builder(mContext)
                             .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行投资")
                             .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     User user = DBUtils.getUser(mContext);
-                                    if (user != null){
-                                        gotoWeb("/h5/help/riskInvestigation?userId="+user.getUserId(),"风险评测");
+                                    if (user != null) {
+                                        gotoWeb("/h5/help/riskInvestigation?userId=" + user.getUserId(), "风险评测");
                                     }
                                 }
                             })
-                            .setNegativeButton("下次再说",null)
+                            .setNegativeButton("下次再说", null)
                             .show();
                     return;
                 }
 
-                if (isDeposit){
-                    if (depositTab1Bean != null){
+                if (isDeposit) {
+                    if (depositTab1Bean != null) {
                         Intent intent = new Intent(getActivity(), DepositInvestActivity.class);
                         intent.putExtra("pid", depositTab1Bean.loanId);
                         intent.putExtra(DepositInvestActivity.IS_ORDER, false);
                         intent.putExtra("poolId", depositTab1Bean.poolId);
-                        intent.putExtra(DepositInvestActivity.INVEST_INFO,depositInvestInfo);
+                        intent.putExtra(DepositInvestActivity.INVEST_INFO, depositInvestInfo);
                         startActivity(intent);
                     }
-                }else{
+                } else {
                     if (mNewBaseInfoBean != null) {
                         Intent intent = new Intent(getActivity(), ProductInvestActivity.class);
                         if ("1".equals(mNewBaseInfoBean.imageUrlJump)) {//跳转本地活动投资页面
@@ -713,7 +739,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                         }
                         intent.putExtra("pid", "" + mNewBaseInfoBean.loanId);
                         int accountType = Constant.AccountLianLain;
-                        if (mNewBaseInfoBean.product == 4){
+                        if (mNewBaseInfoBean.product == 4) {
                             accountType = Constant.AccountBank;
                         }
                         intent.putExtra(Constant.AccountType, accountType);
@@ -732,32 +758,32 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 }
 
                 isNewUser = SharedPreferencesHelper.getInstance(mContext).getBooleanValue(SharedPreferencesHelper.KEY_IS_NEW_USER);
-                if (mNewBaseInfoBean == null)   return;
+                if (mNewBaseInfoBean == null) return;
                 int accountType = Constant.AccountLianLain;
-                if (mNewBaseInfoBean.product == 4){
+                if (mNewBaseInfoBean.product == 4) {
                     accountType = Constant.AccountBank;
                 }
-                if (accountType == Constant.AccountLianLain && isNewUser){
+                if (accountType == Constant.AccountLianLain && isNewUser) {
                     InvestLianLianInformDialog dialog = new InvestLianLianInformDialog();
-                    dialog.show(getActivity().getFragmentManager(),"InvestLianLianInformDialog");
+                    dialog.show(getActivity().getFragmentManager(), "InvestLianLianInformDialog");
                     return;
                 }
 
                 if (accountType == Constant.AccountBank &&
-                        !SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT)){
-                    Utils.Toast(getContext(),"请先开通存管账户");
+                        !SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT)) {
+                    Utils.Toast(getContext(), "请先开通存管账户");
                     return;
                 }
-                if (isDeposit){
-                    if (depositTab1Bean != null){
+                if (isDeposit) {
+                    if (depositTab1Bean != null) {
                         Intent intent = new Intent(getActivity(), DepositInvestActivity.class);
                         intent.putExtra("pid", depositTab1Bean.loanId);
-                        intent.putExtra(DepositInvestActivity.IS_ORDER,true);
+                        intent.putExtra(DepositInvestActivity.IS_ORDER, true);
                         intent.putExtra("poolId", depositTab1Bean.poolId);
-                        intent.putExtra(DepositInvestActivity.INVEST_INFO,depositInvestInfo);
+                        intent.putExtra(DepositInvestActivity.INVEST_INFO, depositInvestInfo);
                         startActivity(intent);
                     }
-                }else{
+                } else {
                     if (mNewBaseInfoBean != null) {
                         Intent intent = new Intent(getActivity(), ProductInvestActivity.class);
                         if ("1".equals(mNewBaseInfoBean.imageUrlJump)) {//是 1 跳转本地活动投资页面
@@ -774,38 +800,39 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 }
                 break;
             case R.id.clickInvestRecord://投标记录
-                if (isDeposit){
-                    if (depositTab1Bean != null){
-                        gotoProductInvestList(depositTab1Bean.poolId + "",depositTab1Bean.frequency,true,serverTime);
+                if (isDeposit) {
+                    if (depositTab1Bean != null) {
+                        gotoProductInvestList(depositTab1Bean.poolId + "", depositTab1Bean.frequency, true, serverTime);
                     }
-                }else{
+                } else {
                     if (mNewBaseInfoBean != null) {
-                        gotoProductInvestList(mNewBaseInfoBean.loanId + "",mNewBaseInfoBean.frequency,false,serverTime);
+                        gotoProductInvestList(mNewBaseInfoBean.loanId + "", mNewBaseInfoBean.frequency, false, serverTime);
                     }
                 }
                 break;
             case R.id.clickToAvailableTime://回款计划
-                if (isDeposit){
+                if (isDeposit) {
                     if (depositTab1Bean != null) {
                         List<DepositTab1Bean.RepaysBean> repays = depositTab1Bean.repays;
 
-                        NewRepayListActivity.goNewRepayListByDepositActivity(mContext,true,repays);
+                        NewRepayListActivity.goNewRepayListByDepositActivity(mContext, true, repays);
                     }
-                }else{
+                } else {
                     if (mNewBaseInfoBean != null) {
-                        NewRepayListActivity.goNewRepayListActivity(mContext,false,mNewBaseInfoBean.repays);
+                        NewRepayListActivity.goNewRepayListActivity(mContext, false, mNewBaseInfoBean.repays);
                     }
                 }
                 break;
         }
     }
-    private void gotoProductInvestList(String id, int frequency,boolean is_deposit,long serviceTime){
+
+    private void gotoProductInvestList(String id, int frequency, boolean is_deposit, long serviceTime) {
         try {
             long pid = Long.parseLong(id);
-            if (serverTime == 0){
-                ProductInvestListActivity.goProductInvestListActivity(mContext, pid, 0,frequency, is_deposit);
-            }else{
-                ProductInvestListActivity.goProductInvestListActivity(mContext, pid, 0,frequency, is_deposit,serviceTime);
+            if (serverTime == 0) {
+                ProductInvestListActivity.goProductInvestListActivity(mContext, pid, 0, frequency, is_deposit);
+            } else {
+                ProductInvestListActivity.goProductInvestListActivity(mContext, pid, 0, frequency, is_deposit, serviceTime);
             }
 
         } catch (Exception e) {

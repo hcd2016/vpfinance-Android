@@ -22,7 +22,6 @@ import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.vpfinance.android.R;
@@ -31,9 +30,7 @@ import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.gson.LoanSignTypeBean;
 import cn.vpfinance.vpjr.model.RefreshTab;
-import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.home.NewSearchActivity;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.Logger;
 import de.greenrobot.event.EventBus;
 
@@ -178,13 +175,13 @@ public class ProductCategoryFragment extends BaseFragment {
         public Fragment getItem(int position) {
             Integer type = types.get(position).value;
             switch (type){
-                case Constant.TYPE_REGULAR:
+                case Constant.TYPE_REGULAR://定期
                     return ProductListFragment.getInstance(Constant.TYPE_REGULAR);
-                case Constant.TYPE_BANK:
+                case Constant.TYPE_BANK://存管专区
                     return ProductListFragment.getInstance(Constant.TYPE_BANK);
-                case Constant.TYPE_TRANSFER:
+                case Constant.TYPE_TRANSFER://债权转让
                     return ProductListFragment.getInstance(Constant.TYPE_TRANSFER);
-                case Constant.TYPE_POOL:
+                case Constant.TYPE_POOL://智存投资
                     return ProductDepositListFragment.getInstance();
             }
             return null;

@@ -27,27 +27,26 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.base.BaseFragment;
+import cn.vpfinance.vpjr.gson.NewBaseInfoBean;
+import cn.vpfinance.vpjr.gson.ProductTabBean;
+import cn.vpfinance.vpjr.gson.TabPermissionBean;
+import cn.vpfinance.vpjr.module.common.fragment.WebViewFragment;
 import cn.vpfinance.vpjr.module.product.fragment.NewBaseInfoFragment;
 import cn.vpfinance.vpjr.module.product.fragment.NewCarInfoFragment;
 import cn.vpfinance.vpjr.module.product.fragment.NewDepositFragment;
-import cn.vpfinance.vpjr.module.voucher.fragment.NewPersonInfoFragment;
-import cn.vpfinance.vpjr.module.voucher.fragment.NewPictureFragment;
 import cn.vpfinance.vpjr.module.product.fragment.NewWritingAndPicFragment;
 import cn.vpfinance.vpjr.module.product.fragment.NewWritingFragment;
 import cn.vpfinance.vpjr.module.product.fragment.ProductPrivateFragment;
 import cn.vpfinance.vpjr.module.product.fragment.ProductPrivateNoLoginFragment;
-import cn.vpfinance.vpjr.module.common.fragment.WebViewFragment;
-import cn.vpfinance.vpjr.gson.NewBaseInfoBean;
-import cn.vpfinance.vpjr.gson.ProductTabBean;
-import cn.vpfinance.vpjr.gson.TabPermissionBean;
+import cn.vpfinance.vpjr.module.voucher.fragment.NewPersonInfoFragment;
+import cn.vpfinance.vpjr.module.voucher.fragment.NewPictureFragment;
 import cn.vpfinance.vpjr.module.voucher.fragment.NewType6Fragment;
-import cn.vpfinance.vpjr.util.Common;
 
 /**
  * Created by Administrator on 2016/10/24.
+ * 标的详情
  */
 public class NewRegularProductActivity extends BaseActivity {
 

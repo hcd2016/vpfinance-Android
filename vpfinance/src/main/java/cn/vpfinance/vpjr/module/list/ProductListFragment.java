@@ -25,7 +25,6 @@ import cn.vpfinance.vpjr.gson.LoanSignListNewBean;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.module.product.shenyang.PresellProductActivity;
 import cn.vpfinance.vpjr.module.product.transfer.NewTransferProductActivity;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.view.pullrefresh.PullRefreshRecyclerView;
 import cn.vpfinance.vpjr.view.pullrefresh.PullRefreshUtil;
 import cn.vpfinance.vpjr.view.pullrefresh.PullRefreshView;
@@ -35,6 +34,7 @@ import cn.vpfinance.vpjr.view.pullrefresh.PullRefreshView;
  * Created by zzlz13 on 2017/9/11.
  */
 
+//产品列表非智存fragment
 public class ProductListFragment extends BaseFragment implements View.OnClickListener {
 
     @Bind(R.id.textview)
