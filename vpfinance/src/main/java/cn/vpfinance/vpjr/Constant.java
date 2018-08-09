@@ -20,4 +20,6 @@ public interface Constant {
     int TYPE_TRANSFER = 2; //债权转让
     int TYPE_BANK = 4; // "存管专区"
     int TYPE_POOL = 5; // "智存投资"
+
+    String WEIXIN_APP_ID = "wxb7fadaf82009f077";
 }

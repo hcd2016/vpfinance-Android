@@ -15,6 +15,8 @@ import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.yintong.pay.utils.Md5Algorithm;
 
 import org.json.JSONObject;
@@ -58,6 +60,7 @@ public class LoginActivity extends BaseActivity {
     private User user;
     private String username;
     private String password;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -161,6 +164,17 @@ public class LoginActivity extends BaseActivity {
             case R.id.btnLogin:
                 clearDB();
                 doLogin();
+                break;
+            case R.id.ibWeiXinLogin:
+                IWXAPI mWxApi = ((FinanceApplication) getApplication()).mWxApi;
+                if (!mWxApi.isWXAppInstalled()) {
+                    Utils.Toast("您还未安装微信客户端");
+                    return;
+                }
+                final SendAuth.Req req = new SendAuth.Req();
+                req.scope = "snsapi_userinfo";
+                req.state = "diandi_wx_login";
+                mWxApi.sendReq(req);
                 break;
         }
     }

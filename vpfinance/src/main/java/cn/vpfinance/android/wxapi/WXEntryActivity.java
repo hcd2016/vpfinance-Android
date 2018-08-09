@@ -9,14 +9,36 @@
 package cn.vpfinance.android.wxapi;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.widget.Toast;
+
+import com.jewelcredit.util.Utils;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+
 import cn.sharesdk.wechat.utils.WXAppExtendObject;
 import cn.sharesdk.wechat.utils.WXMediaMessage;
 import cn.sharesdk.wechat.utils.WechatHandlerActivity;
+import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.util.Logger;
 
 /** 微信客户端回调activity示例 */
-public class WXEntryActivity extends WechatHandlerActivity {
+public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEventHandler {
 
+	private static final int RETURN_MSG_TYPE_LOGIN = 1;
+	private static final int RETURN_MSG_TYPE_SHARE = 2;
+
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		IWXAPI mWxApi = ((FinanceApplication) getApplication()).mWxApi;
+		mWxApi.handleIntent(getIntent(), this);
+	}
 	/**
 	 * 处理微信发出的向第三方应用请求app message
 	 * <p>
@@ -47,4 +69,35 @@ public class WXEntryActivity extends WechatHandlerActivity {
 		}
 	}
 
+	@Override
+	public void onReq(BaseReq baseReq) {
+	}
+
+	@Override
+	public void onResp(BaseResp resp) {
+		switch (resp.errCode) {
+
+			case BaseResp.ErrCode.ERR_AUTH_DENIED:
+			case BaseResp.ErrCode.ERR_USER_CANCEL:
+				if (RETURN_MSG_TYPE_SHARE == resp.getType()) Utils.Toast("分享失败");
+				else Utils.Toast("登录失败");
+				break;
+			case BaseResp.ErrCode.ERR_OK:
+				switch (resp.getType()) {
+					case RETURN_MSG_TYPE_LOGIN:
+						//拿到了微信返回的code,立马再去请求access_token
+						String code = ((SendAuth.Resp) resp).code;
+						Logger.e("code = " + code);
+
+						//就在这个地方，用网络库什么的或者自己封的网络api，发请求去咯，注意是get请求
+						break;
+
+					case RETURN_MSG_TYPE_SHARE:
+						Utils.Toast("微信分享成功");
+						finish();
+						break;
+				}
+				break;
+		}
+	}
 }

@@ -27,6 +27,7 @@ public class CaptchaActivity extends BaseActivity {
     public static final int REGISTER_COMPANY = 2; //企业注册
     public static final int FORGET_LOGIN_PASSWORD_PERSON = 3; //个人忘记登录密码
     public static final int FORGET_LOGIN_PASSWORD_COMPANY = 4; //企业忘记登录密码
+    public static final int WEI_XIN_BIND_PHONE = 5; //微信绑定手机号码
 
     @Bind(R.id.titleBar)
     ActionBarWhiteLayout titleBar;
@@ -76,6 +77,8 @@ public class CaptchaActivity extends BaseActivity {
             tvPhoneHint.setText("短信验证码已发送至您的手机 " + FormatUtils.hidePhone(phone));
         } else if (type == REGISTER_COMPANY || type == FORGET_LOGIN_PASSWORD_COMPANY) {//企业
             tvPhoneHint.setText("短信验证码已发送至经办人手机 " + FormatUtils.hidePhone(phone));
+        } else if (type == WEI_XIN_BIND_PHONE){
+            tvPhoneHint.setText("短信验证码已发送至您的手机 " + FormatUtils.hidePhone(phone));
         }
         startSms();
     }
