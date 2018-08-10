@@ -33,12 +33,12 @@
                 android:layout_marginTop="13dp"
                 android:gravity="center_vertical">
 
-                <ImageView
-                    android:id="@+id/loan_sign_type"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:layout_marginRight="3dp"
-                    android:src="@drawable/icon_qi" />
+                <!--<ImageView-->
+                <!--android:id="@+id/loan_sign_type"-->
+                <!--android:layout_width="14dp"-->
+                <!--android:layout_height="14dp"-->
+                <!--android:layout_marginRight="3dp"-->
+                <!--android:src="@drawable/icon_qi" />-->
 
                 <TextView
                     android:id="@+id/title"
@@ -48,58 +48,77 @@
                     android:textSize="15sp"
                     tools:text="V成长-守住-005" />
 
-                <ImageView
-                    android:id="@+id/state"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="9dp"
-                    android:background="@drawable/stype_bao" />
+                <!--<ImageView-->
+                <!--android:id="@+id/state"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="9dp"-->
+                <!--android:background="@drawable/stype_bao" />-->
 
+                <!--<ImageView-->
+                <!--android:id="@+id/zhuan"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:background="@drawable/ic_zhuan"-->
+                <!--android:visibility="gone"-->
+                <!--tools:visibility="visible" />-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/lv"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:background="@drawable/stype_lv"-->
+                <!--android:visibility="gone"-->
+                <!--tools:visibility="visible" />-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/jing"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:background="@drawable/stype_clean"-->
+                <!--android:visibility="gone"-->
+                <!--tools:visibility="visible" />-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/bankAccountStatus"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:background="@drawable/shape_bank_account_status"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingTop="3dp"-->
+                <!--android:paddingBottom="3dp"-->
+                <!--android:text="银行存管"-->
+                <!--android:textColor="@color/text_blue"-->
+                <!--android:visibility="gone"-->
+                <!--tools:visibility="visible"-->
+                <!--android:paddingLeft="3dp"-->
+                <!--android:paddingRight="3dp"-->
+                <!--android:textSize="10sp" />-->
                 <ImageView
                     android:id="@+id/zhuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:background="@drawable/ic_zhuan"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-                <ImageView
-                    android:id="@+id/lv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:background="@drawable/stype_lv"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-                <ImageView
-                    android:id="@+id/jing"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="3dp"
-                    android:background="@drawable/stype_clean"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-                <TextView
-                    android:id="@+id/bankAccountStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/shape_bank_account_status"
-                    android:gravity="center"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="3dp"
-                    android:text="银行存管"
-                    android:textColor="@color/text_blue"
+                    android:src="@drawable/icon_zhuan"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+                <ImageView
                     android:visibility="gone"
                     tools:visibility="visible"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
-                    android:textSize="10sp" />
+                    android:id="@+id/iv_fdjx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/icon_fdjx" />
 
                 <TextView
                     android:id="@+id/presell"
@@ -235,12 +254,12 @@
             android:id="@+id/iphone7"
             android:layout_width="100dp"
             android:layout_height="33dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="35dp"
             android:background="@drawable/ic_iphone7_index"
             android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="35dp"/>
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/add_rate_state"

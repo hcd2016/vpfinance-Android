@@ -47,8 +47,8 @@ import cn.vpfinance.vpjr.module.dialog.InvestLianLianInformDialog;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.module.product.invest.DepositInvestActivity;
 import cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity;
-import cn.vpfinance.vpjr.module.product.record.NewRepayListActivity;
 import cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity;
+import cn.vpfinance.vpjr.module.product.record.RepayFloatActivity;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
@@ -305,6 +305,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 
     private void initData(DepositTab1Bean depositTab1Bean) {
         if (depositTab1Bean != null) {
+
             if (depositTab1Bean.frequency == null) {
                 depositTab1Bean.frequency = -1;
             }
@@ -811,16 +812,22 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 }
                 break;
             case R.id.clickToAvailableTime://回款计划
-                if (isDeposit) {
-                    if (depositTab1Bean != null) {
-                        List<DepositTab1Bean.RepaysBean> repays = depositTab1Bean.repays;
 
-                        NewRepayListActivity.goNewRepayListByDepositActivity(mContext, true, repays);
-                    }
-                } else {
-                    if (mNewBaseInfoBean != null) {
-                        NewRepayListActivity.goNewRepayListActivity(mContext, false, mNewBaseInfoBean.repays);
-                    }
+//                if (isDeposit) {
+//                    if (depositTab1Bean != null) {
+//                        List<DepositTab1Bean.RepaysBean> repays = depositTab1Bean.repays;
+//
+//                        NewRepayListActivity.goNewRepayListByDepositActivity(mContext, true, repays);
+//                    }
+//                } else {
+//                    if (mNewBaseInfoBean != null) {
+//                        NewRepayListActivity.goNewRepayListActivity(mContext, false, mNewBaseInfoBean.repays);
+//                    }
+//                }
+                if(null == mNewBaseInfoBean) {
+                    return;
+                }else {
+                    RepayFloatActivity.startRepayFloatActivity(getActivity(),mNewBaseInfoBean.loanId+"");
                 }
                 break;
         }

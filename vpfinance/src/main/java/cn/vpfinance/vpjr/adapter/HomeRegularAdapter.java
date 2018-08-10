@@ -15,11 +15,10 @@ import com.daimajia.numberprogressbar.NumberProgressBar;
 import java.util.List;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.gson.AppmemberIndexBean;
 import cn.vpfinance.vpjr.model.RefreshCountDown;
+import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.util.Common;
-import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.view.MyCountDownTimer;
 import de.greenrobot.event.EventBus;
 
@@ -61,10 +60,10 @@ public class HomeRegularAdapter extends BaseAdapter {
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_home_product_regular, null);
         TextView mTitle = ((TextView) itemView.findViewById(R.id.title));
         ImageView mAddRateState = ((ImageView) itemView.findViewById(R.id.add_rate_state));
-        ImageView mState = ((ImageView) itemView.findViewById(R.id.state));
+//        ImageView mState = ((ImageView) itemView.findViewById(R.id.state));
         ImageView mZhuan = ((ImageView) itemView.findViewById(R.id.zhuan));
-        ImageView mLv = ((ImageView) itemView.findViewById(R.id.lv));
-        ImageView mJing = ((ImageView) itemView.findViewById(R.id.jing));
+//        ImageView mLv = ((ImageView) itemView.findViewById(R.id.lv));
+//        ImageView mJing = ((ImageView) itemView.findViewById(R.id.jing));
         TextView mPresell = ((TextView) itemView.findViewById(R.id.presell));
         TextView mRateFirst = ((TextView) itemView.findViewById(R.id.rate_first));
         TextView mRateSecond = ((TextView) itemView.findViewById(R.id.rate_second));
@@ -73,10 +72,12 @@ public class HomeRegularAdapter extends BaseAdapter {
         NumberProgressBar mProgress = ((NumberProgressBar) itemView.findViewById(R.id.progress));
         MyCountDownTimer mCountDownTimer = ((MyCountDownTimer) itemView.findViewById(R.id.countDown));
         TextView mAddRate = ((TextView) itemView.findViewById(R.id.add_rate));
-        ImageView loanSignTypeIcon = (ImageView) itemView.findViewById(R.id.loan_sign_type);
-        ImageView ivHomeState = (ImageView) itemView.findViewById(R.id.iv_home_state);
+//        ImageView loanSignTypeIcon = (ImageView) itemView.findViewById(R.id.loan_sign_type);
+//        ImageView ivHomeState = (ImageView) itemView.findViewById(R.id.iv_home_state);
         ImageView iphone = (ImageView) itemView.findViewById(R.id.iphone7);
-        TextView bankAccountStatus = (TextView) itemView.findViewById(R.id.bankAccountStatus);
+        ImageView iv_fdjx = (ImageView) itemView.findViewById(R.id.iv_fdjx);//是否是浮动计息
+//        TextView bankAccountStatus = (TextView) itemView.findViewById(R.id.bankAccountStatus);
+
 
         AppmemberIndexBean.LoanDataBean.LoansignsBean bean = loansigns.get(position);
 
@@ -90,11 +91,11 @@ public class HomeRegularAdapter extends BaseAdapter {
             if (loansign != null) {
 
                 int product = loansign.product;
-                if (product == 4){
-                    bankAccountStatus.setVisibility(View.VISIBLE);
-                }else{
-                    bankAccountStatus.setVisibility(View.GONE);
-                }
+//                if (product == 4){
+//                    bankAccountStatus.setVisibility(View.VISIBLE);
+//                }else{
+//                    bankAccountStatus.setVisibility(View.GONE);
+//                }
 
                 //1、车贷宝，2、消费贷，8、供应链，10、企业贷，11、珠宝贷，12、融租宝,13个人贷
                 int loansignTypeId = loansign.loansignTypeId;
@@ -122,11 +123,11 @@ public class HomeRegularAdapter extends BaseAdapter {
                         drawable = mContext.getResources().getDrawable(R.drawable.icon_ge);
                         break;
                 }
-                if (drawable == null) {
-                    loanSignTypeIcon.setVisibility(View.GONE);
-                } else {
-                    loanSignTypeIcon.setImageDrawable(drawable);
-                }
+//                if (drawable == null) {
+//                    loanSignTypeIcon.setVisibility(View.GONE);
+//                } else {
+//                    loanSignTypeIcon.setImageDrawable(drawable);
+//                }
                 //1预售
                 mLoanstate = loansign.loanstate;
 
@@ -176,7 +177,7 @@ public class HomeRegularAdapter extends BaseAdapter {
                         }
                     });
 
-                    Common.productSubType(mContext, mState, loansign.subType);
+//                    Common.productSubType(mContext, mState, loansign.subType);
 
                     //转
                     String allowTransfer = bean.allowTransfer;
@@ -184,7 +185,7 @@ public class HomeRegularAdapter extends BaseAdapter {
 
                     //净
                     int productType = bean.productType;
-                    Common.productJing(productType, mJing);
+//                    Common.productJing(productType, mJing);
 
                     if (mLoanstate == 1) {//预售
                         mProgress.setVisibility(View.GONE);
@@ -214,9 +215,9 @@ public class HomeRegularAdapter extends BaseAdapter {
 //                            mRateSecond.setTextColor(mContext.getResources().getColor(R.color.text_999999));
 //                            mAddRate.setTextColor(mContext.getResources().getColor(R.color.text_999999));
 //                            mAddRateState.setBackgroundResource(R.drawable.icon_jiaxi_dis);
-
-                            ivHomeState.setVisibility(View.VISIBLE);
-                            ivHomeState.setImageResource(R.drawable.iv_home_state_fill);
+//
+//                            ivHomeState.setVisibility(View.VISIBLE);
+//                            ivHomeState.setImageResource(R.drawable.iv_home_state_fill);
                         }
                         /*double total_tend_money = bean.total_tend_money;
                         if (!TextUtils.isEmpty(issueLoanStr) && total_tend_money != 0) {
@@ -249,18 +250,24 @@ public class HomeRegularAdapter extends BaseAdapter {
                             }
                         }*/
                     }
+                    if(loansign.graceDays > 0) {//是否是浮动计息
+                        iv_fdjx.setVisibility(View.VISIBLE);
+                    }else {
+                        iv_fdjx.setVisibility(View.GONE);
+                    }
                 }
                 int loanstate = loansign.loanstate;
                 if (loanstate == 3) {
-                    ivHomeState.setVisibility(View.VISIBLE);
-                    ivHomeState.setImageResource(R.drawable.iv_home_state_return);
+//                    ivHomeState.setVisibility(View.VISIBLE);
+//                    ivHomeState.setImageResource(R.drawable.iv_home_state_return);
                     mProgress.setProgress(100);
                 } else if (loanstate == 4) {
-                    ivHomeState.setVisibility(View.VISIBLE);
-                    ivHomeState.setImageResource(R.drawable.iv_home_state_finish);
+//                    ivHomeState.setVisibility(View.VISIBLE);
+//                    ivHomeState.setImageResource(R.drawable.iv_home_state_finish);
                     mProgress.setProgress(100);
                 }
             }
+
         }
         return itemView;
     }

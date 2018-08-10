@@ -166,6 +166,7 @@ public class ServiceCmd {
 		CMD_REGISTER_CAPTCHA_SMS ,//注册短信验证码
 		CMD_REGISTER_CAPTCHA_VOICE ,//注册语音验证码
 		CMD_REGISTER_CHECK_CAPTCHA_SMS_VOICE ,//注册验证短信或语音验证码
+		CMD_REPAY_PLAN_FLOAT ,//还款计划:浮动计息
 	}
 
     public static String[] methods = {
@@ -331,6 +332,7 @@ public class ServiceCmd {
 			"/user/register/sendSms" ,//注册短信验证码
 			"/user/register/sendYuyinMess" ,//注册语音验证码
 			"register/verifySmsCode" ,//注册验证短信或语音验证码
+			"AppLoan/getFloatInvestTypeReturnPlans"//还款计划:浮动计息
 	};
 
     public static String getMethodName(CmdId methodId) {

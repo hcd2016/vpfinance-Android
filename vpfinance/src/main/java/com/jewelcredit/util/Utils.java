@@ -17,9 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -57,12 +55,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.module.common.WebViewActivity;
+import cn.vpfinance.vpjr.module.setting.EmailSMSVerificationActivity;
 
 
 public class Utils {
@@ -707,6 +704,14 @@ public class Utils {
             return FinanceApplication.getContext().getResources().getColor(id);
         }
     }
+
+//    /**
+//     * 开启本页
+//     */
+//    public static void startEmailSMSVerificationActivity(Context context) {
+//        Intent intent = new Intent(context, EmailSMSVerificationActivity.class);
+//        context.startActivity(intent);
+//    }
 }
 
 

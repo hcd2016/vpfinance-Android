@@ -167,4 +167,42 @@
             android:layout_below="@+id/tv_warning_desc"
             android:background="@color/bg_gray2" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="21dp"
+        android:paddingLeft="22dp"
+        android:paddingRight="18dp"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提前还款时间"
+            android:textColor="@color/text_333333"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="提前还款金额"
+            android:textColor="@color/text_333333"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignBottom="@+id/tv_last_repay_date"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="18dp"
+        android:background="@color/gray_d5d" />
 </LinearLayout>

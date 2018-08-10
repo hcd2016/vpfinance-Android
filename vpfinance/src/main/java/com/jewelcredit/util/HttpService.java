@@ -5967,4 +5967,17 @@ Type	Int	Banner类型	1. 链接  2.产品
         param.put("smscode", smscode);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
+
+    /**
+     * 还款计划:浮动计息接口
+     * @param  tenderRecordId //投资记录id
+     */
+    public boolean getRepayPlanFloat(String tenderRecordId) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_REPAY_PLAN_FLOAT;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("tenderRecordId", tenderRecordId);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
 }

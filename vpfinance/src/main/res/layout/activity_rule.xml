@@ -165,7 +165,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="8.平台于每月22日左右统一发放用户上月22日至当月21日可获得的投资奖励；"
+                android:text="8.平台于每月25日左右统一发放用户上月22日至当月21日可获得的投资奖励；"
                 android:paddingBottom="10dp"
                 android:gravity="center_vertical"
                 android:textSize="10sp"

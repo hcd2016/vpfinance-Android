@@ -190,6 +190,7 @@ public class AppmemberIndexBean {
                 public int vipCounterparts;
                 public int isAllowTrip;
                 public String issueLoan;
+                public int graceDays;//是否是浮动计息,>0为浮动计息标.
 
                 public static class LoansignTypeBean {
                     /**

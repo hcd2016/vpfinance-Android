@@ -126,7 +126,7 @@ public class LoanSignListNewAdapter extends BaseAdapter{
 //                holder.ivClean = (ImageView) convertView.findViewById(R.id.ivClean);
                 holder.ivIphone7 = (ImageView) convertView.findViewById(R.id.iphone7);
 //                holder.iv_sign_type = (ImageView) convertView.findViewById(R.id.iv_sign_type);
-                holder.bankAccountStatus = (TextView) convertView.findViewById(R.id.bankAccountStatus);
+//                holder.bankAccountStatus = (TextView) convertView.findViewById(R.id.bankAccountStatus);
 
                 holder.countDown = (MyCountDownTimer)convertView.findViewById(R.id.countDown);
                 convertView.setTag(holder);
