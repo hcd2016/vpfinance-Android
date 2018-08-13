@@ -27,7 +27,7 @@ public class DifColorTextStringBuilder {
      */
     public DifColorTextStringBuilder setContent(String content) {
         this.content = content;
-        mSpannableStringBuilder = new SpannableStringBuilder(content);
+            mSpannableStringBuilder = new SpannableStringBuilder(content);
         return this;
     }
 

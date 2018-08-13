@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
     <!--最高还款金额-->
     <RelativeLayout
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:paddingBottom="21dp"
-            android:text="20000000+8888.00元"
+            tools:text="20000000+8888.00元"
             android:textColor="#a9abaf"
             android:textSize="15sp" />
 
@@ -60,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:paddingBottom="21dp"
-            android:text="20000000+8888.00元"
+            tools:text="20000000+8888.00元"
             android:textColor="#a9abaf"
             android:textSize="15sp" />
 
@@ -94,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:paddingBottom="21dp"
-            android:text="20000000+8888.00元"
+            tools:text="20000000+8888.00元"
             android:textColor="@color/bright_red"
             android:textSize="15sp" />
 
@@ -128,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:paddingBottom="21dp"
-            android:text="20000000+8888.00元"
+            tools:text="20000000+8888.00元"
             android:textColor="@color/bright_red"
             android:textSize="15sp" />
     </RelativeLayout>
@@ -159,7 +160,7 @@
             android:layout_marginLeft="7dp"
             android:layout_toRightOf="@+id/iv_warning"
             android:paddingRight="21dp"
-            android:text="该产品采用浮动计息方式，最大还款日期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>" />
+            tools:text="该产品采用浮动计息方式，最大还款日期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>" />
 
         <View
             android:layout_width="match_parent"

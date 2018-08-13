@@ -56,6 +56,8 @@ public class NewBaseInfoBean {
     public long    loanId;
     public int    product;//4 银行存管
     public int    answerStatus;//1不弹 2弹提示框, 去做风险测评
+    public int    graceDays; //是否是浮动计息,大于0为浮动计息
+    public String    flowInvestReminder; //浮动计息文案
 
     /**
      * value : 1477904984000

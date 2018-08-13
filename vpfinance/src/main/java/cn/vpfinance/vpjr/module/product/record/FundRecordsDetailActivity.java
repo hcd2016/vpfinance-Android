@@ -28,7 +28,6 @@ import cn.vpfinance.vpjr.gson.RecordDetailBean;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.module.product.shenyang.PresellProductActivity;
 import cn.vpfinance.vpjr.module.product.transfer.NewTransferProductActivity;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.view.TagCloudView;
 
@@ -83,6 +82,7 @@ public class FundRecordsDetailActivity extends BaseActivity {
     private int mBeanProduct;
     private int mBeanLoanTypeNum;
     private int mRecordId;
+    private RecordDetailBean bean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +95,9 @@ public class FundRecordsDetailActivity extends BaseActivity {
         if (intent == null) return;
 
         int recordId = intent.getIntExtra(UID, 0);
-        if (recordId != 0){
-            mHttpService = new HttpService(this,this);
-            mHttpService.getRecordDetailInfo(""+recordId);
+        if (recordId != 0) {
+            mHttpService = new HttpService(this, this);
+            mHttpService.getRecordDetailInfo("" + recordId);
         }
     }
 
@@ -105,15 +105,15 @@ public class FundRecordsDetailActivity extends BaseActivity {
     public void onHttpSuccess(int reqId, JSONObject json) {
         if (!isHttpHandle(json)) return;
 
-        if (reqId == ServiceCmd.CmdId.CMD_Record_Detail_info.ordinal()){
-            RecordDetailBean bean = mHttpService.onGetgetRecordDetailInfo(json);
-            if (bean != null){
+        if (reqId == ServiceCmd.CmdId.CMD_Record_Detail_info.ordinal()) {
+            bean = mHttpService.onGetgetRecordDetailInfo(json);
+            if (bean != null) {
                 pid = bean.loanId;
                 mRecordId = bean.recordId;
 
                 mLoanTitle = bean.loanTitle;
                 mProductTitle.setText(mLoanTitle);
-                mInvestTime.setText("投资时间："+bean.tenderTime);
+                mInvestTime.setText("投资时间：" + bean.tenderTime);
                 String text = FormatUtils.formatDown(bean.tenderMoney);
                 mInvestMoney.setText(text);
                 mIncome.setText(bean.expectProfit);
@@ -137,18 +137,18 @@ public class FundRecordsDetailActivity extends BaseActivity {
                     public void onTagClick(int position) {
                         String name = names.get(position);
                         String url = urls.get(position);
-                        gotoWeb(url,name);
+                        gotoWeb(url, name);
                     }
                 });
 
-                if (TextUtils.isEmpty(bean.info)){
+                if (TextUtils.isEmpty(bean.info)) {
                     mNotice.setVisibility(View.GONE);
-                }else{
+                } else {
                     mNotice.setText(bean.info);
                     mNotice.setVisibility(View.VISIBLE);
                 }
 
-                switch (bean.type){
+                switch (bean.type) {
                     case 1:
                         mVoucherItem.setVisibility(View.GONE);
                         break;
@@ -164,7 +164,7 @@ public class FundRecordsDetailActivity extends BaseActivity {
                         break;
                 }
                 String loanState = "";
-                switch (bean.loanState){
+                switch (bean.loanState) {
                     //1未发布 2进行中 3回款中 4已完成
                     case 1:
                         loanState = "预售中";
@@ -191,7 +191,7 @@ public class FundRecordsDetailActivity extends BaseActivity {
                 }
 
                 int resImg = 0;
-                switch (bean.finshStatus){//1不显示,2已转让,3已消费,4已完成
+                switch (bean.finshStatus) {//1不显示,2已转让,3已消费,4已完成
                     case 1:
                         break;
                     case 2:
@@ -204,9 +204,9 @@ public class FundRecordsDetailActivity extends BaseActivity {
                         resImg = R.drawable.iv_status_finish;
                         break;
                 }
-                if (resImg == 0){
+                if (resImg == 0) {
                     mImageStatus.setVisibility(View.GONE);
-                }else{
+                } else {
                     mImageStatus.setVisibility(View.VISIBLE);
                     Drawable drawable = getResources().getDrawable(resImg);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -226,23 +226,29 @@ public class FundRecordsDetailActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.click_look_product_detail:
-                if (mBeanProduct == 0 && mBeanProductType == 1){//定存宝
+                if (mBeanProduct == 0 && mBeanProductType == 1) {//定存宝
 
-                    NewRegularProductActivity.goNewRegularProductActivity(this,(long) pid,0,"",true);
+                    NewRegularProductActivity.goNewRegularProductActivity(this, (long) pid, 0, "", true);
 
-                }else if (mBeanLoanTypeNum == 2){//1定期 2债权转让 3权益投资
-                    NewTransferProductActivity.goNewTransferProductActivity(this, (long)pid);
-                }else if (mBeanProductType == 3){
-                    PresellProductActivity.goPresellProductActivity(this, "" + (long)pid);
-                }else if (mBeanProduct == 4){
-                    NewRegularProductActivity.goNewRegularProductActivity(this,(long)pid,0,mLoanTitle,false);
-                }else{
-                    NewRegularProductActivity.goNewRegularProductActivity(this,(long)pid,0,mLoanTitle,false);
+                } else if (mBeanLoanTypeNum == 2) {//1定期 2债权转让 3权益投资
+                    NewTransferProductActivity.goNewTransferProductActivity(this, (long) pid);
+                } else if (mBeanProductType == 3) {
+                    PresellProductActivity.goPresellProductActivity(this, "" + (long) pid);
+                } else if (mBeanProduct == 4) {
+                    NewRegularProductActivity.goNewRegularProductActivity(this, (long) pid, 0, mLoanTitle, false);
+                } else {
+                    NewRegularProductActivity.goNewRegularProductActivity(this, (long) pid, 0, mLoanTitle, false);
                 }
 
                 break;
             case R.id.click_look_refund_time:
-                InvestRecordRefundActivity.goInvestRecordRefund(FundRecordsDetailActivity.this,0,""+mRecordId);
+                if (null != bean) {
+                    if (bean.graceDays > 0) {//是浮动计息
+                        RepayFloatActivity.startRepayFloatActivity(this, mRecordId + "", bean.loanState + "");
+                    } else {
+                        InvestRecordRefundActivity.goInvestRecordRefund(FundRecordsDetailActivity.this, 0, "" + mRecordId);
+                    }
+                }
                 break;
         }
     }

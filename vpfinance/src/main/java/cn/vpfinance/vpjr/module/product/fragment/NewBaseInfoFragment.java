@@ -47,8 +47,8 @@ import cn.vpfinance.vpjr.module.dialog.InvestLianLianInformDialog;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.module.product.invest.DepositInvestActivity;
 import cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity;
+import cn.vpfinance.vpjr.module.product.record.NewRepayListActivity;
 import cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity;
-import cn.vpfinance.vpjr.module.product.record.RepayFloatActivity;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
@@ -63,6 +63,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 
 
     private static final int START_REFRESH = 100;
+    private static final int CALCULATE_COMPLETE = 99;
     @Bind(R.id.product_name)
     TextView mProductName;
     //    @Bind(R.id.ivProductState)
@@ -162,6 +163,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     private double realTenderMoney;
     private boolean isNewUser;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.new_baseinfo_fragment, container, false);
@@ -177,22 +179,6 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
         mHttpService = new HttpService(getActivity(), this);
         //        mHttpService.getFixProductNew("" + mLoanId, "" + mNativeId);
         initListener();
-
-        String content = "该产品采用浮动计息方式，最大还款日期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>";
-        DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
-        difColorTextStringBuilder.setContent(content)
-                .setHighlightContent("7.2%",R.color.red_text)
-                .setHighlightContent("7.5%",R.color.red_text)
-                .setHighlightContent("了解详情>>",R.color.red_text)
-                .setHighlightContent("了解详情>>", new MyClickableSpan() {
-                    @Override
-                    public void onClick(View widget) {
-//                        todo
-                        Utils.Toast("点击了了解详情");
-                    }
-                })
-                .setTextView(tvWarningDesc)
-                .create();
         return view;
     }
 
@@ -592,6 +578,38 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 }
             }
         }
+        if (mNewBaseInfoBean.graceDays > 0) {//是浮动计息
+            rlWarningDescContainer.setVisibility(View.VISIBLE);
+            setWarningContent(mNewBaseInfoBean);
+        } else {
+            rlWarningDescContainer.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 设置高亮提示内容
+     *
+     * @param mNewBaseInfoBean
+     */
+    private void setWarningContent(NewBaseInfoBean mNewBaseInfoBean) {
+        //        final String content = "该产品52.12%采用浮动计息36.85%方式，最大还款日40.50%期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>";
+        String content = mNewBaseInfoBean.flowInvestReminder;
+        List<String> floatPercent = Utils.getFloatPercent(content);
+        DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
+        difColorTextStringBuilder.setContent(content);
+        for (int i = 0; i < floatPercent.size(); i++) {
+            difColorTextStringBuilder.setHighlightContent(floatPercent.get(i), R.color.red_text);
+        }
+        difColorTextStringBuilder.setHighlightContent("了解详情>>", R.color.red_text)
+                .setHighlightContent("了解详情>>", new MyClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+//                        todo
+                        Utils.Toast("点击了了解详情");
+                    }
+                })
+                .setTextView(tvWarningDesc)
+                .create();
     }
 
     private void initViewAndData2(List<DepositTab1Bean.DataBean> data) {
@@ -812,22 +830,18 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 }
                 break;
             case R.id.clickToAvailableTime://回款计划
+                if (null != mNewBaseInfoBean) {
+                    if (isDeposit) {
+                        if (depositTab1Bean != null) {
+                            List<DepositTab1Bean.RepaysBean> repays = depositTab1Bean.repays;
 
-//                if (isDeposit) {
-//                    if (depositTab1Bean != null) {
-//                        List<DepositTab1Bean.RepaysBean> repays = depositTab1Bean.repays;
-//
-//                        NewRepayListActivity.goNewRepayListByDepositActivity(mContext, true, repays);
-//                    }
-//                } else {
-//                    if (mNewBaseInfoBean != null) {
-//                        NewRepayListActivity.goNewRepayListActivity(mContext, false, mNewBaseInfoBean.repays);
-//                    }
-//                }
-                if(null == mNewBaseInfoBean) {
-                    return;
-                }else {
-                    RepayFloatActivity.startRepayFloatActivity(getActivity(),mNewBaseInfoBean.loanId+"");
+                            NewRepayListActivity.goNewRepayListByDepositActivity(mContext, true, repays);
+                        }
+                    } else {
+                        if (mNewBaseInfoBean != null) {
+                            NewRepayListActivity.goNewRepayListActivity(mContext, false, mNewBaseInfoBean.repays);
+                        }
+                    }
                 }
                 break;
         }

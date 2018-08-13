@@ -13,6 +13,8 @@ import android.graphics.RectF;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
@@ -59,7 +61,6 @@ import java.util.Map;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.module.common.WebViewActivity;
-import cn.vpfinance.vpjr.module.setting.EmailSMSVerificationActivity;
 
 
 public class Utils {
@@ -704,6 +705,30 @@ public class Utils {
             return FinanceApplication.getContext().getResources().getColor(id);
         }
     }
+
+    /**
+     * 提取字符串中的百分小数
+     */
+    public static List<String> getFloatPercent(String content) {
+        List<String> list = new ArrayList<>();
+        String[] split = content.split("%");
+        for (int i = 0; i < split.length; i++) {
+            if (i != split.length - 1) {//去除最后一段
+                StringBuffer target = new StringBuffer("%");
+                for (int j = split[i].length() - 1; j >= 0; j--) {//遍历百分号前每一个字符
+                    if (Character.isDigit(split[i].charAt(j)) || (split[i].charAt(j) + "").contains(".")) {//是数字或是点
+                        target.append(split[i].charAt(j) + "");
+                    } else {//有非数字或点
+                        break;
+                    }
+                }
+                target.reverse();//倒序
+                list.add(target.toString());
+            }
+        }
+        return list;
+    }
+
 
 //    /**
 //     * 开启本页

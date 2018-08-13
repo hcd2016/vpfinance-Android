@@ -58,7 +58,6 @@
                     android:background="@color/bg_gray2" />
             </RelativeLayout>
 
-
             <ImageView
                 android:id="@+id/img_activity"
                 android:layout_width="match_parent"
