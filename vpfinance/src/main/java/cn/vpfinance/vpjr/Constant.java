@@ -22,4 +22,5 @@ public interface Constant {
     int TYPE_POOL = 5; // "智存投资"
 
     String WEIXIN_APP_ID = "wxb7fadaf82009f077";
+    String WEIXIN_APP_SECRET = "9405824c406aa8688c6c22a23156ff44";
 }

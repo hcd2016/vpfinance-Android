@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
+import com.jewelcredit.util.Utils;
 
 import org.json.JSONObject;
 
@@ -19,6 +20,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
+import cn.vpfinance.vpjr.module.dialog.CommonDialogFragment;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialog;
+import cn.vpfinance.vpjr.util.DBUtils;
 
 /**
  * 绑定/更换邮箱
@@ -39,6 +43,8 @@ public class BindOrChangeEmailActivity extends BaseActivity {
     private HttpService httpService;
     private String email;
     private String emailPass;
+    private String customerType;
+    private CommonTipsDialog commonTipsDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +65,19 @@ public class BindOrChangeEmailActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_btn_remove_binding://解除绑定
+                commonTipsDialog = new CommonTipsDialog(this);
+                commonTipsDialog.setTitle("邮箱解绑");
+                commonTipsDialog.setTips("是否需要解除邮箱绑定?解除后将无法通过邮箱接收每月账单");
+                commonTipsDialog.setRightBtnTextColor(R.color.red_text);
+                commonTipsDialog.setOnRightClickListener(new CommonTipsDialog.OnRightClickListener() {
+                    @Override
+                    public void onRightClick() {//确定
+                        httpService.unBindEmail(DBUtils.getUser(BindOrChangeEmailActivity.this).getUserId() + "");
+                    }
+                });
                 break;
             case R.id.btn_bind://绑定/更换邮箱
-                if("1".equals(emailPass)) {
-
-                }else {//绑定邮箱
-                    BindEmailActivity.startBindEmailActivity(this);
-                }
+                BindEmailActivity.startBindEmailActivity(this, customerType, emailPass);
                 break;
         }
     }
@@ -82,6 +94,7 @@ public class BindOrChangeEmailActivity extends BaseActivity {
         if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
             email = json.optString("email");
             emailPass = json.optString("emailPass");
+            customerType = json.optString("customerType");
             if ("1".equals(emailPass)) {
                 llHaveEmailContainer.setVisibility(View.VISIBLE);
                 llNoEmailContainer.setVisibility(View.GONE);
@@ -93,12 +106,31 @@ public class BindOrChangeEmailActivity extends BaseActivity {
                 btnBind.setText("绑定邮箱");
             }
         }
+        if (reqId == ServiceCmd.CmdId.CMD_UNBIND_EMAIL.ordinal()) {//邮箱解除绑定
+            if (!isHttpHandle(json)) return;
+            String msg = json.optString("msg");
+            switch (msg) {
+                case "0":
+                    Utils.Toast("解除失败");
+                    break;
+                case "1":
+                    Utils.Toast("邮箱解除成功");
+                    llHaveEmailContainer.setVisibility(View.GONE);
+                    llNoEmailContainer.setVisibility(View.VISIBLE);
+                    btnBind.setText("绑定邮箱");
+                    break;
+                case "2":
+                    Utils.Toast("用户不存在");
+                    break;
+            }
+            commonTipsDialog.dismiss();
+        }
+
         super.onHttpSuccess(reqId, json);
     }
 
     /**
      * 开启本页
-     *
      */
     public static void startBindOrChangeEmailActivity(Context context) {
         Intent intent = new Intent(context, BindOrChangeEmailActivity.class);

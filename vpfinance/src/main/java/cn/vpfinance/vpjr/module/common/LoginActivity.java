@@ -1,5 +1,6 @@
 package cn.vpfinance.vpjr.module.common;
 
+import android.app.Application;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -98,6 +99,7 @@ public class LoginActivity extends BaseActivity {
 
     private void changeUserType(){
         isPersonType = !isPersonType;
+        ((FinanceApplication) getApplication()).isPersonType = isPersonType;//保存登录类型,微信登录时调用
         if (isPersonType){//个人用户
             titleBar.setTitle("登录");
             tvRegister.setText("立即注册");
@@ -218,7 +220,12 @@ public class LoginActivity extends BaseActivity {
 
         Md5Algorithm md5 = Md5Algorithm.getInstance();
         password = md5.md5Digest((password + HttpService.LOG_KEY).getBytes());
-        mHttpService.userLogin(username, password);
+
+        if(isPersonType) {//个人用户
+            mHttpService.userLogin(username, password);
+        }else {//企业用户
+            mHttpService.enterpriseUserLogin(username,password);
+        }
     }
 
 

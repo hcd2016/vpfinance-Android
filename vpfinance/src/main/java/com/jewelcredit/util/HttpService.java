@@ -103,7 +103,7 @@ import de.greenrobot.dao.query.QueryBuilder;
 
 
 public class HttpService {
-//    	public static String mBaseUrl = BaseUrl.mBaseUrl;
+    //    	public static String mBaseUrl = BaseUrl.mBaseUrl;
     public static String mBaseUrl = "https://www.vpfinance.cn";
     public HttpLoader httpClient;
 
@@ -326,6 +326,29 @@ public class HttpService {
     public boolean userLogin(String userName,
                              String userPsw) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_userLogin;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+
+        Map<String, String> params = new ArrayMap<String, String>();
+
+        params.put("userName", userName);
+        params.put("pwd", userPsw);
+        params.put("TYPE", "android");
+
+        httpClient.setTips("登录中");
+        return httpClient.doPost(url, params, cmdId.ordinal(), false, true);
+    }
+
+    /**
+     * 企业用户登录
+     *
+     * @param userName
+     * @param userPsw
+     * @return
+     */
+    public boolean enterpriseUserLogin(String userName,
+                                       String userPsw) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_enterpriseUserLogin;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
 
@@ -5898,14 +5921,16 @@ Type	Int	Banner类型	1. 链接  2.产品
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 
-    public boolean getCheckCaptchaImage(String code, String phone, String recommend) {
+    public boolean getCheckCaptchaImage(String code, String phone, String recommend,String account,String type) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_REGISTER_CHECK_CAPTCHA_IMAGE;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
         Map<String, String> param = new ArrayMap<String, String>();
-        param.put("code", code);
+        param.put("imgCaptcha", code);
         param.put("phone", phone);
         param.put("recommend", recommend);
+        param.put("account", account);
+        param.put("type", type);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 
@@ -5970,7 +5995,8 @@ Type	Int	Banner类型	1. 链接  2.产品
 
     /**
      * 还款计划:浮动计息接口
-     * @param  tenderRecordId //投资记录id
+     *
+     * @param tenderRecordId //投资记录id
      */
     public boolean getRepayPlanFloat(String tenderRecordId) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_REPAY_PLAN_FLOAT;
@@ -5978,6 +6004,60 @@ Type	Int	Banner类型	1. 链接  2.产品
         String url = getServiceUrl(method);
         Map<String, String> param = new ArrayMap<String, String>();
         param.put("tenderRecordId", tenderRecordId);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 更改个人邮箱
+     *
+     */
+    public boolean changePersonEmail(String email,String code) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_CHANGE_EMAIL_PERSON;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("email", email);
+        param.put("code", code);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 更改企业邮箱
+     *
+     */
+    public boolean changeCompanyEmail(String email, String userId,String code) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_CHANGE_EMAIL_PERSON;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("email", email);
+        param.put("userId", userId);
+        param.put("code", code);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 更改企业邮箱
+     *
+     */
+    public boolean unBindEmail(String userId) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_UNBIND_EMAIL;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("userId", userId);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+    /**
+     * 校验短信验证码
+     *
+     */
+    public boolean checkSmsCode(String userId,String code,String phone) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_CHECK_SMS_CODE;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("userId", userId);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 }

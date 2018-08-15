@@ -22,9 +22,11 @@ import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -728,7 +730,27 @@ public class Utils {
         }
         return list;
     }
+    /**
+     * 获得屏幕的宽
+     */
+    public static int getScreenWidth(Context context) {
+        WindowManager window = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        window.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.widthPixels;
+    }
 
+    /**
+     * 获得屏幕的高
+     */
+    public static int getScreenHeight(Context context) {
+        WindowManager window = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        window.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.heightPixels;
+    }
 
 //    /**
 //     * 开启本页

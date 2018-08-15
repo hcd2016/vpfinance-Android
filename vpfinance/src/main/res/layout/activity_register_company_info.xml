@@ -27,6 +27,7 @@
         android:textColor="#4d4d4d"/>
 
     <cn.vpfinance.vpjr.view.EditTextWithDel
+        android:id="@+id/et_company_name"
         style="@style/SampleNumberEditStyle"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -41,6 +42,7 @@
     </cn.vpfinance.vpjr.view.EditTextWithDel>
 
     <cn.vpfinance.vpjr.view.EditTextWithDel
+        android:id="@+id/et_credit_num"
         style="@style/SampleNumberEditStyle"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -52,6 +54,7 @@
         android:hint="请输入18位统一社会信用代码"/>
 
     <cn.vpfinance.vpjr.view.EditTextWithDel
+        android:id="@+id/et_legal_name"
         style="@style/SampleNumberEditStyle"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -63,6 +66,7 @@
         android:hint="请输入法人代表姓名"/>
 
     <cn.vpfinance.vpjr.view.EditTextWithDel
+        android:id="@+id/et_company_address"
         style="@style/SampleNumberEditStyle"
         android:layout_width="match_parent"
         android:layout_height="44dp"

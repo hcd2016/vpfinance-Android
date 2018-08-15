@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
+import cn.vpfinance.vpjr.gson.UserRegisterBean;
 import cn.vpfinance.vpjr.view.EditTextWithDel;
 
 public class RegisterActivity extends BaseActivity {
@@ -81,14 +82,12 @@ public class RegisterActivity extends BaseActivity {
             isPersonType = intent.getBooleanExtra("isPersonType", true);
         }
         mHttpService = new HttpService(this, this);
-
-        mHttpService.getCaptchaImage();
+        mHttpService.getImageCode();
         initView();
     }
 
     @Override
     protected void initView() {
-
         titleBar.setHeadBackVisible(View.VISIBLE);
         titleBar.setTitle(isPersonType ? "注册" : "企业注册");
         etPhone.setVisibility(isPersonType ? View.VISIBLE : View.GONE);
@@ -96,22 +95,22 @@ public class RegisterActivity extends BaseActivity {
         etEmail.setVisibility(!isPersonType ? View.VISIBLE : View.GONE);
         etCompanyPhone.setVisibility(!isPersonType ? View.VISIBLE : View.GONE);
 
-        etPhone.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (Utils.isMobile(s.toString())) {
-                    mHttpService.isExistPhone(s.toString());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+//        etPhone.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (Utils.isMobile(s.toString())) {
+//                    mHttpService.isExistPhone(s.toString());
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//            }
+//        });
 
         cbProtocol.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -135,7 +134,7 @@ public class RegisterActivity extends BaseActivity {
     public void click(View v) {
         switch (v.getId()) {
             case R.id.ivCaptcha:
-                mHttpService.getCaptchaImage();
+                mHttpService.getImageCode();
                 break;
             case R.id.btnRegister:
                 doCheckCaptchaImage();
@@ -171,7 +170,7 @@ public class RegisterActivity extends BaseActivity {
             Utils.Toast(this, "图形验证码不能为空!");
             return;
         }
-        mHttpService.getCheckCaptchaImage(imageCaptcha,registerPhone,recommendPhone);
+        mHttpService.getCheckCaptchaImage(imageCaptcha, registerPhone, recommendPhone, registerPhone, "1");
 
 //        Md5Algorithm md5 = Md5Algorithm.getInstance();
 //        rsaPassword = md5.md5Digest((rsaPassword + HttpService.LOG_KEY).getBytes());
@@ -187,7 +186,7 @@ public class RegisterActivity extends BaseActivity {
     public void onHttpSuccess(int reqId, JSONObject json) {
         if (!isHttpHandle(json)) return;
 
-        if (reqId == ServiceCmd.CmdId.CMD_REGISTER_CAPTCHA_IMAGE.ordinal()) {
+        if (reqId == ServiceCmd.CmdId.CMD_IMAGE_CODE.ordinal()) {
             String imageUrl = json.optString("imageUrl");
             Glide
                     .with(this)
@@ -196,11 +195,49 @@ public class RegisterActivity extends BaseActivity {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)//禁用磁盘缓存
                     .skipMemoryCache(true)//跳过内存缓存
                     .into(ivCaptcha);
-        } else if (reqId == ServiceCmd.CmdId.CMD_REGISTER_CHECK_CAPTCHA_IMAGE.ordinal()){
-            if (isPersonType) {
-                CaptchaActivity.goThis(this, CaptchaActivity.REGISTER_PERSON, null);
-            } else {
-                CaptchaActivity.goThis(this, CaptchaActivity.REGISTER_COMPANY, null);
+        } else if (reqId == ServiceCmd.CmdId.CMD_REGISTER_CHECK_CAPTCHA_IMAGE.ordinal()) {
+            String msg = json.optString("msg");
+//            0:发送失败
+//            1: 参数有误（输入为空）
+//            2: 输入验证码错误
+//            3: 手机号码格式不正确
+//            4.操作太频繁，稍后再试
+//            5.手机号己经存在
+//            6.正确
+//            7.账号已存在
+//            8.推荐人不存在
+            switch (msg) {
+                case "0":
+                    Utils.Toast("发送失败");
+                    break;
+                case "1":
+                    Utils.Toast("参数有误");
+                    break;
+                case "2":
+                    Utils.Toast("输入验证码错误");
+                    break;
+                case "3":
+                    Utils.Toast("手机号码格式不正确");
+                    break;
+                case "4":
+                    Utils.Toast("操作太频繁，稍后再试");
+                    break;
+                case "5":
+                    Utils.Toast("手机号己经存在");
+                    break;
+                case "6"://校验成功
+                    UserRegisterBean userRegisterBean = new UserRegisterBean();
+                    userRegisterBean.setPhoneNum(etPhone.getText().toString());
+                    userRegisterBean.setReferrerNum(etRecommendPhone.getText().toString());
+                    userRegisterBean.setUserType(isPersonType);
+                    CaptchaActivity.goThis(this, userRegisterBean);
+                    break;
+                case "7":
+                    Utils.Toast("账号已存在");
+                    break;
+                case "8":
+                    Utils.Toast("推荐人不存在");
+                    break;
             }
         }
 

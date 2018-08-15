@@ -190,9 +190,6 @@ public class BankAccountFragment extends BaseFragment {
             mOpenContent.setVisibility(View.VISIBLE);
             noOpenHidden.setVisibility(View.VISIBLE);
         }
-        mHeaderNoOpen.setVisibility(View.GONE);
-        mOpenContent.setVisibility(View.VISIBLE);
-        noOpenHidden.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -281,9 +278,6 @@ public class BankAccountFragment extends BaseFragment {
                 }
             }
         }
-        mHeaderNoOpen.setVisibility(View.GONE);
-        mOpenContent.setVisibility(View.VISIBLE);
-        noOpenHidden.setVisibility(View.VISIBLE);
     }
 
 

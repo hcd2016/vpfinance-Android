@@ -268,4 +268,11 @@
         <item name="android:taskToBackEnterAnimation">@null</item>
         <item name="android:taskToBackExitAnimation">@null</item>
     </style>
+
+    <!--不带动画的对话框style-->
+    <style name="style_dialog_without_anim" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

@@ -11,93 +11,215 @@ package cn.vpfinance.android.wxapi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.util.ArrayMap;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import com.jewelcredit.util.AppState;
+import com.jewelcredit.util.HttpService;
+import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
+import com.tdk.utils.HttpDownloader;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import cn.sharesdk.wechat.utils.WXAppExtendObject;
 import cn.sharesdk.wechat.utils.WXMediaMessage;
 import cn.sharesdk.wechat.utils.WechatHandlerActivity;
+import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.gson.UserRegisterBean;
+import cn.vpfinance.vpjr.model.RegularProductList;
+import cn.vpfinance.vpjr.model.WXAccessTokenAModel;
+import cn.vpfinance.vpjr.module.common.WeiXinBindPhoneActivity;
+import cn.vpfinance.vpjr.network.OkHttpUtil;
+import cn.vpfinance.vpjr.retrofit.RetrofitUtil;
+import cn.vpfinance.vpjr.util.DBUtils;
+import cn.vpfinance.vpjr.util.GsonUtil;
 import cn.vpfinance.vpjr.util.Logger;
+import de.greenrobot.event.EventBus;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
-/** 微信客户端回调activity示例 */
+/**
+ * 微信客户端回调activity示例
+ */
 public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEventHandler {
 
-	private static final int RETURN_MSG_TYPE_LOGIN = 1;
-	private static final int RETURN_MSG_TYPE_SHARE = 2;
+    private static final int RETURN_MSG_TYPE_LOGIN = 1;
+    private static final int RETURN_MSG_TYPE_SHARE = 2;
 
-	@Override
-	protected void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		IWXAPI mWxApi = ((FinanceApplication) getApplication()).mWxApi;
-		mWxApi.handleIntent(getIntent(), this);
-	}
-	/**
-	 * 处理微信发出的向第三方应用请求app message
-	 * <p>
-	 * 在微信客户端中的聊天页面有“添加工具”，可以将本应用的图标添加到其中
-	 * 此后点击图标，下面的代码会被执行。Demo仅仅只是打开自己而已，但你可
-	 * 做点其他的事情，包括根本不打开任何页面
-	 */
-	public void onGetMessageFromWXReq(WXMediaMessage msg) {
-		Intent iLaunchMyself = getPackageManager().getLaunchIntentForPackage(getPackageName());
-		startActivity(iLaunchMyself);
-	}
+        IWXAPI mWxApi = ((FinanceApplication) getApplication()).mWxApi;
+        mWxApi.handleIntent(getIntent(), this);
+    }
 
-	/**
-	 * 处理微信向第三方应用发起的消息
-	 * <p>
-	 * 此处用来接收从微信发送过来的消息，比方说本demo在wechatpage里面分享
-	 * 应用时可以不分享应用文件，而分享一段应用的自定义信息。接受方的微信
-	 * 客户端会通过这个方法，将这个信息发送回接收方手机上的本demo中，当作
-	 * 回调。
-	 * <p>
-	 * 本Demo只是将信息展示出来，但你可做点其他的事情，而不仅仅只是Toast
-	 */
-	public void onShowMessageFromWXReq(WXMediaMessage msg) {
-		if (msg != null && msg.mediaObject != null
-				&& (msg.mediaObject instanceof WXAppExtendObject)) {
-			WXAppExtendObject obj = (WXAppExtendObject) msg.mediaObject;
-			Toast.makeText(this, obj.extInfo, Toast.LENGTH_SHORT).show();
-		}
-	}
+    /**
+     * 处理微信发出的向第三方应用请求app message
+     * <p>
+     * 在微信客户端中的聊天页面有“添加工具”，可以将本应用的图标添加到其中
+     * 此后点击图标，下面的代码会被执行。Demo仅仅只是打开自己而已，但你可
+     * 做点其他的事情，包括根本不打开任何页面
+     */
+    public void onGetMessageFromWXReq(WXMediaMessage msg) {
+        Intent iLaunchMyself = getPackageManager().getLaunchIntentForPackage(getPackageName());
+        startActivity(iLaunchMyself);
+    }
 
-	@Override
-	public void onReq(BaseReq baseReq) {
-	}
+    /**
+     * 处理微信向第三方应用发起的消息
+     * <p>
+     * 此处用来接收从微信发送过来的消息，比方说本demo在wechatpage里面分享
+     * 应用时可以不分享应用文件，而分享一段应用的自定义信息。接受方的微信
+     * 客户端会通过这个方法，将这个信息发送回接收方手机上的本demo中，当作
+     * 回调。
+     * <p>
+     * 本Demo只是将信息展示出来，但你可做点其他的事情，而不仅仅只是Toast
+     */
+    public void onShowMessageFromWXReq(WXMediaMessage msg) {
+        if (msg != null && msg.mediaObject != null
+                && (msg.mediaObject instanceof WXAppExtendObject)) {
+            WXAppExtendObject obj = (WXAppExtendObject) msg.mediaObject;
+            Toast.makeText(this, obj.extInfo, Toast.LENGTH_SHORT).show();
+        }
+    }
 
-	@Override
-	public void onResp(BaseResp resp) {
-		switch (resp.errCode) {
+    @Override
+    public void onReq(BaseReq baseReq) {
+    }
 
-			case BaseResp.ErrCode.ERR_AUTH_DENIED:
-			case BaseResp.ErrCode.ERR_USER_CANCEL:
-				if (RETURN_MSG_TYPE_SHARE == resp.getType()) Utils.Toast("分享失败");
-				else Utils.Toast("登录失败");
-				break;
-			case BaseResp.ErrCode.ERR_OK:
-				switch (resp.getType()) {
-					case RETURN_MSG_TYPE_LOGIN:
-						//拿到了微信返回的code,立马再去请求access_token
-						String code = ((SendAuth.Resp) resp).code;
-						Logger.e("code = " + code);
+    @Override
+    public void onResp(BaseResp resp) {
+        switch (resp.errCode) {
 
-						//就在这个地方，用网络库什么的或者自己封的网络api，发请求去咯，注意是get请求
-						break;
+            case BaseResp.ErrCode.ERR_AUTH_DENIED:
+            case BaseResp.ErrCode.ERR_USER_CANCEL:
+                if (RETURN_MSG_TYPE_SHARE == resp.getType()) Utils.Toast("分享失败");
+                else Utils.Toast("登录失败");
+                break;
+            case BaseResp.ErrCode.ERR_OK:
+                switch (resp.getType()) {
+                    case RETURN_MSG_TYPE_LOGIN:
+                        //拿到了微信返回的code,立马再去请求access_token
+                        String code = ((SendAuth.Resp) resp).code;
+                        Logger.e("code = " + code);
+//						https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code"
 
-					case RETURN_MSG_TYPE_SHARE:
-						Utils.Toast("微信分享成功");
-						finish();
-						break;
-				}
-				break;
-		}
-	}
+                        //get
+                        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?" +
+                                "appid=" + Constant.WEIXIN_APP_ID + "&secret=" + Constant.WEIXIN_APP_SECRET + "&" + "code=" + code + "&" + "grant_type=authorization_code";
+                        Request request = new Request.Builder().url(url).build();
+                        RetrofitUtil.genericClient().newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                e.getMessage();
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                String body = response.body().string();
+                                WXAccessTokenAModel wxAccessTokenAModel = GsonUtil.modelParser(body, WXAccessTokenAModel.class);
+                                if (null != wxAccessTokenAModel) {
+                                    final UserRegisterBean userRegisterBean = new UserRegisterBean();
+                                    userRegisterBean.setOpenid(wxAccessTokenAModel.getOpenid());
+                                    userRegisterBean.setScope(wxAccessTokenAModel.getScope());
+                                    userRegisterBean.setUnionid(wxAccessTokenAModel.getUnionid());
+                                    userRegisterBean.setReferrerNum(wxAccessTokenAModel.getRefresh_token());
+                                    userRegisterBean.setAccess_token(wxAccessTokenAModel.getAccess_token());
+
+                                    ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_IS_BIND_WEIXIN;
+                                    String method = ServiceCmd.getMethodName(cmdId);
+                                    String url = HttpService.getServiceUrl(method);
+
+                                    android.support.v4.util.ArrayMap params = new android.support.v4.util.ArrayMap();
+                                    params.put("unionid", wxAccessTokenAModel.getUnionid());
+                                    if (((FinanceApplication) getApplication()).isPersonType) {
+                                        params.put("type", "1");
+                                    } else {
+                                        params.put("type", "2");
+                                    }
+                                    Request req = OkHttpUtil.newPostRequest(url, params);
+                                    OkHttpUtil.enqueue(req, new Callback() {
+
+                                        @Override
+                                        public void onFailure(Call call, IOException e) {
+
+                                        }
+
+                                        @Override
+                                        public void onResponse(Call call, Response response) throws IOException {
+                                            String s = response.body().toString();
+                                            try {
+                                                JSONObject object = new JSONObject(s);
+                                                String msg = object.optString("msg");
+                                                switch (msg) {
+                                                    case "5"://未绑定平台
+                                                        userRegisterBean.setUserType(((FinanceApplication) getApplication()).isPersonType);
+                                                        WeiXinBindPhoneActivity.startWeiXinBindPhoneActivity(WXEntryActivity.this,userRegisterBean);
+                                                        break;
+                                                    case "1"://登录成功
+                                                        String uid = object.optString("uid");
+                                                        if(TextUtils.isEmpty(uid)) {
+                                                            DBUtils.getUser(WXEntryActivity.this).setUserId(Long.parseLong(uid));
+                                                            AppState.instance().setSessionCode("" + uid);
+                                                            Utils.Toast("登录成功!");
+                                                        }
+                                                        finish();
+                                                        break;
+                                                    case "2"://已注销
+                                                        Utils.Toast("账户已注销");
+                                                        break;
+                                                    case "0"://账户已锁定
+                                                        Utils.Toast("账户已锁定");
+                                                        break;
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                    });
+                                }
+
+
+//								{
+//									"access_token":"ACCESS_TOKEN",
+//										"expires_in":7200,
+//										"refresh_token":"REFRESH_TOKEN",
+//										"openid":"OPENID",
+//										"scope":"SCOPE",
+//										"unionid":"o6_bmasdasdsad6_2sgVt7hMZOPfL"
+//								}
+                            }
+                        });
+                        //就在这个地方，用网络库什么的或者自己封的网络api，发请求去咯，注意是get请求
+                        break;
+
+                    case RETURN_MSG_TYPE_SHARE:
+                        Utils.Toast("微信分享成功");
+                        finish();
+                        break;
+                }
+                break;
+        }
+    }
 }

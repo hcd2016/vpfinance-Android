@@ -12,15 +12,22 @@ import android.widget.TextView;
 
 import com.jewelcredit.ui.widget.ActionBarWhiteLayout;
 import com.jewelcredit.util.HttpService;
+import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
+
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
+import cn.vpfinance.vpjr.gson.UserRegisterBean;
 import cn.vpfinance.vpjr.util.FormatUtils;
 
+/**
+ * 发送验证码,企业&个人
+ */
 public class CaptchaActivity extends BaseActivity {
 
     public static final int REGISTER_PERSON = 1; //个人注册
@@ -47,11 +54,11 @@ public class CaptchaActivity extends BaseActivity {
     private CountDownTimer smsCountDownTimer;
     private CountDownTimer voiceCountDownTimer;
     private HttpService mHttpService;
+    private UserRegisterBean userRegisterBean;
 
-    public static void goThis(Context context, int type, String phone) {
+    public static void goThis(Context context, UserRegisterBean userRegisterBean) {
         Intent intent = new Intent(context, CaptchaActivity.class);
-        intent.putExtra("type", type);
-        intent.putExtra("phone", phone);
+        intent.putExtra("userRegisterBean", userRegisterBean);
         context.startActivity(intent);
     }
 
@@ -63,8 +70,13 @@ public class CaptchaActivity extends BaseActivity {
         mHttpService = new HttpService(this, this);
         Intent intent = getIntent();
         if (null != intent) {
-            type = intent.getIntExtra("type", 0);
-            phone = intent.getStringExtra("phone");
+            userRegisterBean = (UserRegisterBean) intent.getSerializableExtra("userRegisterBean");
+            if (userRegisterBean.getUserType()) {
+                type = REGISTER_PERSON;
+            } else {
+                type = REGISTER_COMPANY;
+            }
+            phone = userRegisterBean.getPhoneNum();
         }
         initView();
     }
@@ -77,7 +89,7 @@ public class CaptchaActivity extends BaseActivity {
             tvPhoneHint.setText("短信验证码已发送至您的手机 " + FormatUtils.hidePhone(phone));
         } else if (type == REGISTER_COMPANY || type == FORGET_LOGIN_PASSWORD_COMPANY) {//企业
             tvPhoneHint.setText("短信验证码已发送至经办人手机 " + FormatUtils.hidePhone(phone));
-        } else if (type == WEI_XIN_BIND_PHONE){
+        } else if (type == WEI_XIN_BIND_PHONE) {//微信
             tvPhoneHint.setText("短信验证码已发送至您的手机 " + FormatUtils.hidePhone(phone));
         }
         startSms();
@@ -108,17 +120,13 @@ public class CaptchaActivity extends BaseActivity {
 
     private void next() {
         String captcha = etCaptcha.getText().toString().trim();
-        if (TextUtils.isEmpty(captcha)){
+        if (TextUtils.isEmpty(captcha)) {
             Utils.Toast("验证码不能为空");
             return;
         }
-        mHttpService.getCheckCaptchaSmsVoice(phone,captcha);
-//        if (type == REGISTER_PERSON) {
-//            LoginPasswordActivity.goThis(this, LoginPasswordActivity.PASSWORD_SETTING);
-//        } else {
-//            RegisterCompanyInfoActivity.goThis(this);
-//        }
+        mHttpService.checkSmsCode("",etCaptcha.getText().toString(),userRegisterBean.getPhoneNum());
     }
+
 
     private void startSms() {
         btnGetCaptcha.setEnabled(false);
@@ -136,6 +144,30 @@ public class CaptchaActivity extends BaseActivity {
             }
         };
         smsCountDownTimer.start();
+    }
+
+    @Override
+    public void onHttpSuccess(int reqId, JSONObject json) {
+        super.onHttpSuccess(reqId, json);
+        if (reqId == ServiceCmd.CmdId.CMD_CHECK_SMS_CODE.ordinal()) {
+            String msg = json.optString("msg");
+            if (msg.equals("1")) {//校验成功
+                userRegisterBean.setCaptcha(etCaptcha.getText().toString());
+                userRegisterBean.setPwdSetType(LoginPasswordActivity.PASSWORD_SETTING);
+                if (type == REGISTER_PERSON) {
+                    LoginPasswordActivity.goThis(this,userRegisterBean);
+                } else {
+                    RegisterCompanyInfoActivity.goThis(this,userRegisterBean);
+                }
+            } else if(msg.equals("4")){//超时
+                Utils.Toast("请求超时");
+            } else if(msg.equals("5")) {
+                Utils.Toast("短信验证码错误");
+            }
+        }
+        if(reqId == ServiceCmd.CmdId.CMD_REGISTER_CAPTCHA_SMS.ordinal()) {
+            String msg = json.optString("msg");
+        }
     }
 
     private void startVoice() {
