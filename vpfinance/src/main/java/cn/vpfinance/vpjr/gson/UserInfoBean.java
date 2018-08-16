@@ -73,6 +73,7 @@ public class UserInfoBean implements Serializable{
     public String isAllowRecharge;//1.允许充值2不允许充值
     public int accountType;
     public int autoTenderProtocol;//是否同意自动投标协议 1同意
+    public String isBindWx;//是否绑定微信
 
     /*可用余额*/
     public String cashBalance;

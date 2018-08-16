@@ -5921,7 +5921,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 
-    public boolean getCheckCaptchaImage(String code, String phone, String recommend,String account,String type) {
+    public boolean getCheckCaptchaImage(String code, String phone, String recommend, String account, String type) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_REGISTER_CHECK_CAPTCHA_IMAGE;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
@@ -6009,9 +6009,8 @@ Type	Int	Banner类型	1. 链接  2.产品
 
     /**
      * 更改个人邮箱
-     *
      */
-    public boolean changePersonEmail(String email,String code) {
+    public boolean changePersonEmail(String email, String code) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_CHANGE_EMAIL_PERSON;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
@@ -6023,9 +6022,8 @@ Type	Int	Banner类型	1. 链接  2.产品
 
     /**
      * 更改企业邮箱
-     *
      */
-    public boolean changeCompanyEmail(String email, String userId,String code) {
+    public boolean changeCompanyEmail(String email, String userId, String code) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_CHANGE_EMAIL_PERSON;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
@@ -6038,7 +6036,6 @@ Type	Int	Banner类型	1. 链接  2.产品
 
     /**
      * 更改企业邮箱
-     *
      */
     public boolean unBindEmail(String userId) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_UNBIND_EMAIL;
@@ -6048,16 +6045,76 @@ Type	Int	Banner类型	1. 链接  2.产品
         param.put("userId", userId);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
+
     /**
      * 校验短信验证码
-     *
      */
-    public boolean checkSmsCode(String userId,String code,String phone) {
+    public boolean checkSmsCode(String userId, String smsCode, String phone) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_CHECK_SMS_CODE;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
         Map<String, String> param = new ArrayMap<String, String>();
         param.put("userId", userId);
+        param.put("smsCode", smsCode);
+        param.put("phone", phone);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 微信登录时的注册
+     */
+    public boolean weixinRegiter(String unionid, String openid, String type, String account, String smsCode, String pwd, String regChannel) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_WEIXIN_REGISTER;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("unionid", unionid);
+        param.put("openid", openid);
+        param.put("type", type);
+        param.put("account", account);
+        param.put("smsCode", smsCode);
+        param.put("pwd", pwd);
+        param.put("regChannel", regChannel);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 微信登录时绑定微信
+     */
+    public boolean bindWEIXIN(String unionid, String openid, String type, String account, String smsCode) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_WEIXIN_BIND;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("unionid", unionid);
+        param.put("openid", openid);
+        param.put("type", type);
+        param.put("account", account);
+        param.put("smsCode", smsCode);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+    /**
+     * 获取经办人手机号
+     */
+    public boolean getResponsiblePhone(String email) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_RESPONSIBLE_PHONE;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("email", email);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 获取经办人手机号
+     */
+    public boolean getIsBindWeiXin(String unionid,String type) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_IS_BIND_WEIXIN;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("unionid", unionid);
+        param.put("type", type);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 }

@@ -10,6 +10,8 @@ package cn.vpfinance.android.wxapi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.ArrayMap;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.jewelcredit.util.AppState;
+import com.jewelcredit.util.HttpLoader;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
@@ -33,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import cn.sharesdk.wechat.utils.WXAppExtendObject;
 import cn.sharesdk.wechat.utils.WXMediaMessage;
@@ -46,12 +50,16 @@ import cn.vpfinance.vpjr.module.common.WeiXinBindPhoneActivity;
 import cn.vpfinance.vpjr.network.OkHttpUtil;
 import cn.vpfinance.vpjr.retrofit.RetrofitUtil;
 import cn.vpfinance.vpjr.util.DBUtils;
+import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.GsonUtil;
 import cn.vpfinance.vpjr.util.Logger;
+import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import de.greenrobot.event.EventBus;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -60,10 +68,13 @@ import okhttp3.ResponseBody;
 /**
  * 微信客户端回调activity示例
  */
-public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEventHandler {
+public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEventHandler, HttpDownloader.HttpDownloaderListener {
 
     private static final int RETURN_MSG_TYPE_LOGIN = 1;
     private static final int RETURN_MSG_TYPE_SHARE = 2;
+    private HttpService httpService;
+    private UserRegisterBean userRegisterBean;
+    private Handler m_handler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +82,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
 
         IWXAPI mWxApi = ((FinanceApplication) getApplication()).mWxApi;
         mWxApi.handleIntent(getIntent(), this);
+        httpService = new HttpService(this, this);
     }
 
     /**
@@ -129,6 +141,8 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                                 "appid=" + Constant.WEIXIN_APP_ID + "&secret=" + Constant.WEIXIN_APP_SECRET + "&" + "code=" + code + "&" + "grant_type=authorization_code";
                         Request request = new Request.Builder().url(url).build();
                         RetrofitUtil.genericClient().newCall(request).enqueue(new Callback() {
+
+
                             @Override
                             public void onFailure(Call call, IOException e) {
                                 e.getMessage();
@@ -139,65 +153,85 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                                 String body = response.body().string();
                                 WXAccessTokenAModel wxAccessTokenAModel = GsonUtil.modelParser(body, WXAccessTokenAModel.class);
                                 if (null != wxAccessTokenAModel) {
-                                    final UserRegisterBean userRegisterBean = new UserRegisterBean();
+                                    userRegisterBean = new UserRegisterBean();
                                     userRegisterBean.setOpenid(wxAccessTokenAModel.getOpenid());
                                     userRegisterBean.setScope(wxAccessTokenAModel.getScope());
                                     userRegisterBean.setUnionid(wxAccessTokenAModel.getUnionid());
                                     userRegisterBean.setReferrerNum(wxAccessTokenAModel.getRefresh_token());
                                     userRegisterBean.setAccess_token(wxAccessTokenAModel.getAccess_token());
+                                    userRegisterBean.setFromWeixin(true);
 
-                                    ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_IS_BIND_WEIXIN;
-                                    String method = ServiceCmd.getMethodName(cmdId);
-                                    String url = HttpService.getServiceUrl(method);
-
-                                    android.support.v4.util.ArrayMap params = new android.support.v4.util.ArrayMap();
-                                    params.put("unionid", wxAccessTokenAModel.getUnionid());
-                                    if (((FinanceApplication) getApplication()).isPersonType) {
-                                        params.put("type", "1");
-                                    } else {
-                                        params.put("type", "2");
-                                    }
-                                    Request req = OkHttpUtil.newPostRequest(url, params);
-                                    OkHttpUtil.enqueue(req, new Callback() {
-
+                                    runOnUiThread(new Runnable() {
                                         @Override
-                                        public void onFailure(Call call, IOException e) {
-
-                                        }
-
-                                        @Override
-                                        public void onResponse(Call call, Response response) throws IOException {
-                                            String s = response.body().toString();
-                                            try {
-                                                JSONObject object = new JSONObject(s);
-                                                String msg = object.optString("msg");
-                                                switch (msg) {
-                                                    case "5"://未绑定平台
-                                                        userRegisterBean.setUserType(((FinanceApplication) getApplication()).isPersonType);
-                                                        WeiXinBindPhoneActivity.startWeiXinBindPhoneActivity(WXEntryActivity.this,userRegisterBean);
-                                                        break;
-                                                    case "1"://登录成功
-                                                        String uid = object.optString("uid");
-                                                        if(TextUtils.isEmpty(uid)) {
-                                                            DBUtils.getUser(WXEntryActivity.this).setUserId(Long.parseLong(uid));
-                                                            AppState.instance().setSessionCode("" + uid);
-                                                            Utils.Toast("登录成功!");
-                                                        }
-                                                        finish();
-                                                        break;
-                                                    case "2"://已注销
-                                                        Utils.Toast("账户已注销");
-                                                        break;
-                                                    case "0"://账户已锁定
-                                                        Utils.Toast("账户已锁定");
-                                                        break;
-                                                }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
+                                        public void run() {
+                                            if (((FinanceApplication) getApplication()).isPersonType) {
+                                                httpService.getIsBindWeiXin(userRegisterBean.getUnionid(), "1");
+                                            } else {
+                                                httpService.getIsBindWeiXin(userRegisterBean.getUnionid(), "2");
                                             }
                                         }
-
                                     });
+
+
+//                                    ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_IS_BIND_WEIXIN;
+//                                    String method = ServiceCmd.getMethodName(cmdId);
+//                                    String url = HttpService.getServiceUrl(method);
+
+
+//
+//                                    FormBody.Builder params=new FormBody.Builder();
+//                                    params.add("unionid", wxAccessTokenAModel.getUnionid());
+//                                    if (((FinanceApplication) getApplication()).isPersonType) {
+//                                        params.add("type", "1");
+//                                    } else {
+//                                        params.add("type", "2");
+//                                    }
+//                                    Request request = new Request.Builder()
+//                                            .addHeader("APP-VERSION", Utils.getVersion(FinanceApplication.getAppContext()))
+//                                            .url(url)
+//                                            .post(params.build())
+//                                            .build();
+//
+//                                    OkHttpClient httpClient = new OkHttpClient();
+//                                    httpClient.newCall(request).enqueue(new Callback() {
+//                                        @Override
+//                                        public void onFailure(Call call, IOException e) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onResponse(Call call, Response response) throws IOException {
+//                                            String s = response.body().toString();
+//                                            try {
+//                                                JSONObject object = new JSONObject(s);
+//                                                String msg = object.optString("msg");
+//                                                switch (msg) {
+//                                                    case "5"://未绑定平台
+//                                                        userRegisterBean.setUserType(((FinanceApplication) getApplication()).isPersonType);
+//                                                        WeiXinBindPhoneActivity.startWeiXinBindPhoneActivity(WXEntryActivity.this,userRegisterBean);
+//                                                        finish();
+//                                                        break;
+//                                                    case "1"://登录成功
+//                                                        String uid = object.optString("uid");
+//                                                        if(TextUtils.isEmpty(uid)) {
+//                                                            DBUtils.getUser(WXEntryActivity.this).setUserId(Long.parseLong(uid));
+//                                                            AppState.instance().setSessionCode("" + uid);
+//                                                            Utils.Toast("登录成功!");
+//                                                        }
+//                                                        finish();
+//                                                        break;
+//                                                    case "2"://已注销
+//                                                        Utils.Toast("账户已注销");
+//                                                        break;
+//                                                    case "0"://账户已锁定
+//                                                        Utils.Toast("账户已锁定");
+//                                                        break;
+//                                                }
+//                                            } catch (JSONException e) {
+//                                                e.printStackTrace();
+//                                            }
+//                                        }
+//                                    });
                                 }
 
 
@@ -221,5 +255,59 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onHttpSuccess(int reqId, JSONObject json) {
+        if (reqId == ServiceCmd.CmdId.CMD_IS_BIND_WEIXIN.ordinal()) {
+            String msg = json.optString("msg");
+            switch (msg) {
+                case "5"://未绑定平台
+                    userRegisterBean.setUserType(((FinanceApplication) getApplication()).isPersonType);
+                    WeiXinBindPhoneActivity.startWeiXinBindPhoneActivity(WXEntryActivity.this, userRegisterBean);
+                    finish();
+                    break;
+                case "1"://登录成功
+                    String uid = json.optString("uid");
+                    if (TextUtils.isEmpty(uid)) {
+                        AppState.instance().setSessionCode("" + uid);
+                        SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
+                        String savedUid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID);
+                        if (!TextUtils.isEmpty(uid) && !uid.equals(savedUid)) {
+                            preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
+                        }
+                        Utils.Toast("登录成功!");
+                    }
+                    EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS));
+                    finish();
+                    break;
+                case "2"://已注销
+                    Utils.Toast("账户已注销");
+                    break;
+                case "0"://账户已锁定
+                    Utils.Toast("账户已锁定");
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onHttpSuccess(int reqId, JSONArray json) {
+
+    }
+
+    @Override
+    public void onHttpCache(int reqId) {
+
+    }
+
+    @Override
+    public void onHttpError(int reqId, String errmsg) {
+        errmsg.toString();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

@@ -37,9 +37,11 @@ import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity;
+import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.view.EditTextWithDel;
 import de.greenrobot.dao.query.QueryBuilder;
+import de.greenrobot.event.EventBus;
 
 public class LoginActivity extends BaseActivity {
 
@@ -69,7 +71,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
+        EventBus.getDefault().register(this);
         mHttpService = new HttpService(this, this);
 
         titleBar
@@ -117,6 +119,7 @@ public class LoginActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -128,6 +131,12 @@ public class LoginActivity extends BaseActivity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    public void onEventMainThread(EventStringModel event) {
+        if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS)) {//微信登录成功
+            finish();
+        }
     }
 
     public void getUser() {
@@ -280,7 +289,13 @@ public class LoginActivity extends BaseActivity {
                 Utils.Toast(this, msg);
                 findViewById(R.id.btnLogin).setEnabled(true);
                 return;
-            } else {
+            } else if(msg.equals("3")){
+                if(isPersonType) {
+                    Utils.Toast(this, "用户类型与登录入口不匹配,个人用户请切换个人登录模式");
+                }else {
+                    Utils.Toast(this, "用户类型与登录入口不匹配,企业用户请切换企业登录模式");
+                }
+            }else {
                 FinanceApplication application = (FinanceApplication) getApplication();
                 application.isLogin = true;
                 //登录成功保存是否是个人账户

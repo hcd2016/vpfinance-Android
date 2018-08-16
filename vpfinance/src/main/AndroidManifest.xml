@@ -478,6 +478,10 @@
         <activity
             android:name="cn.vpfinance.vpjr.module.product.record.RepayFloatActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="cn.vpfinance.vpjr.module.common.WeiXinBindPhoneActivity"
+            android:screenOrientation="portrait"></activity>
         <!-- LLYT SDK END -->
 
         <meta-data

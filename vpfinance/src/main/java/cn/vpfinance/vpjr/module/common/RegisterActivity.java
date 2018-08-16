@@ -30,7 +30,9 @@ import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.gson.UserRegisterBean;
+import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.view.EditTextWithDel;
+import de.greenrobot.event.EventBus;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -76,6 +78,7 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         Intent intent = getIntent();
         if (null != intent) {
@@ -128,6 +131,7 @@ public class RegisterActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick({R.id.ivCaptcha, R.id.btnRegister, R.id.cbProtocol, R.id.tvProtocol1, R.id.tvProtocol2, R.id.tvProtocol3})
@@ -197,15 +201,6 @@ public class RegisterActivity extends BaseActivity {
                     .into(ivCaptcha);
         } else if (reqId == ServiceCmd.CmdId.CMD_REGISTER_CHECK_CAPTCHA_IMAGE.ordinal()) {
             String msg = json.optString("msg");
-//            0:发送失败
-//            1: 参数有误（输入为空）
-//            2: 输入验证码错误
-//            3: 手机号码格式不正确
-//            4.操作太频繁，稍后再试
-//            5.手机号己经存在
-//            6.正确
-//            7.账号已存在
-//            8.推荐人不存在
             switch (msg) {
                 case "0":
                     Utils.Toast("发送失败");
@@ -240,60 +235,14 @@ public class RegisterActivity extends BaseActivity {
                     break;
             }
         }
-
-        /*if (reqId == ServiceCmd.CmdId.CMD_userRegister.ordinal()) {
-            btnRegister.setEnabled(true);
-
-            String msg = mHttpService.onUserRegister(json);
-            if (msg != "") {
-                Utils.Toast(this, msg);
-                if ("注册成功".equals(msg)) {
-                    Utils.Toast(this, "注册成功!");
-
-                    mHttpService.userLogin(rsaPhoneNum, rsaPassword);
-                    FinanceApplication application = (FinanceApplication) getApplication();
-                    application.isFirstRegieter = true;
-                }
-            }
-        }
-
-        if (reqId == ServiceCmd.CmdId.CMD_userLogin.ordinal()) {
-            String msg = mHttpService.onUserLogin(this, json);
-            if (!msg.equals("")) {
-                Utils.Toast(this, msg);
-                return;
-            } else {
-                SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
-                preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, rsaPhoneNum + "");
-                preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, rsaPhoneNum + "");
-                preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD, rsaPassword);
-
-                uid = AppState.instance().getSessionCode();
-                String savedUid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID);
-                if (!TextUtils.isEmpty(uid) && !uid.equals(savedUid)) {
-                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
-                }
-            }
-
-
-            Intent intent = new Intent();
-            setResult(RESULT_OK, intent);
-            //清理login present标志
-            HttpService.clearPresentLoginFlag();
-            startActivity(new Intent(this, LockSetupActivity.class));
-
+    }
+    public void onEventMainThread(EventStringModel event) {
+        if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_REGISTER_FINISH)) {//注册完成
             finish();
         }
-
-        if (reqId == ServiceCmd.CmdId.CMD_isExistPhone.ordinal()) {
-            int errNo = mHttpService.onCheckPhoneExist(json);
-            if (errNo == 1) {
-                mPhoneExist = true;
-                Utils.Toast(this, "手机号已存在");
-            } else {
-                mPhoneExist = false;
-            }
-        }*/
+        if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS)) {//微信登录成功
+            finish();
+        }
     }
 
     @Override

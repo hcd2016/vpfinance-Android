@@ -171,7 +171,10 @@ public class ServiceCmd {
         CMD_CHANGE_EMAIL_PERSON,//更改个人邮箱
         CMD_CHANGE_EMAIL_COMPANY,//更改企业邮箱
         CMD_UNBIND_EMAIL,//邮箱解绑
-        CMD_CHECK_SMS_CODE//校验短信验证码
+        CMD_CHECK_SMS_CODE,//校验短信验证码
+        CMD_WEIXIN_REGISTER,//微信登录时注册
+        CMD_WEIXIN_BIND,//绑定用户微信
+        CMD_RESPONSIBLE_PHONE//获取经办人手机号
     }
 
     public static String[] methods = {
@@ -336,15 +339,17 @@ public class ServiceCmd {
             "/user/register/sendImageCode",//注册图形验证码
             "Appregister/registerVerifyImageCode",//注册验证图形验证码
             "Appregister/sendSms",//注册短信验证码
-            "/user/register/sendYuyinMess",//注册语音验证码
+            "Appregister/sendYuyinMess",//注册语音验证码
             "register/verifySmsCode",//注册验证短信或语音验证码
             "AppLoan/getFloatInvestTypeReturnPlans",//还款计划:浮动计息
             "AppWx/isBindWx",//是否已经绑定微信
             "Appmember_index/bindingEmail" ,//更改个人邮箱
             "appupdate_info/changeCompanyEmail", ////更改企业邮箱
             "appupdate_info/unbindEmail", ////邮箱解绑
-            "Appregister/ckeckCode" ////校验短信验证码
-
+            "Appregister/ckeckCode", ////校验短信验证码
+            "AppWx/wxRegister" ,//微信登录时注册
+            "AppWx/bindWx" ,//绑定用户微信
+            "appupdate_info/queryManagerPhone"//查询经办人手机号
     };
 
     public static String getMethodName(CmdId methodId) {

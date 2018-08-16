@@ -12,12 +12,35 @@ public class UserRegisterBean implements Serializable {
     public String uPwd;//用户密码
     public String captcha;//手机验证码
     public int pwdSetType;//设置密码/重设密码类型
+    public String email;//邮箱
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isFromWeixin() {
+        return isFromWeixin;
+    }
+
     //微信相关
     public String refresh_token;
     public String openid;
     public String scope;
     public String unionid;
     public String access_token;
+    public boolean isFromWeixin;//true为是微信流程
+
+    public boolean getIsFromWeixin() {
+        return isFromWeixin;
+    }
+
+    public void setFromWeixin(boolean fromWeixin) {
+        isFromWeixin = fromWeixin;
+    }
 
     public boolean isPersonType() {
         return isPersonType;

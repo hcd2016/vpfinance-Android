@@ -36,7 +36,7 @@
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            style="@style/SampleEditTextStyle"
+            style="@style/NumberEditStyle"
             android:hint="请输入手机号"
             android:textColor="@color/text_black"
             android:singleLine="true"
@@ -49,7 +49,7 @@
 
         <cn.vpfinance.vpjr.view.EditTextWithDel
             android:id="@+id/etEmail"
-            style="@style/SampleNumberEditStyle"
+            style="@style/SampleEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginTop="25dp"
