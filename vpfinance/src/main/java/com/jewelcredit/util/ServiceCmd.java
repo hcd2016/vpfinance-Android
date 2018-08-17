@@ -174,7 +174,11 @@ public class ServiceCmd {
         CMD_CHECK_SMS_CODE,//校验短信验证码
         CMD_WEIXIN_REGISTER,//微信登录时注册
         CMD_WEIXIN_BIND,//绑定用户微信
-        CMD_RESPONSIBLE_PHONE//获取经办人手机号
+        CMD_RESPONSIBLE_PHONE,//获取经办人手机号
+        CMD_RESET_PWD_PERSON,//(个人)(忘记密码)重置密码
+        CMD_RESET_PWD_COMPANY,//(企业)(忘记密码)重置密码
+        CMD_CHANGE_COMPANY_PHONE,//修改经办人手机号
+        CMD_WEIXIN_UNBIND//解绑微信
     }
 
     public static String[] methods = {
@@ -349,7 +353,11 @@ public class ServiceCmd {
             "Appregister/ckeckCode", ////校验短信验证码
             "AppWx/wxRegister" ,//微信登录时注册
             "AppWx/bindWx" ,//绑定用户微信
-            "appupdate_info/queryManagerPhone"//查询经办人手机号
+            "appupdate_info/queryManagerPhone",//查询经办人手机号
+            "appupdate_info/reset_pwd",//(个人)(忘记密码)重置密码
+            "appupdate_info/companyResetPwd",//(企业)(忘记密码)重置密码
+            "appupdate_info/changeManagerPhone",//修改经办人手机号
+            "AppWx/unbindWx"//解绑微信
     };
 
     public static String getMethodName(CmdId methodId) {

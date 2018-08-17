@@ -35,6 +35,8 @@ import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +44,9 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
@@ -86,6 +91,12 @@ import okhttp3.Response;
  */
 public class PersonalInfoActivity extends BaseActivity implements View.OnClickListener {
 
+    @Bind(R.id.tv_bind_phone_desc)
+    TextView tvBindPhoneDesc;
+    @Bind(R.id.tv_weixin_bind_desc)
+    TextView tvWeixinBindDesc;
+    @Bind(R.id.ll_weixin_bind_container)
+    LinearLayout llWeixinBindContainer;
     private LinearLayout modifypasword;
     private TextView realname;
     private TextView bindbankcard;
@@ -170,6 +181,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info);
+        ButterKnife.bind(this);
         mBottomStatusHeight = ScreenUtil.getBottomStatusHeight(this);
         initFind();
         mHttpService = new HttpService(this, this);
@@ -241,6 +253,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         ll_bindemail.setOnClickListener(this);
         forgetPayPassword.setOnClickListener(this);
         ll_bind_phone.setOnClickListener(this);
+        llWeixinBindContainer.setOnClickListener(this);
         ll_clickUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -464,6 +477,17 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 isHxBandCarkStatus.setText("未激活");
             }
 
+            if (mUserInfoBean.customerType.equals("1")) {
+                tvBindPhoneDesc.setText("手机号绑定");
+            } else {
+                tvBindPhoneDesc.setText("经办人手机号");
+            }
+
+            if (mUserInfoBean.isBindWx.equals("0")) {//未绑定微信
+                tvWeixinBindDesc.setText("未绑定");
+            } else {
+                tvWeixinBindDesc.setText("已绑定");
+            }
             if (user != null) {
                 SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
                 String value = sp.getStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId());
@@ -490,6 +514,22 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             String phone = FormatUtils.hidePhone(mUserInfoBean.phone);
             ((TextView) findViewById(R.id.phoneNum)).setText(phone);
         }
+        if (reqId == ServiceCmd.CmdId.CMD_WEIXIN_UNBIND.ordinal()) {
+            String msg = json.optString("msg");
+            switch (msg) {
+                case "0":
+                    Utils.Toast("服务器异常");
+                    break;
+                case "1":
+                    Utils.Toast("解绑成功");
+                    tvWeixinBindDesc.setText("未绑定");
+                    break;
+                case "2":
+                    Utils.Toast("用户不存在");
+                    break;
+            }
+        }
+
     }
 
     @Override
@@ -594,6 +634,23 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.ll_bind_phone:
                 BindPhoneActivity.goThis(this);
+                break;
+            case R.id.ll_weixin_bind_container://微信绑定
+                if (null != mUserInfoBean) {
+                    if (mUserInfoBean.isBindWx.equals("0")) {
+                        IWXAPI mWxApi = ((FinanceApplication) getApplication()).mWxApi;
+                        if (!mWxApi.isWXAppInstalled()) {
+                            Utils.Toast("您还未安装微信客户端");
+                            return;
+                        }
+                        final SendAuth.Req req = new SendAuth.Req();
+                        req.scope = "snsapi_userinfo";
+                        req.state = "diandi_wx_login";
+                        mWxApi.sendReq(req);
+                    } else {
+                        mHttpService.unbindWeixin(DBUtils.getUser(PersonalInfoActivity.this).getUserId() + "");
+                    }
+                }
                 break;
         }
     }
@@ -1032,7 +1089,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             ContentValues values = new ContentValues();
             photoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-            intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoUri);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
             startActivityForResult(intent, REQUESTCODE_TAKE);
         } else {
             Toast.makeText(this, "内存卡不存在", Toast.LENGTH_LONG).show();

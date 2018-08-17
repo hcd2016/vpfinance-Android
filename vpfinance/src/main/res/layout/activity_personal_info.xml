@@ -283,6 +283,7 @@
                         android:paddingRight="15dp">
 
                         <TextView
+                            android:id="@+id/tv_bind_phone_desc"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:drawablePadding="10dp"
@@ -347,6 +348,47 @@
 
                         <TextView
                             android:id="@+id/isBandMail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="8dp"
+                            android:gravity="center"
+                            android:text="" />
+
+                        <ImageView
+                            android:layout_width="6dp"
+                            android:layout_height="11dp"
+                            android:background="@drawable/nav_next" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/divider_color" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_weixin_bind_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:drawablePadding="10dp"
+                            android:gravity="center_vertical"
+                            android:text="微信绑定"
+                            android:textColor="@color/text_1c1c1c" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/tv_weixin_bind_desc"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginRight="8dp"

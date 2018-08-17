@@ -5351,9 +5351,9 @@ Type	Int	Banner类型	1. 链接  2.产品
      * @param imgCaptcha 验证码
      * @param phone      手机号
      * @param type       1.短信2.语音
-     * @return
+     * @return useType   需要校验手机号是否存在时传 1  其他不用传
      */
-    public boolean getVerifyImageCode(String imgCaptcha, String phone, String type) {
+    public boolean getVerifyImageCode(String imgCaptcha, String phone, String type,String useType) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_VERIFY_IMAGE_CODE;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
@@ -5362,6 +5362,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         params.put("imgCaptcha", imgCaptcha);
         params.put("phone", phone);
         params.put("type", type);
+        params.put("useType", useType);
         return httpClient.doPost(url, params, cmdId.ordinal(), false, false);
     }
 
@@ -6115,6 +6116,63 @@ Type	Int	Banner类型	1. 链接  2.产品
         Map<String, String> param = new ArrayMap<String, String>();
         param.put("unionid", unionid);
         param.put("type", type);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 个人重置密码(忘记密码)
+     * @param pwd MD5加密
+     */
+    public boolean resetPwdPerson(String phone,String pwd,String smscode) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_RESET_PWD_PERSON;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("phone", phone);
+        param.put("pwd", pwd);
+        param.put("smscode", smscode);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+
+    /**
+     * 企业重置密码(忘记密码)
+     * @param pwd MD5加密
+     */
+    public boolean resetPwdCompany(String email,String pwd,String smscode) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_RESET_PWD_COMPANY;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("phone", email);
+        param.put("pwd", pwd);
+        param.put("smscode", smscode);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 修改经办人手机号
+     */
+    public boolean changeCompanyPhone(String managerPhone,String userId,String smsCode) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_CHANGE_COMPANY_PHONE;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("managerPhone", managerPhone);
+        param.put("userId", userId);
+        param.put("smsCode", smsCode);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 解绑微信
+     */
+    public boolean unbindWeixin(String userId) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_WEIXIN_UNBIND;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("userId", userId);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 }

@@ -72,7 +72,7 @@ public class BindEmailActivity extends BaseActivity {
             tvEmailDesc.setText("新邮箱可作为登录账号");
         }
         mHttpService = new HttpService(this, this);
-        mHttpService.getCaptchaImage();
+        mHttpService.getImageCode();
 
     }
 
@@ -138,7 +138,7 @@ public class BindEmailActivity extends BaseActivity {
                     Utils.Toast("验证码不能为空!");
                     return;
                 }
-                mHttpService.getVerifyImageCode(etVerificationCode.getText().toString(), DBUtils.getUser(BindEmailActivity.this).getCellPhone(), "1");
+                mHttpService.getVerifyImageCode(etVerificationCode.getText().toString(), DBUtils.getUser(BindEmailActivity.this).getCellPhone(), "1","");
                 break;
             case R.id.iv_verification_code://获取图形验证码
                 mHttpService.getImageCode();

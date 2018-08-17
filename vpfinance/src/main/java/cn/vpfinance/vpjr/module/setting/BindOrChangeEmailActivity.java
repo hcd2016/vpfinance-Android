@@ -75,6 +75,7 @@ public class BindOrChangeEmailActivity extends BaseActivity {
                         httpService.unBindEmail(DBUtils.getUser(BindOrChangeEmailActivity.this).getUserId() + "");
                     }
                 });
+                commonTipsDialog.show();
                 break;
             case R.id.btn_bind://绑定/更换邮箱
                 BindEmailActivity.startBindEmailActivity(this, customerType, emailPass);

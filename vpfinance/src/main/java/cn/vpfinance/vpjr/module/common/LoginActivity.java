@@ -1,14 +1,19 @@
 package cn.vpfinance.vpjr.module.common;
 
-import android.app.Application;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.jewelcredit.ui.widget.ActionBarWhiteLayout;
@@ -55,6 +60,12 @@ public class LoginActivity extends BaseActivity {
     Button btnLogin;
     @Bind(R.id.tvRegister)
     TextView tvRegister;
+    @Bind(R.id.tvForget)
+    TextView tvForget;
+    @Bind(R.id.ibWeiXinLogin)
+    ImageButton ibWeiXinLogin;
+    @Bind(R.id.scroll_view_container)
+    ScrollView scrollViewContainer;
 
     private boolean isPersonType = true;
 
@@ -72,6 +83,7 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+        resetSv();
         mHttpService = new HttpService(this, this);
 
         titleBar
@@ -93,21 +105,44 @@ public class LoginActivity extends BaseActivity {
         SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
         String name = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME);
         etUsername.setText(name);
-        etUsername.requestFocus();
+//        etUsername.requestFocus();
         if (!TextUtils.isEmpty(name)) {
             etUsername.setSelection(name.length());
         }
     }
 
-    private void changeUserType(){
+    /**
+     * 根据软键盘的高度设置ScrollView的marginBottom
+     */
+    private void resetSv() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            final View decorView = getWindow().getDecorView();
+            decorView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    Rect rect = new Rect();
+                    //getWindowVisibleDisplayFrame(rect)可以获取到程序显示的区域，包括标题栏
+                    // 但不包括状态栏,获取后的区域坐标会保存在rect(Rect类型)中
+                    decorView.getWindowVisibleDisplayFrame(rect);
+                    int screenHeight = Utils.getScreenHeight(LoginActivity.this);
+                    int heightDifference = screenHeight - rect.bottom;//计算软键盘占有的高度  = 屏幕高度 - 视图可见高度
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) scrollViewContainer.getLayoutParams();
+                    layoutParams.setMargins(0, 0, 0, heightDifference);//设置sv的marginBottom的值为软键盘占有的高度即可
+                    scrollViewContainer.requestLayout();
+                }
+            });
+        }
+    }
+
+    private void changeUserType() {
         isPersonType = !isPersonType;
         ((FinanceApplication) getApplication()).isPersonType = isPersonType;//保存登录类型,微信登录时调用
-        if (isPersonType){//个人用户
+        if (isPersonType) {//个人用户
             titleBar.setTitle("登录");
             tvRegister.setText("立即注册");
             etUsername.setHint("请输入用户名/手机号");
             titleBar.setActionRight("企业用户");
-        }else{//企业用户
+        } else {//企业用户
             titleBar.setTitle("企业登录");
             tvRegister.setText("企业注册");
             etUsername.setHint("请输入企业名称/邮箱");
@@ -166,11 +201,11 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvRegister:
-                RegisterActivity.goThis(this,isPersonType);
+                RegisterActivity.goThis(this, isPersonType);
                 break;
             case R.id.tvForget:
 //                gotoActivity(ResetLoginPswActivity.class);
-                ForgetLoginPasswordActivity.goThis(this,isPersonType);
+                ForgetLoginPasswordActivity.goThis(this, isPersonType);
                 break;
             case R.id.btnLogin:
                 clearDB();
@@ -230,10 +265,10 @@ public class LoginActivity extends BaseActivity {
         Md5Algorithm md5 = Md5Algorithm.getInstance();
         password = md5.md5Digest((password + HttpService.LOG_KEY).getBytes());
 
-        if(isPersonType) {//个人用户
+        if (isPersonType) {//个人用户
             mHttpService.userLogin(username, password);
-        }else {//企业用户
-            mHttpService.enterpriseUserLogin(username,password);
+        } else {//企业用户
+            mHttpService.enterpriseUserLogin(username, password);
         }
     }
 
@@ -289,13 +324,13 @@ public class LoginActivity extends BaseActivity {
                 Utils.Toast(this, msg);
                 findViewById(R.id.btnLogin).setEnabled(true);
                 return;
-            } else if(msg.equals("3")){
-                if(isPersonType) {
+            } else if (msg.equals("3")) {
+                if (isPersonType) {
                     Utils.Toast(this, "用户类型与登录入口不匹配,个人用户请切换个人登录模式");
-                }else {
+                } else {
                     Utils.Toast(this, "用户类型与登录入口不匹配,企业用户请切换企业登录模式");
                 }
-            }else {
+            } else {
                 FinanceApplication application = (FinanceApplication) getApplication();
                 application.isLogin = true;
                 //登录成功保存是否是个人账户

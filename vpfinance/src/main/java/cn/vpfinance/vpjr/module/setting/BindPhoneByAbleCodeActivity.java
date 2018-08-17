@@ -1,5 +1,6 @@
 package cn.vpfinance.vpjr.module.setting;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,10 +19,18 @@ import org.json.JSONObject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
+import cn.vpfinance.vpjr.module.common.CaptchaActivity;
+import cn.vpfinance.vpjr.module.common.LoginPasswordActivity;
+import cn.vpfinance.vpjr.module.common.RegisterCompanyInfoActivity;
+import cn.vpfinance.vpjr.module.common.WebViewActivity;
+import cn.vpfinance.vpjr.util.DBUtils;
+import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.view.CodeVerifyView;
 import cn.vpfinance.vpjr.view.VerificationCodeDialog;
+import de.greenrobot.event.EventBus;
 
 public class BindPhoneByAbleCodeActivity extends BaseActivity {
 
@@ -68,11 +77,18 @@ public class BindPhoneByAbleCodeActivity extends BaseActivity {
         vCodeVerifyView.setOnFullCodeListener(new CodeVerifyView.OnFullCodeListener() {
             @Override
             public void fullCodeListener() {
-                String code = vCodeVerifyView.getText().toString();
-                if (type == VERIFY_OLD_PHONE) {
-                    mHttpService.getVerifyOldPhone(phone, code);
-                } else if (type == VERIFY_NEW_PHONE) {
-                    mHttpService.getVerifyNewPhone(phone, code);
+                FinanceApplication application = (FinanceApplication) getApplication();
+                if(application.isPersonType) {//个人
+                    String code = vCodeVerifyView.getText().toString();
+                    if (type == VERIFY_OLD_PHONE) {
+                        mHttpService.getVerifyOldPhone(phone, code);
+                    } else if (type == VERIFY_NEW_PHONE) {
+                        mHttpService.getVerifyNewPhone(phone, code);
+                    }
+                }else {//企业
+                    String url ="/hx/enterprise/alter?userId="+DBUtils.getUser(BindPhoneByAbleCodeActivity.this).getUserId()+"&regChannel=1";
+                    gotoWeb(url,"验证手机号");
+                    mHttpService.changeCompanyPhone(phone, DBUtils.getUser(BindPhoneByAbleCodeActivity.this).getUserId()+"",vCodeVerifyView.getText().toString());
                 }
             }
 
@@ -138,6 +154,25 @@ public class BindPhoneByAbleCodeActivity extends BaseActivity {
                 tvErrorInfo.setVisibility(View.VISIBLE);
             } else if ("2".equals(msg)) {
                 Utils.Toast("手机号已经存在");
+            }
+        }
+        if(reqId == ServiceCmd.CmdId.CMD_CHANGE_COMPANY_PHONE.ordinal()) {
+            String msg = json.optString("msg");
+            switch (msg) {
+                case "0":
+                    Utils.Toast("服务器异常");
+                    break;
+                case "1":
+                    Utils.Toast("修改成功");
+                    BindPhoneSuccessActivity.goThis(BindPhoneByAbleCodeActivity.this);
+                    finish();
+                    break;
+                case "2":
+                    Utils.Toast("用户不存在");
+                    break;
+                case "3":
+                    Utils.Toast("用户不是企业用户");
+                    break;
             }
         }
     }

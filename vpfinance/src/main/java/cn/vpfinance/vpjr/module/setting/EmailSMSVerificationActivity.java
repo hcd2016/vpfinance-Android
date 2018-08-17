@@ -23,7 +23,9 @@ import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.util.DBUtils;
+import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.view.CodeVerifyView;
+import de.greenrobot.event.EventBus;
 
 public class EmailSMSVerificationActivity extends BaseActivity {
     @Bind(R.id.title_bar)
@@ -67,7 +69,6 @@ public class EmailSMSVerificationActivity extends BaseActivity {
             @Override
             public void fullCodeListener() {
                 //输入完成监听
-                Utils.Toast("输入完成!");
                 String code = vCodeVerifyView.getText().toString();
                 if (isPersonType.equals("1")) {//个人用户
                     mHttpService.changePersonEmail(email, code);
@@ -112,7 +113,7 @@ public class EmailSMSVerificationActivity extends BaseActivity {
         super.onHttpSuccess(reqId, json);
         if (!isHttpHandle(json)) return;
         if (reqId == ServiceCmd.CmdId.CMD_CHANGE_EMAIL_PERSON.ordinal()) {//个人更换
-            String msg = json.optString("msg");
+            String msg = json.optString("status");//实际返回是 "status"
             switch (msg) {
                 case "1"://
                     Utils.Toast("验证码超时");
@@ -126,6 +127,7 @@ public class EmailSMSVerificationActivity extends BaseActivity {
                     } else {
                         Utils.Toast("您已成功绑定邮箱");
                     }
+                    BindOrChangeEmailActivity.startBindOrChangeEmailActivity(this);
                     break;
                 case "4"://失败
                     Utils.Toast("失败");

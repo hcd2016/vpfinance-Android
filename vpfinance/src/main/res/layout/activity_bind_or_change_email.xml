@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <com.jewelcredit.ui.widget.ActionBarLayout
@@ -45,6 +46,8 @@
 
     <!--有绑定邮箱-->
     <LinearLayout
+        android:visibility="gone"
+        tools:visibility="visible"
         android:id="@+id/ll_have_email_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -130,7 +130,7 @@ public class VerificationCodeDialog extends DialogFragment implements HttpDownlo
                 dismiss();
                 break;
             case R.id.tvAffirm:
-                mHttpService.getVerifyImageCode(mImgCaptcha+"",mPhone+"",mType+"");
+                mHttpService.getVerifyImageCode(mImgCaptcha+"",mPhone+"",mType+"","1");
                 break;
         }
     }
@@ -212,6 +212,9 @@ public class VerificationCodeDialog extends DialogFragment implements HttpDownlo
                         mListener.smsStart(mHttpService,mPhone,mType);
                     }*/
                     dismiss();
+                    break;
+                case "7":
+                    str = "手机号不存在";
                     break;
                 default:
                     str = "其他错误";

@@ -11,7 +11,7 @@ public class UserRegisterBean implements Serializable {
     public String referrerNum;//推荐人手机号
     public String uPwd;//用户密码
     public String captcha;//手机验证码
-    public int pwdSetType;//设置密码/重设密码类型
+    public int pwdSetType;//设置密码/重设密码类型 注册为1,重设为2
     public String email;//邮箱
 
     public String getEmail() {

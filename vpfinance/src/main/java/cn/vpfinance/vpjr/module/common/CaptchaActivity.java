@@ -26,6 +26,7 @@ import cn.vpfinance.vpjr.gson.UserRegisterBean;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.FormatUtils;
+import cn.vpfinance.vpjr.view.VerificationCodeDialog;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -72,6 +73,7 @@ public class CaptchaActivity extends BaseActivity {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         mHttpService = new HttpService(this, this);
+        startSms();
         Intent intent = getIntent();
         if (null != intent) {
             userRegisterBean = (UserRegisterBean) intent.getSerializableExtra("userRegisterBean");
@@ -107,14 +109,15 @@ public class CaptchaActivity extends BaseActivity {
                 next();
                 break;
             case R.id.btnGetCaptcha:
-                if ("语音验证码".equals(tvVoiceCaptcha.getText().toString())) {
-                    startSms();
+                if ("获取验证码".equals(btnGetCaptcha.getText().toString())) {
+                    showDialog();
+                    mHttpService.getRegisterCaptchaSms(phone);
                 } else {
                     Utils.Toast("请先稍等一下语音验证码");
                 }
                 break;
             case R.id.tvVoiceCaptcha:
-                if ("获取验证码".equals(btnGetCaptcha.getText().toString())) {
+                if ("语音验证码".equals(tvVoiceCaptcha.getText().toString())) {
                     startVoice();
                 } else {
                     Utils.Toast("请先稍等一下短信验证码");
@@ -135,7 +138,6 @@ public class CaptchaActivity extends BaseActivity {
 
     private void startSms() {
         btnGetCaptcha.setEnabled(false);
-        mHttpService.getRegisterCaptchaSms(phone);
         smsCountDownTimer = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -158,6 +160,9 @@ public class CaptchaActivity extends BaseActivity {
         if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_WEIXIN_REGISTER_SUCCESS)) {//微信注册成功
             finish();
         }
+        if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_RESET_PWD_SUCCESS)) {//重置密码成功
+            finish();
+        }
     }
 
     @Override
@@ -175,7 +180,6 @@ public class CaptchaActivity extends BaseActivity {
                         }
                     } else {
                         userRegisterBean.setCaptcha(etCaptcha.getText().toString());
-                        userRegisterBean.setPwdSetType(LoginPasswordActivity.PASSWORD_SETTING);
                         if (type == REGISTER_PERSON) {
                             LoginPasswordActivity.goThis(this, userRegisterBean);
                         } else {
@@ -242,6 +246,18 @@ public class CaptchaActivity extends BaseActivity {
             }
         };
         voiceCountDownTimer.start();
+    }
+
+    public void showDialog() {
+        VerificationCodeDialog codeDialog = VerificationCodeDialog.newInstance(phone, 1);
+        codeDialog.setSmsListener(new VerificationCodeDialog.SmsListener() {
+            @Override
+            public void smsStart(int type) {
+//                mHttpService.getVerifyCode(null, null, null, phone, null,"0");
+                startSms();
+            }
+        });
+        codeDialog.show(getSupportFragmentManager(), "VerificationCodeDialog");
     }
 
     @Override

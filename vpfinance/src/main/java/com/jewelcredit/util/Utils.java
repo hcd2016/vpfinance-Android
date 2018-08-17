@@ -39,6 +39,7 @@ import android.widget.Toast;
 import com.evgenii.jsevaluator.JsEvaluator;
 import com.evgenii.jsevaluator.interfaces.JsCallback;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.yintong.pay.utils.Md5Algorithm;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -269,6 +270,17 @@ public class Utils {
         }
 
         return resultString;
+    }
+
+    /**
+     * 用此方法加密密码
+     *
+     * @return
+     */
+    public static String md5encodeNew(String data) {
+        Md5Algorithm md5 = Md5Algorithm.getInstance();
+        data = md5.md5Digest((data + HttpService.LOG_KEY).getBytes());
+        return data;
     }
 
 
@@ -730,6 +742,7 @@ public class Utils {
         }
         return list;
     }
+
     /**
      * 获得屏幕的宽
      */
