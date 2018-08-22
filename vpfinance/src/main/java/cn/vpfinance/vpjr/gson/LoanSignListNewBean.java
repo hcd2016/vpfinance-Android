@@ -134,6 +134,7 @@ public class LoanSignListNewBean {
             public int loanUnit;
             public int isAllowTrip;
             public long publishTimeLong;//预售发布时间
+            public int graceDays;//是否是浮动计息,>0则是
             /**
              * id : 1
              * maxcredit : 1000000.0

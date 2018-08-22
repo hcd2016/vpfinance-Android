@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 
 import com.jewelcredit.ui.widget.ActionBarWhiteLayout;
 import com.jewelcredit.util.Utils;
+
+import java.io.Serializable;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -15,7 +18,9 @@ import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.gson.UserRegisterBean;
+import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.view.EditTextWithDel;
+import de.greenrobot.event.EventBus;
 
 /**
  * 企业注册信息
@@ -47,12 +52,14 @@ public class RegisterCompanyInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_company_info);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
     @Override
     protected void initView() {
         super.initView();
+        titleBar.setTitle("完善企业信息").setHeadBackVisible(View.VISIBLE);
     }
 
     @OnClick(R.id.btnNext)
@@ -72,6 +79,28 @@ public class RegisterCompanyInfoActivity extends BaseActivity {
         if (TextUtils.isEmpty(etLegalName.getText().toString())) {
             Utils.Toast("法人代表名字不能为空");
             return;
+        }
+        if (etCreditNum.getText().toString().length() != 18) {
+            Utils.Toast("请输入18位社会信用");
+            return;
+        }
+        UserRegisterBean userRegisterBean = (UserRegisterBean) getIntent().getSerializableExtra("userRegisterBean");
+        userRegisterBean.setCompanyName(etCompanyName.getText().toString());
+        userRegisterBean.setCompanyAddress(etCompanyAddress.getText().toString());
+        userRegisterBean.setCompanyCreditCode(etCreditNum.getText().toString());
+        userRegisterBean.setCompanyLegal(etLegalName.getText().toString());
+        LoginPasswordActivity.goThis(this, userRegisterBean);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEventMainThread(EventStringModel event) {
+        if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_REGISTER_FINISH)) {//注册成功
+            finish();
         }
     }
 }

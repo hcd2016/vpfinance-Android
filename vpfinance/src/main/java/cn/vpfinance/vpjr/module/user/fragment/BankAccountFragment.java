@@ -391,7 +391,7 @@ public class BankAccountFragment extends BaseFragment {
     public void click(View view) {
         switch (view.getId()) {
             case R.id.tvOpenGuide:
-                boolean isPersonType = ((FinanceApplication) getActivity().getApplication()).isPersonType;
+                boolean isPersonType =   SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, true);
                 if (!isOpen){
                     //图文指引
                     if(isPersonType){
@@ -400,7 +400,11 @@ public class BankAccountFragment extends BaseFragment {
                         gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideOpen?company=1",null);
                     }
                 }else if (!isBindBank){
-                    //TODO
+                    if(isPersonType){
+                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideBind?bind1=1",null);
+                    }else{
+                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideBind?bind2=1",null);
+                    }
                 }
                 break;
             case R.id.clickInviteGift:

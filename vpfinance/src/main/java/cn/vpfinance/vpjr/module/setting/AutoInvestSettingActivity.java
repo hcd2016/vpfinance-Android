@@ -144,26 +144,41 @@ public class AutoInvestSettingActivity extends BaseActivity {
         allowPub.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!"已授权".equals(tvAuthorization.getText().toString())) {
+//                if (!"已授权".equals(tvAuthorization.getText().toString())) {
+//                    Utils.Toast("请先进行授权");
+//                } else {
+//                    containerSetting.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+//                }
+                if(null != bean && bean.isHXAutoPlank == 1) {//已授权
+                    tvAuthorization.setText("已授权");
+                    if(isChecked) {
+                        containerSetting.setVisibility(View.VISIBLE);
+                    }else {
+                        containerSetting.setVisibility(View.GONE);
+                    }
+                }else {//未授权
                     Utils.Toast("请先进行授权");
-                } else {
-                    containerSetting.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+                    tvAuthorization.setText("去授权");
+                    allowPub.setChecked(false);
+                    containerSetting.setVisibility(View.GONE);
                 }
 
-                //处理保存按钮置灰
-                if (null != bean) {
-                    int isAutoPlank = 0;
-                    if (isChecked) {
-                        isAutoPlank = 1;
-                    } else {
-                        isAutoPlank = 0;
-                    }
-                    if (bean.isAutoPlank != isAutoPlank) {
-                        btnSubmit.setEnabled(true);
-                    } else {
-                        btnSubmit.setEnabled(false);
-                    }
-                }
+
+                btnSubmit.setEnabled(true);
+//                //处理保存按钮置灰
+//                if (null != bean) {
+//                    int isAutoPlank = 0;
+//                    if (isChecked) {
+//                        isAutoPlank = 1;
+//                    } else {
+//                        isAutoPlank = 0;
+//                    }
+//                    if (bean.isAutoPlank != isAutoPlank) {
+//
+//                    } else {
+//                        btnSubmit.setEnabled(false);
+//                    }
+//                }
             }
         });
 
@@ -205,9 +220,10 @@ public class AutoInvestSettingActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {
                 if (!TextUtils.isEmpty(s.toString()) && bean.userRemainingMoney != Double.parseDouble(s.toString())) {//账户保留金额发生了变化
                     btnSubmit.setEnabled(true);
-                } else {
-                    btnSubmit.setEnabled(false);
                 }
+//                else {
+//                    btnSubmit.setEnabled(false);
+//                }
             }
         });
 
@@ -226,9 +242,10 @@ public class AutoInvestSettingActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {
                 if (!TextUtils.isEmpty(s.toString()) && bean.userMaxLoanMoney != Double.parseDouble(s.toString())) {//最大投资金额发生了变化
                     btnSubmit.setEnabled(true);
-                } else {
-                    btnSubmit.setEnabled(false);
                 }
+//                else {
+//                    btnSubmit.setEnabled(false);
+//                }
             }
         });
     }
@@ -297,8 +314,19 @@ public class AutoInvestSettingActivity extends BaseActivity {
 
             mHttpService.getQueryAutoPlankStatus(userId.toString());
 
-            //显示之前设置的参数
-            allowPub.setChecked(bean.isAutoPlank == 1);
+            if(bean.isHXAutoPlank == 1) {//已授权
+                tvAuthorization.setText("已授权");
+//                allowPub.setChecked(true);
+            }else {//未授权
+                tvAuthorization.setText("去授权");
+                allowPub.setChecked(false);
+            }
+            if(allowPub.isChecked()) {
+                containerSetting.setVisibility(View.VISIBLE);
+            }else {
+                containerSetting.setVisibility(View.GONE);
+            }
+
             etReserveMoney.setText("" + bean.userRemainingMoney);
             etMaxInvestMoney.setText("" + bean.userMaxLoanMoney);
             tvBorrowTime.setText((bean.loanPeriodBegin == 1 && bean.loanPeriodEnd == 24) ? getText(R.string.unlimited) : (bean.loanPeriodBegin + "-" + bean.loanPeriodEnd + "个月"));
@@ -307,7 +335,6 @@ public class AutoInvestSettingActivity extends BaseActivity {
             tvInvestType.setText("0".equals(bean.loanType) ? R.string.unlimited : R.string.selected);
             tvRefundType.setText("0".equals(bean.refundWay) ? R.string.unlimited : R.string.selected);
             tvRiskLevel.setText("0".equals(bean.securityLevel) ? R.string.unlimited : R.string.selected);
-            tvAuthorization.setText(bean.isHXAutoPlank == 1 ? "已授权" : "去授权");
 
         } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_AUTO_PLANK_STATUS.ordinal()) {
             QueryAutoStatusBean autoStatusBean = new Gson().fromJson(json.toString(), QueryAutoStatusBean.class);
@@ -326,7 +353,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        mHttpService.getAutoInvestSettingGet();
     }
 
     @Override

@@ -111,8 +111,14 @@ public class WeiXinBindPhoneActivity extends BaseActivity {
                     }
                     CaptchaActivity.goThis(this, userRegisterBean);
                     break;
-                case "7":
-                    Utils.Toast("手机号不存在");
+                case "7"://手机号不存在
+                    if(userRegisterBean.getUserType()) {
+                        userRegisterBean.setPhoneNum(etUsername.getText().toString());
+                        CaptchaActivity.goThis(WeiXinBindPhoneActivity.this,userRegisterBean);
+                    }else {
+                        Utils.Toast("用户不存在,请先注册");
+                        finish();
+                    }
                     break;
             }
         } else if (reqId == ServiceCmd.CmdId.CMD_RESPONSIBLE_PHONE.ordinal()) {//获取经办人手机号
@@ -189,7 +195,7 @@ public class WeiXinBindPhoneActivity extends BaseActivity {
                     }
 //                    mHttpService.getCheckCaptchaImage(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "",
 //                             etUsername.getText().toString(),"1");
-                    mHttpService.getVerifyImageCode(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "1","1");
+                    mHttpService.getVerifyImageCode(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "1","");
                 } else {//企业
                     if (TextUtils.isEmpty(etEmail.getText().toString())) {
                         Utils.Toast("邮箱不能为空");

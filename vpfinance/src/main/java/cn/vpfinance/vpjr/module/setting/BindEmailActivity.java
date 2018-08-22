@@ -114,7 +114,7 @@ public class BindEmailActivity extends BaseActivity {
                     break;
                 case "6"://6. 正确
                     str = "验证码校验成功";
-                    EmailSMSVerificationActivity.startEmailSMSVerificationActivity(this,DBUtils.getUser(this).getCellPhone(),customerType,etEmail.getText().toString(),emailPass);
+                    EmailSMSVerificationActivity.startEmailSMSVerificationActivity(this, DBUtils.getUser(this).getCellPhone(), customerType, etEmail.getText().toString(), emailPass);
                     break;
                 default:
                     str = "其他错误";
@@ -138,7 +138,11 @@ public class BindEmailActivity extends BaseActivity {
                     Utils.Toast("验证码不能为空!");
                     return;
                 }
-                mHttpService.getVerifyImageCode(etVerificationCode.getText().toString(), DBUtils.getUser(BindEmailActivity.this).getCellPhone(), "1","");
+                if (customerType.equals("1")) {//个人
+                    mHttpService.getVerifyImageCode(etVerificationCode.getText().toString(), DBUtils.getUser(BindEmailActivity.this).getCellPhone(), "1", "");
+                } else {
+                    mHttpService.getVerifyImageCode(etVerificationCode.getText().toString(), DBUtils.getUser(BindEmailActivity.this).getCellPhone(), "1", "3");
+                }
                 break;
             case R.id.iv_verification_code://获取图形验证码
                 mHttpService.getImageCode();
@@ -151,10 +155,10 @@ public class BindEmailActivity extends BaseActivity {
     /**
      * 开启本页
      */
-    public static void startBindEmailActivity(Context context, String customerType,String emailPass) {
+    public static void startBindEmailActivity(Context context, String customerType, String emailPass) {
         Intent intent = new Intent(context, BindEmailActivity.class);
         intent.putExtra("customerType", customerType);
-        intent.putExtra("emailPass",emailPass);
+        intent.putExtra("emailPass", emailPass);
         context.startActivity(intent);
     }
 }

@@ -8,11 +8,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jewelcredit.ui.widget.ActionBarLayout;
+import com.jewelcredit.util.DifColorTextStringBuilder;
 import com.jewelcredit.util.HttpService;
+import com.jewelcredit.util.MyClickableSpan;
 import com.jewelcredit.util.ServiceCmd;
+import com.jewelcredit.util.Utils;
 
 import org.json.JSONObject;
 
@@ -75,6 +79,10 @@ public class FundRecordsDetailActivity extends BaseActivity {
 
 
     public static final String UID = "uid";
+    @Bind(R.id.rl_warning_desc_container)
+    RelativeLayout rlWarningDescContainer;
+    @Bind(R.id.tv_warning_desc)
+    TextView tvWarningDesc;
     private HttpService mHttpService;
     private int pid;
     private String mLoanTitle;
@@ -218,6 +226,29 @@ public class FundRecordsDetailActivity extends BaseActivity {
                 mBeanProduct = bean.product;
                 mBeanLoanTypeNum = bean.loanTypeNum;
 
+
+                //提示处理
+                String content = bean.flowInvestReminder + "  了解详情>>";
+                List<String> floatPercent = Utils.getFloatPercent(content);
+                DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
+                difColorTextStringBuilder.setContent(content);
+                for (int i = 0; i < floatPercent.size(); i++) {
+                    difColorTextStringBuilder.setHighlightContent(floatPercent.get(i), R.color.red_text);
+                }
+                difColorTextStringBuilder.setHighlightContent("了解详情>>", R.color.red_text)
+                        .setHighlightContent("了解详情>>", new MyClickableSpan() {
+                            @Override
+                            public void onClick(View widget) {
+                                gotoWeb("/h5/help/floatProductTips?loanId=" + getIntent().getStringExtra("loanId"), "");
+                            }
+                        })
+                        .setTextView(tvWarningDesc)
+                        .create();
+                if (bean.graceDays > 0) {//是浮动计息
+                    rlWarningDescContainer.setVisibility(View.VISIBLE);
+                } else {
+                    rlWarningDescContainer.setVisibility(View.GONE);
+                }
             }
         }
     }
@@ -244,7 +275,7 @@ public class FundRecordsDetailActivity extends BaseActivity {
             case R.id.click_look_refund_time:
                 if (null != bean) {
                     if (bean.graceDays > 0) {//是浮动计息
-                        RepayFloatActivity.startRepayFloatActivity(this, mRecordId + "", bean.loanState + "");
+                        RepayFloatActivity.startRepayFloatActivity(this, mRecordId + "", bean.loanState + "", bean.loanId + "");
                     } else {
                         InvestRecordRefundActivity.goInvestRecordRefund(FundRecordsDetailActivity.this, 0, "" + mRecordId);
                     }

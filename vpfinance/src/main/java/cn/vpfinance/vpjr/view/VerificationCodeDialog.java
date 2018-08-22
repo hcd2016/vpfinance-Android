@@ -38,6 +38,7 @@ import cn.vpfinance.vpjr.util.Common;
  */
 public class VerificationCodeDialog extends DialogFragment implements HttpDownloader.HttpDownloaderListener{
 
+    private static int isRegisterType = 0;//是否是注册类型,如果是,值为1
     @Bind(R.id.ver_code_tv)
     EditText  mVerCodeTv;
     @Bind(R.id.ver_code_img)
@@ -112,6 +113,15 @@ public class VerificationCodeDialog extends DialogFragment implements HttpDownlo
         return codeDialog;
     }
 
+    public static VerificationCodeDialog newInstance(String phone, int type,int registerType) {
+        VerificationCodeDialog codeDialog = new VerificationCodeDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString(PERSON_PHONE,phone);
+        bundle.putInt(CODE_TYPE,type);
+        codeDialog.setArguments(bundle);
+        isRegisterType = registerType;
+        return codeDialog;
+    }
 
     @Override
     public void onDestroyView() {
@@ -130,7 +140,11 @@ public class VerificationCodeDialog extends DialogFragment implements HttpDownlo
                 dismiss();
                 break;
             case R.id.tvAffirm:
-                mHttpService.getVerifyImageCode(mImgCaptcha+"",mPhone+"",mType+"","1");
+                if(isRegisterType == 1) {//是注册
+                    mHttpService.getVerifyImageCode(mImgCaptcha+"",mPhone+"",mType+"","");
+                }else {
+                    mHttpService.getVerifyImageCode(mImgCaptcha+"",mPhone+"",mType+"","1");
+                }
                 break;
         }
     }

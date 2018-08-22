@@ -60,6 +60,7 @@ import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.model.UserHeadEvent;
 import cn.vpfinance.vpjr.module.dialog.CommonDialogFragment;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialog;
 import cn.vpfinance.vpjr.module.dialog.MyDialogFragment;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.user.BindBankHintActivity;
@@ -67,6 +68,7 @@ import cn.vpfinance.vpjr.module.user.personal.BankManageActivity;
 import cn.vpfinance.vpjr.util.AlertDialogUtils;
 import cn.vpfinance.vpjr.util.CameraGalleryUtils;
 import cn.vpfinance.vpjr.util.DBUtils;
+import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.FileUtil;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.ScreenUtil;
@@ -111,6 +113,9 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
     private TextView isReName;
     private TextView isBandCark;
     private LinearLayout ll_bindbankcard;
+
+
+
     private LinearLayout ll_my_describe;
     private LinearLayout ll_bindemail;
     private LinearLayout ll_clickUserInfo;
@@ -182,6 +187,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         mBottomStatusHeight = ScreenUtil.getBottomStatusHeight(this);
         initFind();
         mHttpService = new HttpService(this, this);
@@ -477,11 +483,11 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 isHxBandCarkStatus.setText("未激活");
             }
 
-            if (mUserInfoBean.customerType.equals("1")) {
-                tvBindPhoneDesc.setText("手机号绑定");
-            } else {
-                tvBindPhoneDesc.setText("经办人手机号");
-            }
+//            if (mUserInfoBean.customerType.equals("1")) {
+//                tvBindPhoneDesc.setText("手机号绑定");
+//            } else {
+//                tvBindPhoneDesc.setText("经办人手机号");
+//            }
 
             if (mUserInfoBean.isBindWx.equals("0")) {//未绑定微信
                 tvWeixinBindDesc.setText("未绑定");
@@ -523,6 +529,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 case "1":
                     Utils.Toast("解绑成功");
                     tvWeixinBindDesc.setText("未绑定");
+                    mUserInfoBean.isBindWx = "0";
                     break;
                 case "2":
                     Utils.Toast("用户不存在");
@@ -636,25 +643,50 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 BindPhoneActivity.goThis(this);
                 break;
             case R.id.ll_weixin_bind_container://微信绑定
-                if (null != mUserInfoBean) {
-                    if (mUserInfoBean.isBindWx.equals("0")) {
-                        IWXAPI mWxApi = ((FinanceApplication) getApplication()).mWxApi;
-                        if (!mWxApi.isWXAppInstalled()) {
-                            Utils.Toast("您还未安装微信客户端");
-                            return;
+                final CommonTipsDialog commonTipsDialog = new CommonTipsDialog(this);
+                if (mUserInfoBean.isBindWx.equals("0")) {
+                    commonTipsDialog.setTitle("微信绑定");
+                    commonTipsDialog.setTips("绑定微信可以通过微信快速登录,还可以收到短信消息提醒哦!");
+                    commonTipsDialog.setOnRightClickListener(new CommonTipsDialog.OnRightClickListener() {
+                        @Override
+                        public void onRightClick() {//确定
+                            IWXAPI mWxApi = ((FinanceApplication) getApplication()).mWxApi;
+                            if (!mWxApi.isWXAppInstalled()) {
+                                Utils.Toast("您还未安装微信客户端");
+                                return;
+                            }
+                            SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(PersonalInfoActivity.this);
+                            preferencesHelper.putBooleanValue(SharedPreferencesHelper.KEY_WX_BIND_IS_FROM_SETTING, true);
+                            final SendAuth.Req req = new SendAuth.Req();
+                            req.scope = "snsapi_userinfo";
+                            req.state = "diandi_wx_login";
+                            mWxApi.sendReq(req);
+                            commonTipsDialog.dismiss();
                         }
-                        final SendAuth.Req req = new SendAuth.Req();
-                        req.scope = "snsapi_userinfo";
-                        req.state = "diandi_wx_login";
-                        mWxApi.sendReq(req);
-                    } else {
-                        mHttpService.unbindWeixin(DBUtils.getUser(PersonalInfoActivity.this).getUserId() + "");
-                    }
+                    });
+                } else {
+                    commonTipsDialog.setTitle("微信解绑");
+                    commonTipsDialog.setTips("是否需要解除微信绑定,解除后将无法通过微信快速登录,也将不再收到微信消息提醒!");
+                    commonTipsDialog.setOnRightClickListener(new CommonTipsDialog.OnRightClickListener() {
+                        @Override
+                        public void onRightClick() {//确定
+                            mHttpService.unbindWeixin(DBUtils.getUser(PersonalInfoActivity.this).getUserId() + "");
+                            commonTipsDialog.dismiss();
+                        }
+                    });
                 }
+                commonTipsDialog.setRightBtnTextColor(R.color.red_text);
+                commonTipsDialog.show();
                 break;
         }
     }
 
+    public void onEventMainThread(EventStringModel event) {
+        if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_BIND_WEIXIN_SUCCESS_FROM_SETTING)) {//微信绑定成功
+            mUserInfoBean.isBindWx = "1";
+            tvWeixinBindDesc.setText("已绑定");
+        }
+    }
     private void chargeUserName() {
         myDialogFragment = MyDialogFragment.newInstance("编辑用户名", "用户名可包含字母数字下划线", "确定", newUserName);
         myDialogFragment.setOnTextConfrimListener(new MyDialogFragment.onTextConfrimListener() {
@@ -1114,4 +1146,9 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
      * 获取到的图片路径
      */
     private String picPath = "";
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

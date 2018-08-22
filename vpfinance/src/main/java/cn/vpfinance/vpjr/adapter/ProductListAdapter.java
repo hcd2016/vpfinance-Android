@@ -411,6 +411,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         holder.rewardIv.setVisibility(View.INVISIBLE);
                     }
                 }
+                if(loansign.graceDays > 0) {//是浮动计息
+                    holder.ivFdjx.setVisibility(View.VISIBLE);
+                }else {
+                    holder.ivFdjx.setVisibility(View.GONE);
+                }
             }
         }
 
@@ -470,6 +475,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView tv_addrate;
         @Bind(R.id.iphone7)
         ImageView iphone;
+        @Bind(R.id.iv_fdjx)
+        ImageView ivFdjx;
 
 
         public GeneralViewHolder(View itemView) {

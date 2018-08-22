@@ -28,6 +28,7 @@ import cn.vpfinance.vpjr.module.common.WebViewActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.FormatUtils;
+import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.view.CodeVerifyView;
 import cn.vpfinance.vpjr.view.VerificationCodeDialog;
 import de.greenrobot.event.EventBus;
@@ -77,8 +78,8 @@ public class BindPhoneByAbleCodeActivity extends BaseActivity {
         vCodeVerifyView.setOnFullCodeListener(new CodeVerifyView.OnFullCodeListener() {
             @Override
             public void fullCodeListener() {
-                FinanceApplication application = (FinanceApplication) getApplication();
-                if(application.isPersonType) {//个人
+                boolean isPersonType = SharedPreferencesHelper.getInstance(BindPhoneByAbleCodeActivity.this).getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, true);
+                if(isPersonType) {//个人
                     String code = vCodeVerifyView.getText().toString();
                     if (type == VERIFY_OLD_PHONE) {
                         mHttpService.getVerifyOldPhone(phone, code);

@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:hint="搜索产品名称"
+                android:hint="搜索产品或借款人名称"
                 android:paddingLeft="10dp"
                 android:singleLine="true"
                 android:layout_marginRight="3dp"

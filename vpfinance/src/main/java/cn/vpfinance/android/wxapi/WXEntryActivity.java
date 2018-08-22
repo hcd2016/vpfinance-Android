@@ -9,18 +9,14 @@
 package cn.vpfinance.android.wxapi;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.ArrayMap;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
 import com.jewelcredit.util.AppState;
-import com.jewelcredit.util.HttpLoader;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
@@ -32,38 +28,42 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.List;
 
 import cn.sharesdk.wechat.utils.WXAppExtendObject;
 import cn.sharesdk.wechat.utils.WXMediaMessage;
 import cn.sharesdk.wechat.utils.WechatHandlerActivity;
 import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.greendao.BankCardDao;
+import cn.vpfinance.vpjr.greendao.DaoMaster;
+import cn.vpfinance.vpjr.greendao.DaoSession;
+import cn.vpfinance.vpjr.greendao.User;
+import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.gson.UserRegisterBean;
-import cn.vpfinance.vpjr.model.RegularProductList;
+import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.model.WXAccessTokenAModel;
+import cn.vpfinance.vpjr.module.common.CaptchaActivity;
+import cn.vpfinance.vpjr.module.common.LoginPasswordActivity;
+import cn.vpfinance.vpjr.module.common.RegisterCompanyInfoActivity;
 import cn.vpfinance.vpjr.module.common.WeiXinBindPhoneActivity;
-import cn.vpfinance.vpjr.network.OkHttpUtil;
+import cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity;
 import cn.vpfinance.vpjr.retrofit.RetrofitUtil;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.GsonUtil;
 import cn.vpfinance.vpjr.util.Logger;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
+import de.greenrobot.dao.query.QueryBuilder;
 import de.greenrobot.event.EventBus;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
+
 
 /**
  * 微信客户端回调activity示例
@@ -75,6 +75,8 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
     private HttpService httpService;
     private UserRegisterBean userRegisterBean;
     private Handler m_handler;
+    private UserDao dao = null;
+    private User user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,11 +139,12 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
 //						https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code"
 
                         //get
+//                        String url =  "https://api.weixin.qq.com/sns/oauth2/access_token?";
                         String url = "https://api.weixin.qq.com/sns/oauth2/access_token?" +
                                 "appid=" + Constant.WEIXIN_APP_ID + "&secret=" + Constant.WEIXIN_APP_SECRET + "&" + "code=" + code + "&" + "grant_type=authorization_code";
+//                        httpService.wxAccessToken(url,Constant.WEIXIN_APP_ID,Constant.WEIXIN_APP_SECRET,code,"authorization_code");
                         Request request = new Request.Builder().url(url).build();
-                        RetrofitUtil.genericClient().newCall(request).enqueue(new Callback() {
-
+                        RetrofitUtil.getUnsafeOkHttpClient().newCall(request).enqueue(new Callback() {
 
                             @Override
                             public void onFailure(Call call, IOException e) {
@@ -149,100 +152,39 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                             }
 
                             @Override
-                            public void onResponse(Call call, Response response) throws IOException {
+                            public void onResponse(Call call, Response response) throws IOException {//授权成功
                                 String body = response.body().string();
-                                WXAccessTokenAModel wxAccessTokenAModel = GsonUtil.modelParser(body, WXAccessTokenAModel.class);
-                                if (null != wxAccessTokenAModel) {
-                                    userRegisterBean = new UserRegisterBean();
-                                    userRegisterBean.setOpenid(wxAccessTokenAModel.getOpenid());
-                                    userRegisterBean.setScope(wxAccessTokenAModel.getScope());
-                                    userRegisterBean.setUnionid(wxAccessTokenAModel.getUnionid());
-                                    userRegisterBean.setReferrerNum(wxAccessTokenAModel.getRefresh_token());
-                                    userRegisterBean.setAccess_token(wxAccessTokenAModel.getAccess_token());
-                                    userRegisterBean.setFromWeixin(true);
-
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            if (((FinanceApplication) getApplication()).isPersonType) {
-                                                httpService.getIsBindWeiXin(userRegisterBean.getUnionid(), "1");
+                                final WXAccessTokenAModel wxAccessTokenAModel = GsonUtil.modelParser(body, WXAccessTokenAModel.class);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (null != wxAccessTokenAModel) {
+                                            SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(WXEntryActivity.this);
+                                            if (preferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_WX_BIND_IS_FROM_SETTING)) {//设置过来的直接调用绑定微信
+                                                boolean isPersonType = SharedPreferencesHelper.getInstance(WXEntryActivity.this).getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, true);
+                                                if (isPersonType) {
+                                                    httpService.bindWEIXIN(wxAccessTokenAModel.getUnionid(), wxAccessTokenAModel.getOpenid(), "1", DBUtils.getUser(WXEntryActivity.this).getCellPhone(), "", "1");
+                                                } else {
+                                                    httpService.bindWEIXIN(wxAccessTokenAModel.getUnionid(), wxAccessTokenAModel.getOpenid(), "2", DBUtils.getUser(WXEntryActivity.this).getEmail(), "", "1");
+                                                }
                                             } else {
-                                                httpService.getIsBindWeiXin(userRegisterBean.getUnionid(), "2");
+                                                userRegisterBean = new UserRegisterBean();
+                                                userRegisterBean.setOpenid(wxAccessTokenAModel.getOpenid());
+                                                userRegisterBean.setScope(wxAccessTokenAModel.getScope());
+                                                userRegisterBean.setUnionid(wxAccessTokenAModel.getUnionid());
+                                                userRegisterBean.setReferrerNum(wxAccessTokenAModel.getRefresh_token());
+                                                userRegisterBean.setAccess_token(wxAccessTokenAModel.getAccess_token());
+                                                userRegisterBean.setFromWeixin(true);
+                                                boolean isPersonType = SharedPreferencesHelper.getInstance(WXEntryActivity.this).getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, true);
+                                                if (isPersonType) {
+                                                    httpService.getIsBindWeiXin(userRegisterBean.getUnionid(), "1");
+                                                } else {
+                                                    httpService.getIsBindWeiXin(userRegisterBean.getUnionid(), "2");
+                                                }
                                             }
                                         }
-                                    });
-
-
-//                                    ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_IS_BIND_WEIXIN;
-//                                    String method = ServiceCmd.getMethodName(cmdId);
-//                                    String url = HttpService.getServiceUrl(method);
-
-
-//
-//                                    FormBody.Builder params=new FormBody.Builder();
-//                                    params.add("unionid", wxAccessTokenAModel.getUnionid());
-//                                    if (((FinanceApplication) getApplication()).isPersonType) {
-//                                        params.add("type", "1");
-//                                    } else {
-//                                        params.add("type", "2");
-//                                    }
-//                                    Request request = new Request.Builder()
-//                                            .addHeader("APP-VERSION", Utils.getVersion(FinanceApplication.getAppContext()))
-//                                            .url(url)
-//                                            .post(params.build())
-//                                            .build();
-//
-//                                    OkHttpClient httpClient = new OkHttpClient();
-//                                    httpClient.newCall(request).enqueue(new Callback() {
-//                                        @Override
-//                                        public void onFailure(Call call, IOException e) {
-//
-//                                        }
-//
-//                                        @Override
-//                                        public void onResponse(Call call, Response response) throws IOException {
-//                                            String s = response.body().toString();
-//                                            try {
-//                                                JSONObject object = new JSONObject(s);
-//                                                String msg = object.optString("msg");
-//                                                switch (msg) {
-//                                                    case "5"://未绑定平台
-//                                                        userRegisterBean.setUserType(((FinanceApplication) getApplication()).isPersonType);
-//                                                        WeiXinBindPhoneActivity.startWeiXinBindPhoneActivity(WXEntryActivity.this,userRegisterBean);
-//                                                        finish();
-//                                                        break;
-//                                                    case "1"://登录成功
-//                                                        String uid = object.optString("uid");
-//                                                        if(TextUtils.isEmpty(uid)) {
-//                                                            DBUtils.getUser(WXEntryActivity.this).setUserId(Long.parseLong(uid));
-//                                                            AppState.instance().setSessionCode("" + uid);
-//                                                            Utils.Toast("登录成功!");
-//                                                        }
-//                                                        finish();
-//                                                        break;
-//                                                    case "2"://已注销
-//                                                        Utils.Toast("账户已注销");
-//                                                        break;
-//                                                    case "0"://账户已锁定
-//                                                        Utils.Toast("账户已锁定");
-//                                                        break;
-//                                                }
-//                                            } catch (JSONException e) {
-//                                                e.printStackTrace();
-//                                            }
-//                                        }
-//                                    });
-                                }
-
-
-//								{
-//									"access_token":"ACCESS_TOKEN",
-//										"expires_in":7200,
-//										"refresh_token":"REFRESH_TOKEN",
-//										"openid":"OPENID",
-//										"scope":"SCOPE",
-//										"unionid":"o6_bmasdasdsad6_2sgVt7hMZOPfL"
-//								}
+                                    }
+                                });
                             }
                         });
                         //就在这个地方，用网络库什么的或者自己封的网络api，发请求去咯，注意是get请求
@@ -250,6 +192,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
 
                     case RETURN_MSG_TYPE_SHARE:
                         Utils.Toast("微信分享成功");
+
                         finish();
                         break;
                 }
@@ -263,14 +206,15 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
             String msg = json.optString("msg");
             switch (msg) {
                 case "5"://未绑定平台
-                    userRegisterBean.setUserType(((FinanceApplication) getApplication()).isPersonType);
+                    userRegisterBean.setUserType(SharedPreferencesHelper.getInstance(this).getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, true));
                     WeiXinBindPhoneActivity.startWeiXinBindPhoneActivity(WXEntryActivity.this, userRegisterBean);
                     finish();
                     break;
                 case "1"://登录成功
+                    clearDB();
                     String uid = json.optString("uid");
-                    if (TextUtils.isEmpty(uid)) {
-                        AppState.instance().setSessionCode("" + uid);
+                    if (!TextUtils.isEmpty(uid)) {
+                        loginSucess(Long.parseLong(uid));
                         SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
                         String savedUid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID);
                         if (!TextUtils.isEmpty(uid) && !uid.equals(savedUid)) {
@@ -278,8 +222,12 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                         }
                         Utils.Toast("登录成功!");
                     }
-                    EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS));
-                    finish();
+                    FinanceApplication application = (FinanceApplication) getApplication();
+                    application.isLogin = true;
+                    SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, userRegisterBean.getUserType());
+                    getUser();
+                    httpService.getUserInfo();
+
                     break;
                 case "2"://已注销
                     Utils.Toast("账户已注销");
@@ -287,8 +235,162 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                 case "0"://账户已锁定
                     Utils.Toast("账户已锁定");
                     break;
+
             }
         }
+        if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
+            httpService.onGetUserInfo(json, user);
+
+            String message = json.optString("message");
+            if (!TextUtils.isEmpty(message) && message.contains("没有登陆")) {
+            } else {
+                String isNewUser = json.optString("isNewUser", "0");
+                boolean isNewUserBoolean = "1".equals(isNewUser) ? true : false;
+                SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_IS_NEW_USER, isNewUserBoolean);
+            }
+            int needUpdatePwd = json.optInt("needUpdatePwd", 0);//1就是需要修改密码
+            if (needUpdatePwd == 1) {
+                ((FinanceApplication) getApplication()).isNeedUpdatePwd = true;
+            }
+
+            if (user != null) {
+                if (dao != null && AppState.instance().logined()) {
+                    dao.insertOrReplace(user);
+                }
+                SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
+                String username = user.getUserName();
+                preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+                preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, username);
+                if (user != null) {
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID, "" + user.getId());
+                }
+                String uid = AppState.instance().getSessionCode();
+                String savedUid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID);
+                if (!TextUtils.isEmpty(uid) && !uid.equals(savedUid)) {
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
+                }
+
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                //清理login present标志
+                HttpService.clearPresentLoginFlag();
+                ((FinanceApplication) getApplication()).login = true;
+                startActivity(new Intent(this, LockSetupActivity.class));
+                EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS));
+                finish();
+            }
+        }
+        if (reqId == ServiceCmd.CmdId.CMD_WEIXIN_BIND.ordinal()) {//绑定微信
+            String msg = json.optString("msg");
+            switch (msg) {
+                case "0":
+                    Utils.Toast("账号被锁定");
+                    break;
+                case "1":
+                    Utils.Toast("绑定成功");
+                    EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_BIND_WEIXIN_SUCCESS_FROM_SETTING));
+                    finish();
+//                    Long uid = json.optLong("uid");
+//                    DBUtils.getUser(WXEntryActivity.this).setUserId(uid);
+//                    EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS));//微信登录成功
+//                    finish();
+                    break;
+//                case "2"://此用户为企业用户，不允许注册，请跳转到企业注册页面
+//                    Utils.Toast("请先注册");
+//                    userRegisterBean.setCaptcha(etCaptcha.getText().toString());
+//                    RegisterCompanyInfoActivity.goThis(this, userRegisterBean);
+//                    break;
+//                case "3"://手机号未注册，跳转设置密码,再调用接口
+//                    userRegisterBean.setCaptcha(etCaptcha.getText().toString());
+//                    LoginPasswordActivity.goThis(this, userRegisterBean);
+//                    break;
+//                case "4":
+//                    Utils.Toast("账号已注销");
+//                    break;
+//                case "5":
+//                    Utils.Toast("验证码不正确");
+//                    break;
+            }
+        }
+    }
+
+    public void loginSucess(long uid) {
+        AppState.instance().setSessionCode("" + uid);
+        User user = new User();
+        user.setUserId(uid);
+        user.setUserName("");
+        user.setRealName("");
+        user.setCellPhone("");
+        user.setUserpass("");
+        user.setIdentityCard("");
+        user.setCashBalance(0d);
+        user.setNetAsset(0d);
+        user.setFrozenAmtN(0d);
+        user.setPaying(0d);
+
+        user.setDBid(0d);
+        user.setDSum(0d);
+        user.setInvest(0d);
+        user.setPreIncome(0d);
+        user.setHasTradePassword(false);
+
+        DaoMaster.DevOpenHelper dbHelper;
+        SQLiteDatabase db;
+        DaoMaster daoMaster;
+        DaoSession daoSession;
+        UserDao dao;
+
+        dbHelper = new DaoMaster.DevOpenHelper(WXEntryActivity.this, Config.DB_NAME, null);
+        db = dbHelper.getWritableDatabase();
+        daoMaster = new DaoMaster(db);
+        daoSession = daoMaster.newSession();
+        dao = daoSession.getUserDao();
+
+        if (dao != null) {
+            QueryBuilder<User> qb = dao.queryBuilder();
+            qb.buildDelete().executeDeleteWithoutDetachingEntities();
+            dao.insertInTx(user);
+            db.close();
+        }
+    }
+
+    public void getUser() {
+        DaoMaster.DevOpenHelper dbHelper;
+        SQLiteDatabase db;
+        DaoMaster daoMaster;
+        DaoSession daoSession;
+
+        if (dao == null) {
+            dbHelper = new DaoMaster.DevOpenHelper(this, Config.DB_NAME, null);
+            db = dbHelper.getWritableDatabase();
+            daoMaster = new DaoMaster(db);
+            daoSession = daoMaster.newSession();
+            dao = daoSession.getUserDao();
+        }
+
+        if (dao != null) {
+            QueryBuilder<User> qb = dao.queryBuilder();
+            List<User> userList = qb.list();
+            if (userList != null && userList.size() > 0) {
+                user = userList.get(0);
+            }
+        }
+    }
+
+    private void clearDB() {
+        DaoMaster.DevOpenHelper dbHelper;
+        SQLiteDatabase db;
+        DaoMaster daoMaster;
+        DaoSession daoSession;
+        BankCardDao bankDao;
+
+        dbHelper = new DaoMaster.DevOpenHelper(this, Config.DB_NAME, null);
+        db = dbHelper.getWritableDatabase();
+        daoMaster = new DaoMaster(db);
+        daoSession = daoMaster.newSession();
+        bankDao = daoSession.getBankCardDao();
+        bankDao.deleteAll();
+        daoSession.getUserDao().deleteAll();
     }
 
     @Override

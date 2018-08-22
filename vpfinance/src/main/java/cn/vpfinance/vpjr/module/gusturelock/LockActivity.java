@@ -1,6 +1,7 @@
 package cn.vpfinance.vpjr.module.gusturelock;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -29,6 +30,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.greendao.BankCardDao;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
@@ -62,6 +64,7 @@ public class LockActivity extends Activity implements
     private List<LockPatternView.Cell> lockPattern;
     private LockPatternView lockPatternView;
     private TextView tip;
+    private boolean isPersonType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +86,7 @@ public class LockActivity extends Activity implements
         saved_name = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME);
         saved_uid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID);
         saved_logPwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD);
-
+        isPersonType = preferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, true);
         if (TextUtils.isEmpty(saved_uid) || TextUtils.isEmpty(saved_logPwd))
         {
             autoLogin = false;
@@ -141,9 +144,16 @@ public class LockActivity extends Activity implements
                 @Override
                 public void onHttpSuccess(int reqId, JSONObject json) {
                     if (json == null || isFinishing() || Common.isForceLogout(LockActivity.this,json)) return;
-                    if (reqId == ServiceCmd.CmdId.CMD_userLogin.ordinal()) {
+                    if (reqId == ServiceCmd.CmdId.CMD_userLogin.ordinal() || reqId == ServiceCmd.CmdId.CMD_enterpriseUserLogin.ordinal()) {
                         String msg = mHttpService.onUserLogin(LockActivity.this,json);
-                        if(!msg.equals("")) {
+                        if (msg.equals("3")) {
+                            if (isPersonType) {
+                                Utils.Toast(LockActivity.this, "企业用户请切换企业登录模式");
+                            } else {
+                                Utils.Toast(LockActivity.this, "个人用户请切换个人登录模式");
+                            }
+                            return;
+                        }else if(!msg.equals("")) {
                             Utils.Toast(LockActivity.this, msg);
                         }
                         else
@@ -226,7 +236,11 @@ public class LockActivity extends Activity implements
             }
             if(autoLogin)
             {
-                mHttpService.userLogin(saved_name, saved_logPwd);
+                if(isPersonType) {
+                    mHttpService.userLogin(saved_name, saved_logPwd);
+                }else {
+                    mHttpService.enterpriseUserLogin(saved_name, saved_logPwd);
+                }
             }
             else
             {

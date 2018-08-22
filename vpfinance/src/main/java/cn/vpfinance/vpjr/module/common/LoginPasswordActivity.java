@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class LoginPasswordActivity extends BaseActivity {
     EditTextWithDel etFirstPwd;
     @Bind(R.id.tv_psd_level)
     TextView tvPsdLevel;
+
     @Bind(R.id.et_second_pwd)
     EditTextWithDel etSecondPwd;
     @Bind(R.id.btn_regiter)
@@ -81,9 +83,9 @@ public class LoginPasswordActivity extends BaseActivity {
         super.initView();
         titleBar.setTitle("设置密码").setHeadBackVisible(View.VISIBLE);
         userRegisterBean = (UserRegisterBean) getIntent().getSerializableExtra("userRegisterBean");
-        if(userRegisterBean.getPwdSetType() == 1) {//注册密码
+        if (userRegisterBean.getPwdSetType() == 1) {//注册密码
             btnRegiter.setText("注册完成");
-        }else {//(忘记密码)重置密码
+        } else {//(忘记密码)重置密码
             btnRegiter.setText("完成");
         }
         etFirstPwd.addTextChangedListener(new TextWatcher() {
@@ -121,6 +123,10 @@ public class LoginPasswordActivity extends BaseActivity {
             Utils.Toast("两次密码输入不一致");
             return;
         }
+        if (firstPassword.length() < 6) {
+            Utils.Toast("密码必须大于6位");
+            return;
+        }
         String passwordPassMsg = Common.isPasswordPass(firstPassword);
         if (!TextUtils.isEmpty(passwordPassMsg)) {
             Utils.Toast(passwordPassMsg);
@@ -128,31 +134,35 @@ public class LoginPasswordActivity extends BaseActivity {
         }
         String uPwd = etFirstPwd.getText().toString();
         if (null != userRegisterBean) {//完成注册请求
-            if(userRegisterBean.getPwdSetType() == 1) {//是注册
-                if(userRegisterBean.getIsFromWeixin()) {//是微信注册,调用微信注册接口
-                    if(userRegisterBean.getUserType()) {
-                        httpService.weixinRegiter(userRegisterBean.getUnionid(),userRegisterBean.getOpenid(),"1",
-                                userRegisterBean.getPhoneNum(),userRegisterBean.getCaptcha(),etFirstPwd.getText().toString(),"1");
-                    }else {
-                        httpService.weixinRegiter(userRegisterBean.getUnionid(),userRegisterBean.getOpenid(),"2",
-                                userRegisterBean.getPhoneNum(),userRegisterBean.getCaptcha(),etFirstPwd.getText().toString(),"1");
+            if (userRegisterBean.getPwdSetType() == 1) {//是注册
+                if (userRegisterBean.getIsFromWeixin()) {//是微信注册,调用微信注册接口
+                    if (userRegisterBean.getUserType()) {
+                        httpService.weixinRegiter(userRegisterBean.getUnionid(), userRegisterBean.getOpenid(), "1",
+                                userRegisterBean.getPhoneNum(), userRegisterBean.getCaptcha(), etFirstPwd.getText().toString(), "1");
+                    } else {
+                        httpService.weixinRegiter(userRegisterBean.getUnionid(), userRegisterBean.getOpenid(), "2",
+                                userRegisterBean.getPhoneNum(), userRegisterBean.getCaptcha(), etFirstPwd.getText().toString(), "1");
                     }
-                }else {//是普通注册
-                    httpService.userRegister(userRegisterBean.getReferrerNum(), userRegisterBean.getPhoneNum(),
-                            Utils.md5encodeNew(uPwd), userRegisterBean.getPhoneNum(), userRegisterBean.getCaptcha());
+                } else {//是普通注册
+                    if (userRegisterBean.getUserType()) {//个人注册
+                        httpService.userRegister(userRegisterBean.getReferrerNum(), userRegisterBean.getPhoneNum(),
+                                Utils.md5encodeNew(uPwd), userRegisterBean.getPhoneNum(), userRegisterBean.getCaptcha());
+                    } else {//企业注册
+                        httpService.companyRegister(userRegisterBean.getEmail(), Utils.md5encodeNew(uPwd), userRegisterBean.getCaptcha(), userRegisterBean.getCompanyName()
+                                , userRegisterBean.getCompanyCreditCode(), userRegisterBean.getCompanyLegal(), userRegisterBean.getCompanyAddress(), userRegisterBean.getPhoneNum());
+                    }
                 }
-            }else {//是重置密码
-                if(userRegisterBean.getUserType()) {
-                    httpService.resetPwdPerson(userRegisterBean.getPhoneNum(),Utils.md5encodeNew(uPwd),userRegisterBean.getCaptcha());
-                }else {
-                    httpService.resetPwdCompany(userRegisterBean.getEmail(),Utils.md5encodeNew(uPwd),userRegisterBean.getCaptcha());
+            } else {//是重置密码
+                if (userRegisterBean.getUserType()) {
+                    httpService.resetPwdPerson(userRegisterBean.getPhoneNum(), Utils.md5encodeNew(uPwd), userRegisterBean.getCaptcha());
+                } else {
+                    httpService.resetPwdCompany(userRegisterBean.getEmail(), Utils.md5encodeNew(uPwd), userRegisterBean.getCaptcha());
                 }
             }
         }
     }
 
     public void getUser() {
-        clearDB();
         DaoMaster.DevOpenHelper dbHelper;
         SQLiteDatabase db;
         DaoMaster daoMaster;
@@ -195,7 +205,7 @@ public class LoginPasswordActivity extends BaseActivity {
     public void onHttpSuccess(int reqId, JSONObject json) {
         super.onHttpSuccess(reqId, json);
         if (null != json) {
-            if(reqId == ServiceCmd.CmdId.CMD_userRegister.ordinal()) {
+            if (reqId == ServiceCmd.CmdId.CMD_userRegister.ordinal()) {
                 String msg = json.optString("msg");
                 switch (msg) {
                     case "0":
@@ -203,15 +213,12 @@ public class LoginPasswordActivity extends BaseActivity {
                         break;
                     case "1":
                         Utils.Toast("注册成功");
-                        EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_REGISTER_FINISH));
-                        //跳转手势密码
-                        FinanceApplication application = (FinanceApplication) getApplication();
-                        application.isLogin = true;
-                        //登录成功保存是否是个人账户
-                        application.isPersonType = userRegisterBean.getUserType();
-                        httpService.getUserInfo();
-                        getUser();
-                        finish();
+                        clearDB();
+                        if (userRegisterBean.getUserType()) {//个人用户
+                            httpService.userLogin(userRegisterBean.getPhoneNum(), Utils.md5encodeNew(etFirstPwd.getText().toString()));
+                        } else {//企业用户
+                            httpService.enterpriseUserLogin(userRegisterBean.getEmail(), Utils.md5encodeNew(etFirstPwd.getText().toString()));
+                        }
                         break;
                     case "2":
                         break;
@@ -223,7 +230,7 @@ public class LoginPasswordActivity extends BaseActivity {
                         break;
                 }
             }
-            if(reqId == ServiceCmd.CmdId.CMD_WEIXIN_REGISTER.ordinal()) {
+            if (reqId == ServiceCmd.CmdId.CMD_WEIXIN_REGISTER.ordinal()) {
                 String msg = json.optString("msg");
                 switch (msg) {
                     case "0":
@@ -231,16 +238,12 @@ public class LoginPasswordActivity extends BaseActivity {
                         break;
                     case "1":
                         Utils.Toast("注册成功");
-                        EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_REGISTER_SUCCESS));
-                        finish();
-                        //跳转手势密码
-                        FinanceApplication application = (FinanceApplication) getApplication();
-                        application.isLogin = true;
-                        //登录成功保存是否是个人账户
-                        application.isPersonType = userRegisterBean.getUserType();
-                        httpService.getUserInfo();
-                        getUser();
-                        finish();
+                        clearDB();
+                        if (userRegisterBean.getUserType()) {//个人用户
+                            httpService.userLogin(userRegisterBean.getPhoneNum(), Utils.md5encodeNew(etFirstPwd.getText().toString()));
+                        } else {//企业用户
+                            httpService.enterpriseUserLogin(userRegisterBean.getEmail(), Utils.md5encodeNew(etFirstPwd.getText().toString()));
+                        }
                         break;
                     case "2":
                         Utils.Toast("注册出现错误");
@@ -256,7 +259,7 @@ public class LoginPasswordActivity extends BaseActivity {
                         break;
                 }
             }
-            if(reqId == ServiceCmd.CmdId.CMD_RESET_PWD_PERSON.ordinal() || reqId == ServiceCmd.CmdId.CMD_RESET_PWD_COMPANY.ordinal()) {//个人重置
+            if (reqId == ServiceCmd.CmdId.CMD_RESET_PWD_PERSON.ordinal() || reqId == ServiceCmd.CmdId.CMD_RESET_PWD_COMPANY.ordinal()) {//个人重置
                 String msg = json.optString("msg");
                 switch (msg) {
                     case "0":
@@ -278,7 +281,7 @@ public class LoginPasswordActivity extends BaseActivity {
                         break;
                 }
             }
-            if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal() && (!isFinishing())) {
+            if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
                 httpService.onGetUserInfo(json, user);
 
                 String message = json.optString("message");
@@ -319,9 +322,51 @@ public class LoginPasswordActivity extends BaseActivity {
                     HttpService.clearPresentLoginFlag();
                     ((FinanceApplication) getApplication()).login = true;
                     startActivity(new Intent(this, LockSetupActivity.class));
+                    if (userRegisterBean.getIsFromWeixin()) {
+                        EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_REGISTER_SUCCESS));
+                    } else {
+                        EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_REGISTER_FINISH));
+                    }
                     finish();
                 }
             }
+            if (reqId == ServiceCmd.CmdId.CMD_userLogin.ordinal() || reqId == ServiceCmd.CmdId.CMD_enterpriseUserLogin.ordinal()) {
+                String msg = httpService.onUserLogin(this, json);
+                if (!msg.equals("")) {
+                    Utils.Toast(this, msg);
+                    return;
+                } else if (msg.equals("3")) {
+                    if (userRegisterBean.getUserType()) {
+                        Utils.Toast(this, "企业用户请切换企业登录模式");
+                    } else {
+                        Utils.Toast(this, "个人用户请切换个人登录模式");
+                    }
+                } else {
+                    doLogin();
+                }
+            }
+            if(reqId == ServiceCmd.CmdId.CMD_COMPANY_REGISTER.ordinal()) {//企业注册
+                String status = json.optString("status");
+                if(!TextUtils.isEmpty(status)) {
+                    if("succ".equals(status)) {//成功
+                        Utils.Toast("注册成功!");
+                        String uid = json.optString("uid");
+                        httpService.enterpriseUserLogin(userRegisterBean.getEmail(), Utils.md5encodeNew(etFirstPwd.getText().toString()));
+                    } else {//失败
+                        String info = json.optString("info");
+                        Utils.Toast(info);
+                    }
+                }
+            }
         }
+    }
+
+    private void doLogin() {
+        FinanceApplication application = (FinanceApplication) getApplication();
+        application.isLogin = true;
+        //登录成功保存是否是个人账户
+        SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, userRegisterBean.getUserType());
+        httpService.getUserInfo();
+        getUser();
     }
 }

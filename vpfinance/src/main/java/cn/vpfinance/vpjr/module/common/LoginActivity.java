@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -66,14 +67,18 @@ public class LoginActivity extends BaseActivity {
     ImageButton ibWeiXinLogin;
     @Bind(R.id.scroll_view_container)
     ScrollView scrollViewContainer;
+    @Bind(R.id.ll_acitvity)
+    LinearLayout llAcitvity;
+    @Bind(R.id.iv_logo)
+    ImageView ivLogo;
 
-    private boolean isPersonType = true;
 
     private HttpService mHttpService;
     private UserDao dao = null;
     private User user;
     private String username;
     private String password;
+    private boolean isPersonType;
 
 
     @Override
@@ -83,6 +88,7 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+        isPersonType = SharedPreferencesHelper.getInstance(this).getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, true);
         resetSv();
         mHttpService = new HttpService(this, this);
 
@@ -100,8 +106,17 @@ public class LoginActivity extends BaseActivity {
                         changeUserType();
                     }
                 });
-
-
+        if (isPersonType) {//个人用户
+            titleBar.setTitle("登录");
+            tvRegister.setText("立即注册");
+            etUsername.setHint("请输入用户名/手机号");
+            titleBar.setActionRight("企业用户");
+        } else {//企业用户
+            titleBar.setTitle("企业登录");
+            tvRegister.setText("企业注册");
+            etUsername.setHint("请输入企业名称/邮箱");
+            titleBar.setActionRight("个人用户");
+        }
         SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
         String name = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME);
         etUsername.setText(name);
@@ -109,6 +124,17 @@ public class LoginActivity extends BaseActivity {
         if (!TextUtils.isEmpty(name)) {
             etUsername.setSelection(name.length());
         }
+        etUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                scrollViewContainer.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollViewContainer.smoothScrollTo(0, ivLogo.getBottom());
+                    }
+                }, 500);
+            }
+        });
     }
 
     /**
@@ -135,8 +161,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void changeUserType() {
+
         isPersonType = !isPersonType;
-        ((FinanceApplication) getApplication()).isPersonType = isPersonType;//保存登录类型,微信登录时调用
         if (isPersonType) {//个人用户
             titleBar.setTitle("登录");
             tvRegister.setText("立即注册");
@@ -148,6 +174,7 @@ public class LoginActivity extends BaseActivity {
             etUsername.setHint("请输入企业名称/邮箱");
             titleBar.setActionRight("个人用户");
         }
+        SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, isPersonType);
     }
 
     @Override
@@ -170,6 +197,12 @@ public class LoginActivity extends BaseActivity {
 
     public void onEventMainThread(EventStringModel event) {
         if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS)) {//微信登录成功
+            finish();
+        }
+        if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_REGISTER_FINISH)) {//注册成功
+            finish();
+        }
+        if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_WEIXIN_REGISTER_SUCCESS)) {//微信注册成功
             finish();
         }
     }
@@ -217,6 +250,8 @@ public class LoginActivity extends BaseActivity {
                     Utils.Toast("您还未安装微信客户端");
                     return;
                 }
+                SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
+                preferencesHelper.putBooleanValue(SharedPreferencesHelper.KEY_WX_BIND_IS_FROM_SETTING,false);
                 final SendAuth.Req req = new SendAuth.Req();
                 req.scope = "snsapi_userinfo";
                 req.state = "diandi_wx_login";
@@ -318,23 +353,23 @@ public class LoginActivity extends BaseActivity {
                 finish();
             }
         }
-        if (req == ServiceCmd.CmdId.CMD_userLogin.ordinal() && (!isFinishing())) {
+        if (req == ServiceCmd.CmdId.CMD_userLogin.ordinal() || req == ServiceCmd.CmdId.CMD_enterpriseUserLogin.ordinal() && (!isFinishing())) {
             String msg = mHttpService.onUserLogin(this, json);
-            if (!msg.equals("")) {
+            if (msg.equals("3")) {
+                if (isPersonType) {
+                    Utils.Toast(this, "企业用户请切换企业登录模式");
+                } else {
+                    Utils.Toast(this, "个人用户请切换个人登录模式");
+                }
+                return;
+            } else if (!msg.equals("")) {
                 Utils.Toast(this, msg);
                 findViewById(R.id.btnLogin).setEnabled(true);
                 return;
-            } else if (msg.equals("3")) {
-                if (isPersonType) {
-                    Utils.Toast(this, "用户类型与登录入口不匹配,个人用户请切换个人登录模式");
-                } else {
-                    Utils.Toast(this, "用户类型与登录入口不匹配,企业用户请切换企业登录模式");
-                }
             } else {
                 FinanceApplication application = (FinanceApplication) getApplication();
                 application.isLogin = true;
-                //登录成功保存是否是个人账户
-                application.isPersonType = isPersonType;
+                SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, isPersonType);
                 mHttpService.getUserInfo();
                 getUser();
             }

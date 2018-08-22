@@ -69,7 +69,7 @@ public class ForgetLoginPasswordActivity extends BaseActivity {
         }
 
         if (isPersonType) {
-            etUsername.setHint("请输入用户名/手机号");
+            etUsername.setHint("请输入手机号");
         } else {
             etUsername.setHint("请输入企业名称/邮箱");
         }
@@ -96,7 +96,11 @@ public class ForgetLoginPasswordActivity extends BaseActivity {
                     }
 //                    mHttpService.getCheckCaptchaImage(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "",
 //                             etUsername.getText().toString(),"1");
-                    mHttpService.getVerifyImageCode(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "1", "1");
+                    if(isPersonType) {
+                        mHttpService.getVerifyImageCode(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "1", "1");
+                    }else {
+                        mHttpService.getVerifyImageCode(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "1", "2");
+                    }
                 } else {//企业
                     if (TextUtils.isEmpty(etUsername.getText().toString())) {
                         Utils.Toast("邮箱不能为空");

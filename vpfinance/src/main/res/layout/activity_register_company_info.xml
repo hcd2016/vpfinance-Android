@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
     <com.jewelcredit.ui.widget.ActionBarWhiteLayout
@@ -28,7 +30,7 @@
 
     <cn.vpfinance.vpjr.view.EditTextWithDel
         android:id="@+id/et_company_name"
-        style="@style/SampleNumberEditStyle"
+        style="@style/SampleEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginTop="25dp"
@@ -43,19 +45,20 @@
 
     <cn.vpfinance.vpjr.view.EditTextWithDel
         android:id="@+id/et_credit_num"
-        style="@style/SampleNumberEditStyle"
+        style="@style/SampleEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:drawablePadding="10dp"
+        app:maxLength="18"
         android:drawableLeft="@drawable/register_company_code"
         android:hint="请输入18位统一社会信用代码"/>
 
     <cn.vpfinance.vpjr.view.EditTextWithDel
         android:id="@+id/et_legal_name"
-        style="@style/SampleNumberEditStyle"
+        style="@style/SampleEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginTop="15dp"
@@ -67,7 +70,7 @@
 
     <cn.vpfinance.vpjr.view.EditTextWithDel
         android:id="@+id/et_company_address"
-        style="@style/SampleNumberEditStyle"
+        style="@style/SampleEditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginTop="15dp"

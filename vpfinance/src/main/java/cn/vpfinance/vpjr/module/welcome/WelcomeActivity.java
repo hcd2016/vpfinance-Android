@@ -139,11 +139,12 @@ public class WelcomeActivity extends BaseActivity {
 
 	@Override
 	public void onHttpSuccess(int req, JSONObject json) {
-		if (!isHttpHandle(json)) return;
+//		if (!isHttpHandle(json)) return;
 		if (req == ServiceCmd.CmdId.CMD_GUIDE_PAGE.ordinal()) {
 			boolean success = json.optBoolean("success", false);
 			//Log.e("Wel","success:" + success);
 			if(success) {
+				btnGoEvent.setVisibility(View.VISIBLE);
 				JSONArray banners = json.optJSONArray("banners");
 				if(banners!=null && banners.length()>0){
 					JSONObject ban = banners.optJSONObject(0);
@@ -152,6 +153,8 @@ public class WelcomeActivity extends BaseActivity {
 						ImageLoader.getInstance().displayImage(imgUrl, mSplashImage, imageOptions);
 					}
 				}
+			}else {
+				btnGoEvent.setVisibility(View.GONE);
 			}
 		}
 	}

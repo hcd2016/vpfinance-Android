@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -159,22 +160,40 @@ public class RegisterActivity extends BaseActivity {
 
     private void doCheckCaptchaImage() {
         String registerPhone = etPhone.getText().toString().trim();
+        String etEmailText = etEmail.getText().toString().trim();
         String recommendPhone = etRecommendPhone.getText().toString().trim();
         String imageCaptcha = etImageCaptcha.getText().toString();
+        String etCompanyPhoneText = etCompanyPhone.getText().toString();
 
-        if ("".equals(registerPhone)) {
-            Utils.Toast(this, "手机号不能为空!");
-            return;
-        }
-        if (!Utils.isMobile(registerPhone)) {
-            Utils.Toast(this, "手机号格式不正确!");
-            return;
+        if(isPersonType) {
+            if (TextUtils.isEmpty(registerPhone)) {
+                Utils.Toast(this, "手机号不能为空!");
+                return;
+            }
+            if (!Utils.isMobile(registerPhone)) {
+                Utils.Toast(this, "手机号格式不正确!");
+                return;
+            }
+        }else {
+            if(!Utils.checkEmail(etEmailText)) {
+                Utils.Toast(this, "邮箱格式不正确!");
+                return;
+            }
+            if(!Utils.isMobile(etCompanyPhoneText)) {
+                Utils.Toast(this, "手机号格式不正确!");
+                return;
+            }
         }
         if ("".equals(imageCaptcha)) {
             Utils.Toast(this, "图形验证码不能为空!");
             return;
         }
-        mHttpService.getCheckCaptchaImage(imageCaptcha, registerPhone, recommendPhone, registerPhone, "1");
+        if(isPersonType) {
+            mHttpService.getCheckCaptchaImage(imageCaptcha, registerPhone, recommendPhone, registerPhone, "1");
+        }else {
+            mHttpService.getCheckCaptchaImage(imageCaptcha, etCompanyPhoneText, recommendPhone, etEmailText, "1");
+        }
+
 
 //        Md5Algorithm md5 = Md5Algorithm.getInstance();
 //        rsaPassword = md5.md5Digest((rsaPassword + HttpService.LOG_KEY).getBytes());
@@ -222,9 +241,14 @@ public class RegisterActivity extends BaseActivity {
                     break;
                 case "6"://校验成功
                     UserRegisterBean userRegisterBean = new UserRegisterBean();
-                    userRegisterBean.setPhoneNum(etPhone.getText().toString());
-                    userRegisterBean.setReferrerNum(etRecommendPhone.getText().toString());
                     userRegisterBean.setUserType(isPersonType);
+                    if(userRegisterBean.getUserType()) {
+                        userRegisterBean.setPhoneNum(etPhone.getText().toString());
+                    }else {
+                        userRegisterBean.setPhoneNum(etCompanyPhone.getText().toString());
+                        userRegisterBean.setEmail(etEmail.getText().toString());
+                    }
+                    userRegisterBean.setReferrerNum(etRecommendPhone.getText().toString());
                     CaptchaActivity.goThis(this, userRegisterBean);
                     break;
                 case "7":

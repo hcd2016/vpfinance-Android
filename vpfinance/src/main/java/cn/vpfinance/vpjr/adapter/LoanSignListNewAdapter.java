@@ -320,11 +320,11 @@ public class LoanSignListNewAdapter extends BaseAdapter{
                     }
 
                     if (typeList == Constant.TYPE_REGULAR || typeList == Constant.TYPE_BANK){
-                        if (loansign.product == 4){//银行存管
-                            holder.bankAccountStatus.setVisibility(View.VISIBLE);
-                        }else{
-                            holder.bankAccountStatus.setVisibility(View.GONE);
-                        }
+//                        if (loansign.product == 4){//银行存管
+//                            holder.bankAccountStatus.setVisibility(View.VISIBLE);
+//                        }else{
+//                            holder.bankAccountStatus.setVisibility(View.GONE);
+//                        }
                         if (loansign.loanType == 2){
                             holder.tvTerm.setText(loansign.month + "天");
                         }else{
@@ -347,7 +347,7 @@ public class LoanSignListNewAdapter extends BaseAdapter{
                     }else if (typeList == Constant.TYPE_TRANSFER){
                         holder.tvMonthInfo.setText("剩余期限");
                         holder.tvTotalMoneyInfo.setText("转让总额");
-                        holder.bankAccountStatus.setVisibility(View.GONE);
+//                        holder.bankAccountStatus.setVisibility(View.GONE);
                         if (loansign.loanType == 6 && loansign.refundWay == 3){
                             holder.tvTerm.setText(loansign.month + "天");
                         }else{
@@ -494,7 +494,7 @@ public class LoanSignListNewAdapter extends BaseAdapter{
         private TextView tvMonthInfo;
         private TextView tvTotalMoneyInfo;
 
-        private TextView bankAccountStatus;
+//        private TextView bankAccountStatus;
         private TextView tvName;
         private TextView tvRate;
         private TextView tv_rate_des;

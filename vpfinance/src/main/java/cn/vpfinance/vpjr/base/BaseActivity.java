@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.jewelcredit.util.KeybordUtil;
 import com.jewelcredit.util.TitleBar;
 import com.jewelcredit.util.Utils;
 import com.tdk.utils.HttpDownloader;
@@ -77,6 +78,9 @@ public class BaseActivity extends FragmentActivity implements HttpDownloader.Htt
 		HttpDownloader.mClient.cancelRequests(this, true);
 		super.onDestroy();
 //		ImageLoader.getInstance().stop();
+//		if(KeybordUtil.isSoftInputShow(this)) {
+//			KeybordUtil.closeKeybord(this.getCurrentFocus(),this);
+//		}
 	}
 	
     public void onHttpSuccess(int reqId, JSONObject json) {

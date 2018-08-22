@@ -60,6 +60,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.FinanceApplication;
@@ -763,6 +764,18 @@ public class Utils {
         DisplayMetrics outMetrics = new DisplayMetrics();
         window.getDefaultDisplay().getMetrics(outMetrics);
         return outMetrics.heightPixels;
+    }
+
+
+    /**
+     * 验证Email
+     *
+     * @param email email地址，格式：zhangsan@zuidaima.com，zhangsan@xxx.com.cn，xxx代表邮件服务商
+     * @return 验证成功返回true，验证失败返回false
+     */
+    public static boolean checkEmail(String email) {
+        String regex = "\\w+@\\w+\\.[a-z]+(\\.[a-z]+)?";
+        return Pattern.matches(regex, email);
     }
 
 //    /**

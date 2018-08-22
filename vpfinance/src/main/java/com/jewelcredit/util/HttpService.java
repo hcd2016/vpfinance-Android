@@ -333,7 +333,7 @@ public class HttpService {
 
         params.put("userName", userName);
         params.put("pwd", userPsw);
-        params.put("TYPE", "android");
+        params.put("TYPE", "1");
 
         httpClient.setTips("登录中");
         return httpClient.doPost(url, params, cmdId.ordinal(), false, true);
@@ -421,6 +421,9 @@ public class HttpService {
                     } else {//该账户已被锁定，请xx分钟后再试
                         msg = "该账户已被锁定, 请" + (lockTime / 1000 / 60) + "分钟后再试";
                     }
+                    break;
+                case 3:
+                    msg = "3";
                     break;
                 default:
                     break;
@@ -6081,8 +6084,9 @@ Type	Int	Banner类型	1. 链接  2.产品
 
     /**
      * 微信登录时绑定微信
+     * @param scenes   区分场景  用户在个人设置中心绑定时传 1
      */
-    public boolean bindWEIXIN(String unionid, String openid, String type, String account, String smsCode) {
+    public boolean bindWEIXIN(String unionid, String openid, String type, String account, String smsCode,String scenes) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_WEIXIN_BIND;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
@@ -6092,6 +6096,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         param.put("type", type);
         param.put("account", account);
         param.put("smsCode", smsCode);
+        param.put("scenes", scenes);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
     /**
@@ -6174,5 +6179,39 @@ Type	Int	Banner类型	1. 链接  2.产品
         Map<String, String> param = new ArrayMap<String, String>();
         param.put("userId", userId);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 企业注册
+     * @param userName 注意,此userName指企业名称
+     */
+    public boolean companyRegister(String email,String password,String code,String userName,String orgCode,String legalPerson,String address,String phone) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_COMPANY_REGISTER;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("email", email);
+        param.put("password", password);
+        param.put("code", code);
+        param.put("userName", userName);
+        param.put("orgCode", orgCode);
+        param.put("legalPerson", legalPerson);
+        param.put("address", address);
+        param.put("phone", phone);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+
+    /**
+     * 微信access_token
+     *
+     */
+    public boolean wxAccessToken(String url,String appid,String secret,String code,String grant_type) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_WEIXIN_ACCESS_TOKEN;
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("appid",appid);
+        param.put("secret",secret);
+        param.put("code",code);
+        param.put("grant_type",grant_type);
+        return httpClient.doGet(url,param,cmdId.ordinal(),false);
     }
 }

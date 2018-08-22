@@ -178,7 +178,9 @@ public class ServiceCmd {
         CMD_RESET_PWD_PERSON,//(个人)(忘记密码)重置密码
         CMD_RESET_PWD_COMPANY,//(企业)(忘记密码)重置密码
         CMD_CHANGE_COMPANY_PHONE,//修改经办人手机号
-        CMD_WEIXIN_UNBIND//解绑微信
+        CMD_WEIXIN_UNBIND,//解绑微信
+        CMD_COMPANY_REGISTER,//企业注册
+        CMD_WEIXIN_ACCESS_TOKEN//微信access_token,不取这的url
     }
 
     public static String[] methods = {
@@ -357,7 +359,9 @@ public class ServiceCmd {
             "appupdate_info/reset_pwd",//(个人)(忘记密码)重置密码
             "appupdate_info/companyResetPwd",//(企业)(忘记密码)重置密码
             "appupdate_info/changeManagerPhone",//修改经办人手机号
-            "AppWx/unbindWx"//解绑微信
+            "AppWx/unbindWx",//解绑微信
+            "Appregister/companyRegist",//企业注册
+            "https://api.weixin.qq.com/sns/oauth2/access_token?"//微信access_token不取这的url
     };
 
     public static String getMethodName(CmdId methodId) {

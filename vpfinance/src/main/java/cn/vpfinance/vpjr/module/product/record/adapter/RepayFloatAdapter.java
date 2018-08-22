@@ -19,6 +19,6 @@ public class RepayFloatAdapter extends BaseQuickAdapter<RepayFloatModel.RepayPla
     @Override
     protected void convert(BaseViewHolder helper, RepayFloatModel.RepayPlansBean item) {
         helper.setText(R.id.tv_repay_time, item.getRepayDate())
-                .setText(R.id.tv_repay_amount, item.getCapitalAmount() + item.getPromitAmount());
+                .setText(R.id.tv_repay_amount, item.getCapitalAmount()+"+" + item.getPromitAmount()+"元");
     }
 }

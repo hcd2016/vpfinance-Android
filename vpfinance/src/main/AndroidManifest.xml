@@ -200,7 +200,7 @@
             android:name="cn.vpfinance.vpjr.module.common.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="cn.vpfinance.vpjr.module.setting.ResetLoginPswActivity"
             android:screenOrientation="portrait" />

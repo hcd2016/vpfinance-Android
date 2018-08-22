@@ -115,7 +115,7 @@ public class RepayFloatActivity extends BaseActivity {
         if ("4".equals(repayStatus)) {//已完成回款
             rlRealRepayDateContainer.setVisibility(View.VISIBLE);
             rlRealReayAmountContainer.setVisibility(View.VISIBLE);
-            tvRealRepayAmount.setText(repayFloatModel.getRepayMoney());
+            tvRealRepayAmount.setText(repayFloatModel.getRepayMoney()+"元");
             tvRealRepayDate.setText(repayFloatModel.getRepayDate());
         } else {
             rlRealRepayDateContainer.setVisibility(View.GONE);
@@ -123,10 +123,10 @@ public class RepayFloatActivity extends BaseActivity {
         }
 
         tvMostRepayAmount.setText(repayFloatModel.getMaxRepayMoney());
-        tvLastRepayDate.setText(repayFloatModel.getMaxRepayMoney());
+        tvLastRepayDate.setText(repayFloatModel.getLastRepayDate());
 
         //提示处理
-        String content = repayFloatModel.getFlowInvestReminder();
+        String content = repayFloatModel.getFlowInvestReminder()+"  了解详情>>";
         List<String> floatPercent = Utils.getFloatPercent(content);
         DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
         difColorTextStringBuilder.setContent(content);
@@ -137,22 +137,11 @@ public class RepayFloatActivity extends BaseActivity {
                 .setHighlightContent("了解详情>>", new MyClickableSpan() {
                     @Override
                     public void onClick(View widget) {
-//                        todo
-                        Utils.Toast("点击了了解详情");
+                        gotoWeb("/h5/help/floatProductTips?loanId="+getIntent().getStringExtra("loanId"),"");
                     }
                 })
                 .setTextView(tvWarningDesc)
                 .create();
-    }
-
-    /**
-     * 设置高亮提示内容
-     *
-     * @param mNewBaseInfoBean
-     */
-    private void setWarningContent(NewBaseInfoBean mNewBaseInfoBean) {
-        //        final String content = "该产品52.12%采用浮动计息36.85%方式，最大还款日40.50%期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>";
-
     }
 
     private void initHeaderView(RepayFloatAdapter adapter) {
@@ -166,10 +155,11 @@ public class RepayFloatActivity extends BaseActivity {
      * @param inRecordId  //投资记录id
      * @param repayStatus //回款 标状态 1未发布、2进行中、3回款中、4已完成
      */
-    public static void startRepayFloatActivity(Context context, String inRecordId, String repayStatus) {
+    public static void startRepayFloatActivity(Context context, String inRecordId, String repayStatus,String loanId) {
         Intent intent = new Intent(context, RepayFloatActivity.class);
         intent.putExtra("inRecordId", inRecordId);
         intent.putExtra("repayStatus", repayStatus);
+        intent.putExtra("loanId", loanId);
         context.startActivity(intent);
     }
 }

@@ -6,12 +6,12 @@ import java.io.Serializable;
  * 用于注册传递的UserBean
  */
 public class UserRegisterBean implements Serializable {
-    public boolean isPersonType;//是否是个人用户
+    public boolean isPersonType = true;//是否是个人用户
     public String phoneNum;//用户手机号
     public String referrerNum;//推荐人手机号
     public String uPwd;//用户密码
     public String captcha;//手机验证码
-    public int pwdSetType;//设置密码/重设密码类型 注册为1,重设为2
+    public int pwdSetType = 1;//设置密码/重设密码类型 注册为1,重设为2
     public String email;//邮箱
 
     public String getEmail() {
@@ -33,6 +33,48 @@ public class UserRegisterBean implements Serializable {
     public String unionid;
     public String access_token;
     public boolean isFromWeixin;//true为是微信流程
+    public boolean isClickWXFromSetting;//微信绑定点击来源,true为来自设置
+
+
+
+
+    //企业信息
+    public String companyName;//企业名称
+    public String companyCreditCode;//18位社会信用码
+    public String companyLegal;//企业法人
+    public String companyAddress;//企业地址
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getCompanyCreditCode() {
+        return companyCreditCode;
+    }
+
+    public void setCompanyCreditCode(String companyCreditCode) {
+        this.companyCreditCode = companyCreditCode;
+    }
+
+    public String getCompanyLegal() {
+        return companyLegal;
+    }
+
+    public void setCompanyLegal(String companyLegal) {
+        this.companyLegal = companyLegal;
+    }
+
+    public String getCompanyAddress() {
+        return companyAddress;
+    }
+
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
+    }
 
     public boolean getIsFromWeixin() {
         return isFromWeixin;
@@ -139,5 +181,14 @@ public class UserRegisterBean implements Serializable {
     public void setCaptcha(String captcha) {
         this.captcha = captcha;
     }
+
+    public boolean isClickWXFromSetting() {
+        return isClickWXFromSetting;
+    }
+
+    public void setClickWXFromSetting(boolean clickWXFromSetting) {
+        isClickWXFromSetting = clickWXFromSetting;
+    }
+
 
 }

@@ -42,6 +42,7 @@ public class RecordDetailBean {
     public int loanTypeNum;//1定期 2债权转让 3权益投资
     public int recordId;
     public int graceDays;//是否是浮动计息产品 >0为是
+    public String flowInvestReminder;//提示文案
 
     /**
      * title : 投资服务协议

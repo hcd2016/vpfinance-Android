@@ -2,6 +2,7 @@ package cn.vpfinance.vpjr.module.common;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
@@ -11,22 +12,36 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jewelcredit.ui.widget.ActionBarWhiteLayout;
+import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
+import cn.vpfinance.android.wxapi.WXEntryActivity;
+import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
+import cn.vpfinance.vpjr.greendao.BankCardDao;
+import cn.vpfinance.vpjr.greendao.DaoMaster;
+import cn.vpfinance.vpjr.greendao.DaoSession;
+import cn.vpfinance.vpjr.greendao.User;
+import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.gson.UserRegisterBean;
+import cn.vpfinance.vpjr.model.Config;
+import cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.FormatUtils;
+import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.view.VerificationCodeDialog;
+import de.greenrobot.dao.query.QueryBuilder;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -59,6 +74,8 @@ public class CaptchaActivity extends BaseActivity {
     private CountDownTimer voiceCountDownTimer;
     private HttpService mHttpService;
     private UserRegisterBean userRegisterBean;
+    private UserDao dao = null;
+    private User user;
 
     public static void goThis(Context context, UserRegisterBean userRegisterBean) {
         Intent intent = new Intent(context, CaptchaActivity.class);
@@ -82,6 +99,7 @@ public class CaptchaActivity extends BaseActivity {
             } else {
                 type = REGISTER_COMPANY;
             }
+
             phone = userRegisterBean.getPhoneNum();
         }
         initView();
@@ -97,7 +115,7 @@ public class CaptchaActivity extends BaseActivity {
         if (type == REGISTER_PERSON || type == FORGET_LOGIN_PASSWORD_PERSON) {//个人
             tvPhoneHint.setText("短信验证码已发送至您的手机 " + FormatUtils.hidePhone(phone));
         } else if (type == REGISTER_COMPANY || type == FORGET_LOGIN_PASSWORD_COMPANY) {//企业
-            tvPhoneHint.setText("短信验证码已发送至经办人手机 " + FormatUtils.hidePhone(phone));
+            tvPhoneHint.setText("短信验证码已发送至绑定手机 " + FormatUtils.hidePhone(phone));
         }
 //        startSms();3
     }
@@ -110,15 +128,15 @@ public class CaptchaActivity extends BaseActivity {
                 break;
             case R.id.btnGetCaptcha:
                 if ("获取验证码".equals(btnGetCaptcha.getText().toString())) {
-                    showDialog();
-                    mHttpService.getRegisterCaptchaSms(phone);
+                    showCodeDialog(1);
+//                    mHttpService.getRegisterCaptchaSms(phone);
                 } else {
                     Utils.Toast("请先稍等一下语音验证码");
                 }
                 break;
             case R.id.tvVoiceCaptcha:
                 if ("语音验证码".equals(tvVoiceCaptcha.getText().toString())) {
-                    startVoice();
+                    showCodeDialog(2);
                 } else {
                     Utils.Toast("请先稍等一下短信验证码");
                 }
@@ -174,9 +192,9 @@ public class CaptchaActivity extends BaseActivity {
                 if (null != userRegisterBean) {
                     if (userRegisterBean.getIsFromWeixin()) {//是微信绑定
                         if (userRegisterBean.getUserType()) {
-                            mHttpService.bindWEIXIN(userRegisterBean.getUnionid(), userRegisterBean.getOpenid(), "1", userRegisterBean.getPhoneNum(), etCaptcha.getText().toString());
+                            mHttpService.bindWEIXIN(userRegisterBean.getUnionid(), userRegisterBean.getOpenid(), "1", userRegisterBean.getPhoneNum(), etCaptcha.getText().toString(),"");
                         } else {
-                            mHttpService.bindWEIXIN(userRegisterBean.getUnionid(), userRegisterBean.getOpenid(), "2", userRegisterBean.getEmail(), etCaptcha.getText().toString());
+                            mHttpService.bindWEIXIN(userRegisterBean.getUnionid(), userRegisterBean.getOpenid(), "2", userRegisterBean.getEmail(), etCaptcha.getText().toString(),"");
                         }
                     } else {
                         userRegisterBean.setCaptcha(etCaptcha.getText().toString());
@@ -208,12 +226,26 @@ public class CaptchaActivity extends BaseActivity {
                 case "1":
                     Utils.Toast("登录成功");
                     Long uid = json.optLong("uid");
-                    DBUtils.getUser(CaptchaActivity.this).setUserId(uid);
-                    EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS));//微信登录成功
-                    finish();
+
+                    clearDB();
+                    if (null != uid && !TextUtils.isEmpty(uid+"")) {
+                        loginSucess(uid);
+                        SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
+                        String savedUid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID);
+                        if (!uid.equals(savedUid)) {
+                            preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid+"");
+                        }
+                        Utils.Toast("登录成功!");
+                    }
+                    FinanceApplication application = (FinanceApplication) getApplication();
+                    application.isLogin = true;
+                    SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, userRegisterBean.getUserType());
+                    getUser();
+                    mHttpService.getUserInfo();
                     break;
                 case "2"://此用户为企业用户，不允许注册，请跳转到企业注册页面
                     Utils.Toast("请先注册");
+                    userRegisterBean.setCaptcha(etCaptcha.getText().toString());
                     RegisterCompanyInfoActivity.goThis(this, userRegisterBean);
                     break;
                 case "3"://手机号未注册，跳转设置密码,再调用接口
@@ -228,6 +260,127 @@ public class CaptchaActivity extends BaseActivity {
                     break;
             }
         }
+        if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
+            mHttpService.onGetUserInfo(json, user);
+
+            String message = json.optString("message");
+            if (!TextUtils.isEmpty(message) && message.contains("没有登陆")) {
+            } else {
+                String isNewUser = json.optString("isNewUser", "0");
+                boolean isNewUserBoolean = "1".equals(isNewUser) ? true : false;
+                SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_IS_NEW_USER, isNewUserBoolean);
+            }
+            int needUpdatePwd = json.optInt("needUpdatePwd", 0);//1就是需要修改密码
+            if (needUpdatePwd == 1) {
+                ((FinanceApplication) getApplication()).isNeedUpdatePwd = true;
+            }
+
+            if (user != null) {
+                if (dao != null && AppState.instance().logined()) {
+                    dao.insertOrReplace(user);
+                }
+                SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
+                String username = user.getUserName();
+                preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+                preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, username);
+                if (user != null) {
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID, "" + user.getId());
+                }
+                String uid = AppState.instance().getSessionCode();
+                String savedUid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID);
+                if (!TextUtils.isEmpty(uid) && !uid.equals(savedUid)) {
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
+                }
+
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                //清理login present标志
+                HttpService.clearPresentLoginFlag();
+                ((FinanceApplication) getApplication()).login = true;
+                startActivity(new Intent(this, LockSetupActivity.class));
+                EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS));//微信登录成功
+                finish();
+            }
+        }
+    }
+
+    public void loginSucess(long uid) {
+        AppState.instance().setSessionCode("" + uid);
+        User user = new User();
+        user.setUserId(uid);
+        user.setUserName("");
+        user.setRealName("");
+        user.setCellPhone("");
+        user.setUserpass("");
+        user.setIdentityCard("");
+        user.setCashBalance(0d);
+        user.setNetAsset(0d);
+        user.setFrozenAmtN(0d);
+        user.setPaying(0d);
+
+        user.setDBid(0d);
+        user.setDSum(0d);
+        user.setInvest(0d);
+        user.setPreIncome(0d);
+        user.setHasTradePassword(false);
+
+        DaoMaster.DevOpenHelper dbHelper;
+        SQLiteDatabase db;
+        DaoMaster daoMaster;
+        DaoSession daoSession;
+        UserDao dao;
+
+        dbHelper = new DaoMaster.DevOpenHelper(CaptchaActivity.this, Config.DB_NAME, null);
+        db = dbHelper.getWritableDatabase();
+        daoMaster = new DaoMaster(db);
+        daoSession = daoMaster.newSession();
+        dao = daoSession.getUserDao();
+
+        if (dao != null) {
+            QueryBuilder<User> qb = dao.queryBuilder();
+            qb.buildDelete().executeDeleteWithoutDetachingEntities();
+            dao.insertInTx(user);
+            db.close();
+        }
+    }
+
+    public void getUser() {
+        DaoMaster.DevOpenHelper dbHelper;
+        SQLiteDatabase db;
+        DaoMaster daoMaster;
+        DaoSession daoSession;
+
+        if (dao == null) {
+            dbHelper = new DaoMaster.DevOpenHelper(this, Config.DB_NAME, null);
+            db = dbHelper.getWritableDatabase();
+            daoMaster = new DaoMaster(db);
+            daoSession = daoMaster.newSession();
+            dao = daoSession.getUserDao();
+        }
+
+        if (dao != null) {
+            QueryBuilder<User> qb = dao.queryBuilder();
+            List<User> userList = qb.list();
+            if (userList != null && userList.size() > 0) {
+                user = userList.get(0);
+            }
+        }
+    }
+
+    private void clearDB() {
+        DaoMaster.DevOpenHelper dbHelper;
+        SQLiteDatabase db;
+        DaoMaster daoMaster;
+        DaoSession daoSession;
+        BankCardDao bankDao;
+
+        dbHelper = new DaoMaster.DevOpenHelper(this, Config.DB_NAME, null);
+        db = dbHelper.getWritableDatabase();
+        daoMaster = new DaoMaster(db);
+        daoSession = daoMaster.newSession();
+        bankDao = daoSession.getBankCardDao();
+        bankDao.deleteAll();
+        daoSession.getUserDao().deleteAll();
     }
 
     private void startVoice() {
@@ -248,13 +401,17 @@ public class CaptchaActivity extends BaseActivity {
         voiceCountDownTimer.start();
     }
 
-    public void showDialog() {
-        VerificationCodeDialog codeDialog = VerificationCodeDialog.newInstance(phone, 1);
+    public void showCodeDialog(int codeType) {
+        VerificationCodeDialog codeDialog = VerificationCodeDialog.newInstance(phone, codeType,1);
         codeDialog.setSmsListener(new VerificationCodeDialog.SmsListener() {
             @Override
             public void smsStart(int type) {
 //                mHttpService.getVerifyCode(null, null, null, phone, null,"0");
-                startSms();
+                if(type == 1) {
+                    startSms();
+                }else {
+                    startVoice();
+                }
             }
         });
         codeDialog.show(getSupportFragmentManager(), "VerificationCodeDialog");
