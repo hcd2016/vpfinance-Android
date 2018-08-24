@@ -320,7 +320,7 @@ public class BankAccountFragment extends BaseFragment {
         tvUserName.setText("你好!" + mUserInfoBean.userName);
         tvOpenBankAccount.setText("1".equals(mUserInfoBean.isAutoTender) ? "已开启" : "未开启");
 
-        boolean isOpen = "1".equals(mUserInfoBean.isOpen) ? true : false;
+        isOpen = "1".equals(mUserInfoBean.isOpen) ? true : false;
 //            SharedPreferencesHelper.getInstance(mContext).putBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT,isOpen);
         mHeaderNoOpen.setVisibility(isOpen ? View.GONE : View.VISIBLE);
         mOpenContent.setVisibility(!isOpen ? View.GONE : View.VISIBLE);
@@ -370,6 +370,31 @@ public class BankAccountFragment extends BaseFragment {
         }
         if (!TextUtils.isEmpty(mUserInfoBean.isBindHxBank)) {
             ((FinanceApplication) getActivity().getApplication()).isBindBank = mUserInfoBean.isBindHxBank;
+        }
+
+        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(mContext);
+        isOpen = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT, false);
+        isBindBank = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_BIND_BANK, false);
+        if (!isOpen){
+            mHeaderNoOpen.setVisibility(View.VISIBLE);
+            mOpenContent.setVisibility(View.GONE);
+            noOpenHidden.setVisibility(View.GONE);
+            click_open_bank_account.setText("开通存管账户");
+            tvNoOpenHint.setText("为了保障您的资金安全 需先开通存管账户");
+            tvNoOpenHint2.setVisibility(View.VISIBLE);
+            tvNoOpenHint2.setText("开通后10分钟左右可以查看开通结果 请勿重复操作");
+
+        }else if (!isBindBank){
+            mHeaderNoOpen.setVisibility(View.VISIBLE);
+            mOpenContent.setVisibility(View.GONE);
+            noOpenHidden.setVisibility(View.GONE);
+            click_open_bank_account.setText("绑卡激活");
+            tvNoOpenHint.setText("开通了银行存管的用户 需绑定银行卡激活账户");
+            tvNoOpenHint2.setVisibility(View.GONE);
+        }else{
+            mHeaderNoOpen.setVisibility(View.GONE);
+            mOpenContent.setVisibility(View.VISIBLE);
+            noOpenHidden.setVisibility(View.VISIBLE);
         }
     }
 

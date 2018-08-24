@@ -1,6 +1,7 @@
 package com.jewelcredit.util;
 
 import android.app.DatePickerDialog;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -768,16 +769,37 @@ public class Utils {
 
 
     /**
-     * 验证Email
+     * 验证Email,不允许中文
      *
      * @param email email地址，格式：zhangsan@zuidaima.com，zhangsan@xxx.com.cn，xxx代表邮件服务商
      * @return 验证成功返回true，验证失败返回false
      */
     public static boolean checkEmail(String email) {
-        String regex = "\\w+@\\w+\\.[a-z]+(\\.[a-z]+)?";
+//        String regex = "\\w+@\\w+\\.[a-z]+(\\.[a-z]+)?";
+        String regex = "[^\\u4e00-\\u9fa5]+@[^\\u4e00-\\u9fa5]+\\.[a-z]+(\\.[a-z]+)?";
+//        String regex = "^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$";
         return Pattern.matches(regex, email);
     }
 
+    /**
+     * 验证Email,允许输入中文
+     *
+     * @param email email地址，格式：zhangsan@zuidaima.com，zhangsan@xxx.com.cn，xxx代表邮件服务商
+     * @return 验证成功返回true，验证失败返回false
+     */
+    public static boolean checkEmailChinese(String email) {
+        String regex = "\\w+@\\w+\\.[a-z]+(\\.[a-z]+)?";
+//        String regex = "[^\\u4e00-\\u9fa5]+@[^\\u4e00-\\u9fa5]+\\.[a-z]+(\\.[a-z]+)?";
+        return Pattern.matches(regex, email);
+    }
+
+
+    //复制
+    public static void copy(String content, Context context) {
+// 得到剪贴板管理器
+        ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(content.trim());
+    }
 //    /**
 //     * 开启本页
 //     */

@@ -138,10 +138,10 @@ public class LoginPasswordActivity extends BaseActivity {
                 if (userRegisterBean.getIsFromWeixin()) {//是微信注册,调用微信注册接口
                     if (userRegisterBean.getUserType()) {
                         httpService.weixinRegiter(userRegisterBean.getUnionid(), userRegisterBean.getOpenid(), "1",
-                                userRegisterBean.getPhoneNum(), userRegisterBean.getCaptcha(), etFirstPwd.getText().toString(), "1");
+                                userRegisterBean.getPhoneNum(), userRegisterBean.getCaptcha(), Utils.md5encodeNew(etFirstPwd.getText().toString()), "1");
                     } else {
                         httpService.weixinRegiter(userRegisterBean.getUnionid(), userRegisterBean.getOpenid(), "2",
-                                userRegisterBean.getPhoneNum(), userRegisterBean.getCaptcha(), etFirstPwd.getText().toString(), "1");
+                                userRegisterBean.getPhoneNum(), userRegisterBean.getCaptcha(), Utils.md5encodeNew(etFirstPwd.getText().toString()), "1");
                     }
                 } else {//是普通注册
                     if (userRegisterBean.getUserType()) {//个人注册

@@ -106,20 +106,21 @@ public class WeiXinBindPhoneActivity extends BaseActivity {
                     Utils.Toast("手机号己经存在");
                     break;
                 case "6"://校验成功
+                    userRegisterBean.isWxPhoneRegister = true;
                     if (userRegisterBean.getUserType()) {
                         userRegisterBean.setPhoneNum(etUsername.getText().toString());
                     }
                     CaptchaActivity.goThis(this, userRegisterBean);
                     break;
-                case "7"://手机号不存在
-                    if(userRegisterBean.getUserType()) {
-                        userRegisterBean.setPhoneNum(etUsername.getText().toString());
-                        CaptchaActivity.goThis(WeiXinBindPhoneActivity.this,userRegisterBean);
-                    }else {
-                        Utils.Toast("用户不存在,请先注册");
-                        finish();
-                    }
-                    break;
+//                case "7"://手机号不存在
+//                    if(userRegisterBean.getUserType()) {
+//                        userRegisterBean.setPhoneNum(etUsername.getText().toString());
+//                        CaptchaActivity.goThis(WeiXinBindPhoneActivity.this,userRegisterBean);
+//                    }else {
+//                        Utils.Toast("用户不存在,请先注册");
+//                        finish();
+//                    }
+//                    break;
             }
         } else if (reqId == ServiceCmd.CmdId.CMD_RESPONSIBLE_PHONE.ordinal()) {//获取经办人手机号
             String msg = json.optString("msg");
@@ -131,8 +132,10 @@ public class WeiXinBindPhoneActivity extends BaseActivity {
                     String managerPhone = json.optString("managerPhone");
                     userRegisterBean.setPhoneNum(managerPhone);
                     userRegisterBean.setEmail(etEmail.getText().toString());
-                    mHttpService.getCheckCaptchaImage(etImageCaptcha.getText().toString(), managerPhone, "",
-                            etEmail.getText().toString(), "1");
+                    managerPhone = json.optString("managerPhone");
+                    mHttpService.getVerifyImageCode(etImageCaptcha.getText().toString(), managerPhone, "1", "3");
+//                    mHttpService.getCheckCaptchaImage(etImageCaptcha.getText().toString(), managerPhone, "",
+//                            etEmail.getText().toString(), "1");
                     break;
                 case "2"://
                     Utils.Toast("用户不存在,请先注册");

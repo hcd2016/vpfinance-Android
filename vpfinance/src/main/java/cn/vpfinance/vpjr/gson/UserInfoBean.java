@@ -36,7 +36,7 @@ public class UserInfoBean implements Serializable{
      * cashBalance : 5821212.48
      */
 
-    public String phone;
+    public String phone;//个人是手机号,企业是邮箱账号
     public String dSum;
     public String registerTime;
     public String emailPass;
@@ -74,6 +74,7 @@ public class UserInfoBean implements Serializable{
     public int accountType;
     public int autoTenderProtocol;//是否同意自动投标协议 1同意
     public String isBindWx;//是否绑定微信
+    public String qqNum;//企业手机号
 
     /*可用余额*/
     public String cashBalance;

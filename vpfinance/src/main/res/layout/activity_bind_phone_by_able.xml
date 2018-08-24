@@ -47,9 +47,9 @@
             android:id="@+id/tvCountDownInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="60s后重新发送"
+            android:text="获取验证码"
             android:layout_marginTop="5dp"
-            android:textColor="@color/text_999999"/>
+            android:textColor="@color/btn_blue"/>
 
     </LinearLayout>
 </LinearLayout>

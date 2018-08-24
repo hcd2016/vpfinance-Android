@@ -313,28 +313,8 @@ public class AutoInvestSettingActivity extends BaseActivity {
             bean = mHttpService.getOnAutoInvestSettingGet(json);
 
             mHttpService.getQueryAutoPlankStatus(userId.toString());
+            setData();
 
-            if(bean.isHXAutoPlank == 1) {//已授权
-                tvAuthorization.setText("已授权");
-//                allowPub.setChecked(true);
-            }else {//未授权
-                tvAuthorization.setText("去授权");
-                allowPub.setChecked(false);
-            }
-            if(allowPub.isChecked()) {
-                containerSetting.setVisibility(View.VISIBLE);
-            }else {
-                containerSetting.setVisibility(View.GONE);
-            }
-
-            etReserveMoney.setText("" + bean.userRemainingMoney);
-            etMaxInvestMoney.setText("" + bean.userMaxLoanMoney);
-            tvBorrowTime.setText((bean.loanPeriodBegin == 1 && bean.loanPeriodEnd == 24) ? getText(R.string.unlimited) : (bean.loanPeriodBegin + "-" + bean.loanPeriodEnd + "个月"));
-            tvRate.setText((bean.rateBegin == 1 && bean.rateEnd == 12) ? getText(R.string.unlimited) : (bean.rateBegin + "-" + bean.rateEnd + "%"));
-            tvVoucher.setText(TextUtils.isEmpty(bean.coupons) ? R.string.unselected : R.string.selected);
-            tvInvestType.setText("0".equals(bean.loanType) ? R.string.unlimited : R.string.selected);
-            tvRefundType.setText("0".equals(bean.refundWay) ? R.string.unlimited : R.string.selected);
-            tvRiskLevel.setText("0".equals(bean.securityLevel) ? R.string.unlimited : R.string.selected);
 
         } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_AUTO_PLANK_STATUS.ordinal()) {
             QueryAutoStatusBean autoStatusBean = new Gson().fromJson(json.toString(), QueryAutoStatusBean.class);
@@ -350,10 +330,35 @@ public class AutoInvestSettingActivity extends BaseActivity {
         }
     }
 
+    public void setData() {
+        if(bean.isHXAutoPlank == 1) {//已授权
+            tvAuthorization.setText("已授权");
+//                allowPub.setChecked(true);
+        }else {//未授权
+            tvAuthorization.setText("去授权");
+            allowPub.setChecked(false);
+        }
+        if(allowPub.isChecked()) {
+            containerSetting.setVisibility(View.VISIBLE);
+        }else {
+            containerSetting.setVisibility(View.GONE);
+        }
+
+        etReserveMoney.setText("" + bean.userRemainingMoney);
+        etMaxInvestMoney.setText("" + bean.userMaxLoanMoney);
+        tvBorrowTime.setText((bean.loanPeriodBegin == 1 && bean.loanPeriodEnd == 24) ? getText(R.string.unlimited) : (bean.loanPeriodBegin + "-" + bean.loanPeriodEnd + "个月"));
+        tvRate.setText((bean.rateBegin == 1 && bean.rateEnd == 12) ? getText(R.string.unlimited) : (bean.rateBegin + "-" + bean.rateEnd + "%"));
+//        tvVoucher.setText(TextUtils.isEmpty(bean.coupons) ? R.string.unselected : R.string.selected);
+        tvVoucher.setText(TextUtils.isEmpty(bean.coupons) ? "不使用" : "使用");
+        tvInvestType.setText("0".equals(bean.loanType) ? R.string.unlimited : R.string.selected);
+        tvRefundType.setText("0".equals(bean.refundWay) ? R.string.unlimited : R.string.selected);
+        tvRiskLevel.setText("0".equals(bean.securityLevel) ? R.string.unlimited : R.string.selected);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        mHttpService.getAutoInvestSettingGet();
+//        mHttpService.getAutoInvestSettingGet();
     }
 
     @Override
@@ -425,17 +430,33 @@ public class AutoInvestSettingActivity extends BaseActivity {
                 tvRate.setText(bean.rateBegin + "-" + bean.rateEnd + "%");
             }
         } else if (requestCode == REQUEST_CODE_VOUCHER) {
-            if (!bean.coupons.equals(data.getStringExtra(ARGS_VOUCHER_VALUE))) {//状态已改变
-                btnSubmit.setEnabled(true);
-                bean.coupons = data.getStringExtra(ARGS_VOUCHER_VALUE);
+            btnSubmit.setEnabled(true);
+            int isUse = data.getIntExtra("isUse", 0);
+            if(isUse == 0) {
+            }else if(isUse == 1) {
+                tvVoucher.setText("使用");
+            }else {
+                tvVoucher.setText("不使用");
+                bean.coupons ="";
             }
-            Logger.e("bean.coupons:" + bean.coupons);
-            if (TextUtils.isEmpty(bean.coupons)) {
-                tvVoucher.setText(R.string.unselected);
-            } else {
-                tvVoucher.setText(R.string.selected);
-            }
+//            if(TextUtils.isEmpty(data.getStringExtra("isUse")) ){//选择了不使用
+//                tvVoucher.setText("不使用");
+//            }else {//使用
+//                tvVoucher.setText("使用");
+//            }
+//
+//            if (!bean.coupons.equals(data.getStringExtra("isUse"))) {//状态已改变
+//
+//                bean.coupons = data.getStringExtra(ARGS_VOUCHER_VALUE);
+//            }
+//            Logger.e("bean.coupons:" + bean.coupons);
+//            if (TextUtils.isEmpty(bean.coupons)) {
+//                tvVoucher.setText("不使用");
+//            } else {
+//                tvVoucher.setText("使用");
+//            }
         }
+        setData();
     }
 
     @OnClick({R.id.go_setting_invest_type, R.id.go_setting_refund_way, R.id.go_setting_deadline, R.id.go_setting_rate, R.id.go_setting_risk_level, R.id.go_setting_coupon, R.id.click_authorization})
@@ -483,9 +504,12 @@ public class AutoInvestSettingActivity extends BaseActivity {
                 break;
             case R.id.go_setting_coupon:
                 if (bean != null) {
-                    Intent voucherIntent = new Intent(this, AutoInvestCouponActivity.class);
-                    voucherIntent.putExtra(ARGS_VOUCHER, bean.options.coupons);
-                    voucherIntent.putExtra(ARGS_VOUCHER_VALUE, bean.coupons);
+//                    Intent voucherIntent = new Intent(this, AutoInvestCouponActivity.class);
+//                    voucherIntent.putExtra(ARGS_VOUCHER, bean.options.coupons);
+//                    voucherIntent.putExtra(ARGS_VOUCHER_VALUE, bean.coupons);
+//                    startActivityForResult(voucherIntent, REQUEST_CODE_VOUCHER);
+                    Intent voucherIntent = new Intent(this, AutoInvestCouponActivityNew.class);
+                    voucherIntent.putExtra("isUse",bean.coupons);
                     startActivityForResult(voucherIntent, REQUEST_CODE_VOUCHER);
                 }
                 break;

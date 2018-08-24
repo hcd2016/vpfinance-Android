@@ -593,7 +593,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
      *
      * @param mNewBaseInfoBean
      */
-    private void setWarningContent(NewBaseInfoBean mNewBaseInfoBean) {
+    private void setWarningContent(final NewBaseInfoBean mNewBaseInfoBean) {
         //        final String content = "该产品52.12%采用浮动计息36.85%方式，最大还款日40.50%期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>";
         String content = mNewBaseInfoBean.flowInvestReminder+"  了解详情>>";
         List<String> floatPercent = Utils.getFloatPercent(content);
@@ -606,7 +606,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 .setHighlightContent("了解详情>>", new MyClickableSpan() {
                     @Override
                     public void onClick(View widget) {
-                        gotoWeb("/h5/help/floatProductTips?loanId="+depositTab1Bean.loanId,"");
+                        gotoWeb("/h5/help/floatProductTips?loanId="+mNewBaseInfoBean.loanId,"");
                     }
                 })
                 .setTextView(tvWarningDesc)

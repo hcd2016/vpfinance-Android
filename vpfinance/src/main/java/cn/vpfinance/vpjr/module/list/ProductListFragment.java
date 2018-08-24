@@ -1,6 +1,8 @@
 package cn.vpfinance.vpjr.module.list;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,15 +119,18 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
                 }
             }
         });
-
-        loadDate();
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mHttpService.getLoanSignListNew(typeList, pageNum * PAGE_SIZE, PAGE_SIZE, "");
+            }
+        },2000);
         return view;
     }
 
     @Override
     protected void loadDate() {
-        mHttpService.getLoanSignListNew(typeList, pageNum * PAGE_SIZE, PAGE_SIZE, "");
+//        mHttpService.getLoanSignListNew(typeList, pageNum * PAGE_SIZE, PAGE_SIZE, "");
     }
 
     private void clearData() {

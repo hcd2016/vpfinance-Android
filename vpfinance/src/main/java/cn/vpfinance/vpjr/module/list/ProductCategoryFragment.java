@@ -79,6 +79,7 @@ public class ProductCategoryFragment extends BaseFragment {
 
         mHttpService = new HttpService(mContext,this);
 //        mHttpService.getIsShowDeposit();
+        mHttpService.getLoanSignType();
         return view;
     }
 
@@ -146,7 +147,7 @@ public class ProductCategoryFragment extends BaseFragment {
     public void onEventMainThread(RefreshTab event) {
         if (event != null && isAdded() && event.tabType == RefreshTab.TAB_LIST){
             if (mHttpService != null){
-                mHttpService.getLoanSignType();
+//                mHttpService.getLoanSignType();
             }
         }
     }

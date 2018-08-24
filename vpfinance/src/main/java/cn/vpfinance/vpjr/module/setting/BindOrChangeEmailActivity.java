@@ -23,6 +23,7 @@ import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.module.dialog.CommonDialogFragment;
 import cn.vpfinance.vpjr.module.dialog.CommonTipsDialog;
 import cn.vpfinance.vpjr.util.DBUtils;
+import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 
 /**
  * 绑定/更换邮箱
@@ -58,6 +59,12 @@ public class BindOrChangeEmailActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         titleBar.setTitle("邮箱绑定").setHeadBackVisible(View.VISIBLE);
+        SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
+        if(sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
+            tvBtnRemoveBinding.setVisibility(View.VISIBLE);
+        }else {
+            tvBtnRemoveBinding.setVisibility(View.GONE);
+        }
         httpService = new HttpService(this, this);
     }
 
@@ -78,7 +85,7 @@ public class BindOrChangeEmailActivity extends BaseActivity {
                 commonTipsDialog.show();
                 break;
             case R.id.btn_bind://绑定/更换邮箱
-                BindEmailActivity.startBindEmailActivity(this, customerType, emailPass);
+                BindEmailActivity.startBindEmailActivity(this, customerType, emailPass,tvEmail.getText().toString());
                 break;
         }
     }

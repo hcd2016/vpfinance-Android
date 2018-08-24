@@ -96,11 +96,11 @@ public class ForgetLoginPasswordActivity extends BaseActivity {
                     }
 //                    mHttpService.getCheckCaptchaImage(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "",
 //                             etUsername.getText().toString(),"1");
-                    if(isPersonType) {
+//                    if (isPersonType) {
                         mHttpService.getVerifyImageCode(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "1", "1");
-                    }else {
-                        mHttpService.getVerifyImageCode(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "1", "2");
-                    }
+//                    } else {
+//                        mHttpService.getVerifyImageCode(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "1", "2");
+//                    }
                 } else {//企业
                     if (TextUtils.isEmpty(etUsername.getText().toString())) {
                         Utils.Toast("邮箱不能为空");
@@ -171,11 +171,12 @@ public class ForgetLoginPasswordActivity extends BaseActivity {
                     String managerPhone = json.optString("managerPhone");
                     userRegisterBean.setPhoneNum(managerPhone);
                     userRegisterBean.setEmail(etUsername.getText().toString());
-                    mHttpService.getCheckCaptchaImage(etImageCaptcha.getText().toString(), managerPhone, "",
-                            etUsername.getText().toString(), "1");
+                    mHttpService.getVerifyImageCode(etImageCaptcha.getText().toString(), managerPhone, "1",
+                            "2");
                     break;
                 case "2"://
                     Utils.Toast("用户不存在,请先注册");
+                    finish();
                     break;
                 case "3"://非企业用户
                     Utils.Toast("该用户名非企业用户,请先注册");

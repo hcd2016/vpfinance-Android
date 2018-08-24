@@ -171,7 +171,7 @@ public class ServiceCmd {
         CMD_CHANGE_EMAIL_PERSON,//更改个人邮箱
         CMD_CHANGE_EMAIL_COMPANY,//更改企业邮箱
         CMD_UNBIND_EMAIL,//邮箱解绑
-        CMD_CHECK_SMS_CODE,//校验短信验证码
+        CMD_CHECK_SMS_CODE,//校验短信验证码(企业校验,包括修改手机号/注册)
         CMD_WEIXIN_REGISTER,//微信登录时注册
         CMD_WEIXIN_BIND,//绑定用户微信
         CMD_RESPONSIBLE_PHONE,//获取经办人手机号

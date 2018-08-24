@@ -99,8 +99,12 @@ public class CaptchaActivity extends BaseActivity {
             } else {
                 type = REGISTER_COMPANY;
             }
-
             phone = userRegisterBean.getPhoneNum();
+        }
+        if(userRegisterBean.isWxPhoneRegister) {
+            btnNext.setText("完成绑定");
+        }else {
+            btnNext.setText("下一步");
         }
         initView();
     }
@@ -190,19 +194,24 @@ public class CaptchaActivity extends BaseActivity {
             String msg = json.optString("msg");
             if (msg.equals("1")) {//校验成功
                 if (null != userRegisterBean) {
-                    if (userRegisterBean.getIsFromWeixin()) {//是微信绑定
-                        if (userRegisterBean.getUserType()) {
-                            mHttpService.bindWEIXIN(userRegisterBean.getUnionid(), userRegisterBean.getOpenid(), "1", userRegisterBean.getPhoneNum(), etCaptcha.getText().toString(),"");
+                    if(userRegisterBean.getPwdSetType() == 1) {//是注册
+                        if (userRegisterBean.getIsFromWeixin()) {//是微信绑定
+                            if (userRegisterBean.getUserType()) {
+                                mHttpService.bindWEIXIN(userRegisterBean.getUnionid(), userRegisterBean.getOpenid(), "1", userRegisterBean.getPhoneNum(), etCaptcha.getText().toString(),"");
+                            } else {
+                                mHttpService.bindWEIXIN(userRegisterBean.getUnionid(), userRegisterBean.getOpenid(), "2", userRegisterBean.getEmail(), etCaptcha.getText().toString(),"");
+                            }
                         } else {
-                            mHttpService.bindWEIXIN(userRegisterBean.getUnionid(), userRegisterBean.getOpenid(), "2", userRegisterBean.getEmail(), etCaptcha.getText().toString(),"");
+                            userRegisterBean.setCaptcha(etCaptcha.getText().toString());
+                            if (type == REGISTER_PERSON) {
+                                LoginPasswordActivity.goThis(this, userRegisterBean);
+                            } else {
+                                RegisterCompanyInfoActivity.goThis(this, userRegisterBean);
+                            }
                         }
-                    } else {
+                    }else {//是修改密码
                         userRegisterBean.setCaptcha(etCaptcha.getText().toString());
-                        if (type == REGISTER_PERSON) {
-                            LoginPasswordActivity.goThis(this, userRegisterBean);
-                        } else {
-                            RegisterCompanyInfoActivity.goThis(this, userRegisterBean);
-                        }
+                        LoginPasswordActivity.goThis(this, userRegisterBean);
                     }
                 }
             } else if (msg.equals("4")) {//超时
@@ -244,7 +253,7 @@ public class CaptchaActivity extends BaseActivity {
                     mHttpService.getUserInfo();
                     break;
                 case "2"://此用户为企业用户，不允许注册，请跳转到企业注册页面
-                    Utils.Toast("请先注册");
+                    Utils.Toast("该企业未注册，请前往企业注册页面");
                     userRegisterBean.setCaptcha(etCaptcha.getText().toString());
                     RegisterCompanyInfoActivity.goThis(this, userRegisterBean);
                     break;

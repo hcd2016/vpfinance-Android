@@ -34,6 +34,16 @@ public class UserRegisterBean implements Serializable {
     public String access_token;
     public boolean isFromWeixin;//true为是微信流程
     public boolean isClickWXFromSetting;//微信绑定点击来源,true为来自设置
+    public boolean isWxPhoneRegister;//微信绑定时输入的手机号已注册标识(用于发短信按钮的更改)
+
+    public boolean isWxPhoneRegister() {
+        return isWxPhoneRegister;
+    }
+
+    public void setWxPhoneRegister(boolean wxPhoneRegister) {
+        isWxPhoneRegister = wxPhoneRegister;
+    }
+
 
 
 

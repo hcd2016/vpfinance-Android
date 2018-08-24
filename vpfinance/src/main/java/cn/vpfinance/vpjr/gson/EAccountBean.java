@@ -25,11 +25,38 @@ public class EAccountBean {
     private String name;
     private String bankName;
     private String cashBalance;
-    private String vpSuperviseAccount;//华兴转账公共账户
+
+    public String getVpAccount() {
+        return vpAccount;
+    }
+
+    public void setVpAccount(String vpAccount) {
+        this.vpAccount = vpAccount;
+    }
+
+    private String vpAccount;//华兴转账公共账户
     private int customerType; //1个人账户2对公账户
-    /*private String vpAccount;//平台监管账号
     private String vpAccountName;// 平台开户名
     private String vpOpenName;//  平台开户行
+
+    public String getVpAccountName() {
+        return vpAccountName;
+    }
+
+    public void setVpAccountName(String vpAccountName) {
+        this.vpAccountName = vpAccountName;
+    }
+
+    public String getVpOpenName() {
+        return vpOpenName;
+    }
+
+    public void setVpOpenName(String vpOpenName) {
+        this.vpOpenName = vpOpenName;
+    }
+
+    /*private String vpAccount;//平台监管账号
+
 
     public String getVpAccount() {
         return vpAccount;
@@ -54,14 +81,6 @@ public class EAccountBean {
     public void setVpOpenName(String vpOpenName) {
         this.vpOpenName = vpOpenName;
     }*/
-
-    public String getVpSuperviseAccount() {
-        return vpSuperviseAccount;
-    }
-
-    public void setVpSuperviseAccount(String vpSuperviseAccount) {
-        this.vpSuperviseAccount = vpSuperviseAccount;
-    }
 
     public int getCustomerType() {
         return customerType;

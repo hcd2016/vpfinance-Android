@@ -17,7 +17,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
+import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.view.CodeVerifyView;
+import de.greenrobot.event.EventBus;
 
 public class BindPhoneInputPhoneActivity extends BaseActivity{
 
@@ -38,7 +40,7 @@ public class BindPhoneInputPhoneActivity extends BaseActivity{
         setContentView(R.layout.activity_bind_phone_input_phone);
 
         ButterKnife.bind(this);
-
+        EventBus.getDefault().register(this);
         mActionBar.reset().setHeadBackVisible(View.VISIBLE).setTitle("改绑手机号");
     }
 
@@ -52,8 +54,14 @@ public class BindPhoneInputPhoneActivity extends BaseActivity{
                     return;
                 }
                 BindPhoneByAbleCodeActivity.goThis(this,BindPhoneByAbleCodeActivity.VERIFY_NEW_PHONE,phone);
-                finish();
+//                finish();
                 break;
+        }
+    }
+
+    public void onEventMainThread(EventStringModel event) {
+        if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_CHANGE_PHONE_SUCCESS)) {//修改手机号成功
+            finish();
         }
     }
 
@@ -61,5 +69,6 @@ public class BindPhoneInputPhoneActivity extends BaseActivity{
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
     }
 }

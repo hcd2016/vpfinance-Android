@@ -22,5 +22,6 @@ public class EventStringModel {
     public static final String EVENT_RESET_PWD_SUCCESS = "reset_pwd_success";//重置密码成功
     public static final String EVENT_BIND_EMAIL_SUCCESS = "bind_email_success";//绑定邮箱成功
     public static final String EVENT_BIND_WEIXIN_SUCCESS_FROM_SETTING = "bind_email_success_from_setting";//微信绑定成功(设置)
+    public static final String EVENT_CHANGE_PHONE_SUCCESS= "change_phone_success";//手机号修改成功
 
 }

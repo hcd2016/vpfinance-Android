@@ -115,7 +115,6 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
     private LinearLayout ll_bindbankcard;
 
 
-
     private LinearLayout ll_my_describe;
     private LinearLayout ll_bindemail;
     private LinearLayout ll_clickUserInfo;
@@ -197,6 +196,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         mHttpService.getUserInfo();
         setHeadImage();
         setBgImage();
+//        BindBankHintActivity.goThis(this,DBUtils.getUser(this).getUserId()+"");
     }
 
     private void setHeadImage() {
@@ -517,7 +517,13 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             isBandMail.setText(b ? "已绑定" : "未绑定");
             isBandMail.setTextColor(b ? getResources().getColor(R.color.text_999999) : getResources().getColor(R.color.red_text));
 
-            String phone = FormatUtils.hidePhone(mUserInfoBean.phone);
+            SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
+            String phone = "";
+            if (sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
+                phone = FormatUtils.hidePhone(mUserInfoBean.phone);
+            } else {
+                phone = FormatUtils.hidePhone(mUserInfoBean.qqNum);
+            }
             ((TextView) findViewById(R.id.phoneNum)).setText(phone);
         }
         if (reqId == ServiceCmd.CmdId.CMD_WEIXIN_UNBIND.ordinal()) {
@@ -640,7 +646,12 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 gotoActivity(intent3);
                 break;
             case R.id.ll_bind_phone:
-                BindPhoneActivity.goThis(this);
+                SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
+                if (sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
+                    BindPhoneActivity.goThis(this,mUserInfoBean.phone);
+                } else {
+                    BindPhoneActivity.goThis(this,mUserInfoBean.qqNum);
+                }
                 break;
             case R.id.ll_weixin_bind_container://微信绑定
                 final CommonTipsDialog commonTipsDialog = new CommonTipsDialog(this);
@@ -687,6 +698,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             tvWeixinBindDesc.setText("已绑定");
         }
     }
+
     private void chargeUserName() {
         myDialogFragment = MyDialogFragment.newInstance("编辑用户名", "用户名可包含字母数字下划线", "确定", newUserName);
         myDialogFragment.setOnTextConfrimListener(new MyDialogFragment.onTextConfrimListener() {
@@ -1146,6 +1158,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
      * 获取到的图片路径
      */
     private String picPath = "";
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

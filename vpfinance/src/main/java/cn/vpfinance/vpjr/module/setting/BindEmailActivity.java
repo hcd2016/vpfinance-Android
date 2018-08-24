@@ -51,6 +51,7 @@ public class BindEmailActivity extends BaseActivity {
     private HttpService mHttpService;
     private String customerType;
     private String emailPass;
+    private String managerPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +64,13 @@ public class BindEmailActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        titleBar.setTitle("绑定新邮箱").setHeadBackVisible(View.VISIBLE);
         customerType = getIntent().getStringExtra("customerType");
         emailPass = getIntent().getStringExtra("emailPass");
+        if("1".equals(emailPass)) {
+            titleBar.setTitle("更换邮箱").setHeadBackVisible(View.VISIBLE);
+        }else {
+            titleBar.setTitle("绑定新邮箱").setHeadBackVisible(View.VISIBLE);
+        }
         if (customerType.equals("1")) {//个人
             tvEmailDesc.setText("绑定邮箱作为安全邮箱，可用于接收每月账单");
         } else {
@@ -113,14 +118,46 @@ public class BindEmailActivity extends BaseActivity {
                     str = "手机号己经存在";
                     break;
                 case "6"://6. 正确
-                    str = "验证码校验成功";
-                    EmailSMSVerificationActivity.startEmailSMSVerificationActivity(this, DBUtils.getUser(this).getCellPhone(), customerType, etEmail.getText().toString(), emailPass);
+//                    str = "验证码校验成功";
+                    if(customerType.equals("1")) {
+                        EmailSMSVerificationActivity.startEmailSMSVerificationActivity(this, DBUtils.getUser(this).getCellPhone(), customerType, etEmail.getText().toString(), emailPass);
+                    }else {
+                        EmailSMSVerificationActivity.startEmailSMSVerificationActivity(this, managerPhone, customerType, etEmail.getText().toString(), emailPass);
+                    }
                     break;
                 default:
                     str = "其他错误";
                     break;
             }
-            Utils.Toast(FinanceApplication.getAppContext(), str);
+            if(!TextUtils.isEmpty(str)) {
+                Utils.Toast(FinanceApplication.getAppContext(), str);
+            }
+        }
+        if (reqId == ServiceCmd.CmdId.CMD_RESPONSIBLE_PHONE.ordinal()) {//获取经办人手机号
+            String msg = json.optString("msg");
+            switch (msg) {
+                case "0":
+                    Utils.Toast("服务器异常");
+                    break;
+                case "1"://成功
+                    managerPhone = json.optString("managerPhone");
+                    mHttpService.getVerifyImageCode(etVerificationCode.getText().toString(), managerPhone, "1", "3");
+                    break;
+                case "2"://
+                    Utils.Toast("用户不存在,请先注册");
+                    finish();
+                    break;
+                case "3"://非企业用户
+                    Utils.Toast("该用户名非企业用户,请先注册");
+                    finish();
+                    break;
+                case "4":
+                    Utils.Toast("验证码超时");
+                    break;
+                case "5":
+                    Utils.Toast("验证码错误");
+                    break;
+            }
         }
     }
 
@@ -134,14 +171,23 @@ public class BindEmailActivity extends BaseActivity {
                 if (TextUtils.isEmpty(etEmail.getText().toString())) {
                     Utils.Toast("邮箱不能为空!");
                     return;
-                } else if (TextUtils.isEmpty(etVerificationCode.getText().toString())) {
+                }
+                if(!Utils.checkEmail(etEmail.getText().toString())) {
+                    Utils.Toast("邮箱格式错误!");
+                    return;
+                }
+                if (TextUtils.isEmpty(etVerificationCode.getText().toString())) {
                     Utils.Toast("验证码不能为空!");
                     return;
                 }
                 if (customerType.equals("1")) {//个人
                     mHttpService.getVerifyImageCode(etVerificationCode.getText().toString(), DBUtils.getUser(BindEmailActivity.this).getCellPhone(), "1", "");
                 } else {
-                    mHttpService.getVerifyImageCode(etVerificationCode.getText().toString(), DBUtils.getUser(BindEmailActivity.this).getCellPhone(), "1", "3");
+                    String email = getIntent().getStringExtra("email");
+                    if(!TextUtils.isEmpty(email)) {
+                        mHttpService.getResponsiblePhone(email);
+                    }
+//                    mHttpService.getVerifyImageCode(etVerificationCode.getText().toString(), DBUtils.getUser(BindEmailActivity.this).getCellPhone(), "1", "3");
                 }
                 break;
             case R.id.iv_verification_code://获取图形验证码
@@ -155,10 +201,11 @@ public class BindEmailActivity extends BaseActivity {
     /**
      * 开启本页
      */
-    public static void startBindEmailActivity(Context context, String customerType, String emailPass) {
+    public static void startBindEmailActivity(Context context, String customerType, String emailPass,String email) {
         Intent intent = new Intent(context, BindEmailActivity.class);
         intent.putExtra("customerType", customerType);
         intent.putExtra("emailPass", emailPass);
+        intent.putExtra("email", email);
         context.startActivity(intent);
     }
 }

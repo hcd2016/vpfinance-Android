@@ -6028,13 +6028,13 @@ Type	Int	Banner类型	1. 链接  2.产品
      * 更改企业邮箱
      */
     public boolean changeCompanyEmail(String email, String userId, String code) {
-        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_CHANGE_EMAIL_PERSON;
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_CHANGE_EMAIL_COMPANY;
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
         Map<String, String> param = new ArrayMap<String, String>();
         param.put("email", email);
         param.put("userId", userId);
-        param.put("code", code);
+        param.put("smsCode", code);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
 
@@ -6097,7 +6097,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         param.put("account", account);
         param.put("smsCode", smsCode);
         param.put("scenes", scenes);
-        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, true);
     }
     /**
      * 获取经办人手机号
@@ -6149,10 +6149,10 @@ Type	Int	Banner类型	1. 链接  2.产品
         String method = ServiceCmd.getMethodName(cmdId);
         String url = getServiceUrl(method);
         Map<String, String> param = new ArrayMap<String, String>();
-        param.put("phone", email);
+        param.put("email", email);
         param.put("pwd", pwd);
         param.put("smscode", smscode);
-        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+        return httpClient.doPost(url, param, cmdId.ordinal(), true, false);
     }
 
     /**

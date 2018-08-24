@@ -25,6 +25,7 @@ import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.view.CodeVerifyView;
+import cn.vpfinance.vpjr.view.VerificationCodeDialog;
 import de.greenrobot.event.EventBus;
 
 public class EmailSMSVerificationActivity extends BaseActivity {
@@ -43,9 +44,12 @@ public class EmailSMSVerificationActivity extends BaseActivity {
     private HttpService mHttpService;
     private int btnResendStatus = 2;//重新发送按钮状态:1为倒计时中,2为重新发送
     private String phone;
-    private String isPersonType;
+    private boolean isPersonType;
     private String email;
     private String emailPass;
+    private CountDownTimer smsCountDownTimer;
+    private CountDownTimer voiceCountDownTimer;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +64,12 @@ public class EmailSMSVerificationActivity extends BaseActivity {
         super.initView();
         titleBar.setTitle("短信验证").setHeadBackVisible(View.VISIBLE);
         phone = getIntent().getStringExtra("phone");
-        isPersonType = getIntent().getStringExtra("isPersonType");
+        type = getIntent().getStringExtra("isPersonType");
+        if(type.equals("1")) {
+            isPersonType = true;
+        }else  {
+            isPersonType = false;
+        }
         email = getIntent().getStringExtra("email");
         emailPass = getIntent().getStringExtra("emailPass");
         tvPhoneNumDesc.setText("验证码已发送至您手机  " + phone);
@@ -70,7 +79,7 @@ public class EmailSMSVerificationActivity extends BaseActivity {
             public void fullCodeListener() {
                 //输入完成监听
                 String code = vCodeVerifyView.getText().toString();
-                if (isPersonType.equals("1")) {//个人用户
+                if (isPersonType) {//个人用户
                     mHttpService.changePersonEmail(email, code);
                 } else {//企业用户
                     mHttpService.changeCompanyEmail(email, DBUtils.getUser(EmailSMSVerificationActivity.this).getUserId() + "", code);
@@ -82,36 +91,36 @@ public class EmailSMSVerificationActivity extends BaseActivity {
 //                tvErrorInfo.setVisibility(View.INVISIBLE);
             }
         });
+        startSms();
     }
 
-    //开启倒计时
-    private void setCountDownTimer(final TextView view, final boolean isSms) {
-        view.setTextColor(getResources().getColor(R.color.text_666666));
-        view.setEnabled(false);
-        CountDownTimer countDownTimer = new CountDownTimer(10 * 1000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                view.setText("重新发送  " + millisUntilFinished / 1000 + "s");
-            }
-
-            @Override
-            public void onFinish() {
-                view.setTextColor(getResources().getColor(R.color.btn_blue));
-                if (isSms) {
-                    view.setText("重新发送");
-                } else {
-                    view.setText("语音验证码");
-                }
-                view.setEnabled(true);
-                btnResendStatus = 2;
-            }
-        }.start();
-    }
+//    //开启倒计时
+//    private void setCountDownTimer(final TextView view, final boolean isSms) {
+//        view.setTextColor(getResources().getColor(R.color.text_666666));
+//        view.setEnabled(false);
+//        CountDownTimer countDownTimer = new CountDownTimer(60 * 1000, 1000) {
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//                view.setText("重新发送  " + millisUntilFinished / 1000 + "s");
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                view.setTextColor(getResources().getColor(R.color.btn_blue));
+//                if (isSms) {
+//                    view.setText("重新发送");
+//                } else {
+//                    view.setText("语音验证码");
+//                }
+//                view.setEnabled(true);
+//                btnResendStatus = 2;
+//            }
+//        }.start();
+//    }
 
     @Override
     public void onHttpSuccess(int reqId, JSONObject json) {
         super.onHttpSuccess(reqId, json);
-        if (!isHttpHandle(json)) return;
         if (reqId == ServiceCmd.CmdId.CMD_CHANGE_EMAIL_PERSON.ordinal()) {//个人更换
             String msg = json.optString("status");//实际返回是 "status"
             switch (msg) {
@@ -148,6 +157,7 @@ public class EmailSMSVerificationActivity extends BaseActivity {
                     } else {
                         Utils.Toast("您已成功绑定邮箱");
                     }
+                    BindOrChangeEmailActivity.startBindOrChangeEmailActivity(this);
                     break;
                 case "2"://用户不存在
                     Utils.Toast("用户不存在");
@@ -163,26 +173,107 @@ public class EmailSMSVerificationActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onHttpError(int reqId, String errmsg) {
+        super.onHttpError(reqId, errmsg);
+        errmsg.toString();
+    }
+
     @OnClick({R.id.tv_resend_desc, R.id.btn_voice_verify})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_resend_desc://重新发送
-                if (btnResendStatus == 2) {//重新发送按钮状态
-                    mHttpService.getRegisterCaptchaSms(phone);
-                    btnResendStatus = 1;
-                    setCountDownTimer(tvResendDesc, true);
+                if ("获取验证码".equals(tvResendDesc.getText().toString())) {
+                    if(isPersonType) {
+                        showCodeDialog(1,1);
+                    }else {
+                        showCodeDialog(1,3);
+                    }
+                } else {
+                    Utils.Toast("请先稍等一下短信验证码");
                 }
                 break;
             case R.id.btn_voice_verify://语音验证
-                if (btnResendStatus == 2) {//重新发送按钮状态
-                    mHttpService.getRegisterCaptchaVoice(phone);
-                    btnResendStatus = 1;
-                    setCountDownTimer(btnVoiceVerify, false);
+                if ("语音验证码".equals(btnVoiceVerify.getText().toString())) {
+                    if(isPersonType) {
+                        showCodeDialog(2,1);
+                    }else {
+                        showCodeDialog(2,3);
+                    }
+                } else {
+                    Utils.Toast("请先稍等一下语音验证码");
                 }
                 break;
         }
     }
 
+    private void startSms() {
+        tvResendDesc.setEnabled(false);
+        tvResendDesc.setTextColor(getResources().getColor(R.color.text_666666));
+        smsCountDownTimer = new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                tvResendDesc.setText("重新获取(" + (millisUntilFinished / 1000) + "s)");
+            }
+
+            @Override
+            public void onFinish() {
+                tvResendDesc.setTextColor(getResources().getColor(R.color.btn_blue));
+                tvResendDesc.setEnabled(true);
+                tvResendDesc.setText("获取验证码");
+            }
+        };
+        smsCountDownTimer.start();
+    }
+
+    private void startVoice() {
+        btnVoiceVerify.setEnabled(false);
+        btnVoiceVerify.setTextColor(getResources().getColor(R.color.text_666666));
+        mHttpService.getRegisterCaptchaVoice(phone);
+        voiceCountDownTimer = new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                btnVoiceVerify.setText("重新获取(" + (millisUntilFinished / 1000) + "s)");
+            }
+
+            @Override
+            public void onFinish() {
+                btnVoiceVerify.setTextColor(getResources().getColor(R.color.btn_blue));
+                btnVoiceVerify.setEnabled(true);
+                btnVoiceVerify.setText("语音验证码");
+            }
+        };
+        voiceCountDownTimer.start();
+    }
+
+    public void showCodeDialog(int codeType,int registerType) {
+        VerificationCodeDialog codeDialog = VerificationCodeDialog.newInstance(phone, codeType,registerType);
+        codeDialog.setSmsListener(new VerificationCodeDialog.SmsListener() {
+            @Override
+            public void smsStart(int type) {
+//                mHttpService.getVerifyCode(null, null, null, phone, null,"0");
+                if(type == 1) {
+                    startSms();
+                }else {
+                    startVoice();
+                }
+            }
+        });
+        codeDialog.show(getSupportFragmentManager(), "VerificationCodeDialog");
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != smsCountDownTimer) {
+            smsCountDownTimer.cancel();
+        }
+        if (null != voiceCountDownTimer) {
+            voiceCountDownTimer.cancel();
+        }
+    }
 
     /**
      * 开启本页
