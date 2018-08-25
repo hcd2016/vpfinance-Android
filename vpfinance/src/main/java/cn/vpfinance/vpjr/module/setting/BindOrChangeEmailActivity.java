@@ -60,9 +60,9 @@ public class BindOrChangeEmailActivity extends BaseActivity {
         super.initView();
         titleBar.setTitle("邮箱绑定").setHeadBackVisible(View.VISIBLE);
         SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
-        if(sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
+        if (sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
             tvBtnRemoveBinding.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             tvBtnRemoveBinding.setVisibility(View.GONE);
         }
         httpService = new HttpService(this, this);
@@ -85,7 +85,7 @@ public class BindOrChangeEmailActivity extends BaseActivity {
                 commonTipsDialog.show();
                 break;
             case R.id.btn_bind://绑定/更换邮箱
-                BindEmailActivity.startBindEmailActivity(this, customerType, emailPass,tvEmail.getText().toString());
+                BindEmailActivity.startBindEmailActivity(this, customerType, emailPass, tvEmail.getText().toString());
                 break;
         }
     }
@@ -100,19 +100,31 @@ public class BindOrChangeEmailActivity extends BaseActivity {
     public void onHttpSuccess(int reqId, JSONObject json) {
         if (!isHttpHandle(json)) return;
         if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
-            email = json.optString("email");
-            emailPass = json.optString("emailPass");
             customerType = json.optString("customerType");
-            if ("1".equals(emailPass)) {
+            if (customerType.equals("1")) {
+                email = json.optString("email");
+            } else {
+                email = json.optString("phone");
+            }
+            emailPass = json.optString("emailPass");
+            if (customerType.equals("1")) {
+                if ("1".equals(emailPass)) {
+                    llHaveEmailContainer.setVisibility(View.VISIBLE);
+                    llNoEmailContainer.setVisibility(View.GONE);
+                    tvEmail.setText(email);
+                    btnBind.setText("更换邮箱");
+                } else {
+                    llHaveEmailContainer.setVisibility(View.GONE);
+                    llNoEmailContainer.setVisibility(View.VISIBLE);
+                    btnBind.setText("绑定邮箱");
+                }
+            } else {
                 llHaveEmailContainer.setVisibility(View.VISIBLE);
                 llNoEmailContainer.setVisibility(View.GONE);
                 tvEmail.setText(email);
                 btnBind.setText("更换邮箱");
-            } else {
-                llHaveEmailContainer.setVisibility(View.GONE);
-                llNoEmailContainer.setVisibility(View.VISIBLE);
-                btnBind.setText("绑定邮箱");
             }
+
         }
         if (reqId == ServiceCmd.CmdId.CMD_UNBIND_EMAIL.ordinal()) {//邮箱解除绑定
             if (!isHttpHandle(json)) return;

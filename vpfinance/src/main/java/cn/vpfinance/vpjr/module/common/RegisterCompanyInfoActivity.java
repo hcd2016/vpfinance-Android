@@ -84,6 +84,10 @@ public class RegisterCompanyInfoActivity extends BaseActivity {
             Utils.Toast("请输入18位社会信用");
             return;
         }
+        if(etCompanyName.getText().toString().length() < 5) {
+            Utils.Toast("企业名称不能少于5位");
+            return;
+        }
         UserRegisterBean userRegisterBean = (UserRegisterBean) getIntent().getSerializableExtra("userRegisterBean");
         userRegisterBean.setCompanyName(etCompanyName.getText().toString());
         userRegisterBean.setCompanyAddress(etCompanyAddress.getText().toString());

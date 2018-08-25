@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"/>
 
     <TextView
+        android:id="@+id/tv_desc1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="首次微信登录需要绑定手机号码"
@@ -18,6 +19,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"/>
     <TextView
+        android:id="@+id/tv_desc2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="如您已注册过微品金融，请输入注册时使用的手机号码"

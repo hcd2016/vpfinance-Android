@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -42,6 +43,10 @@ public class WeiXinBindPhoneActivity extends BaseActivity {
     Button btnNext;
     @Bind(R.id.etEmail)
     EditTextWithDel etEmail;
+    @Bind(R.id.tv_desc1)
+    TextView tvDesc1;
+    @Bind(R.id.tv_desc2)
+    TextView tvDesc2;
     private UserRegisterBean userRegisterBean;
     private HttpService mHttpService;
 
@@ -50,7 +55,6 @@ public class WeiXinBindPhoneActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weixin_bind_phone);
         ButterKnife.bind(this);
-        titleBar.reset().setTitle("绑定手机号码").setHeadBackVisible(View.VISIBLE);
         EventBus.getDefault().register(this);
         initView();
     }
@@ -62,9 +66,15 @@ public class WeiXinBindPhoneActivity extends BaseActivity {
         if (userRegisterBean.getUserType()) {//个人用户
             etUsername.setVisibility(View.VISIBLE);
             etEmail.setVisibility(View.GONE);
+            titleBar.reset().setTitle("绑定手机号码").setHeadBackVisible(View.VISIBLE);
+            tvDesc1.setText("首次微信登录需要绑定手机号码");
+            tvDesc2.setText("如您已注册过微品金融，请输入注册时使用的手机号码");
         } else {//企业用户
             etUsername.setVisibility(View.GONE);
             etEmail.setVisibility(View.VISIBLE);
+            titleBar.reset().setTitle("绑定企业账户").setHeadBackVisible(View.VISIBLE);
+            tvDesc1.setText("首次微信登录需要绑定邮箱或企业名称");
+            tvDesc2.setText("请输入企业登录邮箱或企业名称");
         }
         mHttpService = new HttpService(this, this);
         mHttpService.getImageCode();
@@ -138,8 +148,7 @@ public class WeiXinBindPhoneActivity extends BaseActivity {
 //                            etEmail.getText().toString(), "1");
                     break;
                 case "2"://
-                    Utils.Toast("用户不存在,请先注册");
-                    finish();
+                    Utils.Toast("该企业用户尚未注册");
                     break;
                 case "3"://非企业用户
                     Utils.Toast("该用户名非企业用户,请先注册");
@@ -198,7 +207,7 @@ public class WeiXinBindPhoneActivity extends BaseActivity {
                     }
 //                    mHttpService.getCheckCaptchaImage(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "",
 //                             etUsername.getText().toString(),"1");
-                    mHttpService.getVerifyImageCode(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "1","");
+                    mHttpService.getVerifyImageCode(etImageCaptcha.getText().toString(), etUsername.getText().toString(), "1", "");
                 } else {//企业
                     if (TextUtils.isEmpty(etEmail.getText().toString())) {
                         Utils.Toast("邮箱不能为空");

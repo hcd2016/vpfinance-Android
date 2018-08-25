@@ -151,6 +151,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
     private int mBottomStatusHeight = 0;
     private LinearLayout ll_bind_phone;
     private TextView isHxBandCarkStatus;
+    private boolean isPersonType;
 
     private void initFind() {
         titlebar = (ActionBarLayout) findViewById(R.id.titleBar);
@@ -188,6 +189,8 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         mBottomStatusHeight = ScreenUtil.getBottomStatusHeight(this);
+        SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
+        isPersonType = sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE);
         initFind();
         mHttpService = new HttpService(this, this);
         user = DBUtils.getUser(this);
@@ -513,9 +516,14 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             if (json != null) {
                 emailPass = (String) json.opt("emailPass");
             }
-            boolean b = "1".equals(emailPass);
-            isBandMail.setText(b ? "已绑定" : "未绑定");
-            isBandMail.setTextColor(b ? getResources().getColor(R.color.text_999999) : getResources().getColor(R.color.red_text));
+            if(isPersonType) {
+                boolean b = "1".equals(emailPass);
+                isBandMail.setText(b ? "已绑定" : "未绑定");
+                isBandMail.setTextColor(b ? getResources().getColor(R.color.text_999999) : getResources().getColor(R.color.red_text));
+            }else {
+                isBandMail.setText("已绑定");
+            }
+
 
             SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
             String phone = "";

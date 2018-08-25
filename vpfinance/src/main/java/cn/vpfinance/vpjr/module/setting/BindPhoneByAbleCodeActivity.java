@@ -196,6 +196,15 @@ public class BindPhoneByAbleCodeActivity extends BaseActivity {
                 case "3":
                     Utils.Toast("用户不是企业用户");
                     break;
+                case "4":
+                    Utils.Toast("验证码超时");
+                    break;
+                case "5":
+                    Utils.Toast("验证码错误");
+                    break;
+                case "6":
+                    Utils.Toast("经办人手机号为空");
+                    break;
             }
         }
         if (reqId == ServiceCmd.CmdId.CMD_CHECK_SMS_CODE.ordinal()) {
