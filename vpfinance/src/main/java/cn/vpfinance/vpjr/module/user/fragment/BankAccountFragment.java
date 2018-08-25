@@ -34,6 +34,7 @@ import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.QueryAutoStatusBean;
 import cn.vpfinance.vpjr.gson.UserInfoBean;
+import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.dialog.HxUpdateDialog;
 import cn.vpfinance.vpjr.module.home.MainActivity;
@@ -63,6 +64,7 @@ import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.view.CircleImg;
+import de.greenrobot.event.EventBus;
 
 /**
  * 银行存管账户
@@ -139,6 +141,7 @@ public class BankAccountFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = LayoutInflater.from(mContext).inflate(R.layout.fragment_bank_account, container, false);
         ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         mHttpService = new HttpService(getActivity(), this);
         return view;
     }
@@ -165,30 +168,39 @@ public class BankAccountFragment extends BaseFragment {
                         startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
                     }
                 });
+//
+//        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(mContext);
+//        isOpen = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT, false);
+//        isBindBank = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_BIND_BANK, false);
+//        if (!isOpen) {
+//            mHeaderNoOpen.setVisibility(View.VISIBLE);
+//            mOpenContent.setVisibility(View.GONE);
+//            noOpenHidden.setVisibility(View.GONE);
+//            click_open_bank_account.setText("开通存管账户");
+//            tvNoOpenHint.setText("为了保障您的资金安全 需先开通存管账户");
+//            tvNoOpenHint2.setVisibility(View.VISIBLE);
+//            tvNoOpenHint2.setText("开通后10分钟左右可以查看开通结果 请勿重复操作");
+//
+//        } else if (!isBindBank) {
+//            mHeaderNoOpen.setVisibility(View.VISIBLE);
+//            mOpenContent.setVisibility(View.GONE);
+//            noOpenHidden.setVisibility(View.GONE);
+//            click_open_bank_account.setText("绑卡激活");
+//            tvNoOpenHint.setText("开通了银行存管的用户 需绑定银行卡激活账户");
+//            tvNoOpenHint2.setVisibility(View.GONE);
+//        } else {
+//            mHeaderNoOpen.setVisibility(View.GONE);
+//            mOpenContent.setVisibility(View.VISIBLE);
+//            noOpenHidden.setVisibility(View.VISIBLE);
+//        }
+    }
 
-        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(mContext);
-        isOpen = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT, false);
-        isBindBank = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_BIND_BANK, false);
-        if (!isOpen){
-            mHeaderNoOpen.setVisibility(View.VISIBLE);
-            mOpenContent.setVisibility(View.GONE);
-            noOpenHidden.setVisibility(View.GONE);
-            click_open_bank_account.setText("开通存管账户");
-            tvNoOpenHint.setText("为了保障您的资金安全 需先开通存管账户");
-            tvNoOpenHint2.setVisibility(View.VISIBLE);
-            tvNoOpenHint2.setText("开通后10分钟左右可以查看开通结果 请勿重复操作");
 
-        }else if (!isBindBank){
-            mHeaderNoOpen.setVisibility(View.VISIBLE);
-            mOpenContent.setVisibility(View.GONE);
-            noOpenHidden.setVisibility(View.GONE);
-            click_open_bank_account.setText("绑卡激活");
-            tvNoOpenHint.setText("开通了银行存管的用户 需绑定银行卡激活账户");
-            tvNoOpenHint2.setVisibility(View.GONE);
-        }else{
-            mHeaderNoOpen.setVisibility(View.GONE);
-            mOpenContent.setVisibility(View.VISIBLE);
-            noOpenHidden.setVisibility(View.VISIBLE);
+    public void onEventMainThread(RefreshTab event) {
+        if (event != null && isAdded() && event.tabType == RefreshTab.TAB_ACCOUNT) {//切换我要投资TAB时
+            if (mHttpService != null) {
+                loadDate();
+            }
         }
     }
 
@@ -375,7 +387,7 @@ public class BankAccountFragment extends BaseFragment {
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(mContext);
         isOpen = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT, false);
         isBindBank = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_BIND_BANK, false);
-        if (!isOpen){
+        if (!isOpen) {
             mHeaderNoOpen.setVisibility(View.VISIBLE);
             mOpenContent.setVisibility(View.GONE);
             noOpenHidden.setVisibility(View.GONE);
@@ -384,14 +396,14 @@ public class BankAccountFragment extends BaseFragment {
             tvNoOpenHint2.setVisibility(View.VISIBLE);
             tvNoOpenHint2.setText("开通后10分钟左右可以查看开通结果 请勿重复操作");
 
-        }else if (!isBindBank){
+        } else if (!isBindBank) {
             mHeaderNoOpen.setVisibility(View.VISIBLE);
             mOpenContent.setVisibility(View.GONE);
             noOpenHidden.setVisibility(View.GONE);
             click_open_bank_account.setText("绑卡激活");
             tvNoOpenHint.setText("开通了银行存管的用户 需绑定银行卡激活账户");
             tvNoOpenHint2.setVisibility(View.GONE);
-        }else{
+        } else {
             mHeaderNoOpen.setVisibility(View.GONE);
             mOpenContent.setVisibility(View.VISIBLE);
             noOpenHidden.setVisibility(View.VISIBLE);
@@ -416,19 +428,19 @@ public class BankAccountFragment extends BaseFragment {
     public void click(View view) {
         switch (view.getId()) {
             case R.id.tvOpenGuide:
-                boolean isPersonType =   SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, true);
-                if (!isOpen){
+                boolean isPersonType = SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, true);
+                if (!isOpen) {
                     //图文指引
-                    if(isPersonType){
-                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideOpen",null);
-                    }else{
-                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideOpen?company=1",null);
+                    if (isPersonType) {
+                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideOpen", null);
+                    } else {
+                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideOpen?company=1", null);
                     }
-                }else if (!isBindBank){
-                    if(isPersonType){
-                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideBind?bind1=1",null);
-                    }else{
-                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideBind?bind2=1",null);
+                } else if (!isBindBank) {
+                    if (isPersonType) {
+                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideBind?bind1=1", null);
+                    } else {
+                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideBind?bind2=1", null);
                     }
                 }
                 break;
@@ -508,7 +520,7 @@ public class BankAccountFragment extends BaseFragment {
                 user = DBUtils.getUser(mContext);
                 if (user != null) {
                     Long userId = user.getUserId();
-                    if (!isOpen){
+                    if (!isOpen) {
                         if (mUserInfoBean != null) {
                             boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
                             if (!isRealName) {
@@ -518,9 +530,9 @@ public class BankAccountFragment extends BaseFragment {
                                 gotoWeb("/hx/account/create?userId=" + userId, "");
                             }
                         }
-                    }else if (!isBindBank){
+                    } else if (!isBindBank) {
                         //跳转到存管绑卡第三方界面
-                        BindBankHintActivity.goThis(getContext(),userId.toString());
+                        BindBankHintActivity.goThis(getContext(), userId.toString());
                     }
                 } else {
                     gotoActivity(LoginActivity.class);
@@ -582,6 +594,6 @@ public class BankAccountFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 }

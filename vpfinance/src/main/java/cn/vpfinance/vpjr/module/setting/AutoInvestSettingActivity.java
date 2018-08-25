@@ -149,16 +149,21 @@ public class AutoInvestSettingActivity extends BaseActivity {
 //                } else {
 //                    containerSetting.setVisibility(isChecked ? View.VISIBLE : View.GONE);
 //                }
-                if (null != bean && bean.isHXAutoPlank == 1) {//已授权
+                if (null != bean && autoInvestStatus == 1) {//已授权
                     tvAuthorization.setText("已授权");
                     if (isChecked) {
                         containerSetting.setVisibility(View.VISIBLE);
                     } else {
                         containerSetting.setVisibility(View.GONE);
                     }
-                } else {//未授权
+                } else if (null != bean && autoInvestStatus == 2) {//超额
                     Utils.Toast("请先进行授权");
-                    tvAuthorization.setText("去授权");
+                    tvAuthorization.setText("已超额");
+                    allowPub.setChecked(false);
+                    containerSetting.setVisibility(View.GONE);
+                } else if (null != bean && autoInvestStatus == 3) {//过期
+                    Utils.Toast("请先进行授权");
+                    tvAuthorization.setText("已过期");
                     allowPub.setChecked(false);
                     containerSetting.setVisibility(View.GONE);
                 }
@@ -220,6 +225,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {
                 if (!TextUtils.isEmpty(s.toString()) && bean.userRemainingMoney != Double.parseDouble(s.toString())) {//账户保留金额发生了变化
                     btnSubmit.setEnabled(true);
+                    bean.userRemainingMoney = Double.parseDouble(s.toString());
                 }
 //                else {
 //                    btnSubmit.setEnabled(false);
@@ -242,6 +248,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {
                 if (!TextUtils.isEmpty(s.toString()) && bean.userMaxLoanMoney != Double.parseDouble(s.toString())) {//最大投资金额发生了变化
                     btnSubmit.setEnabled(true);
+                    bean.userMaxLoanMoney = Double.parseDouble(s.toString());
                 }
 //                else {
 //                    btnSubmit.setEnabled(false);
@@ -318,8 +325,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
 
         } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_AUTO_PLANK_STATUS.ordinal()) {
             QueryAutoStatusBean autoStatusBean = new Gson().fromJson(json.toString(), QueryAutoStatusBean.class);
-            if (autoStatusBean != null && !TextUtils.isEmpty(autoStatusBean.autoPlankStatus)
-                    && ("2".equals(autoStatusBean.autoPlankStatus) || "3".equals(autoStatusBean.autoPlankStatus))) {
+            if (autoStatusBean != null && !TextUtils.isEmpty(autoStatusBean.autoPlankStatus)) {
                 autoInvestStatus = Integer.parseInt(autoStatusBean.autoPlankStatus);
                 if (autoInvestStatus == 2) {//2超额 3过期
                     tvAuthorization.setText("已超额");
@@ -438,7 +444,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
             } else {
                 tvVoucher.setText("不使用");
             }
-            bean.coupons = isUse+"";
+            bean.coupons = isUse + "";
 //            if(TextUtils.isEmpty(data.getStringExtra("isUse")) ){//选择了不使用
 //                tvVoucher.setText("不使用");
 //            }else {//使用

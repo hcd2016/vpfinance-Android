@@ -7,6 +7,7 @@ public class RefreshTab {
     public static final int TAB_HOME = 100;
     public static final int TAB_LIST = 101;
     public static final int TAB_MINE = 102;
+    public static final int TAB_ACCOUNT = 102;
 
     public static final int LIST_NONE = 0;
     public static final int LIST_REGULAR_PRODUCT = 1;

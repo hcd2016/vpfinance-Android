@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_1c1c1c"
-                    android:text="去授权"
+                    tools:text="去授权"
                     android:layout_marginRight="5dp"/>
                 <ImageView
                     android:layout_width="8dp"
