@@ -31,6 +31,7 @@ import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.gson.LoanSignTypeBean;
 import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.home.NewSearchActivity;
+import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.Logger;
 import de.greenrobot.event.EventBus;
 
@@ -43,7 +44,7 @@ public class ProductCategoryFragment extends BaseFragment {
     private ViewPager mViewPager;
     private PagerSlidingTabStrip mTabs;
     private HttpService mHttpService;
-//    private boolean isShowDeposit = false;
+    //    private boolean isShowDeposit = false;
     private MyAdapter mTabsAdapter;
 
 
@@ -77,7 +78,7 @@ public class ProductCategoryFragment extends BaseFragment {
         mViewPager.setPageMargin(Utils.dip2px(getActivity(), 4));
         mViewPager.setOffscreenPageLimit(5);
 
-        mHttpService = new HttpService(mContext,this);
+        mHttpService = new HttpService(mContext, this);
 //        mHttpService.getIsShowDeposit();
         mHttpService.getLoanSignType();
         return view;
@@ -98,7 +99,7 @@ public class ProductCategoryFragment extends BaseFragment {
             updateView(isShowDeposit);
         }*/
         if (reqId == ServiceCmd.CmdId.CMD_Loan_Sign_Type.ordinal()) {
-            Logger.e("Json:"+json.toString());
+            Logger.e("Json:" + json.toString());
 //            String json2 = "{\"types\":[{\"name\":\"投资产品\",\"value\":\"1\"},{\"name\":\"转让专区\",\"value\":\"2\"}]}";
 //            String json3 = "";
             LoanSignTypeBean typeBean = new Gson().fromJson(json.toString(), LoanSignTypeBean.class);
@@ -112,18 +113,18 @@ public class ProductCategoryFragment extends BaseFragment {
         MobclickAgent.onPageStart("ProductCategory");
     }
 
-    private void updateView(LoanSignTypeBean typeBean){
-        if (typeBean == null || typeBean.types == null)   return;
+    private void updateView(LoanSignTypeBean typeBean) {
+        if (typeBean == null || typeBean.types == null) return;
 
-        mTabsAdapter = new MyAdapter(getChildFragmentManager(),typeBean.types);
+        mTabsAdapter = new MyAdapter(getChildFragmentManager(), typeBean.types);
         mViewPager.setOffscreenPageLimit(mTabsAdapter.getCount());
         mViewPager.setAdapter(mTabsAdapter);
         mTabs.setViewPager(mViewPager);
         mViewPager.setCurrentItem(0);
 
         int currentListTabType = ((FinanceApplication) getActivity().getApplication()).currentListTabType;
-        for (int i = 0; i < typeBean.types.size(); i++){
-            if (currentListTabType == typeBean.types.get(i).value){
+        for (int i = 0; i < typeBean.types.size(); i++) {
+            if (currentListTabType == typeBean.types.get(i).value) {
                 mViewPager.setCurrentItem(i);
             }
         }
@@ -144,11 +145,22 @@ public class ProductCategoryFragment extends BaseFragment {
         });
     }
 
+    //产品列表是否加载成功
+    boolean productListLoadSuccess = false;
+
     public void onEventMainThread(RefreshTab event) {
-        if (event != null && isAdded() && event.tabType == RefreshTab.TAB_LIST){
-            if (mHttpService != null){
-//                mHttpService.getLoanSignType();
+        if (event != null && isAdded() && event.tabType == RefreshTab.TAB_LIST) {//切换我要投资TAB时
+            if (mHttpService != null) {
+                if (!productListLoadSuccess) {
+                    mHttpService.getLoanSignType();
+                }
             }
+        }
+    }
+
+    public void onEventMainThread(EventStringModel event) {
+        if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_PRODUCT_LIST_LOAD_SUCCECC)) {//产品列表加载成功
+            productListLoadSuccess = true;
         }
     }
 
@@ -168,14 +180,14 @@ public class ProductCategoryFragment extends BaseFragment {
             this.types = types;
         }
 
-        public Integer getTabValue(int position){
+        public Integer getTabValue(int position) {
             return types.get(position) == null ? 0 : types.get(position).value;
         }
 
         @Override
         public Fragment getItem(int position) {
             Integer type = types.get(position).value;
-            switch (type){
+            switch (type) {
                 case Constant.TYPE_REGULAR://定期
                     return ProductListFragment.getInstance(Constant.TYPE_REGULAR);
                 case Constant.TYPE_BANK://存管专区
@@ -190,10 +202,10 @@ public class ProductCategoryFragment extends BaseFragment {
 
         @Override
         public int getCount() {
-            return  types == null ? 0 : types.size();
+            return types == null ? 0 : types.size();
         }
 
-       @Override
+        @Override
         public void setPrimaryItem(ViewGroup container, int position, Object object) {
             //super.setPrimaryItem(container, position, object);
         }

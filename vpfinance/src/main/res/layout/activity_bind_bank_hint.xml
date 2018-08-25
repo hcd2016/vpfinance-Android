@@ -12,7 +12,7 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        tools:visibility="visible"
+        tools:visibility="gone"
         android:id="@+id/ll_person_hint_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -101,11 +101,11 @@
                 android:layout_height="match_parent"
                 tools:text="深圳五维微品金融信息服务有限公司" />
             <TextView
+                android:background="@drawable/shape_radius5_red"
                 android:id="@+id/btn_account_name_copy"
-                android:background="@color/background_gray"
                 android:paddingRight="10dp"
                 android:paddingLeft="10dp"
-                android:textColor="@color/black_text"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,10 +135,10 @@
                 tools:text="805880100033126" />
             <TextView
                 android:id="@+id/btn_account_num_copy"
-                android:background="@color/background_gray"
+                android:background="@drawable/shape_radius5_red"
                 android:paddingRight="10dp"
                 android:paddingLeft="10dp"
-                android:textColor="@color/black_text"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

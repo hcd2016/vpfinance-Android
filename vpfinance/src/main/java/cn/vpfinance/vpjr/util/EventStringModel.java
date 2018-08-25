@@ -23,5 +23,6 @@ public class EventStringModel {
     public static final String EVENT_BIND_EMAIL_SUCCESS = "bind_email_success";//绑定邮箱成功
     public static final String EVENT_BIND_WEIXIN_SUCCESS_FROM_SETTING = "bind_email_success_from_setting";//微信绑定成功(设置)
     public static final String EVENT_CHANGE_PHONE_SUCCESS= "change_phone_success";//手机号修改成功
+    public static final String EVENT_PRODUCT_LIST_LOAD_SUCCECC= "product_list_load_success";//产品列表加载成功
 
 }

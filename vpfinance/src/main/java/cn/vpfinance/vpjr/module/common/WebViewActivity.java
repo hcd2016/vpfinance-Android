@@ -183,18 +183,20 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private void loadUrl(WebView web, String url) {
         if (TextUtils.isEmpty(url)) return;
 
-        if(url.contains("close_hx_window")){
-            boolean value = SharedPreferencesHelper.getInstance(WebViewActivity.this).getBooleanValue(BankInvestSuccessHintActivity.BANK_INVEST_SUCCESS_IS_SHOW,true);
-            if (value){
+        if (url.contains("close_hx_window")) {
+            boolean value = SharedPreferencesHelper.getInstance(WebViewActivity.this).getBooleanValue(BankInvestSuccessHintActivity.BANK_INVEST_SUCCESS_IS_SHOW, true);
+            if (value) {
                 gotoActivity(BankInvestSuccessHintActivity.class);
             }
             finish();
             return;
         }
-        if (url.contains("?")) {
-            url += "&regChannel=1";
-        } else {
-            url += "?regChannel=1";
+        if (!url.contains("regChannel=1")) {
+            if (url.contains("?")) {
+                url += "&regChannel=1";
+            } else {
+                url += "?regChannel=1";
+            }
         }
         if (!url.contains("weixin")) {
             if (url.contains("?")) {
@@ -203,23 +205,25 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 url += "?platform=android";
             }
         }
-        //Logger.e("loadUrl:"+url);
         if (!isFinishing()) {
             String cookieText = getCookieText();
-//            synchronousWebCookies(this, url, cookieText);
-            syncCookie(url,cookieText);
+            syncCookie(url, cookieText);
+            if (url.contains(",1") && url.contains("hx/repayment/repay")) {
+                url = url.replace(",1", "");
+            }
             web.loadUrl(url);
         }
     }
 
     /**
      * 将cookie同步到WebView
-     * @param url WebView要加载的url
+     *
+     * @param url    WebView要加载的url
      * @param cookie 要同步的cookie
      * @return true 同步cookie成功，false同步cookie失败
      * @Author JPH
      */
-    public boolean syncCookie(String url,String cookie) {
+    public boolean syncCookie(String url, String cookie) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             CookieSyncManager.createInstance(WebViewActivity.this);
         }
@@ -229,7 +233,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             cookieManager.setCookie(url, s);//如果没有特殊需求，这里只需要将session id以"key=value"形式作为cookie即可
         }
         String newCookie = cookieManager.getCookie(url);
-        return TextUtils.isEmpty(newCookie)?false:true;
+        return TextUtils.isEmpty(newCookie) ? false : true;
     }
 
     /**
@@ -308,7 +312,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                 if (this.webView.canGoBack()) {
                     this.webView.goBack();
                 } else {
-                    if (WelcomeActivity.WelcomeEventUrl.equals(str)){
+                    if (WelcomeActivity.WelcomeEventUrl.equals(str)) {
                         Intent main = new Intent(this, MainActivity.class);
                         startActivity(main);
                     }
@@ -321,7 +325,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
                     this.webView.goForward();
                 break;
             case R.id.close:
-                if (WelcomeActivity.WelcomeEventUrl.equals(str)){
+                if (WelcomeActivity.WelcomeEventUrl.equals(str)) {
                     Intent main = new Intent(this, MainActivity.class);
                     startActivity(main);
                 }
@@ -475,7 +479,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             super.onPageFinished(webview, url);
             WebViewActivity.this.progressBar.setVisibility(View.GONE);
             isShare(url);
-            Logger.e("onPageFinished:"+url);
+            Logger.e("onPageFinished:" + url);
         }
 
         public void onPageStarted(WebView webview, String url, Bitmap favicon) {
@@ -490,7 +494,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
 
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            Logger.e("shouldOverrideUrlLoading:"+url);
+            Logger.e("shouldOverrideUrlLoading:" + url);
             if (TextUtils.isEmpty(url)) return true;
             //vpfinance://toLogin
             //如果跳转链接出现vpfinance://开头的就去调用相对应的方法

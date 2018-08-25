@@ -34,7 +34,7 @@ public class AutoInvestCouponActivityNew extends BaseActivity {
     LinearLayout llUnuseContainer;
     @Bind(R.id.title_bar)
     ActionBarLayout titleBar;
-    public int resultType = 0;
+    public int resultType = 1;//1使用,2不使用
     @Bind(R.id.btnSubmit)
     Button btnSubmit;
 
@@ -45,12 +45,12 @@ public class AutoInvestCouponActivityNew extends BaseActivity {
         ButterKnife.bind(this);
         titleBar.setTitle("优惠券").setHeadBackVisible(View.VISIBLE);
         String isUse = getIntent().getStringExtra("isUse");
-        if (TextUtils.isEmpty(isUse)) {
-            ivUse.setVisibility(View.GONE);
-            ivUnuse.setVisibility(View.VISIBLE);
-        } else {
+        if (isUse.equals("1")) {
             ivUse.setVisibility(View.VISIBLE);
             ivUnuse.setVisibility(View.GONE);
+        } else {
+            ivUse.setVisibility(View.GONE);
+            ivUnuse.setVisibility(View.VISIBLE);
         }
     }
 

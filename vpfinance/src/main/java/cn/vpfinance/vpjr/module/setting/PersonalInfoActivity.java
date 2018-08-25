@@ -533,7 +533,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                     Utils.Toast("服务器异常");
                     break;
                 case "1":
-                    Utils.Toast("解绑成功");
+                    Utils.Toast("授权被取消");
                     tvWeixinBindDesc.setText("未绑定");
                     mUserInfoBean.isBindWx = "0";
                     break;

@@ -27,9 +27,11 @@ import cn.vpfinance.vpjr.gson.LoanSignListNewBean;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.module.product.shenyang.PresellProductActivity;
 import cn.vpfinance.vpjr.module.product.transfer.NewTransferProductActivity;
+import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.view.pullrefresh.PullRefreshRecyclerView;
 import cn.vpfinance.vpjr.view.pullrefresh.PullRefreshUtil;
 import cn.vpfinance.vpjr.view.pullrefresh.PullRefreshView;
+import de.greenrobot.event.EventBus;
 
 
 /**
@@ -119,18 +121,18 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
                 }
             }
         });
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
                 mHttpService.getLoanSignListNew(typeList, pageNum * PAGE_SIZE, PAGE_SIZE, "");
-            }
-        },2000);
+//            }
+//        },2000);
         return view;
     }
 
     @Override
     protected void loadDate() {
-//        mHttpService.getLoanSignListNew(typeList, pageNum * PAGE_SIZE, PAGE_SIZE, "");
+        mHttpService.getLoanSignListNew(typeList, pageNum * PAGE_SIZE, PAGE_SIZE, "");
     }
 
     private void clearData() {
@@ -142,8 +144,8 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onHttpSuccess(int reqId, JSONObject json) {
         if (!isHttpHandle(json)) return;
-
         if (reqId == ServiceCmd.CmdId.CMD_Loan_Sign_List_New.ordinal()) {
+            EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_PRODUCT_LIST_LOAD_SUCCECC));
             mRecyclerView.refreshFinish();
             if (isShouldClear){
                 clearData();

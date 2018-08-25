@@ -287,7 +287,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                     Utils.Toast("账号被锁定");
                     break;
                 case "1":
-                    Utils.Toast("绑定成功");
+                    Utils.Toast("您已成功绑定微信");
                     EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_BIND_WEIXIN_SUCCESS_FROM_SETTING));
                     finish();
 //                    Long uid = json.optLong("uid");
