@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
 import cn.vpfinance.vpjr.greendao.DaoSession;
 import cn.vpfinance.vpjr.greendao.User;
@@ -34,6 +35,7 @@ import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.module.gusturelock.LockPatternView.Cell;
 import cn.vpfinance.vpjr.module.gusturelock.LockPatternView.DisplayMode;
 import cn.vpfinance.vpjr.module.home.MainActivity;
+import cn.vpfinance.vpjr.module.user.OpenBankHintActivity;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.util.StatusBarCompat1;
@@ -298,10 +300,20 @@ public class LockSetupActivity extends Activity implements
             preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, username);
         }
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(MainActivity.SWITCH_TAB_NUM, 2);
-        startActivity(intent);
-        finish();
+        SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
+        if(sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
+            FinanceApplication application = (FinanceApplication) this.getApplication();
+            if (application.isFirstRegieter) {
+                OpenBankHintActivity.goThis(this);
+                application.isFirstRegieter = false;
+                finish();
+            }
+        }else {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra(MainActivity.SWITCH_TAB_NUM, 2);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override

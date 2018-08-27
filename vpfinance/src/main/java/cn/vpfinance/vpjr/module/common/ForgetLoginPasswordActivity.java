@@ -176,7 +176,6 @@ public class ForgetLoginPasswordActivity extends BaseActivity {
                     break;
                 case "2"://
                     Utils.Toast("用户不存在,请先注册");
-                    finish();
                     break;
                 case "3"://非企业用户
                     Utils.Toast("该用户名非企业用户,请先注册");

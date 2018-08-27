@@ -27,6 +27,7 @@
         android:layout_marginRight="25dp">
 
         <EditText
+            android:maxLength="6"
             android:id="@+id/etCaptcha"
             style="@style/NumberEditStyle"
             android:layout_height="match_parent"

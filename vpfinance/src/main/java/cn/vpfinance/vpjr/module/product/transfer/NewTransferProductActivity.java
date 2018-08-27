@@ -28,8 +28,8 @@ import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.User;
-import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.gson.NewTransferProductBean;
+import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity;
 import cn.vpfinance.vpjr.module.product.record.NoRepayListActivity;
 import cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity;
@@ -81,6 +81,8 @@ public class NewTransferProductActivity extends BaseActivity implements View.OnC
     Button mBtnInvest;
     @Bind(R.id.countDown)
     MyCountDownTimer mCountDownTimer;
+    @Bind(R.id.tv_finish)
+    TextView tvFinish;
     private Context mContext;
     private HttpService mHttpService;
     private long mPid;
@@ -99,7 +101,7 @@ public class NewTransferProductActivity extends BaseActivity implements View.OnC
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mCountDownTimer != null){
+        if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
     }
@@ -139,26 +141,26 @@ public class NewTransferProductActivity extends BaseActivity implements View.OnC
                 if (mBean != null) {
                     product = mBean.product;
 
-                    if (!TextUtils.isEmpty(mBean.loanTitle)){
+                    if (!TextUtils.isEmpty(mBean.loanTitle)) {
                         mTitleBar.setTitle(mBean.loanTitle);
                     }
                     mTvProductName.setText(mBean.loanTitle);
                     //1质押，2保证，3抵押，4信用，5实地
-                    Common.productSubType(mContext,mIvProductState,mBean.subType);
+                    Common.productSubType(mContext, mIvProductState, mBean.subType);
 
-                    mTvEarningsYield.setText(FormatUtils.formatDown((mBean.rate*100))+ "%");
-                    mTvProductTotalMoney.setText(FormatUtils.formatDown2(mBean.issueloan)+"元");
-                    mTvProductAvailableMoney.setText(FormatUtils.formatDown2(mBean.canBuyMoney)+"元");
+                    mTvEarningsYield.setText(FormatUtils.formatDown((mBean.rate * 100)) + "%");
+                    mTvProductTotalMoney.setText(FormatUtils.formatDown2(mBean.issueloan) + "元");
+                    mTvProductAvailableMoney.setText(FormatUtils.formatDown2(mBean.canBuyMoney) + "元");
                     mTvProductMonth.setText(mBean.month);
                     mTvTransferWay.setText(mBean.disType);
                     mTvRefund.setText(mBean.refundWay);
                     mTvProductRate.setText(FormatUtils.formatRate(mBean.sourceRate * 100) + "%");
 
                     double originIssueLoan = mBean.originIssueLoan;//原始本金
-                    mTvProductNativeMoney.setText(""+ originIssueLoan);
+                    mTvProductNativeMoney.setText("" + originIssueLoan);
 
                     //进度
-                    double pro = (mBean.hadTenderMoney / mBean.issueloan)*100;
+                    double pro = (mBean.hadTenderMoney / mBean.issueloan) * 100;
                     //status
                     int status = mBean.status;
                     String state = "立即投资";
@@ -183,18 +185,22 @@ public class NewTransferProductActivity extends BaseActivity implements View.OnC
                             pro = 100;
                             mBtnInvest.setEnabled(false);
                             mCountDownTimer.cancel();
+                            mCountDownTimer.setVisibility(View.GONE);
+                            tvFinish.setVisibility(View.VISIBLE);
                             break;
                         case 4:
                             state = getString(R.string.productState4);
                             pro = 100;
                             mBtnInvest.setEnabled(false);
                             mCountDownTimer.cancel();
+                            mCountDownTimer.setVisibility(View.GONE);
+                            tvFinish.setVisibility(View.VISIBLE);
                             break;
                     }
                     mBtnInvest.setText(state);
                     mPresellNumberbar.setProgress((float) pro);
 
-                    mCountDownTimer.setCountDownTime(mContext,mBean.bidEndTime);
+                    mCountDownTimer.setCountDownTime(mContext, mBean.bidEndTime);
 
                 }
             } catch (Exception e) {
@@ -207,22 +213,22 @@ public class NewTransferProductActivity extends BaseActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.clickToNativeProduct:
-                if (mBean.product == 0 && mBean.productType == 3){
+                if (mBean.product == 0 && mBean.productType == 3) {
                     PresellProductActivity.goPresellProductActivity(mContext, "" + mBean.sourceLoanId);
-                }else if (mBean.product == 4){
-                    NewRegularProductActivity.goNewRegularProductActivity(mContext, mBean.sourceLoanId, (int)mPid,mBean.loanTitle,false);
-                }else{
+                } else if (mBean.product == 4) {
+                    NewRegularProductActivity.goNewRegularProductActivity(mContext, mBean.sourceLoanId, (int) mPid, mBean.loanTitle, false);
+                } else {
                     if (mBean != null && mBean.sourceLoanId != 0) {
-                        NewRegularProductActivity.goNewRegularProductActivity(mContext, mBean.sourceLoanId, (int)mPid,mBean.loanTitle,false);
+                        NewRegularProductActivity.goNewRegularProductActivity(mContext, mBean.sourceLoanId, (int) mPid, mBean.loanTitle, false);
                     }
                 }
                 break;
             case R.id.clickToRecord:
-                if (mBean != null){
-                    if (mBean.frequency == null){
+                if (mBean != null) {
+                    if (mBean.frequency == null) {
                         mBean.frequency = -1;
                     }
-                    ProductInvestListActivity.goProductInvestListActivity(this, mBean.loanId, -1,mBean.frequency,false);
+                    ProductInvestListActivity.goProductInvestListActivity(this, mBean.loanId, -1, mBean.frequency, false);
                 }
 //                if (product != null && rList != null) {
 //                    ProductInvestListActivity.goProductInvestListActivity(mContext, product.getPid(), product.getType());
@@ -235,19 +241,19 @@ public class NewTransferProductActivity extends BaseActivity implements View.OnC
                 break;
             case R.id.btnInvest:
                 if (mBean != null) {
-                    if (mBean.answerStatus == 2){
+                    if (mBean.answerStatus == 2) {
                         new AlertDialog.Builder(mContext)
                                 .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行投资")
                                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         User user = DBUtils.getUser(mContext);
-                                        if (user != null){
-                                            gotoWeb("/h5/help/riskInvestigation?userId="+user.getUserId(),"风险评测");
+                                        if (user != null) {
+                                            gotoWeb("/h5/help/riskInvestigation?userId=" + user.getUserId(), "风险评测");
                                         }
                                     }
                                 })
-                                .setNegativeButton("下次再说",null)
+                                .setNegativeButton("下次再说", null)
                                 .show();
                         return;
                     }

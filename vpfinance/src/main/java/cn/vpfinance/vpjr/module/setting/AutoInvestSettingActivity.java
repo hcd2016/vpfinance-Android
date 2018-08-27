@@ -156,20 +156,22 @@ public class AutoInvestSettingActivity extends BaseActivity {
                     } else {
                         containerSetting.setVisibility(View.GONE);
                     }
-                } else if (null != bean && autoInvestStatus == 2) {//超额
+                    btnSubmit.setEnabled(true);
+                }else {
+                    if(null != bean && autoInvestStatus == 2) {
+                        tvAuthorization.setText("已超额");
+                    }else if(null != bean && autoInvestStatus == 3) {
+                        tvAuthorization.setText("已过期");
+                    }else {
+                        tvAuthorization.setText("去授权");
+                    }
                     Utils.Toast("请先进行授权");
-                    tvAuthorization.setText("已超额");
                     allowPub.setChecked(false);
                     containerSetting.setVisibility(View.GONE);
-                } else if (null != bean && autoInvestStatus == 3) {//过期
-                    Utils.Toast("请先进行授权");
-                    tvAuthorization.setText("已过期");
-                    allowPub.setChecked(false);
-                    containerSetting.setVisibility(View.GONE);
+                    btnSubmit.setEnabled(false);
                 }
 
 
-                btnSubmit.setEnabled(true);
 //                //处理保存按钮置灰
 //                if (null != bean) {
 //                    int isAutoPlank = 0;

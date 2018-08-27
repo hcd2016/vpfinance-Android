@@ -1,5 +1,6 @@
 package cn.vpfinance.vpjr.module.common;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,6 +37,7 @@ import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.gson.UserRegisterBean;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity;
+import cn.vpfinance.vpjr.module.user.OpenBankHintActivity;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
@@ -221,12 +223,16 @@ public class LoginPasswordActivity extends BaseActivity {
                         }
                         break;
                     case "2":
+                        Utils.Toast("注册出现错误");
                         break;
                     case "3":
+                        Utils.Toast("用户名己被注册");
                         break;
                     case "4":
+                        Utils.Toast("手机号己被注册");
                         break;
                     case "5":
+                        Utils.Toast("验证码己过期");
                         break;
                 }
             }
@@ -315,7 +321,9 @@ public class LoginPasswordActivity extends BaseActivity {
                     if (!TextUtils.isEmpty(uid) && !uid.equals(savedUid)) {
                         preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
                     }
-
+//                    preferencesHelper.putBooleanValue(uid,true);//保存新注册用户是否打开过引导
+                    FinanceApplication application = (FinanceApplication)getApplication();
+                    application.isFirstRegieter = true;
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
                     //清理login present标志
@@ -345,10 +353,10 @@ public class LoginPasswordActivity extends BaseActivity {
                     doLogin();
                 }
             }
-            if(reqId == ServiceCmd.CmdId.CMD_COMPANY_REGISTER.ordinal()) {//企业注册
+            if (reqId == ServiceCmd.CmdId.CMD_COMPANY_REGISTER.ordinal()) {//企业注册
                 String status = json.optString("status");
-                if(!TextUtils.isEmpty(status)) {
-                    if("succ".equals(status)) {//成功
+                if (!TextUtils.isEmpty(status)) {
+                    if ("succ".equals(status)) {//成功
                         Utils.Toast("注册成功!");
                         String uid = json.optString("uid");
                         httpService.enterpriseUserLogin(userRegisterBean.getEmail(), Utils.md5encodeNew(etFirstPwd.getText().toString()));

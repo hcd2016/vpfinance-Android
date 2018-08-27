@@ -76,9 +76,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            zipAlignEnabled true
-            shrinkResources true
+            minifyEnabled true//开启混淆
+            zipAlignEnabled true//zipAlign优化
+            shrinkResources true//移除无用的resource文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             signingConfig signingConfigs.release
         }

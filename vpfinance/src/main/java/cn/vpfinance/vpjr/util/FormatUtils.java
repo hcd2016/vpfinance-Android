@@ -236,7 +236,7 @@ public class FormatUtils {
         String fristStr = phone.substring(0, 3);
         String lastStr = phone.substring(phone.length() - 4);
 
-        return fristStr+"******"+lastStr;
+        return fristStr+"****"+lastStr;
     }
 
     /**

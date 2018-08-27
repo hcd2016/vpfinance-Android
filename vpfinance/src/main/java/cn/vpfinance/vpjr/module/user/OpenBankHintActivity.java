@@ -17,6 +17,7 @@ import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.User;
+import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 
@@ -41,6 +42,9 @@ public class OpenBankHintActivity extends BaseActivity {
         findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(OpenBankHintActivity.this, MainActivity.class);
+                intent.putExtra(MainActivity.SWITCH_TAB_NUM, 2);
+                startActivity(intent);
                 finish();
             }
         });

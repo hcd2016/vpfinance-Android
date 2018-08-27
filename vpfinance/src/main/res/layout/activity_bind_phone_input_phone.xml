@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
     <com.jewelcredit.ui.widget.ActionBarWhiteLayout
@@ -36,15 +38,16 @@
             android:textSize="10sp"
             android:textColor="@color/text_666666"/>
         <cn.vpfinance.vpjr.view.EditTextWithDel
+            style="@style/NumberEditStyle"
+            app:maxLength="11"
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:theme="@style/MyEditText"
             android:textSize="20sp"
             android:textColor="@color/text_1c1c1c"
-            android:inputType="number"
             android:hint="请输入新手机号码"
-            android:maxLength="11"/>
+            />
 
         <Button
             android:id="@+id/vClickGetCode"

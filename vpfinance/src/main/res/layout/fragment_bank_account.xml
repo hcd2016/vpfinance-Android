@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <com.jewelcredit.ui.widget.ActionBarLayout
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
@@ -22,10 +24,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <RelativeLayout
+                    android:id="@+id/header"
                     android:layout_width="match_parent"
                     android:layout_height="82dp"
-                    android:id="@+id/header"
                     android:background="@color/account_bank_header">
 
                     <cn.vpfinance.vpjr.view.CircleImg
@@ -33,9 +36,9 @@
                         android:layout_width="54dp"
                         android:layout_height="54dp"
                         android:layout_marginLeft="25dp"
-                        app:border_width="1px"
                         android:layout_marginTop="25dp"
-                        android:src="@drawable/icon_mine_header" />
+                        android:src="@drawable/icon_mine_header"
+                        app:border_width="1px" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -83,55 +86,56 @@
                         android:id="@+id/ivBandActive"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/bangkajihuo"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="16dp"
+                        android:src="@drawable/bangkajihuo"
                         android:visibility="gone"
-                        tools:visibility="visible"/>
+                        tools:visibility="visible" />
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/header_no_open"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/account_bank_header"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:gravity="center_horizontal">
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="280dp"
                         android:layout_height="130dp"
-                        android:background="@drawable/pic_cunguan"
-                        android:layout_marginTop="20dp"/>
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/pic_cunguan" />
 
                     <TextView
                         android:id="@+id/tvNoOpenHint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
                         android:text="为了保障您的资金安全 需先开通存管账户"
                         android:textColor="@color/white"
-                        android:layout_marginTop="40dp"
-                        android:textSize="@dimen/text_size_12"/>
+                        android:textSize="@dimen/text_size_12" />
+
                     <TextView
                         android:id="@+id/tvNoOpenHint2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:text="开通后10分钟左右可以查看开通结果 请勿重复操作"
                         android:textColor="@color/white"
-                        android:layout_marginTop="5dp"
-                        android:textSize="@dimen/text_size_12"/>
+                        android:textSize="@dimen/text_size_12" />
 
                     <Button
                         android:id="@+id/click_open_bank_account"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
+                        android:layout_marginBottom="20dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginTop="22dp"
                         android:background="@drawable/shape_start_bank_account"
                         android:text="开通存管账户"
-                        android:layout_marginBottom="20dp"
                         android:textColor="@color/text_333333"
                         android:textSize="@dimen/text_size_16" />
 
@@ -139,32 +143,36 @@
                         android:id="@+id/tvOpenGuide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="20dp"
                         android:text="查看图文指引"
                         android:textColor="@color/white"
-                        android:textSize="13sp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="20dp"/>
+                        android:textSize="13sp" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/white"
                         android:orientation="vertical"
-                        android:padding="10dp"
-                        android:background="@color/white">
+                        android:padding="10dp">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="温馨提示:"
-                            android:textSize="@dimen/text_size_16"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="1.开通后10分钟左右可以查看开通结果,请勿重复操作"
-                            android:layout_marginTop="5dp"/>
+                            android:textSize="@dimen/text_size_16" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="2.开通存管账户前请先进行实名认证"/>
+                            android:text="1.开通后10分钟左右可以查看开通结果,请勿重复操作" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="2.开通存管账户前请先进行实名认证" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -174,18 +182,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@color/account_bank_header">
+                        android:background="@color/account_bank_header"
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="74.5dp"
-                            android:orientation="horizontal"
+                            android:layout_below="@id/userHead"
                             android:layout_marginTop="15dp"
-                            android:layout_below="@id/userHead">
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -198,18 +207,18 @@
                                     android:id="@+id/tvTotalMoney"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:text="0.00"
                                     android:textColor="@color/white"
-                                    android:textSize="15sp"
-                                    android:text="0.00" />
+                                    android:textSize="15sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
+                                    android:alpha="0.6"
                                     android:text="资产总额"
                                     android:textColor="@color/white"
-                                    android:textSize="12sp"
-                                    android:alpha="0.6"/>
+                                    android:textSize="12sp" />
                             </LinearLayout>
 
                             <View
@@ -230,18 +239,18 @@
                                     android:id="@+id/tvAvailableMoney"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:text="0.00"
                                     android:textColor="@color/white"
-                                    android:textSize="15sp"
-                                    android:text="0.00" />
+                                    android:textSize="15sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
+                                    android:alpha="0.6"
                                     android:text="可用余额"
                                     android:textColor="@color/white"
-                                    android:textSize="12sp"
-                                    android:alpha="0.6"/>
+                                    android:textSize="12sp" />
                             </LinearLayout>
 
                             <View
@@ -262,21 +271,22 @@
                                     android:id="@+id/tvTotalIncome"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:text="0.00"
                                     android:textColor="@color/white"
-                                    android:textSize="15sp"
-                                    android:text="0.00" />
+                                    android:textSize="15sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
+                                    android:alpha="0.6"
                                     android:text="累计收益"
                                     android:textColor="@color/white"
-                                    android:textSize="12sp"
-                                    android:alpha="0.6"/>
+                                    android:textSize="12sp" />
                             </LinearLayout>
 
                         </LinearLayout>
+
                         <LinearLayout
                             android:id="@+id/clickFundOverView"
                             android:layout_width="match_parent"
@@ -294,7 +304,7 @@
                                 android:gravity="center_vertical"
                                 android:paddingLeft="15dp"
                                 android:text="银行存管账户资产总览"
-                                android:textColor="@color/white"/>
+                                android:textColor="@color/white" />
 
                             <View
                                 android:layout_width="0dp"
@@ -475,8 +485,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="90dp"
-                        android:orientation="horizontal"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:id="@+id/clickFundRecord"
@@ -565,28 +575,32 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="6dp"
                     android:background="@color/bg_gray2" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:id="@+id/noOpenHidden"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <LinearLayout
                             android:id="@+id/click_auto_invest_setting"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:background="@color/white"
                             android:gravity="center"
                             android:orientation="horizontal"
                             android:paddingLeft="35dp"
-                            android:paddingRight="23dp"
-                            android:background="@color/white">
+                            android:paddingRight="23dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -629,11 +643,11 @@
                             android:id="@+id/click_account_e"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:background="@color/white"
                             android:gravity="center"
                             android:orientation="horizontal"
                             android:paddingLeft="35dp"
                             android:paddingRight="23dp"
-                            android:background="@color/white"
                             android:visibility="gone">
 
                             <TextView
@@ -645,13 +659,15 @@
                                 android:text="我的存管账户"
                                 android:textColor="@color/text_333333"
                                 android:textSize="15sp" />
+
                             <ImageView
                                 android:id="@+id/ivUpdateHxTag"
                                 android:layout_width="70dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/hx_update_tag"
                                 android:layout_marginBottom="10dp"
-                                android:visibility="gone"/>
+                                android:src="@drawable/hx_update_tag"
+                                android:visibility="gone" />
+
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
@@ -684,11 +700,11 @@
                         android:id="@+id/clickTrialCoin"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
+                        android:background="@color/white"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:paddingLeft="35dp"
-                        android:paddingRight="23dp"
-                        android:background="@color/white">
+                        android:paddingRight="23dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -731,11 +747,11 @@
                         android:id="@+id/clickVoucher"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
+                        android:background="@color/white"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:paddingLeft="35dp"
-                        android:paddingRight="23dp"
-                        android:background="@color/white">
+                        android:paddingRight="23dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -778,11 +794,11 @@
                         android:id="@+id/clickInviteGift"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
+                        android:background="@color/white"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:paddingLeft="35dp"
-                        android:paddingRight="23dp"
-                        android:background="@color/white">
+                        android:paddingRight="23dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -813,18 +829,18 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:orientation="vertical">
 
                         <LinearLayout
                             android:id="@+id/invest_top"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:background="@color/white"
                             android:gravity="center"
                             android:orientation="horizontal"
                             android:paddingLeft="35dp"
-                            android:paddingRight="23dp"
-                            android:background="@color/white">
+                            android:paddingRight="23dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -858,11 +874,11 @@
                             android:id="@+id/my_medal"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:background="@color/white"
                             android:gravity="center"
                             android:orientation="horizontal"
                             android:paddingLeft="35dp"
-                            android:paddingRight="23dp"
-                            android:background="@color/white">
+                            android:paddingRight="23dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -896,28 +912,31 @@
                             android:id="@+id/click_risk_evaluating"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:paddingLeft="35dp"
-                            android:paddingRight="23dp"
-                            android:orientation="horizontal"
+                            android:background="@color/white"
                             android:gravity="center"
-                            android:background="@color/white">
+                            android:orientation="horizontal"
+                            android:paddingLeft="35dp"
+                            android:paddingRight="23dp">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="风险评测"
-                                android:gravity="center_vertical"
                                 android:drawableLeft="@drawable/ic_risk_evaluating"
                                 android:drawablePadding="15dp"
-                                android:textSize="15sp"
-                                android:textColor="@color/normal_text_color"/>
+                                android:gravity="center_vertical"
+                                android:text="风险评测"
+                                android:textColor="@color/normal_text_color"
+                                android:textSize="15sp" />
+
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"/>
+                                android:layout_weight="1" />
+
                             <ImageView
                                 android:layout_width="6dp"
                                 android:layout_height="11dp"
-                                android:background="@drawable/nav_next"/>
+                                android:background="@drawable/nav_next" />
                         </LinearLayout>
 
                         <View
@@ -931,30 +950,33 @@
                             android:id="@+id/click_borrow_menu"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:orientation="horizontal"
                             android:paddingLeft="35dp"
                             android:paddingRight="23dp"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:background="@color/white"
                             android:visibility="gone"
                             tools:visibility="visible">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="借还款管理"
-                                android:gravity="center_vertical"
                                 android:drawableLeft="@drawable/ic_borrow_menu"
                                 android:drawablePadding="15dp"
-                                android:textSize="15sp"
-                                android:textColor="@color/normal_text_color"/>
+                                android:gravity="center_vertical"
+                                android:text="借还款管理"
+                                android:textColor="@color/normal_text_color"
+                                android:textSize="15sp" />
+
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"/>
+                                android:layout_weight="1" />
+
                             <ImageView
                                 android:layout_width="6dp"
                                 android:layout_height="11dp"
-                                android:background="@drawable/nav_next"/>
+                                android:background="@drawable/nav_next" />
                         </LinearLayout>
                     </LinearLayout>
 

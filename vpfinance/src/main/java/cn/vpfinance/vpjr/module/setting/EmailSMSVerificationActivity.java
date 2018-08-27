@@ -24,6 +24,7 @@ import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.EventStringModel;
+import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.view.CodeVerifyView;
 import cn.vpfinance.vpjr.view.VerificationCodeDialog;
 import de.greenrobot.event.EventBus;
@@ -72,7 +73,7 @@ public class EmailSMSVerificationActivity extends BaseActivity {
         }
         email = getIntent().getStringExtra("email");
         emailPass = getIntent().getStringExtra("emailPass");
-        tvPhoneNumDesc.setText("验证码已发送至您手机  " + phone);
+        tvPhoneNumDesc.setText("验证码已发送至绑定手机   " + FormatUtils.hidePhone(phone));
         mHttpService = new HttpService(this, this);
         vCodeVerifyView.setOnFullCodeListener(new CodeVerifyView.OnFullCodeListener() {
             @Override

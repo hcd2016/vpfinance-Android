@@ -420,12 +420,9 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         super.onResume();
 
         newUserName = TextUtils.isEmpty(newUserName) ? userName1 : newUserName;
-
-        mHttpService.getUserInfo();
 //        SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(PersonalInfoActivity.this);
 //        String lockStr = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING);
 //        lockSwitch.setChecked(!TextUtils.isEmpty(lockStr));
-
         mHttpService.getBankCard(AppState.instance().getSessionCode());
         mHttpService.getUserInfo();
     }
@@ -704,6 +701,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_BIND_WEIXIN_SUCCESS_FROM_SETTING)) {//微信绑定成功
             mUserInfoBean.isBindWx = "1";
             tvWeixinBindDesc.setText("已绑定");
+            mHttpService.getUserInfo();
         }
     }
 

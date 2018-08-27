@@ -20,6 +20,7 @@ import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
+import com.mob.tools.utils.SharePrefrenceHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONObject;
@@ -104,8 +105,8 @@ public class BankAccountFragment extends BaseFragment {
     LinearLayout mOpenContent;
     @Bind(R.id.click_borrow_menu)
     LinearLayout click_borrow_menu;
-    @Bind(R.id.ivBandActive)
-    ImageView ivBandActive;
+//    @Bind(R.id.ivBandActive)
+//    ImageView ivBandActive;
     @Bind(R.id.canUseNum)
     TextView canUseNum;
     @Bind(R.id.img_dot)
@@ -217,13 +218,16 @@ public class BankAccountFragment extends BaseFragment {
                 ivUpdateHxTag.setVisibility(View.GONE);
             }
         }
-
-        FinanceApplication application = (FinanceApplication) getActivity().getApplication();
-        if (application.isFirstRegieter) {
-            OpenBankHintActivity.goThis(mContext);
-            application.isFirstRegieter = false;
-        }
-
+//        String uid = sp.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID);
+//        if(!TextUtils.isEmpty(uid)) {
+//            boolean isFirstRegister = sp.getBooleanValue(uid+"",false);
+//            if(sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
+//                if(isFirstRegister) {
+//                    OpenBankHintActivity.goThis(mContext);
+//                    sp.putBooleanValue(uid,false);
+//                }
+//            }
+//        }
         loadDate();
     }
 
@@ -312,10 +316,10 @@ public class BankAccountFragment extends BaseFragment {
             titleBar.setActionLeftGone();
         }*/
 
-        ivBandActive.setVisibility("1".equals(mUserInfoBean.isBindHxBank) ? View.GONE : View.VISIBLE);
-        if (!TextUtils.isEmpty(mUserInfoBean.customerType) && "2".equals(mUserInfoBean.customerType)) {
-            ivBandActive.setVisibility(View.GONE);
-        }
+//        ivBandActive.setVisibility("1".equals(mUserInfoBean.isBindHxBank) ? View.GONE : View.VISIBLE);
+//        if (!TextUtils.isEmpty(mUserInfoBean.customerType) && "2".equals(mUserInfoBean.customerType)) {
+//            ivBandActive.setVisibility(View.GONE);
+//        }
         click_borrow_menu.setVisibility((!TextUtils.isEmpty(mUserInfoBean.isShowBorrowMenu) && "1".equals(mUserInfoBean.isShowBorrowMenu)) ? View.VISIBLE : View.GONE);
         /*可用余额*/
         String cashBalance = mUserInfoBean.cashBalance;
@@ -334,9 +338,9 @@ public class BankAccountFragment extends BaseFragment {
 
         isOpen = "1".equals(mUserInfoBean.isOpen) ? true : false;
 //            SharedPreferencesHelper.getInstance(mContext).putBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT,isOpen);
-        mHeaderNoOpen.setVisibility(isOpen ? View.GONE : View.VISIBLE);
-        mOpenContent.setVisibility(!isOpen ? View.GONE : View.VISIBLE);
-        noOpenHidden.setVisibility(!isOpen ? View.GONE : View.VISIBLE);
+//        mHeaderNoOpen.setVisibility(isOpen ? View.GONE : View.VISIBLE);
+//        mOpenContent.setVisibility(!isOpen ? View.GONE : View.VISIBLE);
+//        noOpenHidden.setVisibility(!isOpen ? View.GONE : View.VISIBLE);
         ((FinanceApplication) getActivity().getApplication()).isOpenHx = isOpen;
 
         String tradeFlowRecordInfo = "" + mUserInfoBean.returnedCount;
@@ -417,7 +421,7 @@ public class BankAccountFragment extends BaseFragment {
     }
 
     @OnClick({R.id.withdraw, R.id.recharge, R.id.click_auto_invest_setting, R.id.click_account_e, R.id.click_open_bank_account, R.id.clickFundRecord, R.id.click_return_money_header, R.id.click_return_money_content, R.id.clickFundOverView, R.id.click_my_transfer, R.id.click_fund_flow, R.id.click_invest_summary,
-            R.id.click_borrow_menu, R.id.ivBandActive,
+            R.id.click_borrow_menu,
             R.id.clickTrialCoin,
             R.id.clickVoucher,
             R.id.clickInviteGift,
@@ -460,16 +464,16 @@ public class BankAccountFragment extends BaseFragment {
             case R.id.invest_top:
                 InvestTopActivity.goThis(mContext, Constant.AccountBank, killPercent);
                 break;
-            case R.id.ivBandActive:
-                user = DBUtils.getUser(mContext);
-                if (user != null) {
-                    Long userId = user.getUserId();
-                    //跳转到存管绑卡第三方界面
-                    BindBankHintActivity.goThis(mContext, userId.toString());
-                } else {
-                    gotoActivity(LoginActivity.class);
-                }
-                break;
+//            case R.id.ivBandActive:
+//                user = DBUtils.getUser(mContext);
+//                if (user != null) {
+//                    Long userId = user.getUserId();
+//                    //跳转到存管绑卡第三方界面
+//                    BindBankHintActivity.goThis(mContext, userId.toString());
+//                } else {
+//                    gotoActivity(LoginActivity.class);
+//                }
+//                break;
             case R.id.click_borrow_menu:
                 String url = "h5/user/toBorrow?uid=" + DBUtils.getUser(getActivity()).getUserId() + "&accountType=1";
                 gotoWeb(url, "");

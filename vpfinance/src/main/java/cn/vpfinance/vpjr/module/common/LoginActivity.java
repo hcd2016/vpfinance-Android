@@ -79,6 +79,8 @@ public class LoginActivity extends BaseActivity {
     private String username;
     private String password;
     private boolean isPersonType;
+    private int screenHeight;
+    private int keyHeight;
 
 
     @Override
@@ -135,6 +137,11 @@ public class LoginActivity extends BaseActivity {
                 }, 500);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     /**
@@ -251,7 +258,7 @@ public class LoginActivity extends BaseActivity {
                     return;
                 }
                 SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
-                preferencesHelper.putBooleanValue(SharedPreferencesHelper.KEY_WX_BIND_IS_FROM_SETTING,false);
+                preferencesHelper.putBooleanValue(SharedPreferencesHelper.KEY_WX_BIND_IS_FROM_SETTING, false);
                 final SendAuth.Req req = new SendAuth.Req();
                 req.scope = "snsapi_userinfo";
                 req.state = "diandi_wx_login";
