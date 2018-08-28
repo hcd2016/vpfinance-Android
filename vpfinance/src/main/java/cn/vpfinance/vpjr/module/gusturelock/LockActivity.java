@@ -53,6 +53,7 @@ public class LockActivity extends Activity implements
 
     private boolean autoLogin = false;
 
+    
     private String saved_uid;
     private String saved_name;
     private String saved_logPwd;
