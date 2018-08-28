@@ -321,9 +321,10 @@ public class LoginPasswordActivity extends BaseActivity {
                     if (!TextUtils.isEmpty(uid) && !uid.equals(savedUid)) {
                         preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
                     }
-//                    preferencesHelper.putBooleanValue(uid,true);//保存新注册用户是否打开过引导
-                    FinanceApplication application = (FinanceApplication)getApplication();
-                    application.isFirstRegieter = true;
+//                    preferencesHelper.putBooleanValue(uid,true);//
+//                    FinanceApplication application = (FinanceApplication)getApplication();
+//                    application.isFirstRegieter = true;
+                    preferencesHelper.putBooleanValue(uid+"is_first_register",true);//保存新注册用户是否打开过引导
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
                     //清理login present标志

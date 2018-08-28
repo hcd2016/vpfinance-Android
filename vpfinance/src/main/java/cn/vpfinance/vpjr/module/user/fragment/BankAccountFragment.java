@@ -198,7 +198,7 @@ public class BankAccountFragment extends BaseFragment {
 
 
     public void onEventMainThread(RefreshTab event) {
-        if (event != null && isAdded() && event.tabType == RefreshTab.TAB_ACCOUNT) {//切换我要投资TAB时
+        if (event != null && isAdded() && event.tabType == RefreshTab.TAB_MINE) {//切换我要投资TAB时
             if (mHttpService != null) {
                 loadDate();
             }
@@ -218,16 +218,6 @@ public class BankAccountFragment extends BaseFragment {
                 ivUpdateHxTag.setVisibility(View.GONE);
             }
         }
-//        String uid = sp.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID);
-//        if(!TextUtils.isEmpty(uid)) {
-//            boolean isFirstRegister = sp.getBooleanValue(uid+"",false);
-//            if(sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
-//                if(isFirstRegister) {
-//                    OpenBankHintActivity.goThis(mContext);
-//                    sp.putBooleanValue(uid,false);
-//                }
-//            }
-//        }
         loadDate();
     }
 

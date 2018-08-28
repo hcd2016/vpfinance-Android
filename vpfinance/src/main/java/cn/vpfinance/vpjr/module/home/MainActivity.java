@@ -337,7 +337,6 @@ public class MainActivity extends BaseActivity {
                 mLastRadioId = R.id.maintab_more_radiobtn;
                 break;
             case 4:
-                EventBus.getDefault().post(new RefreshTab(RefreshTab.TAB_ACCOUNT));
                 mViewPager.setCurrentItem(4, smooth);
                 ((RadioButton) findViewById(R.id.maintab_mine_radiobtn)).setChecked(true);
                 mLastRadioId = R.id.maintab_mine_radiobtn;

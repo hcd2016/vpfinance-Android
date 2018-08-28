@@ -125,7 +125,8 @@ public class LockSetupActivity extends Activity implements
             mHttpService = new HttpService(this, new HttpDownloader.HttpDownloaderListener() {
                 @Override
                 public void onHttpSuccess(int reqId, JSONObject json) {
-                    if (json == null || isFinishing() || Common.isForceLogout(LockSetupActivity.this,json)) return;
+                    if (json == null || isFinishing() || Common.isForceLogout(LockSetupActivity.this, json))
+                        return;
                     if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
                         User user = new User();
                         mHttpService.onGetUserInfo(json, user);
@@ -301,19 +302,28 @@ public class LockSetupActivity extends Activity implements
         }
 
         SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
-        if(sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
-            FinanceApplication application = (FinanceApplication) this.getApplication();
-            if (application.isFirstRegieter) {
-                OpenBankHintActivity.goThis(this);
-                application.isFirstRegieter = false;
-                finish();
+        if (sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
+            String uid = sp.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID);
+            if (!TextUtils.isEmpty(uid)) {
+                boolean isFirstRegister = sp.getBooleanValue(uid + "is_first_register", false);
+                if (sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
+                    if (isFirstRegister) {
+                        OpenBankHintActivity.goThis(this);
+                        sp.putBooleanValue(uid + "is_first_register", false);
+                    }
+                }
+//            FinanceApplication application = (FinanceApplication) this.getApplication();
+//            if (application.isFirstRegieter) {
+//                OpenBankHintActivity.goThis(this);
+//                application.isFirstRegieter = false;
+//                finish();
             }
-        }else {
+        } else {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra(MainActivity.SWITCH_TAB_NUM, 2);
             startActivity(intent);
-            finish();
         }
+        finish();
     }
 
     @Override

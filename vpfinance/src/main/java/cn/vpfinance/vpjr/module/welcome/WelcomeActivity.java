@@ -48,8 +48,8 @@ public class WelcomeActivity extends BaseActivity {
     private ImageButton btnGoEvent;
 
     public static final String WelcomeEventUrl = "https://www.vpfinance.cn/AppContent/content?topicId=1238";
-    private CountDownTimer countDownTimer;
-    public boolean isCountDownTimerRunning = false;
+//    private CountDownTimer countDownTimer;
+//    public boolean isCountDownTimerRunning = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,34 +91,35 @@ public class WelcomeActivity extends BaseActivity {
 
         mSplashImage.startAnimation(animation);
 
-        countDownTimer = new CountDownTimer(4000, 1000) {
-            @Override
-            public void onTick(long l) {
-//						Logger.e("l: "+l);
-                if (l == 4000) {
-                    l = 3999;
-                } else if (l == 3000) {
-                    l = 2999;
-                } else if (l == 2000) {
-                    l = 1999;
-                }
-                btnGoHome.setText("跳过 " + (l / 1000));
-                Log.i("CountDownTimerTest", "onTick millisUntilFinished = " + l);
-            }
-
-            @Override
-            public void onFinish() {
-                isCountDownTimerRunning = false;
-                goHome();
-            }
-        };
+//        countDownTimer = new CountDownTimer(4000, 1000) {
+//            @Override
+//            public void onTick(long l) {
+////						Logger.e("l: "+l);
+//                if (l == 4000) {
+//                    l = 3999;
+//                } else if (l == 3000) {
+//                    l = 2999;
+//                } else if (l == 2000) {
+//                    l = 1999;
+//                }
+//                btnGoHome.setText("跳过 " + (l / 1000));
+//                Log.i("CountDownTimerTest", "onTick millisUntilFinished = " + l);
+////            }
+//
+//            @Override
+//            public void onFinish() {
+//                isCountDownTimerRunning = false;
+//                goHome();
+//            }
+//        };
 
         animation.setAnimationListener(new Animation.AnimationListener() {
             public void onAnimationEnd(Animation paramAnonymousAnimation) {
-                if (!isCountDownTimerRunning) {
-                    countDownTimer.start();
-                    isCountDownTimerRunning = true;
-                }
+//                if (!isCountDownTimerRunning) {
+//                    countDownTimer.start();
+//                    isCountDownTimerRunning = true;
+//                }
+                goHome();
             }
 
             public void onAnimationRepeat(Animation paramAnonymousAnimation) {
@@ -136,7 +137,7 @@ public class WelcomeActivity extends BaseActivity {
         btnGoEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                countDownTimer.cancel();
+//                countDownTimer.cancel();
                 gotoWeb(WelcomeEventUrl, "");
                 finish();
             }
