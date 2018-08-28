@@ -79,6 +79,7 @@ public class LoginActivity extends BaseActivity {
     private String username;
     private String password;
     private boolean isPersonType;
+    private boolean isFirstClick = true;
     private int screenHeight;
     private int keyHeight;
 
@@ -137,6 +138,20 @@ public class LoginActivity extends BaseActivity {
                 }, 500);
             }
         });
+        if(isFirstClick) {
+            etUsername.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    scrollViewContainer.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            scrollViewContainer.smoothScrollTo(0, ivLogo.getBottom());
+                            isFirstClick = false;
+                        }
+                    }, 500);
+                }
+            });
+        }
     }
 
     @Override
