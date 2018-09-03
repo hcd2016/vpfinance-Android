@@ -1018,6 +1018,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
+                .addHeader("APP-VERSION",Utils.getVersion(FinanceApplication.getAppContext()))
                 .build();
 
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -1040,7 +1041,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                         String str = "";
                         switch (state) {
                             case "0":
-                                str = "上传成功";
+                                str = "更换成功";
                                 break;
                             case "1":
                                 str = "上传失败";

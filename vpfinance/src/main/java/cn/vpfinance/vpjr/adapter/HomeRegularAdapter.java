@@ -73,7 +73,7 @@ public class HomeRegularAdapter extends BaseAdapter {
         MyCountDownTimer mCountDownTimer = ((MyCountDownTimer) itemView.findViewById(R.id.countDown));
         TextView mAddRate = ((TextView) itemView.findViewById(R.id.add_rate));
 //        ImageView loanSignTypeIcon = (ImageView) itemView.findViewById(R.id.loan_sign_type);
-//        ImageView ivHomeState = (ImageView) itemView.findViewById(R.id.iv_home_state);
+        ImageView ivHomeState = (ImageView) itemView.findViewById(R.id.iv_home_state);
         ImageView iphone = (ImageView) itemView.findViewById(R.id.iphone7);
         ImageView iv_fdjx = (ImageView) itemView.findViewById(R.id.iv_fdjx);//是否是浮动计息
 //        TextView bankAccountStatus = (TextView) itemView.findViewById(R.id.bankAccountStatus);
@@ -216,8 +216,8 @@ public class HomeRegularAdapter extends BaseAdapter {
 //                            mAddRate.setTextColor(mContext.getResources().getColor(R.color.text_999999));
 //                            mAddRateState.setBackgroundResource(R.drawable.icon_jiaxi_dis);
 //
-//                            ivHomeState.setVisibility(View.VISIBLE);
-//                            ivHomeState.setImageResource(R.drawable.iv_home_state_fill);
+                            ivHomeState.setVisibility(View.VISIBLE);
+                            ivHomeState.setImageResource(R.drawable.iv_home_state_fill);
                         }
                         /*double total_tend_money = bean.total_tend_money;
                         if (!TextUtils.isEmpty(issueLoanStr) && total_tend_money != 0) {
@@ -258,12 +258,12 @@ public class HomeRegularAdapter extends BaseAdapter {
                 }
                 int loanstate = loansign.loanstate;
                 if (loanstate == 3) {
-//                    ivHomeState.setVisibility(View.VISIBLE);
-//                    ivHomeState.setImageResource(R.drawable.iv_home_state_return);
+                    ivHomeState.setVisibility(View.VISIBLE);
+                    ivHomeState.setImageResource(R.drawable.iv_home_state_return);
                     mProgress.setProgress(100);
                 } else if (loanstate == 4) {
-//                    ivHomeState.setVisibility(View.VISIBLE);
-//                    ivHomeState.setImageResource(R.drawable.iv_home_state_finish);
+                    ivHomeState.setVisibility(View.VISIBLE);
+                    ivHomeState.setImageResource(R.drawable.iv_home_state_finish);
                     mProgress.setProgress(100);
                 }
             }

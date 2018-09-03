@@ -8,9 +8,11 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
+import com.jewelcredit.util.Utils;
 import com.tdk.utils.HttpDownloader;
 
 import org.json.JSONArray;
@@ -18,6 +20,7 @@ import org.json.JSONObject;
 
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.gusturelock.LockActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 
 /**
@@ -43,46 +46,54 @@ public class Common {
             if (loginStatus == 0) {
                 if (!isShowing) {
                     isShowing = true;
-                    if (AppState.instance().logined()){
-                        SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(context);
-                        String saved_name = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME);
-                        String saved_logPwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD);
-                        new HttpService(context, new HttpDownloader.HttpDownloaderListener() {
-                            @Override
-                            public void onHttpSuccess(int reqId, JSONObject json) {
-                                Logger.e("自动登录啦,难受啊马飞");
-                            }
-
-                            @Override
-                            public void onHttpSuccess(int reqId, JSONArray json) {
-                                Logger.e("自动登录啦,难受啊马飞");
-                            }
-
-                            @Override
-                            public void onHttpCache(int reqId) {
-                            }
-
-                            @Override
-                            public void onHttpError(int reqId, String errmsg) {
-                            }
-                        }).userLogin(saved_name, saved_logPwd);
-                    }else{
-                        //您还没有登陆
-                        String message = json.optString("message");
-                        new AlertDialog.Builder(context)
-                                .setMessage(message)
-                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        AppState.instance().logout();
-                                        Intent intent = new Intent(context, MainActivity.class);
-                                        intent.putExtra(MainActivity.SWITCH_TAB_NUM, 0);
-                                        context.startActivity(intent);
-                                    }
-                                })
-                                .create().show();
-                    }
-                    isShowing = false;
+//                    if (AppState.instance().logined()){
+//                        SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(context);
+//                        String saved_name = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME);
+//                        String saved_logPwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD);
+//                        new HttpService(context, new HttpDownloader.HttpDownloaderListener() {
+//                            @Override
+//                            public void onHttpSuccess(int reqId, JSONObject json) {
+//                                Logger.e("自动登录啦,难受啊马飞");
+//                            }
+//
+//                            @Override
+//                            public void onHttpSuccess(int reqId, JSONArray json) {
+//                                Logger.e("自动登录啦,难受啊马飞");
+//                            }
+//
+//                            @Override
+//                            public void onHttpCache(int reqId) {
+//                            }
+//
+//                            @Override
+//                            public void onHttpError(int reqId, String errmsg) {
+//                            }
+//                        }).userLogin(saved_name, saved_logPwd);
+//                    }else{
+                    //您还没有登陆
+//                        String message = json.optString("message");
+//                        new AlertDialog.Builder(context)
+//                                .setMessage(message)
+//                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                    AppState.instance().logout();
+//                    Intent intent = new Intent(context, MainActivity.class);
+//                    intent.putExtra(MainActivity.SWITCH_TAB_NUM, 0);
+//                    context.startActivity(intent);
+                    Utils.Toast("登录已过期,请重新登录");
+//                    context.startActivity(new Intent(context, LoginActivity.class));
+                    Intent intent = new Intent(context, LockActivity.class);
+                    intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
+                    context.startActivity(intent);
+//                    Intent intent = new Intent();
+//                    intent.putExtra()
+//                    context.startActivity(new Intent(context, LockActivity.class));
+//                                    }
+//                                })
+//                                .create().show();
+//                    }
+//                    isShowing = false;
                 }
             } else if (loginStatus == 2) {
                 if (!isShowing) {
@@ -106,7 +117,7 @@ public class Common {
         return !success;
     }
 
-    public static String isPasswordPass(String password){
+    public static String isPasswordPass(String password) {
         int hasCapital = 0;
         int hasSmall = 0;
         int hasNumber = 0;
@@ -121,17 +132,17 @@ public class Common {
             } else {//特殊字符
                 hasSymbol = 1;
             }
-            if ((hasCapital + hasNumber + hasSmall + hasSymbol) >= 2){
+            if ((hasCapital + hasNumber + hasSmall + hasSymbol) >= 2) {
                 return "";
             }
         }
         if (hasCapital == 1) {
             return "密码不能为纯大写字母";
-        } else if (hasSmall == 1){
+        } else if (hasSmall == 1) {
             return "密码不能为纯小写字母";
-        } else if (hasNumber == 1){
+        } else if (hasNumber == 1) {
             return "密码不能为纯数字";
-        }else{
+        } else {
             return "密码不能为纯符号";
         }
     }
