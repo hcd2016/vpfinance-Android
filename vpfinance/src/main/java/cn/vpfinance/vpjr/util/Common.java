@@ -44,8 +44,8 @@ public class Common {
             int loginStatus = json.optInt("loginStatus", -1);
 //            Logger.e("loginStatus:" + loginStatus + "--->json:" + json.toString());
             if (loginStatus == 0) {
-                if (!isShowing) {
-                    isShowing = true;
+//                if (!isShowing) {
+//                    isShowing = true;
 //                    if (AppState.instance().logined()){
 //                        SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(context);
 //                        String saved_name = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME);
@@ -94,7 +94,7 @@ public class Common {
 //                                .create().show();
 //                    }
 //                    isShowing = false;
-                }
+//                }
             } else if (loginStatus == 2) {
                 if (!isShowing) {
                     isShowing = true;

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--3.6.3已废弃,详情看activity_transfer_product_now_new-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
