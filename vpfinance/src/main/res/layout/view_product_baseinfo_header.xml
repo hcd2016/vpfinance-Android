@@ -30,6 +30,7 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,6 +39,7 @@
                 android:text="投资产品"
                 android:textColor="@color/text_1c1c1c"
                 android:textSize="18sp" />
+
             <ImageView
                 android:id="@+id/ivAllowTransfer"
                 android:layout_width="wrap_content"
@@ -57,13 +59,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:src="@drawable/icon_fdjx" />
-            <!--<ImageView-->
-                <!--android:id="@+id/ivProductState"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@drawable/stype_bao"-->
-                <!--android:layout_marginTop="3dp"-->
-                <!--android:layout_marginLeft="5dp"/>-->
+            <ImageView
+                android:id="@+id/ivProductState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stype_bao"
+                android:layout_marginLeft="5dp"/>
             <!--<ImageView-->
                 <!--android:id="@+id/ivAllowTransfer"-->
                 <!--android:layout_width="wrap_content"-->

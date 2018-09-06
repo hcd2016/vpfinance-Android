@@ -19,6 +19,7 @@
         tools:visibility="visible"
         android:id="@+id/transfer_info">
         <LinearLayout
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -35,7 +36,28 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#1c1c1c"
                 android:textSize="16sp" />
-            android:drawableRight="@drawable/stype_bao"
+
+
+            <ImageView
+                android:id="@+id/ivAllowTransfer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/icon_zhuan"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/iv_fdjx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/icon_fdjx"
+                android:visibility="gone"
+                tools:visibility="visible" />
             <ImageView
                 android:id="@+id/ivProductState"
                 android:layout_width="wrap_content"
@@ -44,26 +66,18 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="2dp"
                 android:layout_marginLeft="5dp"/>
-            <ImageView
-                android:id="@+id/ivAllowTransfer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_zhuan"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="3dp"
-                tools:visibility="visible"
-                android:visibility="gone"/>
-            <ImageView
-                android:id="@+id/isAllowTrip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/stype_lv"
-                android:layout_gravity="center"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="3dp"
-                tools:visibility="visible"
-                android:visibility="gone"/>
+
+
+            <!--<ImageView-->
+                <!--android:id="@+id/isAllowTrip"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/stype_lv"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="2dp"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--tools:visibility="visible"-->
+                <!--android:visibility="gone"/>-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

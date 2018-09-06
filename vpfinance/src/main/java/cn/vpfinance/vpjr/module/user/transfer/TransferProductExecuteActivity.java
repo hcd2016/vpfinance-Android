@@ -26,6 +26,7 @@ import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.base.BaseActivity;
+import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.module.product.shenyang.PresellProductActivity;
 import cn.vpfinance.vpjr.module.product.invest.RegularProductActivity;
 import cn.vpfinance.vpjr.model.TransferProductDetailInfo;
@@ -55,10 +56,10 @@ public class TransferProductExecuteActivity extends BaseActivity implements View
     Button btnTransfer;
     @Bind(R.id.titleBar)
     ActionBarLayout titleBar;
-    @Bind(R.id.ivSubType)
-    ImageView ivSubType;
-    @Bind(R.id.ivAllowTransfer)
-    ImageView ivAllowTransfer;
+//    @Bind(R.id.ivSubType)
+//    ImageView ivSubType;
+//    @Bind(R.id.ivAllowTransfer)
+//    ImageView ivAllowTransfer;
     @Bind(R.id.clickLookProtocol2)
     TextView clickLookProtocol2;
     @Bind(R.id.notice)
@@ -68,7 +69,8 @@ public class TransferProductExecuteActivity extends BaseActivity implements View
     public static final String RECORD_ID = "recordId";
     private Context mContext;
     private HttpService mHttpService;
-    private int borrowId = -1;
+//    private int borrowId = -1;
+    private long borrowId = -1;
     private TransferProductDetailInfo info;
     private TransferProductDetailInfo.AgreementListBean protocolInfo;
     private TransferProductDetailInfo.AgreementListBean protocolInfo2;
@@ -156,18 +158,18 @@ public class TransferProductExecuteActivity extends BaseActivity implements View
                             info.getRefundWay() == 3 ? "到期一次性还本息" : "");
             //是否允许转让：0否1是
             String allowTransferTypeStr = TextUtils.isEmpty(info.getAllowTransferType()) ? "0" : info.getAllowTransferType();
-            if ("0".equals(allowTransferTypeStr)){
-                ivAllowTransfer.setVisibility(View.GONE);
-            }else{
-                ivAllowTransfer.setVisibility(View.VISIBLE);
-            }
+//            if ("0".equals(allowTransferTypeStr)){
+//                ivAllowTransfer.setVisibility(View.GONE);
+//            }else{
+//                ivAllowTransfer.setVisibility(View.VISIBLE);
+//            }
             //1质押，2保证，3抵押，4信用，5实地
             String subTypeStr = info.getSubType();
             try {
                 int subType = Integer.parseInt(subTypeStr);
                 if (subType != 0)
                     ivProductState.setVisibility(View.VISIBLE);
-                Common.productSubType(this,ivSubType,subType);
+//                Common.productSubType(this,ivSubType,subType);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -219,21 +221,34 @@ public class TransferProductExecuteActivity extends BaseActivity implements View
                         PresellProductActivity.goPresellProductActivity(
                                 mContext, "" + borrowId);
                     }else if (productType == 0){
-                        RegularProductActivity.goRegularProductActivity(
-                                mContext, "" + borrowId,
-                                -1, 0, -1,""+0);
+//                        RegularProductActivity.goRegularProductActivity(
+//                                mContext, "" + borrowId,
+//                                -1, 0, -1,""+0);
+                        NewRegularProductActivity.goNewRegularProductActivity(
+                                mContext, borrowId,
+                                0, "", false,"");
                     }else if(product == 3){
-                        RegularProductActivity.goRegularProductActivity(
-                                mContext, "" + borrowId,
-                                -1, 3, -1,""+0);
+                        NewRegularProductActivity.goNewRegularProductActivity(
+                                mContext, borrowId,
+                                0, "", false,"");
+//                        RegularProductActivity.goRegularProductActivity(
+//                                mContext, "" + borrowId,
+//                                -1, 3, -1,""+0);
                     }else if (productType == 0){
-                        RegularProductActivity.goRegularProductActivity(
-                                mContext, "" + borrowId,
-                                -1, 0, -1,""+0);
+//                        RegularProductActivity.goRegularProductActivity(
+//                                mContext, "" + borrowId,
+//                                -1, 0, -1,""+0);
+                        NewRegularProductActivity.goNewRegularProductActivity(
+                                mContext, borrowId,
+                                0, "", false,"");
                     }else if (product == 2){
-                        RegularProductActivity.goRegularProductActivity(
-                                mContext, "" + borrowId,
-                                -1, 2, -1,""+0);
+                        NewRegularProductActivity.goNewRegularProductActivity(
+                                mContext, borrowId,
+                                0, "", false,"");
+//                        RegularProductActivity.goRegularProductActivity(
+//                                mContext, "" + borrowId,
+//                                -1, 2, -1,""+0);
+//                        NewRegularProductActivity.goNewRegularProductActivity();
                     }
 
                 }catch (Exception e){

@@ -51,7 +51,7 @@ public class TransferProductExecuteNowActivity extends BaseActivity {
     //    @Bind(R.id.llTransferInfo)
     //    LinearLayout llTransferInfo;
 
-//    @Bind(R.id.predict_income)
+    //    @Bind(R.id.predict_income)
 //    TextView mPredictIncome;
     @Bind(R.id.transfer_cost)
     TextView mTransferCost;
@@ -118,14 +118,14 @@ public class TransferProductExecuteNowActivity extends BaseActivity {
             accountType = intent.getIntExtra(Constant.AccountType, Constant.AccountLianLain);
 
 //            mPredictIncome.setText(stayReturnMoneyStr + "元");
-            String content = "您将全额转让该投资标的剩余本金，转让成功后您将不能继续获得标的剩余待回款利息" + stayReturnMoneyStr + "元";
+            String content = "您将全额转让该投资标的剩余本金，转让成功后您将不能继续获得标的剩余待回款利息" + stayReturnMoneyStr + "元。";
             DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
             difColorTextStringBuilder.setContent(content)
-                    .setHighlightContent(stayReturnMoneyStr,R.color.red_text2)
+                    .setHighlightContent(stayReturnMoneyStr, R.color.red_text2)
                     .setTextView(tvDesc)
                     .create();
 //            tvRefundDesc.setText("已赚取收益" + haveReturnMoneyStr + "元,预计待回款利息" + stayReturnMoneyStr + "元");
-            mHttpService.getTransferCost(borrowId, tenderMoneyStr,tenderMoneyStr);
+            mHttpService.getTransferCost(borrowId, tenderMoneyStr, tenderMoneyStr);
         }
 
 //        etTransferMoney.addTextChangedListener(new TextWatcher() {
@@ -166,28 +166,28 @@ public class TransferProductExecuteNowActivity extends BaseActivity {
     private void commit() {
         String moneyStr = tenderMoneyStr;
         try {
-            final double money = Double.parseDouble(moneyStr);
-            double stayReturnMoney = Double.parseDouble(stayReturnMoneyStr);
-            double tenderMoney = Double.parseDouble(tenderMoneyStr);
-            if (money > stayReturnMoney + tenderMoney) {
-                Utils.Toast(mContext, "转让价格不超过待回款本息");
-                return;
-            }
-
-            double min = tenderMoney * (1 - 0.3);
-//            double max = tenderMoney * (1 + 0.3);
-            if (money < min) {
-                Utils.Toast(mContext, "折价转让的折价率不超过30%");
-                return;
-            }
-
-            if (mTransferMinRate > promitRate) {
-                new AlertDialog.Builder(TransferProductExecuteNowActivity.this)
-                        .setTitle("提示")
-                        .setMessage("转让净收益率不能小于平台标最低利率")
-                        .setNegativeButton("我知道了", null).show();
-                return;
-            }
+//            final double money = Double.parseDouble(moneyStr);
+//            double stayReturnMoney = Double.parseDouble(stayReturnMoneyStr);
+//            double tenderMoney = Double.parseDouble(tenderMoneyStr);
+//            if (money > stayReturnMoney + tenderMoney) {
+//                Utils.Toast(mContext, "转让价格不超过待回款本息");
+//                return;
+//            }
+//
+//            double min = tenderMoney * (1 - 0.3);
+////            double max = tenderMoney * (1 + 0.3);
+//            if (money < min) {
+//                Utils.Toast(mContext, "折价转让的折价率不超过30%");
+//                return;
+//            }
+//
+//            if (mTransferMinRate > promitRate) {
+//                new AlertDialog.Builder(TransferProductExecuteNowActivity.this)
+//                        .setTitle("提示")
+//                        .setMessage("转让净收益率不能小于平台标最低利率")
+//                        .setNegativeButton("我知道了", null).show();
+//                return;
+//            }
 
             if (TextUtils.isEmpty(recordId) || TextUtils.isEmpty(borrowId)) return;
 
@@ -213,12 +213,8 @@ public class TransferProductExecuteNowActivity extends BaseActivity {
 //                });
 //                tidf.show(getSupportFragmentManager(), "inputPwd");
 //            } else
-                if (accountType == Constant.AccountBank) {
-                //转让规则匹配
-//                mHttpService.getBankTransfeVerify(recordId, "" + money);
-                String url = "hx/creditassignment/apply?investId=" + recordId + "&transferMoney=" + moneyStr;
-                gotoWeb(url, "转让债权");
-            }
+            mHttpService.assignmentNowTransferCommit(recordId, tenderMoneyStr);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -278,6 +274,26 @@ public class TransferProductExecuteNowActivity extends BaseActivity {
                     break;
                 case "1":
                     Utils.Toast(FinanceApplication.getContext(), mess);
+                    break;
+            }
+        }
+
+        if (reqId == ServiceCmd.CmdId.CMD_ASSIGNMENT_OF_DEBT_COMMIT.ordinal()) {
+            String msg = json.optString("msg");
+            switch (msg) {
+                case "1"://转让成功
+                    finish();
+                    Utils.Toast("转让成功!");
+                    break;
+                case "2":
+                    if (accountType == Constant.AccountBank) {
+                        //转让规则匹配
+                        String url = "hx/creditassignment/apply?investId=" + recordId + "&transferMoney=" + tenderMoneyStr;
+                        gotoWeb(url, "转让债权");
+                    }
+                    break;
+                case "3":
+                    Utils.Toast("转让失败!");
                     break;
             }
         }

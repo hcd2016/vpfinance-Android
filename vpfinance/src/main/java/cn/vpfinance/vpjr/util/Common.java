@@ -217,25 +217,27 @@ public class Common {
 
     public static void productSubType(Context mContext, ImageView imageView, int subType) {
         Drawable right = null;
+        imageView.setVisibility(View.GONE);
         //1质押，2保证，3抵押，4信用，5实地
         switch (subType) {
-            case 1:
-                right = mContext.getResources().getDrawable(R.drawable.stype_zhi);
-                break;
+//            case 1:
+//                right = mContext.getResources().getDrawable(R.drawable.stype_zhi);
+//                break;
             case 2:
+                imageView.setVisibility(View.VISIBLE);
                 right = mContext.getResources().getDrawable(R.drawable.stype_bao);
                 break;
-            case 3:
-                right = mContext.getResources().getDrawable(R.drawable.stype_ya);
-                break;
-            case 4:
-                right = mContext.getResources().getDrawable(R.drawable.stype_xin);
-                break;
-            case 5:
-                right = mContext.getResources().getDrawable(R.drawable.stype_ya);
-                break;
-            default:
-                break;
+//            case 3:
+//                right = mContext.getResources().getDrawable(R.drawable.stype_ya);
+//                break;
+//            case 4:
+//                right = mContext.getResources().getDrawable(R.drawable.stype_xin);
+//                break;
+//            case 5:
+//                right = mContext.getResources().getDrawable(R.drawable.stype_ya);
+//                break;
+//            default:
+//                break;
         }
         if (right != null) {
             imageView.setBackgroundDrawable(right);

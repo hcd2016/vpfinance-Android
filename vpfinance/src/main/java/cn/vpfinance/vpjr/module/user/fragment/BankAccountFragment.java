@@ -218,7 +218,7 @@ public class BankAccountFragment extends BaseFragment {
                 ivUpdateHxTag.setVisibility(View.GONE);
             }
         }
-        loadDate();
+//        loadDate();
     }
 
     @Override

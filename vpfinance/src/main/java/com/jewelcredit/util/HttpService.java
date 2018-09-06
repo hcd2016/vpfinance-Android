@@ -6214,4 +6214,18 @@ Type	Int	Banner类型	1. 链接  2.产品
         param.put("grant_type",grant_type);
         return httpClient.doGet(url,param,cmdId.ordinal(),false);
     }
+    /**
+     * 债权转让(提交)
+     *  请求参数：investId:投资记录id，transferPrice：转让金额,
+     * 返回参数：msg 1.转让成功 2.跳转华兴界面 3.转让失败
+     */
+    public boolean assignmentNowTransferCommit(String investId,String transferPrice) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_ASSIGNMENT_OF_DEBT_COMMIT;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("investId",investId);
+        param.put("transferPrice",transferPrice);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
 }

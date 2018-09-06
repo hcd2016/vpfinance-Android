@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.util.ArrayMap;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -23,7 +22,6 @@ import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
-import com.umeng.analytics.MobclickAgent;
 import com.yintong.pay.utils.Md5Algorithm;
 
 import org.json.JSONObject;
@@ -34,29 +32,28 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
-import cn.vpfinance.vpjr.gson.UserInfoBean;
-import cn.vpfinance.vpjr.module.dialog.RechargeCloseDialog;
-import cn.vpfinance.vpjr.module.trade.RechargBankActivity;
-import cn.vpfinance.vpjr.module.voucher.NewSelectVoucherActivity;
-import cn.vpfinance.vpjr.module.setting.PasswordChangeActivity;
-import cn.vpfinance.vpjr.module.dialog.TextInputDialogFragment;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.AddRateBean;
 import cn.vpfinance.vpjr.gson.FinanceProduct;
 import cn.vpfinance.vpjr.gson.LoanProtocolBean;
+import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.model.AddRateInfo;
-import cn.vpfinance.vpjr.model.BuyResult;
-import cn.vpfinance.vpjr.model.FundOverInfo;
 import cn.vpfinance.vpjr.model.Voucher;
 import cn.vpfinance.vpjr.model.VoucherArray;
 import cn.vpfinance.vpjr.model.VoucherEvent;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.RechargeCloseDialog;
+import cn.vpfinance.vpjr.module.dialog.TextInputDialogFragment;
 import cn.vpfinance.vpjr.module.home.MainActivity;
-import cn.vpfinance.vpjr.module.product.success.ProductInvestSuccessActivity;
+import cn.vpfinance.vpjr.module.setting.PasswordChangeActivity;
+import cn.vpfinance.vpjr.module.trade.RechargBankActivity;
+import cn.vpfinance.vpjr.module.voucher.NewSelectVoucherActivity;
 import cn.vpfinance.vpjr.util.AlertDialogUtils;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
@@ -74,6 +71,8 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     public static final String NAME_MONEY = "money";//投资金额
     public static final String VOUCHEREVENT = "voucherevent";//投资金额
     public static final String ADDRATEEVENT = "addrateevent";//投资金额
+    @Bind(R.id.iv_fdjx)
+    ImageView ivFdjx;
     private ActionBarLayout titleBar;
     private HttpService mHttpService;
     private FinanceProduct product = new FinanceProduct();
@@ -84,9 +83,9 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     private TextView productAvailMoney;
     private TextView productRefundWay;
     private TextView cashBalance;
-//    private User user;
+    //    private User user;
     private TextInputDialogFragment tidf;
-//    private FundOverInfo fundOverInfo;
+    //    private FundOverInfo fundOverInfo;
     private String mCanBuyMoney;
     private double availMoney;
     private EditText etRechargeMoney;
@@ -131,7 +130,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     private TextView tvPredictMoney_activity;
     private TextView allRecharge_activity;
     private Intent intent;
-    private ImageView mIsAllowTrip;
+    //    private ImageView mIsAllowTrip;
     private Integer productIsAllowTrip;
     private long loanType;
     private int mAddRatePeriod;
@@ -164,6 +163,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
         EventBus.getDefault().register(this);
 
         setContentView(R.layout.activity_product_invest2);
+        ButterKnife.bind(this);
         User user = DBUtils.getUser(this);
         if (user == null) {
             Toast.makeText(this, "请登录.", Toast.LENGTH_SHORT).show();
@@ -178,7 +178,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             mType_product = intent.getIntExtra(TYPE_PRODUCT, 0);
             isOrder = intent.getBooleanExtra(IS_ORDER, false);
             mIPhone = intent.getStringExtra(IPHONE);
-            accountType = intent.getIntExtra(Constant.AccountType,Constant.AccountLianLain);
+            accountType = intent.getIntExtra(Constant.AccountType, Constant.AccountLianLain);
         }
 
         titleBar = (ActionBarLayout) findViewById(R.id.titleBar);
@@ -189,7 +189,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
         tvCalcedMoney = (TextView) findViewById(R.id.tvCalcedMoney);
         tvPredictMoney = ((TextView) findViewById(R.id.tvPredictMoney));
         ivAllowTransfer = ((ImageView) findViewById(R.id.ivAllowTransfer));
-        mIsAllowTrip = ((ImageView) findViewById(R.id.isAllowTrip));
+//        mIsAllowTrip = ((ImageView) findViewById(R.id.isAllowTrip));
         selectVoucher = ((LinearLayout) findViewById(R.id.selectVoucher));
         ll_acitvity = ((LinearLayout) findViewById(R.id.ll_acitvity));
         ll_normal = ((LinearLayout) findViewById(R.id.ll_normal));
@@ -271,9 +271,9 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
 //            mHttpService.getUserInfoBank();
 ////            mHttpService.getFundOverInfo("" + user.getUserId(),accountType);
 //        }
-        if (accountType == Constant.AccountBank){
+        if (accountType == Constant.AccountBank) {
             mHttpService.getUserInfoBank();
-        }else{
+        } else {
             mHttpService.getUserInfo();
         }
     }
@@ -309,6 +309,12 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
         findViewById(R.id.recharge).setOnClickListener(this);
         findViewById(R.id.allRecharge).setOnClickListener(this);
         btnInvest.setOnClickListener(this);
+
+        if (getIntent().getIntExtra("isGraceDays", 0) > 0) {//是浮动计息
+            ivFdjx.setVisibility(View.VISIBLE);
+        } else {
+            ivFdjx.setVisibility(View.GONE);
+        }
     }
 
     private void setEditTextListener(final EditText editText) {
@@ -383,10 +389,10 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                         mHttpService.getAddRateIncome(etContent, mValue + "", mAddRatePeriod + "");
                     }
                 }
-                 /*预计收益*/
+                /*预计收益*/
                 String etContent = editable.toString();
                 if (etContent.length() >= 3) {
-                    mHttpService.getPredictMoney("" + loanId, etContent,false);
+                    mHttpService.getPredictMoney("" + loanId, etContent, false);
 //                    String predictMoney = calcPredictMoney(etContent);
 //                    if ("1".equals(mIPhone) && !isOrder) {
 //                        tvPredictMoney_activity.setText(predictMoney + "元");
@@ -454,7 +460,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
         return FormatUtils.formatDown2(predictMoney);
     }*/
 
-    private String format(double value){
+    private String format(double value) {
         DecimalFormat formater = new DecimalFormat("######0.00");
         formater.setMaximumFractionDigits(2);
         formater.setGroupingSize(0);
@@ -465,24 +471,24 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onHttpSuccess(int reqId, JSONObject json) {
         if (!isHttpHandle(json)) return;
-        if (reqId == ServiceCmd.CmdId.CMD_Bank_Real_Tender_Money.ordinal()){
+        if (reqId == ServiceCmd.CmdId.CMD_Bank_Real_Tender_Money.ordinal()) {
             double v = mHttpService.getOnBankRealTenderMoney(json);
-            if (product.getIssueLoan() > 0){
-                if (isOrder){
+            if (product.getIssueLoan() > 0) {
+                if (isOrder) {
                     availMoney = product.getIssueLoan() * product.getBookPercent() - v;
                     productAvailMoney.setText(FormatUtils.formatDown3(availMoney) + "元");
-                }else{
+                } else {
                     availMoney = product.getIssueLoan() - v;
                     productAvailMoney.setText(FormatUtils.formatDown3(availMoney) + "元");
                 }
             }
-            if (isInvestTag){
+            if (isInvestTag) {
                 isInvestTag = false;
                 checkInvest();
             }
-        }else if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
+        } else if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
             UserInfoBean userInfoBean = mHttpService.onGetUserInfo(json);
-            if (userInfoBean != null){
+            if (userInfoBean != null) {
                 isOpen = "1".equals(userInfoBean.isOpen) ? true : false;
 
                 /*可用余额*/
@@ -552,11 +558,11 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                     allowTransferStr = "true";
                 }
                 productIsAllowTrip = product.getIsAllowTrip();
-                if (!TextUtils.isEmpty(productIsAllowTrip + "") && productIsAllowTrip == 1) {
-                    mIsAllowTrip.setVisibility(View.VISIBLE);
-                } else {
-                    mIsAllowTrip.setVisibility(View.GONE);
-                }
+//                if (!TextUtils.isEmpty(productIsAllowTrip + "") && productIsAllowTrip == 1) {
+//                    mIsAllowTrip.setVisibility(View.VISIBLE);
+//                } else {
+//                    mIsAllowTrip.setVisibility(View.GONE);
+//                }
                 loanId = product.getPid();
                 productTitle.setText(product.getLoanTitle() == null ? "" : product.getLoanTitle());//产品标题
                 mRate = product.getRate();
@@ -576,18 +582,18 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
 
                 if (isOrder) {
                     tv_buy.setText("可预约金额");
-                    if (accountType == Constant.AccountLianLain){
+                    if (accountType == Constant.AccountLianLain) {
                         availMoney = product.getIssueLoan() * product.getBookPercent() - product.getTotal_tend_money();
                         productAvailMoney.setText(FormatUtils.formatDown3(availMoney) + "元");
-                    }else{
-                        mHttpService.getBankRealTenderMoney(""+loanId);
+                    } else {
+                        mHttpService.getBankRealTenderMoney("" + loanId);
                     }
                 } else {
-                    if (accountType == Constant.AccountLianLain){
+                    if (accountType == Constant.AccountLianLain) {
                         availMoney = product.getIssueLoan() - product.getTotal_tend_money();
                         productAvailMoney.setText(FormatUtils.formatDown3(availMoney) + "元");
-                    }else{
-                        mHttpService.getBankRealTenderMoney(""+loanId);
+                    } else {
+                        mHttpService.getBankRealTenderMoney("" + loanId);
                     }
                 }
                 productRefundWay.setText(product.getRefundWay() == 1 ? getString(R.string.refundState1) :
@@ -690,11 +696,11 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onHttpError(int reqId, String errmsg) {
         if (reqId == ServiceCmd.CmdId.CMD_PLANK.ordinal()) {
-            if (investLoadingDialog != null){
+            if (investLoadingDialog != null) {
                 investLoadingDialog.dismiss();
-                Utils.Toast(this,"网络不给力 ，请稍后重试");
+                Utils.Toast(this, "网络不给力 ，请稍后重试");
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra(MainActivity.SWITCH_TAB_NUM,1);
+                intent.putExtra(MainActivity.SWITCH_TAB_NUM, 1);
                 gotoActivity(intent);
             }
         }
@@ -745,15 +751,15 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                 allRecharge();
                 break;
             case R.id.recharge:
-                if (accountType == Constant.AccountLianLain){
+                if (accountType == Constant.AccountLianLain) {
                     //充值入口
                     boolean isAllowRecharge = SharedPreferencesHelper.getInstance(this).getBooleanValue(SharedPreferencesHelper.KEY_ALLOW_RECHARGE);
-                    if (isAllowRecharge){
+                    if (isAllowRecharge) {
                         AlertDialogUtils.confirmGoRecharg(this);
-                    }else{
-                        new RechargeCloseDialog().show(getFragmentManager(),"RechargeCloseDialog");
+                    } else {
+                        new RechargeCloseDialog().show(getFragmentManager(), "RechargeCloseDialog");
                     }
-                }else if (accountType == Constant.AccountBank){
+                } else if (accountType == Constant.AccountBank) {
                     gotoActivity(RechargBankActivity.class);
                 }
                 break;
@@ -761,10 +767,10 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                 allRecharge();
                 break;
             case R.id.invest:
-                if (accountType == Constant.AccountBank){
+                if (accountType == Constant.AccountBank) {
                     isInvestTag = true;
-                    mHttpService.getBankRealTenderMoney(""+loanId);
-                }else{
+                    mHttpService.getBankRealTenderMoney("" + loanId);
+                } else {
                     checkInvest();
                 }
                 break;
@@ -814,7 +820,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     }
 
     public void onEventMainThread(VoucherEvent event) {
-        if (isFinishing())  return;
+        if (isFinishing()) return;
         if (event == null) return;
         mAddRateInfo = null;
         couponId = "";
@@ -846,7 +852,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     }
 
     public void onEventMainThread(AddRateInfo event) {
-        if (isFinishing())  return;
+        if (isFinishing()) return;
         if (event == null) return;
         mVoucherEvent = null;
         vouchers = "";
@@ -880,7 +886,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
         return bd1.compareTo(bd2);
     }
 
-    private void checkInvest(){
+    private void checkInvest() {
         if (!AppState.instance().logined()) {
             startActivity(new Intent(ProductInvestActivity.this, LoginActivity.class));
             return;
@@ -935,7 +941,8 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             if (doubleMoneyCompare(mBuyMoney, availMoney) == -1) {
                 String tmp = String.format("%.2f", availMoney);
                 Toast.makeText(ProductInvestActivity.this, "输入金额不低于剩余额度请重新输入", Toast.LENGTH_SHORT).show();//+tmp+"元"
-                if ("1".equals(mIPhone) && !isOrder) {                    etRechargeMoney_activity.setText(tmp);
+                if ("1".equals(mIPhone) && !isOrder) {
+                    etRechargeMoney_activity.setText(tmp);
                 } else {
                     etRechargeMoney.setText(tmp);
                 }
@@ -951,28 +958,28 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             Toast.makeText(ProductInvestActivity.this, "输入的购买金额大于该产品的可购金额", Toast.LENGTH_SHORT).show();
             return;
         }
-        try{
+        try {
             double v = Double.parseDouble(mCanBuyMoney);
             if (mBuyMoney > v) {
-                if (accountType == Constant.AccountLianLain){
+                if (accountType == Constant.AccountLianLain) {
                     AlertDialogUtils.showRechargCloseDialog(this, "温馨提示", "账户余额不足，请先充值", "取消", "充值");
-                }else if (accountType == Constant.AccountBank){
+                } else if (accountType == Constant.AccountBank) {
                     AlertDialogUtils.showAlertDialog(this, "温馨提示", "账户余额不足，请先充值", "取消", "充值", RechargBankActivity.class);
                 }
                 return;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         //投资
-        if (accountType == Constant.AccountBank){
+        if (accountType == Constant.AccountBank) {
             investBank();
-        }else if (accountType == Constant.AccountLianLain){
+        } else if (accountType == Constant.AccountLianLain) {
             investLianLian();
         }
     }
 
-    private void investLianLian(){
+    private void investLianLian() {
         User user = DBUtils.getUser(this);
         if (user != null) {
             if (!user.getHasTradePassword()) {
@@ -1009,10 +1016,10 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
         tidf.show(getSupportFragmentManager(), "inputPwd");
     }
 
-    private void investBank(){
-        if (isOpen){
+    private void investBank() {
+        if (isOpen) {
             User user = DBUtils.getUser(this);
-            if (user != null && user.getUserId() != 0){
+            if (user != null && user.getUserId() != 0) {
                 String orderStr = isOrder ? "1" : "0";
                 StringBuilder builder = new StringBuilder();
                 StringBuilder append = builder.append(HttpService.mBaseUrl)
@@ -1024,13 +1031,13 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                         .append("&voucherids=" + vouchers)
                         .append("&isBookInvest=" + orderStr);
                 String url = append.toString();
-                Logger.e("invest url: "+ url);
-                gotoWeb(url,"立即投资");
-            }else{
+                Logger.e("invest url: " + url);
+                gotoWeb(url, "立即投资");
+            } else {
                 gotoActivity(LoginActivity.class);
             }
-        }else{
-            Utils.Toast(this,"请先开通存管账户");
+        } else {
+            Utils.Toast(this, "请先开通存管账户");
         }
     }
 }

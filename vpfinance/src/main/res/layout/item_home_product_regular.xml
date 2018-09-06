@@ -41,6 +41,7 @@
                 <!--android:src="@drawable/icon_qi" />-->
 
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,12 +49,7 @@
                     android:textSize="15sp"
                     tools:text="V成长-守住-005" />
 
-                <!--<ImageView-->
-                <!--android:id="@+id/state"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="9dp"-->
-                <!--android:background="@drawable/stype_bao" />-->
+
 
                 <!--<ImageView-->
                 <!--android:id="@+id/zhuan"-->
@@ -119,6 +115,14 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/icon_fdjx" />
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:background="@drawable/stype_bao" />
 
                 <TextView
                     android:id="@+id/presell"

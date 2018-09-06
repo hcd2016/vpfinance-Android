@@ -60,7 +60,7 @@ public class HomeRegularAdapter extends BaseAdapter {
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_home_product_regular, null);
         TextView mTitle = ((TextView) itemView.findViewById(R.id.title));
         ImageView mAddRateState = ((ImageView) itemView.findViewById(R.id.add_rate_state));
-//        ImageView mState = ((ImageView) itemView.findViewById(R.id.state));
+        ImageView mState = ((ImageView) itemView.findViewById(R.id.state));
         ImageView mZhuan = ((ImageView) itemView.findViewById(R.id.zhuan));
 //        ImageView mLv = ((ImageView) itemView.findViewById(R.id.lv));
 //        ImageView mJing = ((ImageView) itemView.findViewById(R.id.jing));
@@ -177,7 +177,7 @@ public class HomeRegularAdapter extends BaseAdapter {
                         }
                     });
 
-//                    Common.productSubType(mContext, mState, loansign.subType);
+                    Common.productSubType(mContext, mState, loansign.subType);
 
                     //转
                     String allowTransfer = bean.allowTransfer;

@@ -134,14 +134,16 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         } else {
             mFakeStatusBar.setVisibility(View.GONE);
         }
+        WebSettings settings = webView.getSettings();
         //vue.js 必须设置, 不然一些api无效
-        webView.getSettings().setDomStorageEnabled(true);
-        webView.getSettings().setDatabaseEnabled(true);
-        webView.getSettings().setAppCacheEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setAppCacheEnabled(true);
         String appCachePath = FinanceApplication.getAppContext().getCacheDir().getAbsolutePath();
-        webView.getSettings().setAppCachePath(appCachePath);
-
-        this.webView.getSettings().setJavaScriptEnabled(true);
+        settings.setAppCachePath(appCachePath);
+        settings.setDomStorageEnabled(true);
+        settings.setJavaScriptEnabled(true);
+        webView.addJavascriptInterface(new JsInterface(this), "vp_h5");
         // 设置可以支持缩放
         this.webView.getSettings().setSupportZoom(true);
         // 设置出现缩放工具
@@ -210,6 +212,10 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             syncCookie(url, cookieText);
             if (url.contains(",1") && url.contains("hx/repayment/repay")) {
                 url = url.replace(",1", "");
+            }
+            if(url.contains("riskCompleteClick")) {
+                finish();
+                return;
             }
             web.loadUrl(url);
         }

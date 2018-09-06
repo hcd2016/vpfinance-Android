@@ -41,6 +41,7 @@ import cn.vpfinance.vpjr.gson.FinanceProduct;
 import cn.vpfinance.vpjr.gson.PersonalInfo;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.model.RegularProductInfo;
+import cn.vpfinance.vpjr.module.product.fragment.NewBaseInfoFragment;
 import cn.vpfinance.vpjr.module.product.fragment.PersonalProductRiskControlFragment;
 import cn.vpfinance.vpjr.module.product.fragment.ProductInvestListFragment;
 import cn.vpfinance.vpjr.module.product.fragment.ProductJewelryBaseInfoFragment;

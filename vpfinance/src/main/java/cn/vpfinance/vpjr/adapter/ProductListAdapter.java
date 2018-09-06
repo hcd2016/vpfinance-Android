@@ -32,6 +32,7 @@ import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.gson.LoanSignListNewBean;
 import cn.vpfinance.vpjr.model.RefreshCountDown;
+import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.view.MyCountDownTimer;
 import cn.vpfinance.vpjr.view.SmallCircularProgressView;
@@ -234,7 +235,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //                            break;
 //                    }
 
-//                    Common.productSubType(mContext,holder.ivProductState,loansign.subType);
+                    Common.productSubType(mContext,holder.ivProductState,loansign.subType);
 
 //                    double pro = 100 * product.total_tend_money/loansign.issueLoan;
 //                    String value = FormatUtils.formatDownByProgress(pro);
@@ -457,8 +458,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         ImageView rewardIv;
         @Bind(R.id.ivAllowTransfer)
         ImageView ivAllowTransfer;
-//        @Bind(R.id.ivProductState)
-//        ImageView ivProductState;
+        @Bind(R.id.ivProductState)
+        ImageView ivProductState;
         @Bind(R.id.circle)
         SmallCircularProgressView circular;
 //        @Bind(R.id.isAllowTrip)

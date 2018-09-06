@@ -520,7 +520,7 @@
 
                             <ImageView
                                 android:layout_width="@dimen/mine_icon_4_size"
-                                android:layout_height="@dimen/mine_icon_4_size"
+                                android:layout_height="wrap_content"
                                 android:background="@drawable/my_transferor_blue" />
 
                             <TextView

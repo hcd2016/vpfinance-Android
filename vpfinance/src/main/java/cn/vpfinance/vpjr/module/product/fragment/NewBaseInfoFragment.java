@@ -41,6 +41,7 @@ import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.DepositTab1Bean;
 import cn.vpfinance.vpjr.gson.NewBaseInfoBean;
+import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.model.DepositInvestInfo;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.dialog.InvestLianLianInformDialog;
@@ -50,6 +51,7 @@ import cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity;
 import cn.vpfinance.vpjr.module.product.record.NewRepayListActivity;
 import cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
+import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
@@ -66,8 +68,8 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     private static final int CALCULATE_COMPLETE = 99;
     @Bind(R.id.product_name)
     TextView mProductName;
-    //    @Bind(R.id.ivProductState)
-//    ImageView mIvProductState;
+    @Bind(R.id.ivProductState)
+    ImageView mIvProductState;
     @Bind(R.id.ivAllowTransfer)
     ImageView mIvAllowTransfer;
     //    @Bind(R.id.isAllowTrip)
@@ -251,6 +253,94 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
         } else if (reqId == ServiceCmd.CmdId.CMD_SERVICE_TIME.ordinal()) {
             serverTime = json.optLong("serverTime");
         }
+        if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
+            if (!AppState.instance().logined() || json.optString("success").equals("false")) {
+                gotoActivity(LoginActivity.class);
+                return;
+            }
+            UserInfoBean mUserInfoBean = mHttpService.onGetUserInfo(json);
+            if (null == mUserInfoBean) return;
+            isNewUser = SharedPreferencesHelper.getInstance(mContext).getBooleanValue(SharedPreferencesHelper.KEY_IS_NEW_USER);
+            if (mNewBaseInfoBean == null) {
+                return;
+            }
+            if (mNewBaseInfoBean.product != 4 && isNewUser) {
+                InvestLianLianInformDialog dialog = new InvestLianLianInformDialog();
+                dialog.show(getActivity().getFragmentManager(), "InvestLianLianInformDialog");
+                return;
+            }
+
+            if (mNewBaseInfoBean.product == 4 &&
+                    !mUserInfoBean.isOpen.equals("1")) {
+                Utils.Toast(getContext(), "开通存管账户");
+                new AlertDialog.Builder(getContext())
+                        .setTitle("开通存管账户")
+                        .setMessage("根据监管要求，请先开通银行存管账户")
+                        .setPositiveButton("立即开通", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                User user = DBUtils.getUser(mContext);
+                                if (user != null) {
+                                    if (TextUtils.isEmpty(user.getRealName())) {
+                                        RealnameAuthActivity.goThis(getContext());
+                                        Utils.Toast("请先去实名认证");
+                                    } else {
+                                        gotoWeb("/hx/account/create?userId=" + user.getUserId(), "");
+                                    }
+                                }
+                            }
+                        })
+                        .setNegativeButton("暂不", null)
+                        .show();
+                return;
+            }
+
+            if (((NewRegularProductActivity) getActivity()).answerStatus == 2) {
+                new AlertDialog.Builder(mContext)
+                        .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行投资")
+                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                User user = DBUtils.getUser(mContext);
+                                if (user != null) {
+                                    gotoWeb("/h5/help/riskInvestigation?userId=" + user.getUserId(), "风险评测");
+                                }
+                            }
+                        })
+                        .setNegativeButton("下次再说", null)
+                        .show();
+                return;
+            }
+
+            if (isDeposit) {
+                if (depositTab1Bean != null) {
+                    Intent intent = new Intent(getActivity(), DepositInvestActivity.class);
+                    intent.putExtra("pid", depositTab1Bean.loanId);
+                    intent.putExtra(DepositInvestActivity.IS_ORDER, false);
+                    intent.putExtra("poolId", depositTab1Bean.poolId);
+                    intent.putExtra(DepositInvestActivity.INVEST_INFO, depositInvestInfo);
+                    startActivity(intent);
+                }
+            } else {
+                if (mNewBaseInfoBean != null) {
+                    Intent intent = new Intent(getActivity(), ProductInvestActivity.class);
+                    if ("1".equals(mNewBaseInfoBean.imageUrlJump)) {//跳转本地活动投资页面
+                        intent.putExtra(ProductInvestActivity.IPHONE, mNewBaseInfoBean.givePhone);
+                    }
+                    intent.putExtra("pid", "" + mNewBaseInfoBean.loanId);
+                    int accountType = Constant.AccountLianLain;
+                    if (mNewBaseInfoBean.product == 4) {
+                        accountType = Constant.AccountBank;
+                    }
+                    intent.putExtra(Constant.AccountType, accountType);
+                    intent.putExtra(DepositInvestActivity.IS_ORDER, false);
+                    FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
+                    myApp.currentPid = "" + mNewBaseInfoBean.loanId;
+                    intent.putExtra("isGraceDays", mNewBaseInfoBean.graceDays);//是否是浮动计息产品
+                    startActivity(intent);
+                }
+            }
+        }
     }
 
     private void initDepositBean(DepositTab1Bean bean) {
@@ -308,7 +398,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
             mProductUsableBuy.setText(FormatUtils.formatAbout(depositTab1Bean.surplusMoney) + "元");
 
             mTvInvestCount.setText("已有" + depositTab1Bean.buyCount + "人投资");
-//            mIvProductState.setVisibility(View.GONE);
+            mIvProductState.setVisibility(View.GONE);
 //            float pro = (float) ((issueloan - buyMoney) / issueloan);
             float pro = (float) (depositTab1Bean.process);
 //            mProductProgress.setProgress(pro);
@@ -544,7 +634,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 }
             }
 
-//            Common.productSubType(mContext, mIvProductState, mNewBaseInfoBean.subType);
+            Common.productSubType(mContext, mIvProductState, mNewBaseInfoBean.subType);
 
             if ("1".equals(loanstate) && (!TextUtils.isEmpty(mNewBaseInfoBean.publishTime))) {
                 try {
@@ -595,7 +685,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
      */
     private void setWarningContent(final NewBaseInfoBean mNewBaseInfoBean) {
         //        final String content = "该产品52.12%采用浮动计息36.85%方式，最大还款日40.50%期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>";
-        String content = mNewBaseInfoBean.flowInvestReminder+"  了解详情>>";
+        String content = mNewBaseInfoBean.flowInvestReminder + "  了解详情>>";
         List<String> floatPercent = Utils.getFloatPercent(content);
         DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
         difColorTextStringBuilder.setContent(content);
@@ -606,7 +696,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 .setHighlightContent("了解详情>>", new MyClickableSpan() {
                     @Override
                     public void onClick(View widget) {
-                        gotoWeb("/h5/help/floatProductTips?loanId="+mNewBaseInfoBean.loanId,"");
+                        gotoWeb("/h5/help/floatProductTips?loanId=" + mNewBaseInfoBean.loanId, "");
                     }
                 })
                 .setTextView(tvWarningDesc)
@@ -686,89 +776,88 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.invest://正常购买
-                if (!AppState.instance().logined()) {
-                    gotoActivity(LoginActivity.class);
-                    break;
-                }
-                isNewUser = SharedPreferencesHelper.getInstance(mContext).getBooleanValue(SharedPreferencesHelper.KEY_IS_NEW_USER);
-                if (mNewBaseInfoBean == null) {
-                    return;
-                }
-                if (mNewBaseInfoBean.product != 4 && isNewUser) {
-                    InvestLianLianInformDialog dialog = new InvestLianLianInformDialog();
-                    dialog.show(getActivity().getFragmentManager(), "InvestLianLianInformDialog");
-                    return;
-                }
+                mHttpService.getUserInfo();
 
-                if (mNewBaseInfoBean.product == 4 &&
-                        !SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT)) {
-                    Utils.Toast(getContext(), "开通存管账户");
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("开通存管账户")
-                            .setMessage("根据监管要求，请先开通银行存管账户")
-                            .setPositiveButton("立即开通", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    User user = DBUtils.getUser(mContext);
-                                    if (user != null) {
-                                        if (TextUtils.isEmpty(user.getRealName())) {
-                                            RealnameAuthActivity.goThis(getContext());
-                                            Utils.Toast("请先去实名认证");
-                                        } else {
-                                            gotoWeb("/hx/account/create?userId=" + user.getUserId(), "");
-                                        }
-                                    }
-                                }
-                            })
-                            .setNegativeButton("暂不", null)
-                            .show();
-                    return;
-                }
-
-                if (((NewRegularProductActivity) getActivity()).answerStatus == 2) {
-                    new AlertDialog.Builder(mContext)
-                            .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行投资")
-                            .setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    User user = DBUtils.getUser(mContext);
-                                    if (user != null) {
-                                        gotoWeb("/h5/help/riskInvestigation?userId=" + user.getUserId(), "风险评测");
-                                    }
-                                }
-                            })
-                            .setNegativeButton("下次再说", null)
-                            .show();
-                    return;
-                }
-
-                if (isDeposit) {
-                    if (depositTab1Bean != null) {
-                        Intent intent = new Intent(getActivity(), DepositInvestActivity.class);
-                        intent.putExtra("pid", depositTab1Bean.loanId);
-                        intent.putExtra(DepositInvestActivity.IS_ORDER, false);
-                        intent.putExtra("poolId", depositTab1Bean.poolId);
-                        intent.putExtra(DepositInvestActivity.INVEST_INFO, depositInvestInfo);
-                        startActivity(intent);
-                    }
-                } else {
-                    if (mNewBaseInfoBean != null) {
-                        Intent intent = new Intent(getActivity(), ProductInvestActivity.class);
-                        if ("1".equals(mNewBaseInfoBean.imageUrlJump)) {//跳转本地活动投资页面
-                            intent.putExtra(ProductInvestActivity.IPHONE, mNewBaseInfoBean.givePhone);
-                        }
-                        intent.putExtra("pid", "" + mNewBaseInfoBean.loanId);
-                        int accountType = Constant.AccountLianLain;
-                        if (mNewBaseInfoBean.product == 4) {
-                            accountType = Constant.AccountBank;
-                        }
-                        intent.putExtra(Constant.AccountType, accountType);
-                        intent.putExtra(DepositInvestActivity.IS_ORDER, false);
-                        FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
-                        myApp.currentPid = "" + mNewBaseInfoBean.loanId;
-                        startActivity(intent);
-                    }
-                }
+//                isNewUser = SharedPreferencesHelper.getInstance(mContext).getBooleanValue(SharedPreferencesHelper.KEY_IS_NEW_USER);
+//                if (mNewBaseInfoBean == null) {
+//                    return;
+//                }
+//                if (mNewBaseInfoBean.product != 4 && isNewUser) {
+//                    InvestLianLianInformDialog dialog = new InvestLianLianInformDialog();
+//                    dialog.show(getActivity().getFragmentManager(), "InvestLianLianInformDialog");
+//                    return;
+//                }
+//
+//                if (mNewBaseInfoBean.product == 4 &&
+//                        !SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT)) {
+//                    Utils.Toast(getContext(), "开通存管账户");
+//                    new AlertDialog.Builder(getContext())
+//                            .setTitle("开通存管账户")
+//                            .setMessage("根据监管要求，请先开通银行存管账户")
+//                            .setPositiveButton("立即开通", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    User user = DBUtils.getUser(mContext);
+//                                    if (user != null) {
+//                                        if (TextUtils.isEmpty(user.getRealName())) {
+//                                            RealnameAuthActivity.goThis(getContext());
+//                                            Utils.Toast("请先去实名认证");
+//                                        } else {
+//                                            gotoWeb("/hx/account/create?userId=" + user.getUserId(), "");
+//                                        }
+//                                    }
+//                                }
+//                            })
+//                            .setNegativeButton("暂不", null)
+//                            .show();
+//                    return;
+//                }
+//
+//                if (((NewRegularProductActivity) getActivity()).answerStatus == 2) {
+//                    new AlertDialog.Builder(mContext)
+//                            .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行投资")
+//                            .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    User user = DBUtils.getUser(mContext);
+//                                    if (user != null) {
+//                                        gotoWeb("/h5/help/riskInvestigation?userId=" + user.getUserId(), "风险评测");
+//                                    }
+//                                }
+//                            })
+//                            .setNegativeButton("下次再说", null)
+//                            .show();
+//                    return;
+//                }
+//
+//                if (isDeposit) {
+//                    if (depositTab1Bean != null) {
+//                        Intent intent = new Intent(getActivity(), DepositInvestActivity.class);
+//                        intent.putExtra("pid", depositTab1Bean.loanId);
+//                        intent.putExtra(DepositInvestActivity.IS_ORDER, false);
+//                        intent.putExtra("poolId", depositTab1Bean.poolId);
+//                        intent.putExtra(DepositInvestActivity.INVEST_INFO, depositInvestInfo);
+//                        startActivity(intent);
+//                    }
+//                } else {
+//                    if (mNewBaseInfoBean != null) {
+//                        Intent intent = new Intent(getActivity(), ProductInvestActivity.class);
+//                        if ("1".equals(mNewBaseInfoBean.imageUrlJump)) {//跳转本地活动投资页面
+//                            intent.putExtra(ProductInvestActivity.IPHONE, mNewBaseInfoBean.givePhone);
+//                        }
+//                        intent.putExtra("pid", "" + mNewBaseInfoBean.loanId);
+//                        int accountType = Constant.AccountLianLain;
+//                        if (mNewBaseInfoBean.product == 4) {
+//                            accountType = Constant.AccountBank;
+//                        }
+//                        intent.putExtra(Constant.AccountType, accountType);
+//                        intent.putExtra(DepositInvestActivity.IS_ORDER, false);
+//                        FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
+//                        myApp.currentPid = "" + mNewBaseInfoBean.loanId;
+//                        intent.putExtra("isGraceDays",mNewBaseInfoBean.graceDays);//是否是浮动计息产品
+//                        startActivity(intent);
+//                    }
+//                }
 
                 break;
             case R.id.btnOrder://预约购买
@@ -794,7 +883,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                     Utils.Toast(getContext(), "请先开通存管账户");
                     return;
                 }
-                if (isDeposit) {
+                if (isDeposit) {//定存宝,暂时废弃.
                     if (depositTab1Bean != null) {
                         Intent intent = new Intent(getActivity(), DepositInvestActivity.class);
                         intent.putExtra("pid", depositTab1Bean.loanId);
