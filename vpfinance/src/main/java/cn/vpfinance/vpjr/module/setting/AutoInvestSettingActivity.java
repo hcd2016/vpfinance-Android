@@ -141,54 +141,6 @@ public class AutoInvestSettingActivity extends BaseActivity {
             }
         });
 
-        allowPub.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (!"已授权".equals(tvAuthorization.getText().toString())) {
-//                    Utils.Toast("请先进行授权");
-//                } else {
-//                    containerSetting.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-//                }
-                if (null != bean && autoInvestStatus == 1) {//已授权
-                    tvAuthorization.setText("已授权");
-                    if (isChecked) {
-                        containerSetting.setVisibility(View.VISIBLE);
-                    } else {
-                        containerSetting.setVisibility(View.GONE);
-                    }
-                    btnSubmit.setEnabled(true);
-                }else {
-                    if(null != bean && autoInvestStatus == 2) {
-                        tvAuthorization.setText("已超额");
-                    }else if(null != bean && autoInvestStatus == 3) {
-                        tvAuthorization.setText("已过期");
-                    }else {
-                        tvAuthorization.setText("去授权");
-                    }
-                    Utils.Toast("请先进行授权");
-                    allowPub.setChecked(false);
-                    containerSetting.setVisibility(View.GONE);
-                    btnSubmit.setEnabled(false);
-                }
-
-
-//                //处理保存按钮置灰
-//                if (null != bean) {
-//                    int isAutoPlank = 0;
-//                    if (isChecked) {
-//                        isAutoPlank = 1;
-//                    } else {
-//                        isAutoPlank = 0;
-//                    }
-//                    if (bean.isAutoPlank != isAutoPlank) {
-//
-//                    } else {
-//                        btnSubmit.setEnabled(false);
-//                    }
-//                }
-            }
-        });
-
         Intent intent = getIntent();
         if (intent != null) {
 
@@ -329,28 +281,55 @@ public class AutoInvestSettingActivity extends BaseActivity {
             QueryAutoStatusBean autoStatusBean = new Gson().fromJson(json.toString(), QueryAutoStatusBean.class);
             if (autoStatusBean != null && !TextUtils.isEmpty(autoStatusBean.autoPlankStatus)) {
                 autoInvestStatus = Integer.parseInt(autoStatusBean.autoPlankStatus);
-                if (autoInvestStatus == 2) {//2超额 3过期
+                if (autoInvestStatus == 1) {
+                    tvAuthorization.setText("已授权");
+                } else if (autoInvestStatus == 2) {//2超额 3过期
                     tvAuthorization.setText("已超额");
                 } else if (autoInvestStatus == 3) {
                     tvAuthorization.setText("已过期");
                 }
+            } else {
+                tvAuthorization.setText("未授权");
+            }
+            allowPub.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (null != bean && autoInvestStatus == 1) {//已授权
+                        if (isChecked) {
+                            containerSetting.setVisibility(View.VISIBLE);
+                        } else {
+                            containerSetting.setVisibility(View.GONE);
+                        }
+                        btnSubmit.setEnabled(true);
+                    } else {
+                        Utils.Toast("请先进行授权");
+                        allowPub.setChecked(false);
+                        containerSetting.setVisibility(View.GONE);
+                        btnSubmit.setEnabled(false);
+                    }
+                }
+            });
+            if (bean.isAutoPlank == 1) {//已开启投标
+                allowPub.setChecked(true);
+            } else {
+                allowPub.setChecked(false);
+            }
+            if (allowPub.isChecked()) {
+                containerSetting.setVisibility(View.VISIBLE);
+            } else {
+                containerSetting.setVisibility(View.GONE);
             }
         }
     }
 
     public void setData() {
-        if (bean.isHXAutoPlank == 1) {//已授权
-            tvAuthorization.setText("已授权");
-//                allowPub.setChecked(true);
-        } else {//未授权
-            tvAuthorization.setText("去授权");
-            allowPub.setChecked(false);
-        }
-        if (allowPub.isChecked()) {
-            containerSetting.setVisibility(View.VISIBLE);
-        } else {
-            containerSetting.setVisibility(View.GONE);
-        }
+//        if (bean.isHXAutoPlank == 1) {//已授权
+//            tvAuthorization.setText("已授权");
+////                allowPub.setChecked(true);
+//        } else {//未授权
+//            tvAuthorization.setText("去授权");
+//            allowPub.setChecked(false);
+//        }
 
         etReserveMoney.setText("" + bean.userRemainingMoney);
         etMaxInvestMoney.setText("" + bean.userMaxLoanMoney);

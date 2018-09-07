@@ -1,6 +1,7 @@
 package cn.vpfinance.vpjr.module.user.fragment;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,7 +21,6 @@ import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
-import com.mob.tools.utils.SharePrefrenceHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONObject;
@@ -46,7 +46,6 @@ import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 import cn.vpfinance.vpjr.module.trade.RechargBankActivity;
 import cn.vpfinance.vpjr.module.trade.WithdrawBankActivity;
 import cn.vpfinance.vpjr.module.user.BindBankHintActivity;
-import cn.vpfinance.vpjr.module.user.OpenBankHintActivity;
 import cn.vpfinance.vpjr.module.user.asset.AccountEActivity;
 import cn.vpfinance.vpjr.module.user.asset.FundFlowActivity;
 import cn.vpfinance.vpjr.module.user.asset.FundOverViewActivity;
@@ -105,7 +104,7 @@ public class BankAccountFragment extends BaseFragment {
     LinearLayout mOpenContent;
     @Bind(R.id.click_borrow_menu)
     LinearLayout click_borrow_menu;
-//    @Bind(R.id.ivBandActive)
+    //    @Bind(R.id.ivBandActive)
 //    ImageView ivBandActive;
     @Bind(R.id.canUseNum)
     TextView canUseNum;
@@ -125,6 +124,8 @@ public class BankAccountFragment extends BaseFragment {
     TextView tvNoOpenHint;
     @Bind(R.id.tvNoOpenHint2)
     TextView tvNoOpenHint2;
+    @Bind(R.id.tvOpenGuide)
+    TextView tvOpenGuide;
 
     private User user;
     private HttpService mHttpService;
@@ -144,6 +145,7 @@ public class BankAccountFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
         mHttpService = new HttpService(getActivity(), this);
+        tvOpenGuide.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         return view;
     }
 
@@ -217,6 +219,9 @@ public class BankAccountFragment extends BaseFragment {
             } else {
                 ivUpdateHxTag.setVisibility(View.GONE);
             }
+        }
+        if (((MainActivity) getActivity()).mLastRadioId == R.id.maintab_mine_radiobtn) {
+            loadDate();
         }
 //        loadDate();
     }
@@ -382,6 +387,7 @@ public class BankAccountFragment extends BaseFragment {
         isOpen = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT, false);
         isBindBank = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_BIND_BANK, false);
         if (!isOpen) {
+            mHeader.setVisibility(View.GONE);
             mHeaderNoOpen.setVisibility(View.VISIBLE);
             mOpenContent.setVisibility(View.GONE);
             noOpenHidden.setVisibility(View.GONE);
@@ -389,8 +395,8 @@ public class BankAccountFragment extends BaseFragment {
             tvNoOpenHint.setText("为了保障您的资金安全 需先开通存管账户");
             tvNoOpenHint2.setVisibility(View.VISIBLE);
             tvNoOpenHint2.setText("开通后10分钟左右可以查看开通结果 请勿重复操作");
-
         } else if (!isBindBank) {
+            mHeader.setVisibility(View.GONE);
             mHeaderNoOpen.setVisibility(View.VISIBLE);
             mOpenContent.setVisibility(View.GONE);
             noOpenHidden.setVisibility(View.GONE);
@@ -398,6 +404,7 @@ public class BankAccountFragment extends BaseFragment {
             tvNoOpenHint.setText("开通了银行存管的用户 需绑定银行卡激活账户");
             tvNoOpenHint2.setVisibility(View.GONE);
         } else {
+            mHeader.setVisibility(View.VISIBLE);
             mHeaderNoOpen.setVisibility(View.GONE);
             mOpenContent.setVisibility(View.VISIBLE);
             noOpenHidden.setVisibility(View.VISIBLE);
