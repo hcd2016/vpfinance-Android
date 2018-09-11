@@ -1,5 +1,9 @@
 package cn.vpfinance.vpjr.module.user.fragment;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -38,6 +42,7 @@ import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.dialog.HxUpdateDialog;
+import cn.vpfinance.vpjr.module.gusturelock.LockActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestProtocolActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestSettingActivity;
@@ -73,7 +78,7 @@ import de.greenrobot.event.EventBus;
 
 public class BankAccountFragment extends BaseFragment {
 
-
+    private static boolean isShowing = false;
     @Bind(R.id.header_no_open)
     public LinearLayout mHeaderNoOpen;
     @Bind(R.id.header)
@@ -242,8 +247,8 @@ public class BankAccountFragment extends BaseFragment {
     @Override
     public void onHttpSuccess(int reqId, final JSONObject json) {
         if (!isHttpHandle(json)) return;
-        if (((MainActivity) getActivity()).mLastRadioId == R.id.maintab_mine_radiobtn) {
-            if (Common.isForceLogout(mContext, json)) return;
+        if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal() && ((MainActivity) getActivity()).mLastRadioId == R.id.maintab_mine_radiobtn) {
+            if (isForceLogout(getActivity(), json)) return;
         }
         mRefresh.setRefreshing(false);
         if (reqId == ServiceCmd.CmdId.CMD_liteMoneyInfo.ordinal()) {
@@ -573,6 +578,54 @@ public class BankAccountFragment extends BaseFragment {
                 goAction(InvestSummaryActivity.class);
                 break;
         }
+    }
+
+    /**
+     * 是否强制退出
+     *
+     * @param context
+     * @param json
+     * @return true 强制退出
+     */
+    public static boolean isForceLogout(final Activity context, JSONObject json) {
+        //success false: 没有登录或者登录被占线
+        boolean success = json.optBoolean("success", true);
+        if (!success) {
+            int loginStatus = json.optInt("loginStatus", -1);
+            if (loginStatus == 0) {
+                Utils.Toast("登录已过期,请重新登录");
+                final SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(context);
+                String patternString = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING, null);
+                String saved_uid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID);
+                String saved_logPwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD);
+                if (patternString == null || TextUtils.isEmpty(saved_uid) || TextUtils.isEmpty(saved_logPwd) ) {//单独处理,只要用户名,密码或手势密码为空,都需重新登录
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    context.startActivityForResult(intent, 10086);
+                } else {
+                    Intent intent = new Intent(context, LockActivity.class);
+                    intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
+                    context.startActivity(intent);
+                }
+            } else if (loginStatus == 2) {
+                if (!isShowing) {
+                    isShowing = true;
+                    String message = json.optString("message");
+                    new AlertDialog.Builder(context)
+                            .setMessage(message)
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    AppState.instance().logout();
+                                    Intent intent = new Intent(context, MainActivity.class);
+                                    intent.putExtra(MainActivity.SWITCH_TAB_NUM, 0);
+                                    context.startActivity(intent);
+                                    isShowing = false;
+                                }
+                            }).create().show();
+                }
+            }
+        }
+        return !success;
     }
 
     private void goAction(Class clazz) {

@@ -83,6 +83,8 @@ public class Common {
 //                    context.startActivity(intent);
                     Utils.Toast("登录已过期,请重新登录");
 //                    context.startActivity(new Intent(context, LoginActivity.class));
+                final SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(context);
+                String patternString = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING, null);
                     Intent intent = new Intent(context, LockActivity.class);
                     intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
                     context.startActivity(intent);

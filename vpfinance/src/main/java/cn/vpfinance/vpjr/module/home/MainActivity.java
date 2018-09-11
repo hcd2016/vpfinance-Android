@@ -405,6 +405,9 @@ public class MainActivity extends BaseActivity {
                 ((RadioButton) findViewById(mLastRadioId)).setChecked(true);
             }
         }
+        if(requestCode == 10086) {
+            switchToTab(0, false);
+        }
     }
 
     public MainActivity instance() {

@@ -77,16 +77,19 @@ public class LockActivity extends Activity implements
             autoLogin = intent.getBooleanExtra(NAME_AUTO_LOGIN,false);
         }
 
+
         final SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
         String patternString = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING, null);
-        if (patternString == null) {
+        saved_uid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID);
+        saved_logPwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD);
+        if (patternString == null || TextUtils.isEmpty(saved_uid) || TextUtils.isEmpty(saved_logPwd)) {
+            Intent intent1 = new Intent(this,LoginActivity.class);
+            startActivity(intent1);
             finish();
             return;
         }
 
         saved_name = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME);
-        saved_uid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID);
-        saved_logPwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD);
         isPersonType = preferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, true);
         if (TextUtils.isEmpty(saved_uid) || TextUtils.isEmpty(saved_logPwd))
         {
@@ -122,6 +125,7 @@ public class LockActivity extends Activity implements
                 SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(LockActivity.this);
                 preferencesHelper.removeKey(SharedPreferencesHelper.KEY_LOCK_STRING);
                 startActivity(new Intent(LockActivity.this, LoginActivity.class));
+                AppState.instance().logout();
                 finish();
             }
         });
@@ -132,6 +136,7 @@ public class LockActivity extends Activity implements
                 SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(LockActivity.this);
                 preferencesHelper.removeKey(SharedPreferencesHelper.KEY_LOCK_STRING);
                 startActivity(new Intent(LockActivity.this, LoginActivity.class));
+                AppState.instance().logout();
                 finish();
             }
         });
