@@ -86,7 +86,7 @@ public class InvestTopActivity extends BaseActivity {
 
     private void init() {
 
-        mTitleBar.setTitle("投资风云榜").setHeadBackVisible(View.VISIBLE);
+        mTitleBar.setTitle("风云榜").setHeadBackVisible(View.VISIBLE);
         mHttpService = new HttpService(this, this);
         mHttpService.getInvestTop(accountType,"1");
 

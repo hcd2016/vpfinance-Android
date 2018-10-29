@@ -29,7 +29,7 @@ public class NewBaseInfoBean {
      * loanId : 723
      */
     public float process;//进度
-    public Integer frequency;//投资记录总条数
+    public Integer frequency;//出借记录总条数
     public String buyCount;
     public String givePhone;
     public String imageUrl;
@@ -58,6 +58,7 @@ public class NewBaseInfoBean {
     public int    answerStatus;//1不弹 2弹提示框, 去做风险测评
     public int    graceDays; //是否是浮动计息,大于0为浮动计息
     public String    flowInvestReminder; //浮动计息文案
+    public int riskLevel;//标的风险等级 1 保守型 2稳健型 3积极型
 
     /**
      * value : 1477904984000

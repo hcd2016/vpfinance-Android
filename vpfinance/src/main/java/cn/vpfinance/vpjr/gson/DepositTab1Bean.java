@@ -32,7 +32,7 @@ public class DepositTab1Bean{
      * loanState : 2
      */
 
-    public Integer frequency;//投资记录总条数
+    public Integer frequency;//出借记录总条数
     public int buyCount;
     public double sumMoney;
     public int bookCouponNumber;//预售券张数
@@ -57,6 +57,7 @@ public class DepositTab1Bean{
     public double tenderMoney; //购买了多少
     public double surplusMoney; //剩余金额
     public String byStagesType;//标的类型选择
+    public int riskLevel;//标的风险等级 1 保守型 2稳健型 3积极型
 
 
 

@@ -36,7 +36,7 @@ import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.view.TagCloudView;
 
 /**
- * 投资记录详情
+ * 出借记录详情
  */
 public class FundRecordsDetailActivity extends BaseActivity {
 

@@ -75,7 +75,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginLeft="35dp"
-            android:text="投资期限"/>
+            android:text="项目期限"/>
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -146,7 +146,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="全部投资"
+                android:text="全部出借"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:textColor="@color/text_black"/>
@@ -177,7 +177,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="认购金额"
+                android:text="出借金额"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:textColor="@color/text_black"/>
@@ -270,6 +270,6 @@
         android:layout_marginRight="50dp"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text="立即投资"
+        android:text="我要出借"
         android:textSize="18sp" />
 </LinearLayout>

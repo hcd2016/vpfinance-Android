@@ -111,7 +111,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="投资期限"/>
+                        android:text="项目期限"/>
                     <TextView
                         android:id="@+id/tvMonth"
                         android:layout_width="wrap_content"
@@ -335,7 +335,7 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/bg_btn_submit"
                 android:gravity="center"
-                android:text="立即投资"
+                android:text="我要出借"
                 android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>

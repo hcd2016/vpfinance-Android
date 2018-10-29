@@ -112,7 +112,7 @@
                     android:drawableLeft="@drawable/ic_transfer_product_3"
                     android:drawablePadding="10dp"
                     android:gravity="center_vertical"
-                    android:text="投资记录"
+                    android:text="出借记录"
                     android:textColor="@color/text_999999" />
 
                 <TextView
@@ -175,8 +175,10 @@
             </LinearLayout>
 
             <LinearLayout
+                android:padding="10dp"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:background="@color/bg_gray2"
                 android:gravity="center">
 
@@ -189,7 +191,17 @@
                     android:textColor="@color/main_color"
                     android:textSize="@dimen/text_size_12"
                     android:visibility="gone" />
+                <TextView
+                    android:id="@+id/tv_risk_tips"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/text_999999"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:text="小微提醒您: 出借有风险，决策需谨慎"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
@@ -202,10 +214,12 @@
         android:background="@drawable/bg_btn_submit"
         android:enabled="true"
         android:gravity="center"
-        android:text="立即投资"
+        android:text="我要出借"
         android:textSize="18sp"
         android:visibility="visible" />
 
+
+    <!--开始抢标布局-->
     <LinearLayout
         android:id="@+id/order_ll"
         android:layout_width="match_parent"

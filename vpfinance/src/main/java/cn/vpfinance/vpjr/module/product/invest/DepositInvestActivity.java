@@ -164,8 +164,8 @@ public class DepositInvestActivity extends BaseActivity implements View.OnClickL
             click_invest.setText("立即预约");
             tv_buy.setText("可预约金额");
         }else{
-            setTitle("立即投资");
-            click_invest.setText("立即投资");
+            setTitle("我要出借");
+            click_invest.setText("我要出借");
             tv_buy.setText("可购金额");
         }
 
@@ -566,7 +566,7 @@ public class DepositInvestActivity extends BaseActivity implements View.OnClickL
                     }
 
                     if (moneyValue < 0.00) {
-                        Toast.makeText(this, "请输入认购金额", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "请输入出借金额", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     Intent intent = new Intent(this, NewSelectVoucherActivity.class);

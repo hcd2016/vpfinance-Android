@@ -63,7 +63,7 @@ public class ProductInvestListActivity extends FragmentContainerActivity {
 
         Fragment fragment = ProductInvestListFragment.newInstance(pid, type,totalCount,isDeposit,serverTime);
         setFragment(fragment);
-        setTitle("投资记录");
+        setTitle("出借记录");
 
     }
 

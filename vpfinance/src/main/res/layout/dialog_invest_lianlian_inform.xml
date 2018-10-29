@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="      根据合规文件要求，新注册的投资人只能投资银行存管的产品，点击弹框即可返回“存管专区”投资。"
+            android:text="      根据合规文件要求，新注册的出借人只能出借银行存管的产品，点击弹框即可返回“存管专区”出借。"
             android:textColor="@color/text_333333"
             android:textSize="15dp"
             android:paddingLeft="15dp"

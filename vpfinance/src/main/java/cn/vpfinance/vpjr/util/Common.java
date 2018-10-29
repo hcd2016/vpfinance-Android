@@ -86,7 +86,7 @@ public class Common {
                 final SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(context);
                 String patternString = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING, null);
                     Intent intent = new Intent(context, LockActivity.class);
-                    intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
+//                    intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
                     context.startActivity(intent);
 //                    Intent intent = new Intent();
 //                    intent.putExtra()

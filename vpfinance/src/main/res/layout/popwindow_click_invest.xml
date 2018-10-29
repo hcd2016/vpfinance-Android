@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="投资金额"
+            android:text="出借金额"
             android:textSize="12sp"
             android:textColor="@color/black"
             android:layout_marginRight="10dp"
@@ -126,7 +126,7 @@
         android:layout_height="50dp"
         android:background="@color/dark_red"
         android:textSize="18sp"
-        android:text="立即投资"
+        android:text="我要出借"
         android:textColor="@color/white"
         android:gravity="center"
         android:layout_marginTop="15dp"/>

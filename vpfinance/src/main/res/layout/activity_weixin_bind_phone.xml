@@ -53,6 +53,7 @@
         </cn.vpfinance.vpjr.view.EditTextWithDel>
 
         <cn.vpfinance.vpjr.view.EditTextWithDel
+            app:maxLength="100"
             android:id="@+id/etEmail"
             style="@style/SampleEditTextStyle"
             android:layout_width="match_parent"
@@ -74,12 +75,12 @@
             <EditText
                 android:maxLength="4"
                 android:id="@+id/etImageCaptcha"
-                style="@style/EditTextStyle"
+                style="@style/SampleEditTextStyle"
                 android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_marginRight="14dp"
-                android:drawableLeft="@drawable/register_code"
+                android:drawableLeft="@drawable/register_code_small"
                 android:drawablePadding="10dp"
                 android:hint="请输入图形验证码" />
 

@@ -26,7 +26,8 @@ public class AddWeiXinActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 ClipboardManager myClipboard = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                ClipData mClip = ClipData.newPlainText("text", "ZTE-vpfinance");
+//                ClipData mClip = ClipData.newPlainText("text", "ZTE-vpfinance");
+                ClipData mClip = ClipData.newPlainText("text", "vpfinance");
                 myClipboard.setPrimaryClip(mClip);
                 Utils.Toast(AddWeiXinActivity.this,"公众号已经复制，请打开微信添加关注。");
             }

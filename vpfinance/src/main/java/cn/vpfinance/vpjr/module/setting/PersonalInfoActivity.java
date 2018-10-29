@@ -283,8 +283,8 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
 
                     String link = HttpService.mBaseUrl + "/hx/account/manage?userId=" + userId.toString();
                     gotoWeb(link, "存管账户设置");
-//                    启动存管账户设置
-                    DepositAccountSetActivity.startDepositAccountSetActivity(PersonalInfoActivity.this, mUserInfoBean);
+////                    启动存管账户设置
+//                    DepositAccountSetActivity.startDepositAccountSetActivity(PersonalInfoActivity.this, mUserInfoBean);
                 }
             }
         });
@@ -455,7 +455,9 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 tvUserName.setText(newUserName);
             } else if ("2".equals(ret)) {
                 Toast.makeText(this, "用户名已经被占用", Toast.LENGTH_SHORT).show();
-            } else {
+            } else if("3".equals(ret)){
+                Toast.makeText(this, "用户名不能为手机或邮箱格式", Toast.LENGTH_SHORT).show();
+            }else {
                 Toast.makeText(this, "修改用户名失败", Toast.LENGTH_SHORT).show();
             }
         }
@@ -711,12 +713,12 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             @Override
             public boolean onTextConfrim(String value) {
                 if (value != null) {
-                    if (VerifyUtils.checkUserName(PersonalInfoActivity.this, value)) {
+//                    if (VerifyUtils.checkUserName(PersonalInfoActivity.this, value)) {
                         newUserName = value;
                         mHttpService.updateUserBasicInfo(value, "" + user.getUserId());
-                    } else {
-                        Utils.Toast(PersonalInfoActivity.this, "用户名格式不正确");
-                    }
+//                    } else {
+//                        Utils.Toast(PersonalInfoActivity.this, "用户名不能为手机或邮箱格式");
+//                    }
                 }
                 return false;
             }

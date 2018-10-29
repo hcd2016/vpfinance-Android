@@ -43,8 +43,8 @@ public class RechargBankActivity extends BaseActivity {
     ActionBarWhiteLayout mTitleBar;
     @Bind(R.id.et_money)
     EditText mMoney;
-    @Bind(R.id.ivWhat)
-    ImageView ivWhat;
+//    @Bind(R.id.ivWhat)
+//    ImageView ivWhat;
     @Bind(R.id.tvAccountName)
     TextView tvAccountName;
     @Bind(R.id.tvAccountNum)
@@ -87,12 +87,12 @@ public class RechargBankActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.click_recharge, R.id.tvRechargeInfo1, R.id.tvRechargeInfo2, R.id.btnCopy, R.id.ivWhat, R.id.btnCopy2})
+    @OnClick({R.id.click_recharge, R.id.tvRechargeInfo1, R.id.tvRechargeInfo2, R.id.btnCopy,R.id.btnCopy2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ivWhat:
-                new HxUpdateDialog().show(getSupportFragmentManager(), "HxUpdateDialog");
-                break;
+//            case R.id.ivWhat:
+//                new HxUpdateDialog().show(getSupportFragmentManager(), "HxUpdateDialog");
+//                break;
             case R.id.click_recharge:
                 User user = DBUtils.getUser(this);
                 final Long userId = user.getUserId();

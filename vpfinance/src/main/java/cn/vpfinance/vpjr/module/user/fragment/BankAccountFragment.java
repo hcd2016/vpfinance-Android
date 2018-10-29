@@ -279,21 +279,23 @@ public class BankAccountFragment extends BaseFragment {
                     tvOpenBankAccount.setText("已过期");
                 }
             }
-        } else if (reqId == ServiceCmd.CmdId.CMD_HX_IS_UPDATE.ordinal()) {
-            mCLickAccountE.setVisibility(View.GONE);
-            if (user != null) {
-                mHttpService.getCreateAccountTime(user.getUserId().toString());
-            }
-        } else if (reqId == ServiceCmd.CmdId.CMD_CREATE_ACCOUNT_TIME.ordinal()) {
-            String status = json.optString("status");
-            if ("true".equalsIgnoreCase(status)) {
-                boolean isShow = SharedPreferencesHelper.getInstance(getContext()).getBooleanValue(SharedPreferencesHelper.KEY_HX_UPDATE_DIALOG_SHOW, false);
-                if (!isShow) {
-                    new HxUpdateDialog().show(getChildFragmentManager(), "HxUpdateDialog");
-                    SharedPreferencesHelper.getInstance(getContext()).putBooleanValue(SharedPreferencesHelper.KEY_HX_UPDATE_DIALOG_SHOW, true);
-                }
-            }
         }
+//        else if (reqId == ServiceCmd.CmdId.CMD_HX_IS_UPDATE.ordinal()) {
+//            mCLickAccountE.setVisibility(View.GONE);
+//            if (user != null) { 去除hx弹窗
+//                mHttpService.getCreateAccountTime(user.getUserId().toString());
+//            }
+//        }
+//        else if (reqId == ServiceCmd.CmdId.CMD_CREATE_ACCOUNT_TIME.ordinal()) {
+//            String status = json.optString("status");
+//            if ("true".equalsIgnoreCase(status)) {
+//                boolean isShow = SharedPreferencesHelper.getInstance(getContext()).getBooleanValue(SharedPreferencesHelper.KEY_HX_UPDATE_DIALOG_SHOW, false);
+//                if (!isShow) {
+//                    new HxUpdateDialog().show(getChildFragmentManager(), "HxUpdateDialog");
+//                    SharedPreferencesHelper.getInstance(getContext()).putBooleanValue(SharedPreferencesHelper.KEY_HX_UPDATE_DIALOG_SHOW, true);
+//                }
+//            }
+//        }
     }
 
 
@@ -603,7 +605,7 @@ public class BankAccountFragment extends BaseFragment {
                     context.startActivityForResult(intent, 10086);
                 } else {
                     Intent intent = new Intent(context, LockActivity.class);
-                    intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
+//                    intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
                     context.startActivity(intent);
                 }
             } else if (loginStatus == 2) {

@@ -51,6 +51,8 @@ public class BindBankHintActivity extends BaseActivity {
     LinearLayout llCompanyHintContainer;
     @Bind(R.id.tv_desc)
     TextView tvDesc;
+    @Bind(R.id.btnKnow_company)
+    Button btnKnowCompany;
     private String userId = "";
     private HttpService httpService;
     private EAccountBean eAccountBean;
@@ -81,7 +83,15 @@ public class BindBankHintActivity extends BaseActivity {
             llCompanyHintContainer.setVisibility(View.VISIBLE);
             httpService.getEAccountInfo();
         }
-        findViewById(R.id.btnKnow).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btnKnow).setOnClickListener(new View.OnClickListener() {//个人
+            @Override
+            public void onClick(View view) {
+                gotoWeb("hx/bankcard/bind?userId=" + userId, "");
+                finish();
+            }
+        });
+
+        findViewById(R.id.btnKnow_company).setOnClickListener(new View.OnClickListener() {//企业,和个人跳转一样
             @Override
             public void onClick(View view) {
                 gotoWeb("hx/bankcard/bind?userId=" + userId, "");
@@ -90,11 +100,11 @@ public class BindBankHintActivity extends BaseActivity {
         });
         DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
         difColorTextStringBuilder.setContent(tvDesc.getText().toString())
-                .setHighlightContent("图文指引>",R.color.btn_blue)
+                .setHighlightContent("图文指引>", R.color.btn_blue)
                 .setHighlightContent("图文指引>", new MyClickableSpan() {
                     @Override
                     public void onClick(View widget) {
-                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideOpen?company=1","");
+                        gotoWeb("https://www.vpfinance.cn/h5/help/hxGuideOpen?company=1", "");
                         finish();
                     }
                 })

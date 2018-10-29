@@ -116,7 +116,7 @@ public class RegularProductBorrowerCreditFragment extends BaseFragment implement
             product = event.product;
             int pro = (int) (100 * product.getTotal_tend_money() / product.getIssueLoan());
 
-            String state = "立即投资";
+            String state = "我要出借";
             switch ((int) product.getLoanstate())//1未发布 2进行中 3回款中 4已完成
             {
                 case 1:

@@ -64,7 +64,7 @@ public class BaseActivity extends FragmentActivity implements HttpDownloader.Htt
 				if(System.currentTimeMillis() - lastPauseTime > LockActivity.TIME_LOCK)
 				{
 					Intent intent = new Intent(this, LockActivity.class);
-					intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
+//					intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
 					startActivity(intent);
 				}
 			}

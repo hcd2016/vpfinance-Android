@@ -506,7 +506,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="我的投资"
+                                android:text="我的出借"
                                 android:textColor="@color/normal_text_color" />
                         </LinearLayout>
 
@@ -571,7 +571,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="投资统计"
+                                android:text="出借统计"
                                 android:textColor="@color/normal_text_color" />
                         </LinearLayout>
                     </LinearLayout>
@@ -849,7 +849,7 @@
                                 android:drawableLeft="@drawable/invest_top"
                                 android:drawablePadding="15dp"
                                 android:gravity="center_vertical"
-                                android:text="投资风云榜"
+                                android:text="风云榜"
                                 android:textColor="@color/text_333333"
                                 android:textSize="15sp" />
 

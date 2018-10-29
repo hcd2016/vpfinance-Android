@@ -31,7 +31,7 @@
         android:layout_centerInParent="true"
         android:clickable="true"
         android:drawablePadding="2dp"
-        android:drawableTop="@drawable/servicer"
+        android:drawableTop="@drawable/coupon_weibao"
         android:gravity="center"
         android:text="下拉刷新" />
 

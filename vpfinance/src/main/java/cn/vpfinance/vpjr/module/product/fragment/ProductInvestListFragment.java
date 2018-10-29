@@ -28,7 +28,7 @@ import cn.vpfinance.vpjr.greendao.LoanRecord;
 import de.greenrobot.event.EventBus;
 
 /**
- * 产品投资记录
+ * 产品出借记录
  *
  * @author cheungquentin
  */

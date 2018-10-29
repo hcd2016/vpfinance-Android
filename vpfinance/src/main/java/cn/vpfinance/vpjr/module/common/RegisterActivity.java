@@ -2,6 +2,7 @@ package cn.vpfinance.vpjr.module.common;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -99,6 +100,14 @@ public class RegisterActivity extends BaseActivity {
         etEmail.setVisibility(!isPersonType ? View.VISIBLE : View.GONE);
         etCompanyPhone.setVisibility(!isPersonType ? View.VISIBLE : View.GONE);
 
+
+//        setWidth(R.drawable.login_username,etPhone);
+//        setWidth(R.drawable.login_icon_email,etEmail);
+//        setWidth(R.drawable.register_recommend,etCompanyPhone);
+//        setWidth(R.drawable.register_code,etImageCaptcha);
+//        setWidth(R.drawable.register_recommend,etRecommendPhone);
+
+
 //        etPhone.addTextChangedListener(new TextWatcher() {
 //            @Override
 //            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -127,6 +136,13 @@ public class RegisterActivity extends BaseActivity {
             }
         });
     }
+
+//    private void setWidth(int id,TextView view) {
+//        Drawable drawable = getResources().getDrawable(id);
+//        drawable.setBounds(0, 0, 80, 120);//第一0是距左边距离，第二0是距上边距离，30、35分别是长宽
+//        view.setCompoundDrawables(drawable,null,null,null);//只放左边
+//    }
+
 
     @Override
     protected void onDestroy() {
@@ -165,7 +181,7 @@ public class RegisterActivity extends BaseActivity {
         String imageCaptcha = etImageCaptcha.getText().toString();
         String etCompanyPhoneText = etCompanyPhone.getText().toString();
 
-        if(isPersonType) {
+        if (isPersonType) {
             if (TextUtils.isEmpty(registerPhone)) {
                 Utils.Toast(this, "手机号不能为空!");
                 return;
@@ -174,16 +190,16 @@ public class RegisterActivity extends BaseActivity {
                 Utils.Toast(this, "手机号格式不正确!");
                 return;
             }
-        }else {
-            if(!Utils.checkEmail(etEmailText)) {
+        } else {
+            if (!Utils.checkEmail(etEmailText)) {
                 Utils.Toast(this, "邮箱格式不正确!");
                 return;
             }
-            if(TextUtils.isEmpty(etCompanyPhoneText)) {
+            if (TextUtils.isEmpty(etCompanyPhoneText)) {
                 Utils.Toast(this, "手机号不能为空!");
                 return;
             }
-            if(!Utils.isMobile(etCompanyPhoneText)) {
+            if (!Utils.isMobile(etCompanyPhoneText)) {
                 Utils.Toast(this, "手机号格式不正确!");
                 return;
             }
@@ -192,9 +208,9 @@ public class RegisterActivity extends BaseActivity {
             Utils.Toast(this, "图形验证码不能为空!");
             return;
         }
-        if(isPersonType) {
+        if (isPersonType) {
             mHttpService.getCheckCaptchaImage(imageCaptcha, registerPhone, recommendPhone, registerPhone, "1");
-        }else {
+        } else {
             mHttpService.getCheckCaptchaImage(imageCaptcha, etCompanyPhoneText, recommendPhone, etEmailText, "1");
         }
 
@@ -246,9 +262,9 @@ public class RegisterActivity extends BaseActivity {
                 case "6"://校验成功
                     UserRegisterBean userRegisterBean = new UserRegisterBean();
                     userRegisterBean.setUserType(isPersonType);
-                    if(userRegisterBean.getUserType()) {
+                    if (userRegisterBean.getUserType()) {
                         userRegisterBean.setPhoneNum(etPhone.getText().toString());
-                    }else {
+                    } else {
                         userRegisterBean.setPhoneNum(etCompanyPhone.getText().toString());
                         userRegisterBean.setEmail(etEmail.getText().toString());
                     }
@@ -264,6 +280,7 @@ public class RegisterActivity extends BaseActivity {
             }
         }
     }
+
     public void onEventMainThread(EventStringModel event) {
         if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_REGISTER_FINISH)) {//注册完成
             finish();

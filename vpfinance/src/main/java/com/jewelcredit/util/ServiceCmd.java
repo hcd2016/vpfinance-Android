@@ -32,13 +32,13 @@ public class ServiceCmd {
         CMD_WITHDRAW,
         CMD_member_center,//个人帐户信息
         CMD_getLoanInfo,
-        CMD_getLoanBidList,//投资记录分页
-        CMD_getLoanBidListForDeposit,//投资记录分页(定存宝)
+        CMD_getLoanBidList,//出借记录分页
+        CMD_getLoanBidListForDeposit,//出借记录分页(定存宝)
         CMD_doBid,
         CMD_getWithDrawalListFirst,
         CMD_querySessionStatus,//会话维持，检查
         CMD_query_page,
-        CMD_INVEST_RECORD,//个人中心投资记录
+        CMD_INVEST_RECORD,//个人中心出借记录
         CMD_BANNER,
         CMD_APPUPDATE,//
         CMD_LOGOUT,//退出登录
@@ -59,7 +59,7 @@ public class ServiceCmd {
         CMD_baoliLoansignDesc,//保理资料接口
         CMD_FundOverView,//资金总览
         CMD_FundFlow,//资金流水
-        CMD_FundRecord,  //投资记录
+        CMD_FundRecord,  //出借记录
         CMD_TradeFlowRecord, //回款记录
         CMD_InviteGiftShowInfo,  //邀请有礼显示信息
         CMD_InvestAwardRecord,  //投资奖励记录
@@ -91,7 +91,7 @@ public class ServiceCmd {
         CMD_Transfer_Assign_List, //个人中心债权
         CMD_Transfer_Assign_Detail, //债权详情
         CMD_Transfer_Assign_Refund, //债权详情-回款计划
-        CMD_Invest_Record_Refund, //投资记录详情-还款计划
+        CMD_Invest_Record_Refund, //出借记录详情-还款计划
         CMD_Transfer_Assign_Now, //转让债权
         CMD_Home_Product_Info, //首页轮转标请求
         CMD_Bank_Type_List, //银行类型列表
@@ -132,8 +132,8 @@ public class ServiceCmd {
         CMD_LOAN_PROTOCOL,//投资协议
         CMD_IMAGE_CODE,//图形验证码
         CMD_VERIFY_IMAGE_CODE,//图形验证码校验
-        CMD_Record_Detail_info,//投资记录详情
-        CMD_Record_Deposit_Detail_info,//投资记录详情(定存宝)
+        CMD_Record_Detail_info,//出借记录详情
+        CMD_Record_Deposit_Detail_info,//出借记录详情(定存宝)
         CMD_Return_Calendar_Time,//查询指定月份有回款事件的天数
         CMD_Get_Event_ByDay, //查询指定天的回款事件
         CMD_APPMEMBER_INDEX,//首页3.0.0
@@ -214,13 +214,13 @@ public class ServiceCmd {
             "AppWithdraw/withdrawApply",
             "Appmember_index/member_center.json",//个人帐户信息
             "loan/loanDetails",
-            "AppLoan/loanRecordList",//投资记录分页
-            "AppLoanPool/dcbLoanRecordList",//投资记录分页(定存宝)
+            "AppLoan/loanRecordList",//出借记录分页
+            "AppLoanPool/dcbLoanRecordList",//出借记录分页(定存宝)
             "MemCent/memInvestment",
             "withdrawCash/selWithdrawCashRecord",
             "appupdate_info/querySessionStatus",//会话维持，检查
             "Appcontract/query_page.json",//回款查询
-            "Appdepositshistory/record.json",//个人中心投资记录
+            "Appdepositshistory/record.json",//个人中心出借记录
             "Appmember/banner",
             "appupdate_info/queryLastAppVersion",
             "Appregister/safety_exit",//退出登录
@@ -241,7 +241,7 @@ public class ServiceCmd {
             "AppLoan/baoliLoansignDesc",//保理资料接口
             "MyCount/assetView",//资金总览
             "moneyFlow/rechargeWithdrawFlow",//资金流水
-            "MyCount/tenderRecord",//投资记录
+            "MyCount/tenderRecord",//出借记录
             "MyCount/returnMoney",//回款记录
             "generalizeApp/generMainPage", //邀请有礼显示信息
             "generalizeApp/generTenderRecord",//投资奖励记录
@@ -273,7 +273,7 @@ public class ServiceCmd {
             "apploanManage/myAssignmentList", // 个人中心债权
             "apploanManage/myAssignmentDetail", // 债权详情
             "MyCount/getReturnMoneyRecordById", // 债权详情-回款计划
-            "MyCount/getReturnMoneyRecordByRecordId", // 投资记录详情-还款计划
+            "MyCount/getReturnMoneyRecordByRecordId", // 出借记录详情-还款计划
             "AppAssignment/assignmentPost", // 转让债权
             "apploanManage/getSaleingLoan", // 首页轮转标请求
             "AppBankcard/getBankTypeList",//银行类型列表
@@ -314,8 +314,8 @@ public class ServiceCmd {
             "AppLoan/getProtocol",//投资协议
             "Appregister/sendImageCode",//图形验证码
             "Appregister/verifyImageCode",//图形验证码校验
-            "AppLoan/getTenderRecordDetail",//投资记录详情
-            "AppLoanPool/tenderRecordDetail",//投资记录详情(定存宝)
+            "AppLoan/getTenderRecordDetail",//出借记录详情
+            "AppLoanPool/tenderRecordDetail",//出借记录详情(定存宝)
             "MyCount/getReturnCalendarTime",//查询指定月份有回款事件的天数
             "MyCount/getEventByDay",//查询指定天的回款事件
             "Appmember/index",//首页3.0.0

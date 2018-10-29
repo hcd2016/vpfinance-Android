@@ -30,6 +30,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import cn.vpfinance.android.R;
+import cn.vpfinance.android.wxapi.WXEntryActivity;
 import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.greendao.BankCardDao;
@@ -37,6 +38,7 @@ import cn.vpfinance.vpjr.greendao.DaoMaster;
 import cn.vpfinance.vpjr.greendao.DaoSession;
 import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.model.Config;
+import cn.vpfinance.vpjr.module.common.WeiXinBindPhoneActivity;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.util.StatusBarCompat1;
@@ -51,9 +53,10 @@ public class LockActivity extends Activity implements
 
     private HttpService mHttpService;
 
-    private boolean autoLogin = false;
+//    private boolean autoLogin = false;
+    private boolean autoLogin = true;
 
-    
+
     private String saved_uid;
     private String saved_name;
     private String saved_logPwd;
@@ -71,30 +74,28 @@ public class LockActivity extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = getIntent();
-        if(intent!=null)
-        {
-            autoLogin = intent.getBooleanExtra(NAME_AUTO_LOGIN,false);
-        }
+//        Intent intent = getIntent();
+//        if (intent != null) {
+//            autoLogin = intent.getBooleanExtra(NAME_AUTO_LOGIN, false);
+//        }
 
 
         final SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
         String patternString = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING, null);
+        String unionid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_WEIXIN_UNIONID, null);
         saved_uid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID);
         saved_logPwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD);
-        if (patternString == null || TextUtils.isEmpty(saved_uid) || TextUtils.isEmpty(saved_logPwd)) {
-            Intent intent1 = new Intent(this,LoginActivity.class);
+        if (patternString == null || (TextUtils.isEmpty(saved_uid) && TextUtils.isEmpty(unionid)) || ((TextUtils.isEmpty(unionid)) && TextUtils.isEmpty(saved_logPwd))) {
+            Intent intent1 = new Intent(this, LoginActivity.class);
             startActivity(intent1);
             finish();
             return;
         }
-
         saved_name = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME);
         isPersonType = preferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, true);
-        if (TextUtils.isEmpty(saved_uid) || TextUtils.isEmpty(saved_logPwd))
-        {
-            autoLogin = false;
-        }
+//        if ((TextUtils.isEmpty(saved_uid) && TextUtils.isEmpty(saved_logPwd)) ) {
+//            autoLogin = false;
+//        }
 
         lockPattern = LockPatternView.stringToPattern(patternString);
 
@@ -106,7 +107,7 @@ public class LockActivity extends Activity implements
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) topText.getLayoutParams();
 //            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             int statusBarHeight = StatusBarCompat1.getStatusBarHeight(this);
-            layoutParams.setMargins(0,statusBarHeight,0,statusBarHeight);
+            layoutParams.setMargins(0, statusBarHeight, 0, statusBarHeight);
             topText.setLayoutParams(layoutParams);
         }
 
@@ -142,16 +143,15 @@ public class LockActivity extends Activity implements
         });
 
 
-        if (mHttpService == null)
-        {
-            mHttpService = new HttpService(this, new HttpDownloader.HttpDownloaderListener()
-            {
+        if (mHttpService == null) {
+            mHttpService = new HttpService(this, new HttpDownloader.HttpDownloaderListener() {
 
                 @Override
                 public void onHttpSuccess(int reqId, JSONObject json) {
-                    if (json == null || isFinishing() || Common.isForceLogout(LockActivity.this,json)) return;
+                    if (json == null || isFinishing() || Common.isForceLogout(LockActivity.this, json))
+                        return;
                     if (reqId == ServiceCmd.CmdId.CMD_userLogin.ordinal() || reqId == ServiceCmd.CmdId.CMD_enterpriseUserLogin.ordinal()) {
-                        String msg = mHttpService.onUserLogin(LockActivity.this,json);
+                        String msg = mHttpService.onUserLogin(LockActivity.this, json);
                         if (msg.equals("3")) {
                             if (isPersonType) {
                                 Utils.Toast(LockActivity.this, "企业用户请切换企业登录模式");
@@ -159,18 +159,40 @@ public class LockActivity extends Activity implements
                                 Utils.Toast(LockActivity.this, "个人用户请切换个人登录模式");
                             }
                             return;
-                        }else if(!msg.equals("")) {
+                        } else if (!msg.equals("")) {
                             Utils.Toast(LockActivity.this, msg);
-                        }
-                        else
-                        {
+                        } else {
                             String uid = AppState.instance().getSessionCode();
                             String savedUid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID);
-                            if(!TextUtils.isEmpty(uid) && !uid.equals(savedUid))
-                            {
-                                preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID,uid);
+                            if (!TextUtils.isEmpty(uid) && !uid.equals(savedUid)) {
+                                preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
                             }
                             finish();
+                        }
+                    }
+                    if (reqId == ServiceCmd.CmdId.CMD_IS_BIND_WEIXIN.ordinal()) {
+                        String msg = json.optString("msg");
+                        switch (msg) {
+                            case "5"://未绑定平台
+                                Utils.Toast("未绑定平台");
+                                finish();
+                                break;
+                            case "1"://登录成功
+                                String uid = AppState.instance().getSessionCode();
+                                String savedUid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID);
+                                if (!TextUtils.isEmpty(uid) && !uid.equals(savedUid)) {
+                                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
+                                }
+                                finish();
+                                break;
+                            case "2"://已注销
+                                Utils.Toast("账户已注销");
+                                finish();
+                                break;
+                            case "0"://账户已锁定
+                                Utils.Toast("账户已锁定");
+                                finish();
+                                break;
                         }
                     }
                 }
@@ -240,16 +262,23 @@ public class LockActivity extends Activity implements
                 Toast.makeText(this, "没有可用网络请重试.", Toast.LENGTH_LONG).show();
                 return;
             }
-            if(autoLogin)
-            {
-                if(isPersonType) {
-                    mHttpService.userLogin(saved_name, saved_logPwd);
-                }else {
-                    mHttpService.enterpriseUserLogin(saved_name, saved_logPwd);
+            if (autoLogin) {
+                SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(this);
+                String unionid = sharedPreferencesHelper.getStringValue(SharedPreferencesHelper.KEY_WEIXIN_UNIONID);
+                if (isPersonType) {
+                    if (!TextUtils.isEmpty(unionid)) {//之前是微信登录
+                        mHttpService.getIsBindWeiXin(unionid, "1");
+                    } else {
+                        mHttpService.userLogin(saved_name, saved_logPwd);
+                    }
+                } else {
+                    if (!TextUtils.isEmpty(unionid)) {//之前是微信登录
+                        mHttpService.getIsBindWeiXin(unionid, "2");
+                    } else {
+                        mHttpService.enterpriseUserLogin(saved_name, saved_logPwd);
+                    }
                 }
-            }
-            else
-            {
+            } else {
                 finish();
             }
         } else {
@@ -262,9 +291,9 @@ public class LockActivity extends Activity implements
                 logout();
                 finish();
             }
-            tip.setText("密码错误，还可以尝试"+(5-error_times)+"次");
+            tip.setText("密码错误，还可以尝试" + (5 - error_times) + "次");
             //Toast.makeText(this, , Toast.LENGTH_LONG).show();
-            new Thread(){
+            new Thread() {
                 @Override
                 public void run() {
                     try {
@@ -280,7 +309,9 @@ public class LockActivity extends Activity implements
         }
 
     }
+
     private static final int CLEAR = 0;
+
     private static class MyHandler extends Handler {
         private WeakReference<Activity> reference;
 

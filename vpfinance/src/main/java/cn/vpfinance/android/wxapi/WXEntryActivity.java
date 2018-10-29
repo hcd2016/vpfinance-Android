@@ -77,6 +77,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
     private Handler m_handler;
     private UserDao dao = null;
     private User user;
+    private WXAccessTokenAModel wxAccessTokenAModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -154,7 +155,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {//授权成功
                                 String body = response.body().string();
-                                final WXAccessTokenAModel wxAccessTokenAModel = GsonUtil.modelParser(body, WXAccessTokenAModel.class);
+                                wxAccessTokenAModel = GsonUtil.modelParser(body, WXAccessTokenAModel.class);
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -220,6 +221,11 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                         if (!TextUtils.isEmpty(uid) && !uid.equals(savedUid)) {
                             preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
                         }
+                        //微信登录保存unionid
+                        String unionid = userRegisterBean.getUnionid();
+                        if (!TextUtils.isEmpty(unionid)) {
+                            preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_WEIXIN_UNIONID, unionid);
+                        }
                         Utils.Toast("登录成功!");
                     }
                     FinanceApplication application = (FinanceApplication) getApplication();
@@ -227,7 +233,6 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                     SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, userRegisterBean.getUserType());
                     getUser();
                     httpService.getUserInfo();
-
                     break;
                 case "2"://已注销
                     Utils.Toast("账户已注销");
@@ -235,7 +240,13 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                 case "0"://账户已锁定
                     Utils.Toast("账户已锁定");
                     break;
-
+                case "6"://账户锁定
+                    String lockTime = json.optString("lockTime");
+                    if (lockTime != null) {
+                        long l = Long.parseLong(lockTime);
+                        Utils.Toast("该账户已被锁定,请" + l / (60 * 1000) + "分钟后重试");
+                    }
+                    break;
             }
         }
         if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
@@ -259,7 +270,13 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                 }
                 SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
                 String username = user.getUserName();
-                preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+                String cellPhone = user.getCellPhone();
+                if (userRegisterBean.getUserType()) {//个人用户
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_CELL_PHONE, cellPhone);
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+                } else {//企业用户
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME, username);//保存登录企业用户名
+                }
                 preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, username);
                 if (user != null) {
                     preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID, "" + user.getId());

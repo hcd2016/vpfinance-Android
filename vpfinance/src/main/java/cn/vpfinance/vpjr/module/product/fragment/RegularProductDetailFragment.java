@@ -268,7 +268,7 @@ public class RegularProductDetailFragment extends BaseFragment implements View.O
                     mCountDownTimer.setCountDownTime(mContext,product.getBidEndTime());
                 }
                 // tvStartBuy.setVisibility(View.GONE);
-                invest.setText("立即投资");
+                invest.setText("我要出借");
                 invest.setEnabled(true);
             }
         }
@@ -337,7 +337,7 @@ public class RegularProductDetailFragment extends BaseFragment implements View.O
             }
 
             String buyCount = product.getBuyCount();
-            tvInvestCount.setText("已有" + buyCount + "人投资");
+            tvInvestCount.setText("已有" + buyCount + "人出借");
 
             String allowTransfer = product.getAllowTransfer();
             if (!TextUtils.isEmpty(allowTransfer) && "true".equals(allowTransfer)) {
@@ -439,7 +439,7 @@ public class RegularProductDetailFragment extends BaseFragment implements View.O
                 ((TextView) view.findViewById(R.id.product_usable_buy)).setText(remainMoney + "元");
             }
 
-            String state = "立即投资";
+            String state = "我要出借";
             mIsShow = true;
             switch (loanstate)//1未发布 2进行中 3回款中 4已完成
             {
@@ -507,7 +507,7 @@ public class RegularProductDetailFragment extends BaseFragment implements View.O
                             orderVoucherNum.setVisibility(View.VISIBLE);
                             orderVoucherNum.setText("您有" + product.getBookCouponNumber() + "张预约券！点击进行预约。");
                             btnOrder.setEnabled(true);
-                            btnOrder.setText("预约投资");
+                            btnOrder.setText("预约出借");
                         } else {
                             double orderMoney = product.getIssueLoan() * product.getBookPercent() - product.getTotal_tend_money();
                             if (orderMoney <= 0) {
@@ -619,7 +619,7 @@ public class RegularProductDetailFragment extends BaseFragment implements View.O
 
     private void showSuccessDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("投资成功");
+        builder.setTitle("出借成功");
         builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -211,7 +211,7 @@
                     <TextView
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
-                        android:text="投资期限"
+                        android:text="项目期限"
                         android:textColor="@color/text_999999" />
                 </LinearLayout>
 
@@ -234,7 +234,7 @@
                     <TextView
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
-                        android:text="投资总额"
+                        android:text="项目总额"
                         android:textColor="@color/text_999999" />
                 </LinearLayout>
             </LinearLayout>

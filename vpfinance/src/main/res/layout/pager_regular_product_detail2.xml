@@ -178,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="投资期限" />
+                    android:text="项目期限" />
 
                 <View
                     android:layout_width="0dp"
@@ -383,7 +383,7 @@
             android:layout_marginRight="50dp"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="立即投资"
+            android:text="我要出借"
             android:textSize="18sp" />
     </LinearLayout>
 </ScrollView>

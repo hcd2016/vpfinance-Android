@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
@@ -33,25 +33,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginTop="25dp"
+                android:drawableLeft="@drawable/login_username_small"
                 android:drawablePadding="10dp"
-                app:maxLength="11"
-                android:drawableLeft="@drawable/login_username"
-                android:hint="@string/register_phone">
+                android:hint="@string/register_phone"
+                app:maxLength="11">
 
                 <requestFocus />
             </cn.vpfinance.vpjr.view.EditTextWithDel>
 
             <cn.vpfinance.vpjr.view.EditTextWithDel
-                app:maxLength="100"
-                android:singleLine="true"
                 android:id="@+id/etEmail"
                 style="@style/SampleEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginTop="25dp"
-                android:drawablePadding="10dp"
                 android:drawableLeft="@drawable/login_icon_email"
-                android:hint="请输入邮箱">
+                android:drawablePadding="10dp"
+                android:hint="请输入邮箱"
+                android:singleLine="true"
+                app:maxLength="100">
 
                 <requestFocus />
             </cn.vpfinance.vpjr.view.EditTextWithDel>
@@ -62,10 +62,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginTop="25dp"
+                android:drawableLeft="@drawable/register_recommend_small"
                 android:drawablePadding="10dp"
-                app:maxLength="11"
-                android:drawableLeft="@drawable/register_recommend"
-                android:hint="请输入绑定手机号"/>
+                android:hint="请输入绑定手机号"
+                app:maxLength="11" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,33 +74,34 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:maxLength="4"
                     android:id="@+id/etImageCaptcha"
-                    style="@style/EditTextStyle"
-                    android:layout_height="match_parent"
+                    style="@style/SampleNumberEditStyle"
                     android:layout_width="0dp"
-                    android:layout_weight="2"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="14dp"
-                    android:drawableLeft="@drawable/register_code"
+                    android:layout_weight="2"
+                    android:drawableLeft="@drawable/register_code_small"
                     android:drawablePadding="10dp"
-                    android:hint="请输入图形验证码" />
+                    android:hint="请输入图形验证码"
+                    android:maxLength="4" />
 
                 <ImageView
                     android:id="@+id/ivCaptcha"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </LinearLayout>
+
 
             <cn.vpfinance.vpjr.view.EditTextWithDel
                 android:id="@+id/etRecommendPhone"
-                style="@style/EditTextStyle"
+                style="@style/SampleNumberEditStyle"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/edittext_height"
                 android:layout_marginTop="25dp"
-                android:drawableLeft="@drawable/register_recommend"
+                android:drawableLeft="@drawable/register_recommend_small"
                 android:drawablePadding="10dp"
-                android:hint="请输入推荐人手机号或四位推荐码" />
+                android:hint="请输入推荐人手机号(选填)" />
 
             <Button
                 android:id="@+id/btnRegister"
@@ -128,10 +129,10 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_marginRight="5dp"
+                        android:layout_marginTop="2dp"
                         android:background="@drawable/selector_register_cb"
                         android:button="@null"
-                        android:checked="true"
-                        android:layout_marginTop="2dp"/>
+                        android:checked="true" />
 
                     <TextView
                         android:layout_width="wrap_content"

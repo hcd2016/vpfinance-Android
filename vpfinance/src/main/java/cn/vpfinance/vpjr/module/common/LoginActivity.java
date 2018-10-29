@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,11 +18,13 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jewelcredit.ui.widget.ActionBarWhiteLayout;
 import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
+import com.mob.tools.utils.SharePrefrenceHelper;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.yintong.pay.utils.Md5Algorithm;
@@ -41,8 +44,10 @@ import cn.vpfinance.vpjr.greendao.DaoMaster;
 import cn.vpfinance.vpjr.greendao.DaoSession;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.greendao.UserDao;
+import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity;
+import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.view.EditTextWithDel;
@@ -82,6 +87,8 @@ public class LoginActivity extends BaseActivity {
     private boolean isFirstClick = true;
     private int screenHeight;
     private int keyHeight;
+    private String personPhone;
+    private String companyUsername;
 
 
     @Override
@@ -112,7 +119,7 @@ public class LoginActivity extends BaseActivity {
         if (isPersonType) {//个人用户
             titleBar.setTitle("登录");
             tvRegister.setText("立即注册");
-            etUsername.setHint("请输入用户名/手机号");
+            etUsername.setHint("请输入手机号/用户名");
             titleBar.setActionRight("企业用户");
         } else {//企业用户
             titleBar.setTitle("企业登录");
@@ -120,11 +127,20 @@ public class LoginActivity extends BaseActivity {
             etUsername.setHint("请输入企业名称/邮箱");
             titleBar.setActionRight("个人用户");
         }
+
         SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
-        String name = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME);
-        etUsername.setText(name);
+        personPhone = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_CELL_PHONE);
+        companyUsername = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME);
+        String name = "";
+        if (isPersonType) {//个人用户记住之前登录手机号,企业用户记住企业名称
+            etUsername.setText(personPhone);
+            name = personPhone;
+        } else {
+            etUsername.setText(companyUsername);
+            name = companyUsername;
+        }
 //        etUsername.requestFocus();
-        if (!TextUtils.isEmpty(name)) {
+        if (!TextUtils.isEmpty(name)) {//设置光标在后面
             etUsername.setSelection(name.length());
         }
         etUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -138,7 +154,7 @@ public class LoginActivity extends BaseActivity {
                 }, 500);
             }
         });
-        if(isFirstClick) {
+        if (isFirstClick) {
             etUsername.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -188,14 +204,25 @@ public class LoginActivity extends BaseActivity {
         if (isPersonType) {//个人用户
             titleBar.setTitle("登录");
             tvRegister.setText("立即注册");
-            etUsername.setHint("请输入用户名/手机号");
             titleBar.setActionRight("企业用户");
+            if (!TextUtils.isEmpty(personPhone)) {
+                etUsername.setText(personPhone);
+            } else {
+                etUsername.setText("");
+                etUsername.setHint("请输入手机号/用户名");
+            }
         } else {//企业用户
             titleBar.setTitle("企业登录");
             tvRegister.setText("企业注册");
-            etUsername.setHint("请输入企业名称/邮箱");
             titleBar.setActionRight("个人用户");
+            if (!TextUtils.isEmpty(companyUsername)) {
+                etUsername.setText(companyUsername);
+            } else {
+                etUsername.setText("");
+                etUsername.setHint("请输入企业名称/邮箱");
+            }
         }
+        etUsername.setSelection(etUsername.getText().length());
         SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, isPersonType);
     }
 
@@ -335,7 +362,6 @@ public class LoginActivity extends BaseActivity {
         if (!isHttpHandle(json)) return;
         if (req == ServiceCmd.CmdId.CMD_member_center.ordinal() && (!isFinishing())) {
             mHttpService.onGetUserInfo(json, user);
-
             String message = json.optString("message");
             if (!TextUtils.isEmpty(message) && message.contains("没有登陆")) {
             } else {
@@ -353,7 +379,13 @@ public class LoginActivity extends BaseActivity {
                     dao.insertOrReplace(user);
                 }
                 SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
-                preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+                String cellPhone = user.getCellPhone();
+                if (isPersonType) {//个人用户
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_CELL_PHONE, cellPhone);
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+                } else {//企业用户
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME, username);//保存登录企业用户名
+                }
                 preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, username);
                 if (user != null) {
                     preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID, "" + user.getId());
@@ -365,7 +397,9 @@ public class LoginActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(uid) && !uid.equals(savedUid)) {
                     preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
                 }
-
+                if (!TextUtils.isEmpty(preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_WEIXIN_UNIONID))) {//是账号密码登录,如之前是微信登录,清除unionid
+                    preferencesHelper.removeKey(SharedPreferencesHelper.KEY_WEIXIN_UNIONID);
+                }
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
                 //清理login present标志

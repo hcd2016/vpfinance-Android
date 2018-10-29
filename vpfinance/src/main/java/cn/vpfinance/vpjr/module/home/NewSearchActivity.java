@@ -52,6 +52,8 @@ public class NewSearchActivity extends BaseActivity {
     TextView mClose;
     @Bind(R.id.listView)
     ListView mListView;
+    @Bind(R.id.textview)
+    TextView textview;
 
     private HttpService mHttpService;
     private final static int PAGE_SIZE = 10;
@@ -213,7 +215,7 @@ public class NewSearchActivity extends BaseActivity {
         String searchText = mSearchText.getText().toString();
         int currentListTabType = ((FinanceApplication) getApplication()).currentListTabType;
 
-        switch (currentListTabType){
+        switch (currentListTabType) {
             case Constant.TYPE_BANK:
                 mHttpService.getLoanSignListNew(Constant.TYPE_BANK, page * PAGE_SIZE, PAGE_SIZE, searchText);
                 break;
@@ -235,12 +237,14 @@ public class NewSearchActivity extends BaseActivity {
 
         if (reqId == ServiceCmd.CmdId.CMD_Loan_Sign_List_New.ordinal()) {
             LoanSignListNewBean listNew = mHttpService.onGetLoanSignListNew(json);
-            if (listNew == null) {
+            if (listNew == null || listNew.loansigns.size() == 0) {
+                textview.setVisibility(View.VISIBLE);
                 Utils.Toast(mContext, "没有查找到相关产品");
             } else {
                 if (listNew.loansigns != null) {
+                    textview.setVisibility(View.GONE);
                     isLastPage = listNew.total <= (page + 1) * PAGE_SIZE;
-                    if (page == 0){
+                    if (page == 0) {
                         totalData.clear();
                     }
                     totalData.addAll(listNew.loansigns);
@@ -248,11 +252,11 @@ public class NewSearchActivity extends BaseActivity {
                 int currentListTabType = ((FinanceApplication) getApplication()).currentListTabType;
                 mListAdapter.setData(totalData, currentListTabType);
             }
-        }else if (reqId == ServiceCmd.CmdId.CMD_Loan_Sign_Pool.ordinal()){
+        } else if (reqId == ServiceCmd.CmdId.CMD_Loan_Sign_Pool.ordinal()) {
             //isLastPage
             LoanSignDepositBean loanSignDepositBean = mHttpService.onGetLoanSignPool(json);
-            if (loanSignDepositBean != null && loanSignDepositBean.loansignpool != null && loanSignDepositBean.loansignpool.size() != 0){//有数据
-                if (page == 0){
+            if (loanSignDepositBean != null && loanSignDepositBean.loansignpool != null && loanSignDepositBean.loansignpool.size() != 0) {//有数据
+                if (page == 0) {
                     mDepositData.clear();
                 }
                 mDepositData.addAll(loanSignDepositBean.loansignpool);

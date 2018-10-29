@@ -201,7 +201,7 @@ public class ProductJewelryBaseInfoFragment extends BaseFragment implements View
             }
 
             String buyCount = product.getBuyCount();
-            tvInvestCount.setText("已有" + buyCount + "人投资");
+            tvInvestCount.setText("已有" + buyCount + "人出借");
             String allowTransfer = product.getAllowTransfer();
             if (!TextUtils.isEmpty(allowTransfer) && "true".equals(allowTransfer)) {
                 ivAllowTransfer.setVisibility(View.VISIBLE);
@@ -287,7 +287,7 @@ public class ProductJewelryBaseInfoFragment extends BaseFragment implements View
                 ((TextView) view.findViewById(R.id.product_usable_buy)).setText(remainMoney + "元");
             }
 
-            String state = "立即投资";
+            String state = "我要出借";
             mIsShow = true;
             switch (loanstate)//1未发布 2进行中 3回款中 4已完成
             {

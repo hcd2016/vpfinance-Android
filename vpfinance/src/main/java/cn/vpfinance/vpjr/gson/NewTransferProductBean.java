@@ -56,6 +56,9 @@ public class NewTransferProductBean {
     public double originIssueLoan;
     public Integer frequency;
     public int    answerStatus;//1不弹 2弹提示框, 去做风险测评
+    public int riskLevel;//标的风险等级 1 保守型 2稳健型 3积极型
+
+
     /**
      * repaytime : 2016-11-07
      * periods : 5

@@ -54,7 +54,7 @@ import de.greenrobot.dao.query.QueryBuilder;
 import de.greenrobot.event.EventBus;
 
 /**
- * 个人中心 投资记录
+ * 个人中心 出借记录
  *
  */
 public class FundRecordsActivity2 extends BaseActivity implements View.OnClickListener, View.OnFocusChangeListener {

@@ -135,7 +135,7 @@ public class ProductInvestSuccessActivity extends BaseActivity implements View.O
         imageLoader = ImageLoader.getInstance();
         setContentView(R.layout.activity_product_invest_success);
         titleBar = (ActionBarLayout) findViewById(R.id.titleBar);
-        titleBar.setTitle("投资成功").setHeadBackVisible(View.VISIBLE);
+        titleBar.setTitle("出借成功").setHeadBackVisible(View.VISIBLE);
 
         mHttpService = new HttpService(this, this);
         mHttpService.getRedPacketInfo();
@@ -174,7 +174,7 @@ public class ProductInvestSuccessActivity extends BaseActivity implements View.O
 //                }
 //            }
             String investMoney = intent.getStringExtra(INVESTMONEY);
-            tvMoney.setText("投资金额 ¥" + investMoney);
+            tvMoney.setText("出借金额 ¥" + investMoney);
             redpacketstrurl = intent.getStringExtra(REDPACKETSTRURL);
 //            Logger.e("redpacketstrurl:"+redpacketstrurl);
             redPacketCount = intent.getStringExtra(REDPACKETCOUNT);
@@ -202,13 +202,13 @@ public class ProductInvestSuccessActivity extends BaseActivity implements View.O
             mIsAllowTrip.setVisibility(View.GONE);
         }
 
-        tvNextInvest.setText("继续投资");
+        tvNextInvest.setText("继续出借");
         if (!isActivity) {
             if ("1".equals(redPacketState) && (!TextUtils.isEmpty(redpacketstrurl))) {
 //                Log.d("aa", "onCreate: 不是活动");
                 showDialog(redPacketState);
             } else if ("2".equals(redPacketState) || "3".equals(redPacketState)) {
-                tvNextInvest.setText("继续投资");
+                tvNextInvest.setText("继续出借");
             }
         } else {
             if ("1".equals(redPacketState) && (!TextUtils.isEmpty(redpacketstrurl)) || !"0".equals(mCashTime)) {
@@ -296,14 +296,14 @@ public class ProductInvestSuccessActivity extends BaseActivity implements View.O
                 tvRedPacketCount.setText("您已获得过本产品的红包");
                 //            tvInfo.setText("首次投资本产品即可获得红包");
                 //            btnRedPacket.setVisibility(View.GONE);
-                btnRedPacket.setText("继续投资");
+                btnRedPacket.setText("继续出借");
                 btnRedPacket.setEnabled(true);
                 ivBg.setBackgroundResource(R.drawable.bg_dialog_invest_success);
             } else if ("3".equals(state)) {
                 tvRedPacketCount.setText("您已获得过本产品的红包");
                 //            tvInfo.setVisibility(View.GONE);
                 //            btnRedPacket.setVisibility(View.GONE);
-                btnRedPacket.setText("继续投资");
+                btnRedPacket.setText("继续出借");
                 btnRedPacket.setEnabled(false);
                 ivBg.setBackgroundResource(R.drawable.bg_red_packet_over);
             }

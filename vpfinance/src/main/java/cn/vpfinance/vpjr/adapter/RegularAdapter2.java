@@ -168,8 +168,8 @@ public class RegularAdapter2 extends BaseAdapter {
 				}else{
 					holder.ivIphone7.setVisibility(View.GONE);
 				}
-				holder.tvMonthInfo.setText(typeList == RegularProductListFragment2.REGULAR_PRODUCT_LIST ? "投资期限" : "剩余期限");
-				holder.tvTotalMoneyInfo.setText(typeList == RegularProductListFragment2.REGULAR_PRODUCT_LIST ? "投资总额" : "转让总额");
+				holder.tvMonthInfo.setText(typeList == RegularProductListFragment2.REGULAR_PRODUCT_LIST ? "项目期限" : "剩余期限");
+				holder.tvTotalMoneyInfo.setText(typeList == RegularProductListFragment2.REGULAR_PRODUCT_LIST ? "项目总额" : "转让总额");
 
 				holder.tvName.setText(product.getLoanTitle());
 				Double promitRate = product.getPromitRate();

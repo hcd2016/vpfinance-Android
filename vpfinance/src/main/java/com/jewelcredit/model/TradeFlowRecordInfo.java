@@ -31,7 +31,7 @@ public class TradeFlowRecordInfo {
         public String preRepayMoneySum;
         /*已回款利息*/
         public String repayMoneySum;
-        /*投资总额*/
+        /*项目总额*/
         public String tenderMoneySum;
         public ArrayList<DataListItem2> dataList2;
 

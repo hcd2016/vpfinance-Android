@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                tools:text="总投资(元)"
+                tools:text="总出借(元)"
                 android:layout_gravity="right"/>
         </LinearLayout>
     </LinearLayout>

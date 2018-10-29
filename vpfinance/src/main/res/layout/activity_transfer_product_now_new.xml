@@ -170,7 +170,7 @@
             android:layout_marginLeft="11dp"
             android:lineSpacingExtra="10dp"
             android:textColor="@color/text_999999"
-            tools:text="您将全额转让该投资标的剩余本金，转让成功后您将不能继续获得标的剩余待回款利息 30.87 元。" />
+            tools:text="您将全额转让该出借标的剩余本金，转让成功后您将不能继续获得标的剩余待回款利息 30.87 元。" />
     </LinearLayout>
 
     <LinearLayout

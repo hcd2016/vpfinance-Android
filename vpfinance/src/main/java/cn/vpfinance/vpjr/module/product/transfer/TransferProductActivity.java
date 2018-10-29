@@ -199,7 +199,7 @@ public class TransferProductActivity extends BaseActivity implements View.OnClic
                     float pro = (float)(100 * product.getTotal_tend_money()/product.getIssueLoan());//已买  / 总
 
                     int status = (int) product.getLoanstate();
-                    String state = "立即投资";
+                    String state = "我要出借";
                     switch (status)//1未发布 2进行中 3回款中 4已完成
                     {
                         case 1:

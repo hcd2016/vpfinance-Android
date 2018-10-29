@@ -68,7 +68,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="投资可直接抵扣"
+                        android:text="出借可直接抵扣"
                         android:textColor="@color/text_EF7919"
                         android:textSize="10sp" />
                     <TextView

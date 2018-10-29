@@ -158,7 +158,7 @@ public class HomeRegularAdapter extends BaseAdapter {
                         mRateFirst.setText(split[0]);
                     if (split.length >= 2)
                         mRateSecond.setText("." + split[1] + "%");
-                    //投资期限
+                    //项目期限
                     if (loansign.loanType == 2) {
                         mMonth.setText(loansign.month + "天");
                     } else {

@@ -226,7 +226,7 @@ public class RegularProductBorrowerFragment extends BaseFragment implements View
                 if (time > 0 && time < 30 * 24 * 60 * 60) {
                     mCountDownTimer.setCountDownTime(mContext,product.getBidEndTime());
                 }
-                //                btnInvest.setText("立即投资");
+                //                btnInvest.setText("我要出借");
                 btnInvest.setEnabled(true);
             }
         }
@@ -389,7 +389,7 @@ public class RegularProductBorrowerFragment extends BaseFragment implements View
                 mCountDownTimer.setCountDownTime(mContext,product.getBidEndTime());
             }
 
-            String state = "立即投资";
+            String state = "我要出借";
             switch (loanstate)//1未发布 2进行中 3回款中 4已完成
             {
                 case 1:

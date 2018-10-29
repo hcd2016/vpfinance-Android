@@ -18,7 +18,7 @@ public class DepositTab2Bean {
     public String tips;
     public List<String> loantypes;
     public List<LoansignsBean> loansigns;
-    public String comeType;//1入口为标的详情 2.入口为投资记录的标的详情
+    public String comeType;//1入口为标的详情 2.入口为出借记录的标的详情
 
     public static class LoansignsBean {
         /**

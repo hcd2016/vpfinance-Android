@@ -87,7 +87,6 @@ public class EditTextWithDel extends EditText {
 		} else {
 			setCompoundDrawablesWithIntrinsicBounds(compoundDrawables[0], compoundDrawables[1], imgAble, compoundDrawables[3]);
 		}
-
 		setCompoundDrawablePadding(getCompoundDrawablePadding());
 		setPadding(getPaddingLeft(),getPaddingTop(),getPaddingRight(),getPaddingBottom());
 	}

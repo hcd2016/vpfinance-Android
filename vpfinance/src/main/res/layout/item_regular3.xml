@@ -167,14 +167,14 @@
                         android:layout_marginTop="5dp"
                         android:textColor="@color/dark_red"
                         android:textSize="14sp"
-                        tools:text="投资期限"/>
+                        tools:text="项目期限"/>
 
                     <TextView
                         android:id="@+id/tvMonthInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="投资期限"
+                        android:text="项目期限"
                         android:textColor="@color/text_black_no4_gray"
                         android:textSize="12sp"/>
                 </LinearLayout>
@@ -192,14 +192,14 @@
                         android:layout_marginTop="5dp"
                         android:textColor="@color/dark_red"
                         android:textSize="14sp"
-                        tools:text="投资总额"/>
+                        tools:text="项目总额"/>
 
                     <TextView
                         android:id="@+id/tvTotalMoneyInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="投资总额"
+                        android:text="项目总额"
                         android:textColor="@color/text_black_no4_gray"
                         android:textSize="12sp"/>
                 </LinearLayout>

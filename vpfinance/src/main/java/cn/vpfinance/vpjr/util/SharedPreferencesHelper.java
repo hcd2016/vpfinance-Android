@@ -21,6 +21,8 @@ public class SharedPreferencesHelper {
 
     public static final String KEY_SAVE_LOGIN = "user_login";
     public static final String KEY_SAVE_USER_NAME = "user_name";
+    public static final String KEY_SAVE_COMPANY_USER_NAME = "company_user_name";
+    public static final String KEY_CELL_PHONE = "user_phone";//个人用户登录手机保存
     public static final String KEY_SAVE_USER_ID = "user_id";
     public static final String KEY_SAVE_USER_GETUI_CLIENT_ID = "user_getui_client_id";
     public static final String KEY_SAVE_USER_GETUI_LAST_SENT = "user_getui_last_sent";
@@ -46,6 +48,7 @@ public class SharedPreferencesHelper {
     public static final String KEY_ISPERSONTYPE = "key_is_person_type";//是否是个人用户,true为是,false为企业用户
     public static final String KEY_WX_BIND_IS_FROM_SETTING = "key_wx_bind_is_from_setting";//微信绑定是否来源于设置,true为是,false为不是
     public static final String KEY_IS_FIRST_REGISTER = "key_is_first_register";//是否是第一次注册
+    public static final String KEY_WEIXIN_UNIONID = "key_unionid";//微信unionid
 
     private SharedPreferencesHelper(Context context){
         sp = context.getSharedPreferences(PRES_NAME, Context.MODE_PRIVATE);

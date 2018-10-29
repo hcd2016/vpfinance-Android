@@ -48,6 +48,7 @@ import cn.vpfinance.vpjr.model.Voucher;
 import cn.vpfinance.vpjr.model.VoucherArray;
 import cn.vpfinance.vpjr.model.VoucherEvent;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.InvestmentRiskTipsDialog;
 import cn.vpfinance.vpjr.module.dialog.RechargeCloseDialog;
 import cn.vpfinance.vpjr.module.dialog.TextInputDialogFragment;
 import cn.vpfinance.vpjr.module.home.MainActivity;
@@ -156,6 +157,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     private int accountType = Constant.AccountLianLain;
     private boolean isOpen;
     private boolean isInvestTag = false;
+    private UserInfoBean userInfoBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,7 +184,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
         }
 
         titleBar = (ActionBarLayout) findViewById(R.id.titleBar);
-        titleBar.reset().setTitle("立即投资").setHeadBackVisible(View.VISIBLE);
+        titleBar.reset().setTitle("我要出借").setHeadBackVisible(View.VISIBLE);
         mHttpService = new HttpService(this, this);
 
         tvUseVoucher = (TextView) findViewById(R.id.tvUseVoucher);
@@ -271,11 +273,11 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
 //            mHttpService.getUserInfoBank();
 ////            mHttpService.getFundOverInfo("" + user.getUserId(),accountType);
 //        }
-        if (accountType == Constant.AccountBank) {
-            mHttpService.getUserInfoBank();
-        } else {
-            mHttpService.getUserInfo();
-        }
+//        if (accountType == Constant.AccountBank) {
+//            mHttpService.getUserInfoBank();
+//        } else {
+        mHttpService.getUserInfo();
+//        }
     }
 
     protected void initView() {
@@ -487,7 +489,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                 checkInvest();
             }
         } else if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
-            UserInfoBean userInfoBean = mHttpService.onGetUserInfo(json);
+            userInfoBean = mHttpService.onGetUserInfo(json);
             if (userInfoBean != null) {
                 isOpen = "1".equals(userInfoBean.isOpen) ? true : false;
 
@@ -801,7 +803,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                     }
 
                     if (moneyValue < 0.00) {
-                        Toast.makeText(ProductInvestActivity.this, "请输入认购金额", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductInvestActivity.this, "请输入出借金额", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     Intent intent = new Intent(this, NewSelectVoucherActivity.class);
@@ -971,12 +973,55 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //投资
-        if (accountType == Constant.AccountBank) {
-            investBank();
-        } else if (accountType == Constant.AccountLianLain) {
-            investLianLian();
+
+        if (userInfoBean.riskLevelMoney != null) {
+            Float riskLevelMoney = Float.parseFloat(userInfoBean.riskLevelMoney);
+            if (isOpen) {
+                if (riskLevelMoney != 0 && Float.parseFloat(etRechargeMoney.getText().toString()) > riskLevelMoney) {//输入金额大于限制金额
+                    InvestmentRiskTipsDialog investmentRiskTipsDialog = new InvestmentRiskTipsDialog(this);
+                    switch (userInfoBean.riskLevel) {
+                        case 1:
+                            investmentRiskTipsDialog.setTvDesc1Content("您的风险评估级别为“保守型”,");
+                            investmentRiskTipsDialog.setTvDesc2Content("建议单笔金额不超过" + riskLevelMoney + "元");
+                            break;
+                        case 2:
+                            investmentRiskTipsDialog.setTvDesc1Content("您的风险评估级别为“稳健型”,");
+                            investmentRiskTipsDialog.setTvDesc2Content("建议单笔金额不超过" + riskLevelMoney + "元");
+                            break;
+                    }
+                    investmentRiskTipsDialog.setCancleText("返回修改");
+                    investmentRiskTipsDialog.setOnConfimClickListner(new InvestmentRiskTipsDialog.OnConfimClickListner() {
+                        @Override
+                        public void onConfimClick() {//继续投资
+                            //投资
+                            if (accountType == Constant.AccountBank) {
+                                investBank();
+                            } else if (accountType == Constant.AccountLianLain) {
+                                investLianLian();
+                            }
+                        }
+                    });
+                    final User user = DBUtils.getUser(this);
+                    investmentRiskTipsDialog.setOnCheckClickListner(new InvestmentRiskTipsDialog.OnCheckClickListner() {
+                        @Override
+                        public void onCheckClick() {//查看原因
+                            gotoWeb("/h5/help/riskCheckReason?userId=" + user.getUserId(), "查看原因");
+                        }
+                    });
+                    investmentRiskTipsDialog.show();
+                } else {
+                    //投资
+                    if (accountType == Constant.AccountBank) {
+                        investBank();
+                    } else if (accountType == Constant.AccountLianLain) {
+                        investLianLian();
+                    }
+                }
+            }
+        } else {
+            Utils.Toast(this, "请先开通存管账户");
         }
+
     }
 
     private void investLianLian() {
@@ -1032,7 +1077,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                         .append("&isBookInvest=" + orderStr);
                 String url = append.toString();
                 Logger.e("invest url: " + url);
-                gotoWeb(url, "立即投资");
+                gotoWeb(url, "我要出借");
             } else {
                 gotoActivity(LoginActivity.class);
             }

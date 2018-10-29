@@ -231,7 +231,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="投资期限"
+                        android:text="项目期限"
                         android:textColor="@color/text_999999"
                         android:textSize="12sp" />
 
@@ -240,7 +240,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="投资总额"
+                        android:text="项目总额"
                         android:textColor="@color/text_999999"
                         android:textSize="12sp" />
                 </LinearLayout>

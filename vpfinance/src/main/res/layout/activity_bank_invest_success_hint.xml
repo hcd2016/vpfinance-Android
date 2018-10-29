@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="1.由于银行返回数据存在延迟，在您完成投资操作后，10-20分钟后可以显示投资记录"
+            android:text="1.由于银行返回数据存在延迟，在您完成投资操作后，10-20分钟后可以显示出借记录"
             android:lineSpacingExtra="2dp"/>
 
         <TextView

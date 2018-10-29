@@ -152,7 +152,7 @@ public class RepayFloatActivity extends BaseActivity {
     /**
      * 开启本页
      *
-     * @param inRecordId  //投资记录id
+     * @param inRecordId  //出借记录id
      * @param repayStatus //回款 标状态 1未发布、2进行中、3回款中、4已完成
      */
     public static void startRepayFloatActivity(Context context, String inRecordId, String repayStatus,String loanId) {

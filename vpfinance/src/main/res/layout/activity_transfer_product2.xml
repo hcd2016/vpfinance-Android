@@ -171,7 +171,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="剩余期限"
+                            android:text="项目期限"
                             android:textColor="@color/dark_grey"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -427,6 +427,42 @@
                     tools:text="溢价转让，转让总额高于原始本金，到期净收益利率将低于原始利率" />
             </LinearLayout>
 
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="15dp"
+                android:background="@color/bg_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="0.3"
+                    android:gravity="center_vertical"
+                    android:text="出借要求"
+                    android:textColor="@color/text_999999"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/transfer_risk_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:gravity="right"
+                    android:textColor="@color/normal_text_color"
+                    android:textSize="12sp"
+                    tools:text="风险评估级别“保守型”及以上" />
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
@@ -447,7 +483,7 @@
                     android:drawableLeft="@drawable/ic_transfer_product_3"
                     android:drawablePadding="10dp"
                     android:gravity="center_vertical"
-                    android:text="投资记录"
+                    android:text="出借记录"
                     android:textColor="@color/text_999999"
                     android:textSize="14sp" />
 
@@ -515,7 +551,7 @@
         android:background="@drawable/bg_btn_submit"
         android:enabled="false"
         android:gravity="center"
-        android:text="立即投资"
+        android:text="我要出借"
         android:textSize="18sp"
         android:visibility="visible" />
 </RelativeLayout>

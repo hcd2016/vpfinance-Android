@@ -16,6 +16,7 @@ import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
+import com.mob.tools.utils.SharePrefrenceHelper;
 
 import org.json.JSONObject;
 
@@ -233,9 +234,7 @@ public class CaptchaActivity extends BaseActivity {
                     Utils.Toast("账号被锁定");
                     break;
                 case "1":
-                    Utils.Toast("登录成功");
                     Long uid = json.optLong("uid");
-
                     clearDB();
                     if (null != uid && !TextUtils.isEmpty(uid+"")) {
                         loginSucess(uid);
@@ -245,6 +244,9 @@ public class CaptchaActivity extends BaseActivity {
                             preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid+"");
                         }
                         Utils.Toast("登录成功!");
+                        if(!TextUtils.isEmpty(userRegisterBean.getUnionid())) {//保存用户unionid
+                            preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_WEIXIN_UNIONID,userRegisterBean.getUnionid());
+                        }
                     }
                     FinanceApplication application = (FinanceApplication) getApplication();
                     application.isLogin = true;
@@ -290,7 +292,13 @@ public class CaptchaActivity extends BaseActivity {
                 }
                 SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
                 String username = user.getUserName();
-                preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+                String cellPhone = user.getCellPhone();
+                if(userRegisterBean.getUserType()) {//个人用户
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_CELL_PHONE, cellPhone);
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+                }else {//企业用户
+                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME, username);//保存登录企业用户名
+                }
                 preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, username);
                 if (user != null) {
                     preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID, "" + user.getId());

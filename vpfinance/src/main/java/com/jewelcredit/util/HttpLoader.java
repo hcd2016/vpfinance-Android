@@ -33,15 +33,15 @@ public class HttpLoader {
     public HttpLoader(Context context, HttpDownloader.HttpDownloaderListener listener) {
         mContext = context;
         mListener = listener;
-
-        mProgressDialog = new ProgressDialog(context);
-        mProgressDialog.setCancelable(true);
-        mProgressDialog.setCanceledOnTouchOutside(true);
-        mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            public void onCancel(DialogInterface dialog) {
-            }
-        });
-
+        if(mProgressDialog == null || !mProgressDialog.isShowing()) {
+            mProgressDialog = new ProgressDialog(context);
+            mProgressDialog.setCancelable(true);
+            mProgressDialog.setCanceledOnTouchOutside(true);
+            mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                public void onCancel(DialogInterface dialog) {
+                }
+            });
+        }
     }
 
 

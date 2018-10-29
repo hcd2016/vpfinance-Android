@@ -228,7 +228,7 @@ public class InvestSummaryType3Fragment extends BaseFragment implements OnChartV
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //投资总额(元)
+        //项目总额(元)
         LineDataSet lineDataSet = new LineDataSet(mYValues, "收益统计" /*显示在比例图上*/);
         // create a dataset and give it a type
         // y轴的数据集合

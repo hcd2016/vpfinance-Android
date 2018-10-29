@@ -120,7 +120,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="5.推荐投资奖励收益=（0.5%*好友投资金额*项目投资期限）/12"
+                android:text="5.推荐投资奖励收益=（0.5%*好友投资金额*项目借款期限）/12"
                 android:paddingBottom="10dp"
                 android:gravity="center_vertical"
                 android:textSize="10sp"

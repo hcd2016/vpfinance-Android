@@ -342,7 +342,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textColor="@color/red_top"
-                        android:text="温馨提示：借款人若提前(部分)还款，投资人利息按实际借款期限计算，并额外享有提前还款金额7天的利息。"/>
+                        android:text="温馨提示：借款人若提前(部分)还款，出借人利息按实际借款期限计算，并额外享有提前还款金额7天的利息。"/>
 
                     <View
                         android:layout_width="match_parent"
@@ -364,7 +364,7 @@
                             android:drawableLeft="@drawable/ic_transfer_product_3"
                             android:drawablePadding="10dp"
                             android:textColor="@color/text_999999"
-                            android:text="投资记录" />
+                            android:text="出借记录" />
 
                         <TextView
                             android:id="@+id/tvInvestCount"
@@ -372,7 +372,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:paddingRight="7dp"
-                            tools:text="已有43笔投资"
+                            tools:text="已有43笔出借"
                             android:gravity="center_vertical|right"
                             android:drawablePadding="10dp"
                             android:textColor="@color/text_999999"/>
@@ -459,7 +459,7 @@
             android:background="@drawable/bg_btn_submit"
             android:gravity="center"
             android:layout_below="@id/switchOpen"
-            android:text="立即投资"
+            android:text="我要出借"
             android:textSize="18sp"
             android:visibility="visible"
             />

@@ -75,6 +75,8 @@ public class UserInfoBean implements Serializable{
     public int autoTenderProtocol;//是否同意自动投标协议 1同意
     public String isBindWx;//是否绑定微信
     public String qqNum;//企业手机号
+    public int riskLevel;//个人风险等级 1 保守型 2稳健型 3积极型
+    public String riskLevelMoney;//个人风险限制金额,当为null时表示不限制金额
 
     /*可用余额*/
     public String cashBalance;

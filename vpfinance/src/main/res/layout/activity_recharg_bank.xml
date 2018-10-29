@@ -69,12 +69,12 @@
                     android:layout_height="wrap_content"
                     android:text="存管账户绑定银行卡转账到汇总账户"
                     android:textColor="@color/text_999999" />
-                <ImageView
-                    android:id="@+id/ivWhat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/wenhao_icon"
-                    android:layout_marginLeft="10dp"/>
+                <!--<ImageView-->
+                    <!--android:id="@+id/ivWhat"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/wenhao_icon"-->
+                    <!--android:layout_marginLeft="10dp"/>-->
             </LinearLayout>
 
             <LinearLayout

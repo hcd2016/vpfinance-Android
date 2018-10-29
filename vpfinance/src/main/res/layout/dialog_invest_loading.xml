@@ -18,7 +18,7 @@
             android:id="@+id/tv_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="已提交投资，请稍后...."
+            android:text="已提交出借，请稍后...."
             android:textColor="@color/white"
             android:layout_below="@id/loading"
             android:layout_centerHorizontal="true"/>

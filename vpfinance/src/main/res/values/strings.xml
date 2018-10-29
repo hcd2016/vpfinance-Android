@@ -2,9 +2,9 @@
 <resources>
     <string name="action_settings">设置</string>
     <string name="app_name">微品金融</string>
-    <string name="regular_product">定期投资</string>
+    <string name="regular_product">定期出借</string>
     <string name="bond_product">债权转让</string>
-    <string name="automatic_product">智存投资</string>
+    <string name="automatic_product">智存出借</string>
 
     <string name="product_basic_info">基本信息</string>
     <string name="product_borrower_info">借款人资料</string>
@@ -68,7 +68,7 @@
     <string name="fetch_passcode">获取验证码</string>
 
     <string name="maintab_home">首页</string>
-    <string name="maintab_plan">我要投资</string>
+    <string name="maintab_plan">我要出借</string>
     <string name="maintab_mine">我的账户</string>
     <string name="maintab_more">更多</string>
     <string name="maintab_finance">实时财务</string>
@@ -229,7 +229,7 @@
     <string name="security_question">密保问题</string>
 
 
-    <string name="mybid_title">我的投资</string>
+    <string name="mybid_title">我的出借</string>
     <string name="mybid_segment_posted">已投标</string>
     <string name="mybid_segment_repaying">还款中</string>
     <string name="mybid_segment_finished">已完成</string>
@@ -260,7 +260,7 @@
     <string name="loaninfo_bidrecords">投标记录</string>
     <string name="loaninfo_comments">评论</string>
 
-    <string name="loaninfo_bidrecords_nickname">投资人</string>
+    <string name="loaninfo_bidrecords_nickname">出借人</string>
     <string name="loaninfo_bidrecords_money">$100.0</string>
     <string name="loaninfo_bidrecords_mode">自动(3306)</string>
     <string name="loaninfo_bidrecords_time">2014-11-09 02:30:27</string>
@@ -303,7 +303,7 @@
     <string name="about_us">关于我们</string>
     <string name="about_us_short">权威网贷平台</string>
     <string name="fresh_guide">新手指引</string>
-    <string name="fresh_guide_short">3分钟快速投资</string>
+    <string name="fresh_guide_short">3分钟快速出借</string>
     <string name="safe_guard">平台优势</string>
     <string name="safe_guard_short">100%本息保障</string>
 
@@ -334,7 +334,7 @@
     <string name="safe_guard_5">法律保障</string>
 
     <string name="safe_guard_detail_1">上市企业、政府支持产业的借款需求为主导尽调团队开展全方位调查，出具专业调查分析报告。</string>
-    <string name="safe_guard_detail_2">接入第三方资金托管，严格分离平台与投资人资金接触，杜绝资金池模式。</string>
+    <string name="safe_guard_detail_2">接入第三方资金托管，严格分离平台与出借人资金接触，杜绝资金池模式。</string>
     <string name="safe_guard_detail_3">拥有顶尖技术团队，采用业界先进的加密技术对用户信息进行高强度加密处理。</string>
     <string name="safe_guard_detail_4">融资方控股股东连带责任担保\n融资方资产抵押或质押、第三方企业担保</string>
     <string name="safe_guard_detail_5">引进律师事务所、会计师事务所,确保平台项目的合法性及平台运营的规范性和有序性。</string>
@@ -344,8 +344,8 @@
     </string>
     <string name="recharge_tip">温馨提示\n• 为保障资金安全，充值提现采用同卡进出原则，即提现银行卡需与充值银行卡一致。\n• 为了您的账户安全，请在充值前进行实名认证、银行卡绑定以及交易密码设置。\n• 请注意您的银行卡充值限制，以免造成不便，每日的充值限额依据各银行限额为准。\n• 中行、工行、浦发、交行、邮储、农行、建行的用户在使用快捷充值过程中，如遇到充值不成功或者收不到验证码的情况，需开通“银联在线支付业务”请点击此处，根据提示进行开通。\n• 禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。\n• 充值过程中遇到问题，请联系客服：0755-86627551。
 </string>
-    <!--<string name="withdraw_tip">提现手续费：\n\n提现每笔收取手续费2元，未进行投资的资金提现加收提现金额0.25%。\n温馨提示\n1.请确保您输入的提现金额，以及银行帐号信息准确无误。\n2.如果您填写的提现信息不正确可能会导致提现失败，由此产生的提现费用将不予返还。\n3.在双休日和法定节假日期间，用户可以申请提现，微品金融会在下一个工作日进行处理。由此造成的不便，请多多谅解！\n4.平台禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。\n5.如果提现金额没有及时到账，请联系客服，400-808-3900。</string>-->
-    <string name="withdraw_tip">温馨提示\n• 提现费用2元/笔，为防止套现，充值未投资并申请提现的资金，需加收该部分资金的0.25%作为提现费用。\n• 预计提现后T+1个工作日到账（如遇双休日或法定节假日，向后顺延）。\n• 提现额度平台不做限制（银行规定额度除外）。\n• 平台禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。\n• 提现过程中遇到问题，请联系客服：0755-86627551。
+    <!--<string name="withdraw_tip">提现手续费：\n\n提现每笔收取手续费2元，未进行出借的资金提现加收提现金额0.25%。\n温馨提示\n1.请确保您输入的提现金额，以及银行帐号信息准确无误。\n2.如果您填写的提现信息不正确可能会导致提现失败，由此产生的提现费用将不予返还。\n3.在双休日和法定节假日期间，用户可以申请提现，微品金融会在下一个工作日进行处理。由此造成的不便，请多多谅解！\n4.平台禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。\n5.如果提现金额没有及时到账，请联系客服，400-808-3900。</string>-->
+    <string name="withdraw_tip">温馨提示\n• 提现费用2元/笔，为防止套现，充值未出借并申请提现的资金，需加收该部分资金的0.25%作为提现费用。\n• 预计提现后T+1个工作日到账（如遇双休日或法定节假日，向后顺延）。\n• 提现额度平台不做限制（银行规定额度除外）。\n• 平台禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。\n• 提现过程中遇到问题，请联系客服：0755-86627551。
     </string>
     <string name="bank_tip">温馨提示：为了保障您的资金安全，【充值】和【提现】银行卡需为同一张卡！若需更改绑定银行卡，请移步官网。或联系客服：0755-86627551</string>
     <string name="confirm">确认</string>
@@ -357,12 +357,12 @@
     <string name="refundState2">按月付息到期还本</string>
     <string name="refundState3">一次性还本付息</string>
     <string name="homeProductState1">未发布</string>
-    <string name="homeProductState3">立即投资</string>
+    <string name="homeProductState3">我要出借</string>
     <string name="homeProductState5">还款中</string>
     <string name="homeProductState6">已完成</string>
 
     <string name="productState1">预售中</string>
-    <string name="productState2">立即投资</string>
+    <string name="productState2">我要出借</string>
     <string name="productState3">还款中</string>
     <string name="productState4">已完成</string>
     <string name="productState5">暂停开放</string>
@@ -370,13 +370,13 @@
     <string name="progressString">募集进度</string>
     <string name="transfer_product_execute_now_info">持有的3个月以上的产品可选择溢价/平价/折价转让的方式退出：\n1、溢价时转让产品折算“约定年利率”不低于%1$s，且转让金额不超过剩余回款本金利息之和\n2、折价时转让的折价率不超过%2$s\n3、平价转让即以原始本金转出</string>
     <string name="transfer_product_execute_now_info_title">持有的债权可平价、溢价或折价方式转让：</string>
-    <string name="str_invest_summary_info">1.投资产品分布为用户注册以来不同期限产品的投资金额占比分布图\n\n2.投资总额统计为最近12个月以来用户每月的投资金额统计图\n\n3.每月收益统计为最近12个月以来用户每月的收益统计图，每月收益包括利息收益、代 金券抵扣现金、邀请奖励、其他等类型奖励</string>
+    <string name="str_invest_summary_info">1.出借产品分布为用户注册以来不同期限产品的出借金额占比分布图\n\n2.项目总额统计为最近12个月以来用户每月的出借金额统计图\n\n3.每月收益统计为最近12个月以来用户每月的收益统计图，每月收益包括利息收益、代 金券抵扣现金、邀请奖励、其他等类型奖励</string>
     <string name="hint_captcha">请输入6位验证码</string>
-    <string name="description_yi_dian">北京融艺投信息科技有限公司（艺点金融）在文物修复和艺术品投资等相关领域深耕细作，已成功开展了极多名贵艺术品的质押借贷。创始团队同时具备丰富的金融+互联网背景，在各自领域有深刻的见解和实操经验。集聚了驰聘于古玩城、珠宝行、百度、360以及四大行等金融机构多年的一流专家团队，并且公司已获得真格基金等的资金支持。</string>
+    <string name="description_yi_dian">北京融艺投信息科技有限公司（艺点金融）在文物修复和艺术品出借等相关领域深耕细作，已成功开展了极多名贵艺术品的质押借贷。创始团队同时具备丰富的金融+互联网背景，在各自领域有深刻的见解和实操经验。集聚了驰聘于古玩城、珠宝行、百度、360以及四大行等金融机构多年的一流专家团队，并且公司已获得真格基金等的资金支持。</string>
     <string name="description_insurance">中国人保财险为国内最大的财产保险有限公司，始终遵循“以市场为导向，以客户为中心的经营理念”，公司经历66年的发展积累，形成了完善的产品体系，全覆盖的服务网络，领先的业务技能和运营管理能力。2011年4月由保监会审批通过，由人保总公司研发的艺术品综合保险专项条款正式颁发，作为艺术品保险服务的专项产品。中国人保财险北京分公司作为融易投有限公司艺术品保险的承包方，向其认定的艺术品持有人提供文化艺术品综合保险产品及理赔服务。</string>
-    <string name="description_repurchase">归藏艺术品投资中心（有限合伙）是由业内顶级专家组成的、专注于通过艺术品投资获取投资收益的一支基金，基金规模10000万元，专项用于为经过其认可的实物质押项目提供处置渠道，一旦借款人违约，将在第一时间进行质押品收购，为投资人资金安全提供保障。基金股东为艺术品投资及收藏领域知名人士，在艺术品领域颇具影响力。</string>
+    <string name="description_repurchase">归藏艺术品出借中心（有限合伙）是由业内顶级专家组成的、专注于通过艺术品出借获取出借收益的一支基金，基金规模10000万元，专项用于为经过其认可的实物质押项目提供处置渠道，一旦借款人违约，将在第一时间进行质押品收购，为出借人资金安全提供保障。基金股东为艺术品出借及收藏领域知名人士，在艺术品领域颇具影响力。</string>
     <string name="description_appraisal">融易投有限公司联手合作方整合业内鉴定专家资源，签约专业鉴定机构、资深鉴定专家、各大拍卖行鉴定顾问、知名收藏家、博物馆鉴定师、文物修复专家等，专家团队规模近百位，按各位专家擅长的品类不同，进行类别分组，分门别类进行独立鉴定。融易投拥有专业的珠宝检测设备如钻石分级灯、比色槽热导仪及外荧光观察仪等，质押珠宝经融易投初步鉴定后，再委托国检中心深圳珠宝检验实验室有限公司对质押珠宝首饰进行专项监督鉴定。</string>
-    <string name="invest_time">投资期限</string>
+    <string name="invest_time">项目期限</string>
     <string name="update_bottom_info">如果你喜欢我们的服务可以关注微信公众号\"微品金融\",为您提供最新的平台信息</string>
     <string name="unlimited">不限</string>
     <string name="selected">已选择</string>
@@ -395,7 +395,7 @@
 
     <string name="fund_flow_hint">温馨提示：由于银行返回数据存在延迟，资金流水在操作两小时后正常显示。</string>
     <string name="message_no_bind_bank">您未绑定银行卡</string>
-    <string name="voucher_dongjie">\t 由于银行数据返回存在延迟，您投资提交的优惠券会被暂时冻结，如果投资失败或者未投资，优惠券会在30分钟左右后解冻</string>
+    <string name="voucher_dongjie">\t 由于银行数据返回存在延迟，您出借提交的优惠券会被暂时冻结，如果出借失败或者未出借，优惠券会在30分钟左右后解冻</string>
     <string name="coupon_empty_desc">您还没有优惠券哦\n推荐好友获取更多优惠券吧</string>
     <string name="auto_invest_cancel_info">撤销后您将不能对微品金融平台系统的标的进行自动投标。</string>
     <string name="auto_invest_cancel_success_hint">请前往\"我的账户 - 自动投标 - 存管授权状态\"进行设置。</string>

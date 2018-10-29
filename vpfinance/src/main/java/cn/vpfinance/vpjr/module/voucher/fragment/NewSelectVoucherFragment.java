@@ -61,7 +61,7 @@ public class NewSelectVoucherFragment extends BaseFragment implements AdapterVie
     private boolean isLastPage = false;
     private int                  mTotalPage;
     private double               mVoucherRate;//折扣率
-    private Double               money;//投资总额
+    private Double               money;//项目总额
     private double               selectedVoucher;//已选优惠券总额
     private double               calcedMoney;
     private VoucherEvent         mVoucherEvent;

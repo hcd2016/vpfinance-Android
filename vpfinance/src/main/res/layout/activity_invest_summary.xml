@@ -40,7 +40,7 @@
                     android:layout_width="108dp"
                     android:layout_height="29dp"
                     android:button="@null"
-                    android:text="投资总额统计"
+                    android:text="项目总额统计"
                     android:textColor="@color/white"
                     android:background="@drawable/btn_invest_summary_select2"
                     android:gravity="center"/>
@@ -89,7 +89,7 @@
                     android:layout_height="45dp"
                     style="@style/SubmitButtonStyle"
                     android:layout_marginTop="20dp"
-                    android:text="立即投资"
+                    android:text="我要出借"
                     android:layout_centerHorizontal="true"/>
             </LinearLayout>
         </RelativeLayout>

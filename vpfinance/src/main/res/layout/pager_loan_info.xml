@@ -282,7 +282,7 @@
             android:layout_alignParentRight="true"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:text="立即投资" />
+            android:text="我要出借" />
 
         <RelativeLayout
             android:layout_width="match_parent"

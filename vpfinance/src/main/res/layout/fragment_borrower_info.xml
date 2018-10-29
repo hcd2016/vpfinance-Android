@@ -561,7 +561,7 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/bg_btn_submit"
             android:gravity="center"
-            android:text="立即投资"
+            android:text="我要出借"
             android:textSize="18sp" />
     </LinearLayout>
 </ScrollView>

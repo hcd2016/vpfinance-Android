@@ -308,8 +308,14 @@ public class LoginPasswordActivity extends BaseActivity {
                     }
                     SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
                     String username = user.getUserName();
+                    String cellPhone = user.getCellPhone();
+                    if(userRegisterBean.getUserType()) {//个人用户
+                        preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_CELL_PHONE, cellPhone);
+                        preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+                    }else {//企业用户
+                        preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME, username);//保存登录企业用户名
+                    }
                     String password = etFirstPwd.getText().toString();
-                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
                     preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, username);
                     if (user != null) {
                         preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID, "" + user.getId());

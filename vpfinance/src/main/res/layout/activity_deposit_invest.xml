@@ -93,7 +93,7 @@
                             android:id="@+id/tvMonthInfo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="投资期限"
+                            android:text="项目期限"
                             android:textSize="11sp" />
 
                         <TextView
@@ -300,7 +300,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="认购金额" />
+                            android:text="出借金额" />
 
                         <View
                             android:layout_width="0dp"

@@ -1055,7 +1055,7 @@ success	Boolean	执行结果	True/False
         params.put("TYPE", "android");
         //0连连1存管
         params.put("accountType", "0");
-        //httpClient.setTips("登录中");
+        httpClient.setTips("登录中");
         return httpClient.doPost(url, params, cmdId.ordinal(), false, false);
     }
 
@@ -1148,7 +1148,7 @@ paying		偿还中借款
     }
 
     /**
-     * 个人中心投资记录
+     * 个人中心出借记录
      *
      * @param loanType  1全部 2进行中、3回款中、4已完成
      * @param pageNum
@@ -1403,7 +1403,7 @@ paying		偿还中借款
     }
 
     /**
-     * 产品投资记录分页
+     * 产品出借记录分页
      *
      * @param loanId
      * @param page
@@ -1430,7 +1430,7 @@ paying		偿还中借款
     }
 
     /**
-     * 产品投资记录分页-->定存宝
+     * 产品出借记录分页-->定存宝
      *
      * @param poolId
      * @param page
@@ -2945,7 +2945,7 @@ views        	int	浏览数
         String reward = json.optString("reward");
         String borrowTitle = json.optString("borrowTitle");//标的标题
         int borrowStatus = json.optInt("borrowStatus");//借款标状态 1未发布、3进行中、5回款中、6已完成
-        int month = json.optInt("month");//标的项目期限
+        int month = json.optInt("month");//标的借款期限
         String issueLoan = json.optString("issueLoan");//标的项目总金额
         float borrowLoanPercent = (float) json.optDouble("borrowLoanPercent");
         long borrowEndTime = json.optLong("borrowEndTime");
@@ -3671,7 +3671,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 获取投资记录数据
+     * 获取出借记录数据
      *
      * @param uid        用户uid
      * @param beginTime  记录开始时间
@@ -3705,7 +3705,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 获取新投资记录数据
+     * 获取新出借记录数据
      *
      * @param uid        用户uid
      * @param pageNum    开始页数（默认1开始）
@@ -4404,7 +4404,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 投资记录详情-还款计划
+     * 出借记录详情-还款计划
      *
      * @param type
      * @param borrowId
@@ -5237,7 +5237,7 @@ Type	Int	Banner类型	1. 链接  2.产品
             params.put("deptLoanId", deptLoanId);//转让标id
         }
         httpClient.setTips("加载中");
-        return httpClient.doPost(url, params, cmdId.ordinal(), false, true);
+        return httpClient.doPost(url, params, cmdId.ordinal(), false, false);
     }
 
     public boolean onGetDepositPermission(String poolId) {
@@ -5248,7 +5248,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         Map<String, String> params = new ArrayMap<String, String>();
         params.put("poolId", poolId);//原标id
         httpClient.setTips("加载中");
-        return httpClient.doPost(url, params, cmdId.ordinal(), false, true);
+        return httpClient.doPost(url, params, cmdId.ordinal(), false, false);
     }
 
     /**
@@ -5370,7 +5370,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 获取投资记录详情
+     * 获取出借记录详情
      *
      * @param uid
      * @return
@@ -5397,7 +5397,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 获取投资记录详情
+     * 获取出借记录详情
      *
      * @param recordPoolId
      * @return
@@ -6000,7 +6000,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     /**
      * 还款计划:浮动计息接口
      *
-     * @param tenderRecordId //投资记录id
+     * @param tenderRecordId //出借记录id
      */
     public boolean getRepayPlanFloat(String tenderRecordId) {
         ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_REPAY_PLAN_FLOAT;
@@ -6216,7 +6216,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
     /**
      * 债权转让(提交)
-     *  请求参数：investId:投资记录id，transferPrice：转让金额,
+     *  请求参数：investId:出借记录id，transferPrice：转让金额,
      * 返回参数：msg 1.转让成功 2.跳转华兴界面 3.转让失败
      */
     public boolean assignmentNowTransferCommit(String investId,String transferPrice) {

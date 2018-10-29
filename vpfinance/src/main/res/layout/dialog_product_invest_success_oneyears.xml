@@ -92,7 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="首次投资任意产品"
+                    android:text="首次出借任意产品"
                     android:textSize="@dimen/text_size_14"/>
                 <TextView
                     android:layout_marginTop="2dp"

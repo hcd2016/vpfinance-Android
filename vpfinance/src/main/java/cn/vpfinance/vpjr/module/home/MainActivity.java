@@ -128,10 +128,14 @@ public class MainActivity extends BaseActivity {
             SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
             String saved_logPwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD);
             String saved_name = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME);
-            if (!TextUtils.isEmpty(saved_logPwd) && !TextUtils.isEmpty(saved_name)) {
-                Intent intent = new Intent(this, LockActivity.class);
-                intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
-                startActivity(intent);
+            String lockString = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING);
+            String unionid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_WEIXIN_UNIONID);
+            if (!TextUtils.isEmpty(lockString)) {//有设置手势密码
+                if ((!TextUtils.isEmpty(saved_logPwd) && !TextUtils.isEmpty(saved_name)) || !TextUtils.isEmpty(unionid)) {
+                    Intent intent = new Intent(this, LockActivity.class);
+//                    intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
+                    startActivity(intent);
+                }
             }
             mHttpService.getVersionCheck(version);
             ((FinanceApplication) getApplication()).isCheckUpdate = false;
@@ -188,7 +192,6 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -223,7 +226,9 @@ public class MainActivity extends BaseActivity {
                             switchToTab(1);
                             break;
                         case R.id.maintab_mine_radiobtn:
-                            if (!AppState.instance().logined()) {
+                            SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(MainActivity.this);
+                            String lockString = sharedPreferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING);
+                            if (!AppState.instance().logined() || TextUtils.isEmpty(lockString)) {
                                 self.startActivityForResult(new Intent(self, LoginActivity.class), 1);
                                 return;
                             }
@@ -405,7 +410,7 @@ public class MainActivity extends BaseActivity {
                 ((RadioButton) findViewById(mLastRadioId)).setChecked(true);
             }
         }
-        if(requestCode == 10086) {
+        if (requestCode == 10086) {
             switchToTab(0, false);
         }
     }
@@ -532,29 +537,29 @@ public class MainActivity extends BaseActivity {
         }
         if (TextUtils.isEmpty(title) || TextUtils.isEmpty(message) || user == null) return;
         String value = SharedPreferencesHelper.getInstance(MainActivity.this).getStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME);
-        if (TextUtils.isEmpty(value)){
-            showAutoStatusDialog(title,message, status);
-        }else{
+        if (TextUtils.isEmpty(value)) {
+            showAutoStatusDialog(title, message, status);
+        } else {
             String[] split = value.split("_");
-            if (split != null && split.length == 2){
-                if (split[0].equalsIgnoreCase(user.getUserId().toString())){
+            if (split != null && split.length == 2) {
+                if (split[0].equalsIgnoreCase(user.getUserId().toString())) {
                     try {
                         long time = new SimpleDateFormat("yyyy-MM-dd").parse(split[1]).getTime();
-                        if (time < System.currentTimeMillis()){
-                            showAutoStatusDialog(title,message, status);
+                        if (time < System.currentTimeMillis()) {
+                            showAutoStatusDialog(title, message, status);
                         }
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                }else{
-                    showAutoStatusDialog(title,message, status);
+                } else {
+                    showAutoStatusDialog(title, message, status);
                 }
             }
         }
 
     }
 
-    private void showAutoStatusDialog(String title,String message,final String status){
+    private void showAutoStatusDialog(String title, String message, final String status) {
         new AlertDialog.Builder(this)
                 .setTitle(title)
                 .setMessage(message)

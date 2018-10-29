@@ -24,7 +24,7 @@ import cn.vpfinance.vpjr.model.TransferRefundInfo;
 import cn.vpfinance.vpjr.util.Common;
 
 /**
- * 投资记录的回款记录
+ * 出借记录的回款记录
  */
 public class InvestRecordRefundActivity extends BaseActivity {
 

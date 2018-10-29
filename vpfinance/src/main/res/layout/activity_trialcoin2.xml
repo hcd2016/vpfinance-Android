@@ -166,7 +166,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/red_top"
             android:layout_gravity="center"
-            tools:text="投资期限2016-1-12至2016-1-19"/>
+            tools:text="项目期限2016-1-12至2016-1-19"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"

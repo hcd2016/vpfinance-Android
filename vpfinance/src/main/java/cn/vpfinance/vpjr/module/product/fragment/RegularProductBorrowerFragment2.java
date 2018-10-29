@@ -305,7 +305,7 @@ public class RegularProductBorrowerFragment2 extends BaseFragment implements Vie
                     mCountDownTimer.setCountDownTime(mContext,product.getBidEndTime());
                 }
                 // tvStartBuy.setVisibility(View.GONE);
-                //                invest.setText("立即投资");
+                //                invest.setText("我要出借");
                 //                invest.setEnabled(true);
             }
         }
@@ -370,7 +370,7 @@ public class RegularProductBorrowerFragment2 extends BaseFragment implements Vie
             }
 
             String buyCount = product.getBuyCount();
-            tvInvestCount.setText("已有" + buyCount + "人投资");
+            tvInvestCount.setText("已有" + buyCount + "人出借");
 
             String allowTransfer = product.getAllowTransfer();
             if (!TextUtils.isEmpty(allowTransfer) && "true".equals(allowTransfer)) {
@@ -473,7 +473,7 @@ public class RegularProductBorrowerFragment2 extends BaseFragment implements Vie
                 ((TextView) view.findViewById(R.id.product_usable_buy)).setText(remainMoney + "元");
             }
 
-            String state = "立即投资";
+            String state = "我要出借";
             mIsShow = true;
             switch (loanstate)//1未发布 2进行中 3回款中 4已完成
             {
@@ -646,7 +646,7 @@ public class RegularProductBorrowerFragment2 extends BaseFragment implements Vie
 
     private void showSuccessDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("投资成功");
+        builder.setTitle("出借成功");
         builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

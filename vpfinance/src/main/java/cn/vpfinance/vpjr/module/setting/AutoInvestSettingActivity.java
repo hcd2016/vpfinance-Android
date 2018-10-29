@@ -215,7 +215,6 @@ public class AutoInvestSettingActivity extends BaseActivity {
         if (bean == null) return;
         String reserveMoney = etReserveMoney.getText().toString();
         String maxInvestMoney = etMaxInvestMoney.getText().toString();
-        double v = Double.parseDouble(maxInvestMoney);
         if (isOpen) {
             if (TextUtils.isEmpty(reserveMoney)) {
                 btnSubmit.setEnabled(true);
@@ -224,12 +223,13 @@ public class AutoInvestSettingActivity extends BaseActivity {
             }
             if (TextUtils.isEmpty(maxInvestMoney)) {
                 btnSubmit.setEnabled(true);
-                Utils.Toast("最大投资金额不能为空");
+                Utils.Toast("最大出借金额不能为空");
                 return;
             }
+            double v = Double.parseDouble(maxInvestMoney);
             if (v < 100) {
                 btnSubmit.setEnabled(true);
-                Utils.Toast("最大投资金额不能小于一百");
+                Utils.Toast("最大出借金额不能小于一百");
                 return;
             }
         }

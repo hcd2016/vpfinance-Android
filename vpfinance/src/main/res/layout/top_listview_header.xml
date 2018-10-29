@@ -64,7 +64,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="5dp"
             android:id="@+id/invest_btn"
-            android:text="立即投资"
+            android:text="我要出借"
             android:textSize="@dimen/text_size_12"
             android:textColor="@drawable/invest_top_text_color"
             android:background="@drawable/invest_top_btn_selector"/>
