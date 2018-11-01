@@ -214,6 +214,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                 case "1"://登录成功
                     clearDB();
                     String uid = json.optString("uid");
+                    AppState.instance().setSessionCode("" + uid);
                     if (!TextUtils.isEmpty(uid)) {
                         loginSucess(Long.parseLong(uid));
                         SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);

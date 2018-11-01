@@ -55,11 +55,12 @@ public class HomeDepositAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_home_product_deposit, null);
+        final View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_home_product_deposit_new, null);
         TextView mTitle = ((TextView) itemView.findViewById(R.id.title));
-        TextView mPresell = ((TextView) itemView.findViewById(R.id.presell));
-        TextView mRateFirst = ((TextView) itemView.findViewById(R.id.rate_first));
-        TextView mRateSecond = ((TextView) itemView.findViewById(R.id.rate_second));
+//        TextView mPresell = ((TextView) itemView.findViewById(R.id.presell));
+//        TextView mRateFirst = ((TextView) itemView.findViewById(R.id.rate_first));
+//        TextView mRateSecond = ((TextView) itemView.findViewById(R.id.rate_second));
+        TextView tv_float = ((TextView) itemView.findViewById(R.id.tv_float));
         TextView mMonth = ((TextView) itemView.findViewById(R.id.month));
         TextView mMoney = ((TextView) itemView.findViewById(R.id.money));
         NumberProgressBar mProgress = ((NumberProgressBar) itemView.findViewById(R.id.progress));
@@ -70,19 +71,20 @@ public class HomeDepositAdapter extends BaseAdapter {
         if (bean != null){
             mTitle.setText(bean.loanTitle);
 
-            String[] split = bean.rate.split("\\.");
-            if (split.length >= 1){
-                mRateFirst.setText(split[0]);
-            }
-            if (split.length >= 2){
-                String s = split[1];
-                if ("00".equals(s)){
-                    s = "0";
-                }
-                mRateSecond.setText("." + s + "%");
-            }else{
-                mRateSecond.setText(".0" + "%");
-            }
+//            String[] split = bean.rate.split("\\.");
+//            if (split.length >= 1){
+//                mRateFirst.setText(split[0]);
+//            }
+//            if (split.length >= 2){
+//                String s = split[1];
+//                if ("00".equals(s)){
+//                    s = "0";
+//                }
+//                mRateSecond.setText("." + s + "%");
+//            }else{
+//                mRateSecond.setText(".0" + "%");
+//            }
+            tv_float.setText(bean.rate);
 
             final int pid = bean.id;//标id
             itemView.findViewById(R.id.product_view).setOnClickListener(new View.OnClickListener() {
@@ -100,7 +102,7 @@ public class HomeDepositAdapter extends BaseAdapter {
             if (loanstate == 1){//预售
                 mProgress.setVisibility(View.GONE);
                 mCountDownTimer.setVisibility(View.VISIBLE);
-                mPresell.setVisibility(View.VISIBLE);
+//                mPresell.setVisibility(View.VISIBLE);
                 ivHomeState.setVisibility(View.GONE);
 
                 //倒计时
@@ -114,7 +116,7 @@ public class HomeDepositAdapter extends BaseAdapter {
                     }
                 });
             }else if (loanstate == 2){//正在购买
-                mPresell.setVisibility(View.GONE);
+//                mPresell.setVisibility(View.GONE);
                 mProgress.setVisibility(View.VISIBLE);
                 mCountDownTimer.setVisibility(View.GONE);
                 mProgress.setProgress(progress);
@@ -123,24 +125,24 @@ public class HomeDepositAdapter extends BaseAdapter {
 //                    mRateFirst.setTextColor(mContext.getResources().getColor(R.color.text_999999));
 //                    mRateSecond.setTextColor(mContext.getResources().getColor(R.color.text_999999));
                     ivHomeState.setVisibility(View.VISIBLE);
-                    ivHomeState.setImageResource(R.drawable.iv_home_state_fill);
+                    ivHomeState.setImageResource(R.mipmap.chanpin_manbiao);
                 }
             }else if (loanstate == 3) {
                 ivHomeState.setVisibility(View.VISIBLE);
-                ivHomeState.setImageResource(R.drawable.iv_home_state_return);
+                ivHomeState.setImageResource(R.mipmap.chanpin_huaikuanzhong);
                 mCountDownTimer.setVisibility(View.GONE);
-                mPresell.setVisibility(View.GONE);
+//                mPresell.setVisibility(View.GONE);
                 mProgress.setProgress(100);
 //                mProgress.setReachedBarColor(mContext.getResources().getColor(R.color.text_999999));
             } else if (loanstate == 4) {
                 ivHomeState.setVisibility(View.VISIBLE);
-                ivHomeState.setImageResource(R.drawable.iv_home_state_finish);
+                ivHomeState.setImageResource(R.mipmap.chanpin_yiwancheng);
                 mCountDownTimer.setVisibility(View.GONE);
-                mPresell.setVisibility(View.GONE);
+//                mPresell.setVisibility(View.GONE);
                 mProgress.setProgress(100);
 //                mProgress.setReachedBarColor(mContext.getResources().getColor(R.color.text_999999));
             }else{
-                mPresell.setVisibility(View.GONE);
+//                mPresell.setVisibility(View.GONE);
                 mProgress.setVisibility(View.VISIBLE);
                 mCountDownTimer.setVisibility(View.GONE);
                 mProgress.setProgress(progress);

@@ -25,7 +25,7 @@
             android:background="@drawable/actionbar_button_selector"
             android:paddingLeft="16dp"
             android:paddingRight="8dp"
-            android:src="@drawable/nav_back"
+            android:src="@mipmap/back"
             android:visibility="visible" />
 
         <TextView
@@ -42,21 +42,23 @@
 
         <RelativeLayout
             android:id="@+id/posRight"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
+                android:paddingRight="15dp"
+                android:layout_centerVertical="true"
                 android:id="@+id/actionRight"
                 style="@style/SingleLineTextStyle"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:text="设置"
                 android:textColor="@android:color/white"
-                android:layout_centerInParent="true"/>
+                />
 
             <ImageView
                 android:id="@+id/imageButtonRight"

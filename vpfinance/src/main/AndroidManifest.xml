@@ -485,6 +485,16 @@
         <activity
             android:name="cn.vpfinance.vpjr.module.setting.AutoInvestCouponActivityNew"
             android:screenOrientation="portrait"></activity>
+        <!--消息中心-->
+        <activity
+            android:name="cn.vpfinance.vpjr.module.home.MessageActivity"
+            android:screenOrientation="portrait" />
+
+        <!--消息详情-->
+        <activity
+            android:name="cn.vpfinance.vpjr.module.home.MsgDetailActivity"
+            android:screenOrientation="portrait" />
+
         <!-- LLYT SDK END -->
 
         <meta-data
@@ -746,6 +756,7 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
+
 
         <receiver android:name="com.igexin.download.DownloadReceiver">
             <intent-filter>

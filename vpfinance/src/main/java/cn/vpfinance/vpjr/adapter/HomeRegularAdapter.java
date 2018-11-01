@@ -57,16 +57,17 @@ public class HomeRegularAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_home_product_regular, null);
+        View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_home_product_regular_new, null);
         TextView mTitle = ((TextView) itemView.findViewById(R.id.title));
         ImageView mAddRateState = ((ImageView) itemView.findViewById(R.id.add_rate_state));
         ImageView mState = ((ImageView) itemView.findViewById(R.id.state));
         ImageView mZhuan = ((ImageView) itemView.findViewById(R.id.zhuan));
 //        ImageView mLv = ((ImageView) itemView.findViewById(R.id.lv));
 //        ImageView mJing = ((ImageView) itemView.findViewById(R.id.jing));
-        TextView mPresell = ((TextView) itemView.findViewById(R.id.presell));
-        TextView mRateFirst = ((TextView) itemView.findViewById(R.id.rate_first));
-        TextView mRateSecond = ((TextView) itemView.findViewById(R.id.rate_second));
+//        TextView mPresell = ((TextView) itemView.findViewById(R.id.presell));
+//        TextView mRateFirst = ((TextView) itemView.findViewById(R.id.rate_first));
+//        TextView mRateSecond = ((TextView) itemView.findViewById(R.id.rate_second));
+        TextView tv_float = ((TextView) itemView.findViewById(R.id.tv_float));
         TextView mMonth = ((TextView) itemView.findViewById(R.id.month));
         TextView mMoney = ((TextView) itemView.findViewById(R.id.money));
         NumberProgressBar mProgress = ((NumberProgressBar) itemView.findViewById(R.id.progress));
@@ -74,7 +75,7 @@ public class HomeRegularAdapter extends BaseAdapter {
         TextView mAddRate = ((TextView) itemView.findViewById(R.id.add_rate));
 //        ImageView loanSignTypeIcon = (ImageView) itemView.findViewById(R.id.loan_sign_type);
         ImageView ivHomeState = (ImageView) itemView.findViewById(R.id.iv_home_state);
-        ImageView iphone = (ImageView) itemView.findViewById(R.id.iphone7);
+//        ImageView iphone = (ImageView) itemView.findViewById(R.id.iphone7);
         ImageView iv_fdjx = (ImageView) itemView.findViewById(R.id.iv_fdjx);//是否是浮动计息
 //        TextView bankAccountStatus = (TextView) itemView.findViewById(R.id.bankAccountStatus);
 
@@ -83,7 +84,7 @@ public class HomeRegularAdapter extends BaseAdapter {
 
         if (bean != null) {
 
-            iphone.setVisibility("1".equals(bean.givePhone) ? View.VISIBLE : View.GONE);
+//            iphone.setVisibility("1".equals(bean.givePhone) ? View.VISIBLE : View.GONE);
 
             final AppmemberIndexBean.LoanDataBean.LoansignsBean.LoansignBean loansign = bean.loansign;
             AppmemberIndexBean.LoanDataBean.LoansignsBean.LoansignbasicBean loansignbasic = bean.loansignbasic;
@@ -153,17 +154,18 @@ public class HomeRegularAdapter extends BaseAdapter {
                     //约定年利率
                     double rate = loansign.rate * 100 - reward;
                     String rateStr = String.format("%.1f", rate);
-                    String[] split = rateStr.split("\\.");
-                    if (split.length >= 1)
-                        mRateFirst.setText(split[0]);
-                    if (split.length >= 2)
-                        mRateSecond.setText("." + split[1] + "%");
+//                    String[] split = rateStr.split("\\.");
+//                    if (split.length >= 1)
+//                        mRateFirst.setText(split[0]);
+//                    if (split.length >= 2)
+//                        mRateSecond.setText("." + split[1] + "%");
                     //项目期限
                     if (loansign.loanType == 2) {
                         mMonth.setText(loansign.month + "天");
                     } else {
                         mMonth.setText(loansign.month + "个月");
                     }
+                    tv_float.setText(rateStr);
                     //金额
                     String issueLoanStr = loansign.issueLoan;
                     mMoney.setText(TextUtils.isEmpty(issueLoanStr) ? "" : issueLoanStr);
@@ -190,7 +192,7 @@ public class HomeRegularAdapter extends BaseAdapter {
                     if (mLoanstate == 1) {//预售
                         mProgress.setVisibility(View.GONE);
                         mCountDownTimer.setVisibility(View.VISIBLE);
-                        mPresell.setVisibility(View.VISIBLE);
+//                        mPresell.setVisibility(View.VISIBLE);
 
                         //倒计时
                         long publishTime = bean.publishTime;
@@ -202,7 +204,7 @@ public class HomeRegularAdapter extends BaseAdapter {
                             }
                         });
                     } else {//普通标
-                        mPresell.setVisibility(View.GONE);
+//                        mPresell.setVisibility(View.GONE);
 
                         mProgress.setVisibility(View.VISIBLE);
                         mCountDownTimer.setVisibility(View.GONE);
@@ -217,7 +219,7 @@ public class HomeRegularAdapter extends BaseAdapter {
 //                            mAddRateState.setBackgroundResource(R.drawable.icon_jiaxi_dis);
 //
                             ivHomeState.setVisibility(View.VISIBLE);
-                            ivHomeState.setImageResource(R.drawable.iv_home_state_fill);
+                            ivHomeState.setImageResource(R.mipmap.chanpin_manbiao);
                         }
                         /*double total_tend_money = bean.total_tend_money;
                         if (!TextUtils.isEmpty(issueLoanStr) && total_tend_money != 0) {
@@ -259,11 +261,11 @@ public class HomeRegularAdapter extends BaseAdapter {
                 int loanstate = loansign.loanstate;
                 if (loanstate == 3) {
                     ivHomeState.setVisibility(View.VISIBLE);
-                    ivHomeState.setImageResource(R.drawable.iv_home_state_return);
+                    ivHomeState.setImageResource(R.mipmap.chanpin_huaikuanzhong);
                     mProgress.setProgress(100);
                 } else if (loanstate == 4) {
                     ivHomeState.setVisibility(View.VISIBLE);
-                    ivHomeState.setImageResource(R.drawable.iv_home_state_finish);
+                    ivHomeState.setImageResource(R.mipmap.chanpin_yiwancheng);
                     mProgress.setProgress(100);
                 }
             }

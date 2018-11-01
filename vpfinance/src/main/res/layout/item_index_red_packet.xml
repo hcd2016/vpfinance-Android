@@ -24,7 +24,7 @@
             android:id="@+id/vButton"
             android:layout_width="74dp"
             android:layout_height="35dp"
-            android:background="@drawable/shape_radius5_red"
+            android:background="@drawable/shape_radius3_red"
             android:text="去分享"
             android:textColor="@color/white"/>
     </LinearLayout>

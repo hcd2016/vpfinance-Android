@@ -1054,7 +1054,7 @@ success	Boolean	执行结果	True/False
 
         params.put("TYPE", "android");
         //0连连1存管
-        params.put("accountType", "0");
+        params.put("accountType", "1");
         httpClient.setTips("登录中");
         return httpClient.doPost(url, params, cmdId.ordinal(), false, false);
     }

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="1dp"
+    android:paddingBottom="1dp"
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="预售中 "
+        android:textColor="@color/red_text2"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:layout_marginLeft="11dp"
+        android:paddingRight="2dp"
+        android:paddingLeft="2dp"
+        android:background="@drawable/shape_radius3_red"
+        android:id="@+id/countdown_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12"/>
+
+    <TextView
+        android:layout_marginLeft="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="天"
+        android:textColor="@color/red_text2"
+        android:textSize="@dimen/text_size_12"/>
+
+    <TextView
+        android:paddingRight="2dp"
+        android:paddingLeft="2dp"
+        android:layout_marginLeft="3dp"
+        android:background="@drawable/shape_radius3_red"
+        android:id="@+id/countdown_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12"/>
+
+    <TextView
+        android:layout_marginLeft="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="时"
+        android:textColor="@color/red_text2"
+        android:textSize="@dimen/text_size_12"/>
+
+    <TextView
+        android:paddingRight="2dp"
+        android:paddingLeft="2dp"
+        android:background="@drawable/shape_radius3_red"
+        android:layout_marginLeft="3dp"
+        android:id="@+id/countdown_minute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12"/>
+
+    <TextView
+        android:layout_marginLeft="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分"
+        android:textColor="@color/red_text2"
+        android:textSize="@dimen/text_size_12"/>
+
+    <TextView
+        android:paddingRight="2dp"
+        android:paddingLeft="2dp"
+        android:background="@drawable/shape_radius3_red"
+        android:layout_marginLeft="3dp"
+        android:id="@+id/countdown_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12"
+        android:visibility="visible"/>
+
+    <TextView
+        android:layout_marginLeft="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="秒"
+        android:textColor="@color/red_text2"
+        android:textSize="@dimen/text_size_12"
+        android:visibility="visible"/>
+
+</LinearLayout>
