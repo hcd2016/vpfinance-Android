@@ -65,6 +65,7 @@ public class FundOverViewActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_fund_overview);
 //        mHttpService = new HttpService(this, this);
 
+
         Intent intent = getIntent();
         if(intent != null){
             accountType = intent.getIntExtra(Constant.AccountType,0);
