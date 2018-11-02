@@ -178,7 +178,7 @@
                 android:padding="10dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:background="@color/bg_gray2"
                 android:gravity="center">
 
@@ -191,15 +191,6 @@
                     android:textColor="@color/main_color"
                     android:textSize="@dimen/text_size_12"
                     android:visibility="gone" />
-                <TextView
-                    android:id="@+id/tv_risk_tips"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/text_999999"
-                    android:textSize="12sp"
-                    android:gravity="center"
-                    android:text="小微提醒您: 出借有风险，决策需谨慎"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </LinearLayout>

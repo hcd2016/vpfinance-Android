@@ -50,6 +50,7 @@
 
     <color name="bg_gray">#ebebeb</color>
     <color name="bg_gray2">#eeeeee</color>
+    <color name="bg_grayf5">#f5f5fa</color>
     <color name="normal_text_color">#1c1c1c</color>
     <color name="assist_text_color">#4c4c4c</color>
     <color name="font_text_color_weaken">#ff999999</color>
@@ -108,5 +109,8 @@
     <color name="account_bank_header">#4B75CB</color>
     <color name="text_EF7919">#EF7919</color>
 
+    <color name="percent_view_red">#ff666b</color>
+    <color name="percent_view_blue">#66adff</color>
+    <color name="percent_view_yellow">#ffd54d</color>
 </resources>
 

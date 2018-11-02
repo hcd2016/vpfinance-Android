@@ -158,6 +158,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     private boolean isOpen;
     private boolean isInvestTag = false;
     private UserInfoBean userInfoBean;
+    private TextView tv_risk_tips;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,9 +200,11 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
         etRechargeMoney_activity = ((EditText) findViewById(R.id.etRechargeMoney_activity));
         tvPredictMoney_activity = ((TextView) findViewById(R.id.tvPredictMoney_activity));
         allRecharge_activity = ((TextView) findViewById(R.id.allRecharge_activity));
+        tv_risk_tips = ((TextView) findViewById(R.id.tv_risk_tips));
         allRecharge_activity.setOnClickListener(this);
         rl_iphone_submit.setOnClickListener(this);
         selectVoucher.setOnClickListener(this);
+
 
         tvProtocal = (TextView) findViewById(R.id.tvProtocal);
         tvProtocal2 = (TextView) findViewById(R.id.tvProtocal2);
@@ -311,6 +314,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
         findViewById(R.id.recharge).setOnClickListener(this);
         findViewById(R.id.allRecharge).setOnClickListener(this);
         btnInvest.setOnClickListener(this);
+        findViewById(R.id.tv_risk_tips).setOnClickListener(this);
 
         if (getIntent().getIntExtra("isGraceDays", 0) > 0) {//是浮动计息
             ivFdjx.setVisibility(View.VISIBLE);
@@ -818,6 +822,10 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
 
                     startActivity(intent);
                 }
+                break;
+            case R.id.tv_risk_tips://风险提示
+                gotoWeb("/registration/riskAgreement", "风险提示");
+                break;
         }
     }
 
@@ -1085,4 +1093,5 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             Utils.Toast(this, "请先开通存管账户");
         }
     }
+
 }

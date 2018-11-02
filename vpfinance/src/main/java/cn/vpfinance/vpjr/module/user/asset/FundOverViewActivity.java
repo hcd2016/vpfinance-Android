@@ -55,6 +55,9 @@ public class FundOverViewActivity extends BaseActivity implements View.OnClickLi
     private String frozenAmtNStr;
     private String netAssetStr;
     private int accountType = 0;
+    private String rechargingMoney;
+    private TextView tv_total_money;
+    private TextView tv_recharging_money;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,7 @@ public class FundOverViewActivity extends BaseActivity implements View.OnClickLi
             inCountStr = intent.getStringExtra("inCount");
             frozenAmtNStr = intent.getStringExtra("frozenAmtN");
             netAssetStr = intent.getStringExtra("netAsset");
+            rechargingMoney = intent.getStringExtra("rechargingMoney");
         }
 
         DaoMaster.DevOpenHelper dbHelper;
@@ -120,30 +124,45 @@ public class FundOverViewActivity extends BaseActivity implements View.OnClickLi
         frozenAmtN = (TextView) findViewById(R.id.frozenAmtN);
         inCount = (TextView) findViewById(R.id.inCount);
         netAsset = (TextView) findViewById(R.id.netAsset);
+        tv_total_money = (TextView) findViewById(R.id.tv_total_money);
+        tv_recharging_money = (TextView) findViewById(R.id.tv_recharging_money);
 
-        findViewById(R.id.clickRecharge).setOnClickListener(this);
-        findViewById(R.id.clickWithdrawal).setOnClickListener(this);
+//        findViewById(R.id.clickRecharge).setOnClickListener(this);
+//        findViewById(R.id.clickWithdrawal).setOnClickListener(this);
         circle = (CirclePercentView) findViewById(R.id.circle);
 
 //        circle.setProgress(percents);
 
         //可用余额
-        this.cashBalance.setText(cashBalanceStr);
+        this.cashBalance.setText(cashBalanceStr+"元");
         //冻结金额
-        this.frozenAmtN.setText(frozenAmtNStr);
+        this.frozenAmtN.setText(frozenAmtNStr+"元");
         //在投金额
-        this.inCount.setText(inCountStr);
+        this.inCount.setText(inCountStr+"元");
         //资金总额
-        this.netAsset.setText(netAssetStr);
+        this.netAsset.setText(netAssetStr+"元");
+        //总余额
+        if(!TextUtils.isEmpty(rechargingMoney) && !TextUtils.isEmpty(cashBalanceStr)) {
+            float r = Float.parseFloat(rechargingMoney);
+            float v = Float.parseFloat(cashBalanceStr);
+            tv_total_money.setText(r+v+"元");
+            if(r == 0) {
+                tv_recharging_money.setText("其中"+0+"元T+1个工作日方可到账");
+            }else {
+                tv_recharging_money.setText("其中"+rechargingMoney+"元T+1个工作日方可到账");
+            }
+        }
 
         //数据
         try{
             if ((!TextUtils.isEmpty(cashBalanceStr)) && (!TextUtils.isEmpty(frozenAmtNStr)) && (!TextUtils.isEmpty(inCountStr)) && (!TextUtils.isEmpty(netAssetStr))) {
                 percents = new ArrayList<>();
                 float netAssetDouble = Float.parseFloat(netAssetStr);
-                float v1 = Float.parseFloat(inCountStr) / netAssetDouble;
-                float v2 = Float.parseFloat(cashBalanceStr) / netAssetDouble;
+
+                float v1 = Float.parseFloat(cashBalanceStr) / netAssetDouble;
+                float v2 =  Float.parseFloat(inCountStr) / netAssetDouble;
                 float v3 = Float.parseFloat(frozenAmtNStr) / netAssetDouble;
+
                 percents.add(v1);
                 percents.add(v2);
                 percents.add(v3);
@@ -157,30 +176,30 @@ public class FundOverViewActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.clickRecharge:
-                if (accountType == 0){
-                    //充值入口
-                    boolean isAllowRecharge = SharedPreferencesHelper.getInstance(this).getBooleanValue(SharedPreferencesHelper.KEY_ALLOW_RECHARGE);
-                    if (isAllowRecharge){
-                        AlertDialogUtils.confirmGoRecharg(this);
-                    }else{
-                        new RechargeCloseDialog().show(getFragmentManager(),"RechargeCloseDialog");
-                    }
-                }else{
-                    startActivity(new Intent(this, RechargBankActivity.class));
-                }
-                break;
-
-            case R.id.clickWithdrawal:
-                if (accountType == 0){
-//                    startActivity(new Intent(this, WithdrawDepositActivity.class));
-                }else{
-                    Intent intent = new Intent(this, WithdrawBankActivity.class);
-                    intent.putExtra(WithdrawBankActivity.CASHBALANCE,cashBalanceStr);
-                    intent.putExtra(WithdrawBankActivity.FROZENAMTN,frozenAmtNStr);
-                    startActivity(intent);
-                }
-                break;
+//            case R.id.clickRecharge:
+//                if (accountType == 0){
+//                    //充值入口
+//                    boolean isAllowRecharge = SharedPreferencesHelper.getInstance(this).getBooleanValue(SharedPreferencesHelper.KEY_ALLOW_RECHARGE);
+//                    if (isAllowRecharge){
+//                        AlertDialogUtils.confirmGoRecharg(this);
+//                    }else{
+//                        new RechargeCloseDialog().show(getFragmentManager(),"RechargeCloseDialog");
+//                    }
+//                }else{
+//                    startActivity(new Intent(this, RechargBankActivity.class));
+//                }
+//                break;
+//
+//            case R.id.clickWithdrawal:
+//                if (accountType == 0){
+////                    startActivity(new Intent(this, WithdrawDepositActivity.class));
+//                }else{
+//                    Intent intent = new Intent(this, WithdrawBankActivity.class);
+//                    intent.putExtra(WithdrawBankActivity.CASHBALANCE,cashBalanceStr);
+//                    intent.putExtra(WithdrawBankActivity.FROZENAMTN,frozenAmtNStr);
+//                    startActivity(intent);
+//                }
+//                break;
         }
     }
 }
