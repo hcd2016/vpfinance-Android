@@ -7,7 +7,10 @@
     android:layout_marginTop="7dp"
     android:background="@color/bg_gray2">
 
+
+
     <RelativeLayout
+        android:layout_marginTop="200dp"
         android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="130dp"

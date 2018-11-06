@@ -1,8 +1,10 @@
 package cn.vpfinance.vpjr.module.list;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -11,8 +13,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.astuetz.PagerSlidingTabStrip;
+import com.astuetz.PagerSlidingTabStripNew;
 import com.google.gson.Gson;
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.HttpService;
@@ -22,8 +26,11 @@ import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.FinanceApplication;
@@ -41,8 +48,10 @@ import de.greenrobot.event.EventBus;
 public class ProductCategoryFragment extends BaseFragment {
 
 
+    @Bind(R.id.tab_layout)
+    TabLayout tabLayout;
     private ViewPager mViewPager;
-    private PagerSlidingTabStrip mTabs;
+    //    private PagerSlidingTabStripNew mTabs;
     private HttpService mHttpService;
     //    private boolean isShowDeposit = false;
     private MyAdapter mTabsAdapter;
@@ -59,12 +68,12 @@ public class ProductCategoryFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_product_category, null);
 
-        ((ActionBarLayout) view.findViewById(R.id.titleBar)).reset().setTitle("产品列表").setImageButtonLeft(R.drawable.ic_mine_top_info, new View.OnClickListener() {
+        ((ActionBarLayout) view.findViewById(R.id.titleBar)).reset().setTitle("产品列表").setImageButtonLeft(R.mipmap.icon_info, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gotoWeb("/AppContent/productdescription", "名词解释");
             }
-        }).setImageButtonRight(R.drawable.ic_menu_search, new View.OnClickListener() {
+        }).setImageButtonRight(R.mipmap.icon_search, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), NewSearchActivity.class);
@@ -73,15 +82,75 @@ public class ProductCategoryFragment extends BaseFragment {
         });
 
         mViewPager = (ViewPager) view.findViewById(R.id.pager);
-        mTabs = ((PagerSlidingTabStrip) view.findViewById(R.id.tabs));
-        mTabs.setIndicatorColor(0xFFFF3035);
         mViewPager.setPageMargin(Utils.dip2px(getActivity(), 4));
         mViewPager.setOffscreenPageLimit(5);
 
         mHttpService = new HttpService(mContext, this);
 //        mHttpService.getIsShowDeposit();
         mHttpService.getLoanSignType();
+        ButterKnife.bind(this, view);
         return view;
+    }
+
+
+    public void reflex(final TabLayout tabLayout) {
+        //了解源码得知 线的宽度是根据 tabView的宽度来设置的
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //拿到tabLayout的mTabStrip属性
+                    LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
+
+                    int dp10 = Utils.dip2px(tabLayout.getContext(), 10);
+
+                    for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+                        View tabView = mTabStrip.getChildAt(i);
+
+                        //拿到tabView的mTextView属性  tab的字数不固定一定用反射取mTextView
+                        Field mTextViewField = tabView.getClass().getDeclaredField("mTextView");
+                        mTextViewField.setAccessible(true);
+
+                        TextView mTextView = (TextView) mTextViewField.get(tabView);
+
+                        tabView.setPadding(0, 0, 0, 0);
+
+                        int tabViewWidth = tabView.getWidth();
+                        if (tabViewWidth == 0) {
+                            tabView.measure(0, 0);
+                            tabViewWidth = tabView.getMeasuredWidth();
+                        }
+
+                        //因为我想要的效果是   字多宽线就多宽，所以测量mTextView的宽度
+                        int width = 0;
+                        width = mTextView.getWidth();
+                        if (width == 0) {
+                            mTextView.measure(0, 0);
+                            width = mTextView.getMeasuredWidth();
+                        }
+
+                        /**
+                         * 1.因为用到了反射，所以混淆的时候要注意
+                         * 2.如果app:tabMode="fixed"，每个TabView的weight都为1，设置width是没用的，目前的解决办法是可以先拿到TabView的宽度减去TextView宽度除以2，得到TabView的左右margin，设置上去就行了（看看谁有更好的办法，希望提出来如何解决）
+                         */
+                        int margin = (tabViewWidth - width) / 2;
+                        //设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
+                        params.width = width;
+                        params.leftMargin = margin;
+                        params.rightMargin = margin;
+                        tabView.setLayoutParams(params);
+
+                        tabView.invalidate();
+                    }
+
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -119,7 +188,8 @@ public class ProductCategoryFragment extends BaseFragment {
         mTabsAdapter = new MyAdapter(getChildFragmentManager(), typeBean.types);
         mViewPager.setOffscreenPageLimit(mTabsAdapter.getCount());
         mViewPager.setAdapter(mTabsAdapter);
-        mTabs.setViewPager(mViewPager);
+//        mTabs.setViewPager(mViewPager);
+        tabLayout.setupWithViewPager(mViewPager);
         mViewPager.setCurrentItem(0);
 
         int currentListTabType = ((FinanceApplication) getActivity().getApplication()).currentListTabType;
@@ -143,6 +213,49 @@ public class ProductCategoryFragment extends BaseFragment {
             public void onPageScrollStateChanged(int i) {
             }
         });
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                //字体加粗
+                LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
+                View tabView = mTabStrip.getChildAt(tab.getPosition());
+                Field mTextViewField = null;
+                try {
+                    mTextViewField = tabView.getClass().getDeclaredField("mTextView");
+                    mTextViewField.setAccessible(true);
+                    TextView mTextView = (TextView) mTextViewField.get(tabView);
+                    mTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                //字体取消加粗
+                LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(0);
+                View tabView = mTabStrip.getChildAt(tab.getPosition());
+                Field mTextViewField = null;
+                try {
+                    mTextViewField = tabView.getClass().getDeclaredField("mTextView");
+                    mTextViewField.setAccessible(true);
+                    TextView mTextView = (TextView) mTextViewField.get(tabView);
+                    mTextView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        reflex(tabLayout);
     }
 
     //产品列表是否加载成功
@@ -162,6 +275,12 @@ public class ProductCategoryFragment extends BaseFragment {
         if (event != null & event.getCurrentEvent().equals(EventStringModel.EVENT_PRODUCT_LIST_LOAD_SUCCECC)) {//产品列表加载成功
             productListLoadSuccess = true;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     class MyAdapter extends FragmentStatePagerAdapter {

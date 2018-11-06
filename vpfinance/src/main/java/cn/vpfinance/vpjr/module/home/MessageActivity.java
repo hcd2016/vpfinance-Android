@@ -6,6 +6,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.Utils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +58,7 @@ public class MessageActivity extends BaseActivity {
             }
         });
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        viewPager.setOffscreenPageLimit(tabList.size());
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         initTabs();
@@ -98,7 +102,7 @@ public class MessageActivity extends BaseActivity {
         }
     }
 
-    class PagerAdapter extends FragmentPagerAdapter {
+    class PagerAdapter extends FragmentStatePagerAdapter {
 
         public PagerAdapter(FragmentManager fm) {
             super(fm);

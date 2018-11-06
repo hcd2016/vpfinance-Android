@@ -275,4 +275,8 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+    <style name="TabLayoutStyle">
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
