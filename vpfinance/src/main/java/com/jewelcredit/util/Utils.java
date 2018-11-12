@@ -14,8 +14,6 @@ import android.graphics.RectF;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
@@ -64,7 +62,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.module.common.WebViewActivity;
 
 
@@ -123,7 +121,7 @@ public class Utils {
 
     public static void Toast(String text) {
         if (toast == null) {
-            toast = Toast.makeText(FinanceApplication.getContext(), text, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(App.getContext(), text, Toast.LENGTH_SHORT);
         } else {
             toast.setText(text);
         }
@@ -716,9 +714,9 @@ public class Utils {
     public static final int getColor(int id) {
         final int version = Build.VERSION.SDK_INT;
         if (version >= 23) {
-            return ContextCompat.getColor(FinanceApplication.getContext(), id);
+            return ContextCompat.getColor(App.getContext(), id);
         } else {
-            return FinanceApplication.getContext().getResources().getColor(id);
+            return App.getContext().getResources().getColor(id);
         }
     }
 

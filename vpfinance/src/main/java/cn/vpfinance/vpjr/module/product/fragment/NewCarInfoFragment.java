@@ -28,6 +28,7 @@ import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.adapter.NewCarListAdapter;
 import cn.vpfinance.vpjr.gson.NewCarInfoBean;
 import cn.vpfinance.vpjr.util.Common;
+import cn.vpfinance.vpjr.view.CoordinatorLayoutListView;
 import cn.vpfinance.vpjr.view.TagCloudView;
 
 /**
@@ -41,7 +42,7 @@ public class NewCarInfoFragment extends BaseFragment {
     @Bind(R.id.carTag)
     TagCloudView   mCarTag;
     @Bind(R.id.listView)
-    ListView       mListView;
+    CoordinatorLayoutListView mListView;
     @Bind(R.id.lookOtherProduct)
     Button         mLookOtherProduct;
     @Bind(R.id.rl_show_login)

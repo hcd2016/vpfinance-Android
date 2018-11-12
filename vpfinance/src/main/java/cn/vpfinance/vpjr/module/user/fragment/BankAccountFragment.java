@@ -2,7 +2,6 @@ package cn.vpfinance.vpjr.module.user.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -33,15 +32,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.Constant;
-import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.QueryAutoStatusBean;
 import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
-import cn.vpfinance.vpjr.module.dialog.HxUpdateDialog;
 import cn.vpfinance.vpjr.module.gusturelock.LockActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestProtocolActivity;
@@ -64,7 +62,6 @@ import cn.vpfinance.vpjr.module.user.personal.InvestTopActivity;
 import cn.vpfinance.vpjr.module.user.personal.InviteGiftActivity;
 import cn.vpfinance.vpjr.module.user.personal.MyMedalActivity;
 import cn.vpfinance.vpjr.module.user.personal.TrialCoinActivity;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
@@ -343,7 +340,7 @@ public class BankAccountFragment extends BaseFragment {
 //        mHeaderNoOpen.setVisibility(isOpen ? View.GONE : View.VISIBLE);
 //        mOpenContent.setVisibility(!isOpen ? View.GONE : View.VISIBLE);
 //        noOpenHidden.setVisibility(!isOpen ? View.GONE : View.VISIBLE);
-        ((FinanceApplication) getActivity().getApplication()).isOpenHx = isOpen;
+        ((App) getActivity().getApplication()).isOpenHx = isOpen;
 
         String tradeFlowRecordInfo = "" + mUserInfoBean.returnedCount;
         String text = "近七日有" + tradeFlowRecordInfo + "笔回款";
@@ -387,7 +384,7 @@ public class BankAccountFragment extends BaseFragment {
             mHttpService.getQueryAutoPlankStatus(user.getUserId().toString());
         }
         if (!TextUtils.isEmpty(mUserInfoBean.isBindHxBank)) {
-            ((FinanceApplication) getActivity().getApplication()).isBindBank = mUserInfoBean.isBindHxBank;
+            ((App) getActivity().getApplication()).isBindBank = mUserInfoBean.isBindHxBank;
         }
 
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(mContext);
@@ -500,7 +497,7 @@ public class BankAccountFragment extends BaseFragment {
                     String cashBalance = mUserInfoBean.cashBalance;
                     String isAutoTender = mUserInfoBean.isAutoTender;
                     int accountType = Constant.AccountLianLain;
-                    String isBindBank = ((FinanceApplication) getActivity().getApplication()).isBindBank;
+                    String isBindBank = ((App) getActivity().getApplication()).isBindBank;
 
                     if (mUserInfoBean != null && mUserInfoBean.autoTenderProtocol != 1) {
                         AutoInvestProtocolActivity.goThis(getContext(), accountType, cashBalance, isAutoTender, isBindBank);
@@ -548,7 +545,7 @@ public class BankAccountFragment extends BaseFragment {
                 break;
             case R.id.click_return_money_content://回款查询
             case R.id.click_return_money_header://回款日历/回款查询
-                SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(FinanceApplication.getAppContext());
+                SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(App.getAppContext());
                 String state = sp.getStringValue(SharedPreferencesHelper.STATE_RETURN_CALENDER_OR_LIST);
                 if ("2".equals(state)) {
                     goAction(QueryReturnMoneyListActivity.class);

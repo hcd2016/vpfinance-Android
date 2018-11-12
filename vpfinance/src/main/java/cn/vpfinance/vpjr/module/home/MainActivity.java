@@ -41,7 +41,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.download.DownloadObserver;
 import cn.vpfinance.vpjr.download.SpUtils;
@@ -124,7 +124,7 @@ public class MainActivity extends BaseActivity {
         String version = Utils.getVersion(this);
 
         //第一次进来检查版本号和是否锁屏
-        if (((FinanceApplication) getApplication()).isCheckUpdate) {
+        if (((App) getApplication()).isCheckUpdate) {
             SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
             String saved_logPwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD);
             String saved_name = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME);
@@ -138,7 +138,7 @@ public class MainActivity extends BaseActivity {
                 }
             }
             mHttpService.getVersionCheck(version);
-            ((FinanceApplication) getApplication()).isCheckUpdate = false;
+            ((App) getApplication()).isCheckUpdate = false;
         }
         //mHttpService.getVpUrl();
         initView();
@@ -184,10 +184,10 @@ public class MainActivity extends BaseActivity {
 
         //弹窗提醒用户
         user = DBUtils.getUser(this);
-        if (((FinanceApplication) getApplication()).login && user != null) {
+        if (((App) getApplication()).login && user != null) {
             mHttpService.getQueryPopUp(user.getUserId().toString());
             mHttpService.getQueryAutoPlankStatus(user.getUserId().toString());
-            ((FinanceApplication) getApplication()).login = false;
+            ((App) getApplication()).login = false;
         }
     }
 
@@ -228,7 +228,8 @@ public class MainActivity extends BaseActivity {
                         case R.id.maintab_mine_radiobtn:
                             SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(MainActivity.this);
                             String lockString = sharedPreferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING);
-                            if (!AppState.instance().logined() || TextUtils.isEmpty(lockString)) {
+//                            if (!AppState.instance().logined() || TextUtils.isEmpty(lockString)) {
+                            if (!AppState.instance().logined()) {
                                 self.startActivityForResult(new Intent(self, LoginActivity.class), 1);
                                 return;
                             }
@@ -318,7 +319,7 @@ public class MainActivity extends BaseActivity {
                 ((RadioButton) findViewById(R.id.maintab_mine_radiobtn)).setChecked(true);
 
                 //两年没换密码就提示更换一下密码
-                FinanceApplication application = (FinanceApplication) getApplication();
+                App application = (App) getApplication();
                 if (application.isNeedUpdatePwd) {
                     new AlertDialog.Builder(this)
                             .setMessage("您已经很久没更换过密码了，请更换登录密码保障您的账户安全")
@@ -364,7 +365,7 @@ public class MainActivity extends BaseActivity {
         } else if (reqId == ServiceCmd.CmdId.CMD_SERVICE_TIME.ordinal()) {
             long serverTime = json.optLong("serverTime");
             long differTime = serverTime - System.currentTimeMillis();
-            ((FinanceApplication) getApplication()).differTime = differTime;
+            ((App) getApplication()).differTime = differTime;
 //            Logger.e("Main: serverTime = [" + serverTime + "], differTime = [" + differTime + "]");
         } else if (reqId == ServiceCmd.CmdId.CMD_QUERY_POP_UP.ordinal()) {
             QueryPopUpBean bean = new Gson().fromJson(json.toString(), QueryPopUpBean.class);
@@ -427,7 +428,7 @@ public class MainActivity extends BaseActivity {
                 Toast.makeText(this, "再按一次退出微品金融.", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
-                FinanceApplication.appExit();
+                App.appExit();
             }
             return true;
         }

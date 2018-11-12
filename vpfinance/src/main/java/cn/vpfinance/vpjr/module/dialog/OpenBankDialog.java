@@ -2,10 +2,8 @@ package cn.vpfinance.vpjr.module.dialog;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +12,7 @@ import android.view.Window;
 import com.jewelcredit.util.Utils;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.Constant;
-import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.greendao.User;
-import cn.vpfinance.vpjr.module.common.LoginActivity;
-import cn.vpfinance.vpjr.module.home.MainActivity;
-import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 
 

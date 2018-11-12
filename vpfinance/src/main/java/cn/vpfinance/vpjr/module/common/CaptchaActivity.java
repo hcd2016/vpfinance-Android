@@ -16,7 +16,6 @@ import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
-import com.mob.tools.utils.SharePrefrenceHelper;
 
 import org.json.JSONObject;
 
@@ -26,8 +25,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
-import cn.vpfinance.android.wxapi.WXEntryActivity;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.BankCardDao;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
@@ -37,7 +35,6 @@ import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.gson.UserRegisterBean;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity;
-import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
@@ -248,7 +245,7 @@ public class CaptchaActivity extends BaseActivity {
                             preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_WEIXIN_UNIONID,userRegisterBean.getUnionid());
                         }
                     }
-                    FinanceApplication application = (FinanceApplication) getApplication();
+                    App application = (App) getApplication();
                     application.isLogin = true;
                     SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, userRegisterBean.getUserType());
                     getUser();
@@ -283,7 +280,7 @@ public class CaptchaActivity extends BaseActivity {
             }
             int needUpdatePwd = json.optInt("needUpdatePwd", 0);//1就是需要修改密码
             if (needUpdatePwd == 1) {
-                ((FinanceApplication) getApplication()).isNeedUpdatePwd = true;
+                ((App) getApplication()).isNeedUpdatePwd = true;
             }
 
             if (user != null) {
@@ -313,7 +310,7 @@ public class CaptchaActivity extends BaseActivity {
                 setResult(RESULT_OK, intent);
                 //清理login present标志
                 HttpService.clearPresentLoginFlag();
-                ((FinanceApplication) getApplication()).login = true;
+                ((App) getApplication()).login = true;
                 startActivity(new Intent(this, LockSetupActivity.class));
                 EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS));//微信登录成功
                 finish();

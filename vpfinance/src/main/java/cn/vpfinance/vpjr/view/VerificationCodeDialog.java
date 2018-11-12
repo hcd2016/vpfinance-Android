@@ -1,11 +1,9 @@
 package cn.vpfinance.vpjr.view;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,6 @@ import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tdk.utils.HttpDownloader;
 
 import org.json.JSONArray;
@@ -30,7 +27,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.util.Common;
 
 /**
@@ -236,7 +233,7 @@ public class VerificationCodeDialog extends DialogFragment implements HttpDownlo
                     str = "其他错误";
                     break;
             }
-            Utils.Toast(FinanceApplication.getAppContext(),str);
+            Utils.Toast(App.getAppContext(),str);
         }
 
     }
@@ -253,6 +250,6 @@ public class VerificationCodeDialog extends DialogFragment implements HttpDownlo
 
     @Override
     public void onHttpError(int reqId, String errmsg) {
-        Utils.Toast(FinanceApplication.getAppContext(),"加载数据失败，请检查您的网络...");
+        Utils.Toast(App.getAppContext(),"加载数据失败，请检查您的网络...");
     }
 }

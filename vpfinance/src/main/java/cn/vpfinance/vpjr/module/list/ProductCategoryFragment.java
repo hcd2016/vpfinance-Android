@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.astuetz.PagerSlidingTabStripNew;
 import com.google.gson.Gson;
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.HttpService;
@@ -33,7 +32,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.gson.LoanSignTypeBean;
 import cn.vpfinance.vpjr.model.RefreshTab;
@@ -192,7 +191,7 @@ public class ProductCategoryFragment extends BaseFragment {
         tabLayout.setupWithViewPager(mViewPager);
         mViewPager.setCurrentItem(0);
 
-        int currentListTabType = ((FinanceApplication) getActivity().getApplication()).currentListTabType;
+        int currentListTabType = ((App) getActivity().getApplication()).currentListTabType;
         for (int i = 0; i < typeBean.types.size(); i++) {
             if (currentListTabType == typeBean.types.get(i).value) {
                 mViewPager.setCurrentItem(i);
@@ -206,7 +205,7 @@ public class ProductCategoryFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int i) {
-                ((FinanceApplication) getActivity().getApplication()).currentListTabType = mTabsAdapter.getTabValue(i);
+                ((App) getActivity().getApplication()).currentListTabType = mTabsAdapter.getTabValue(i);
             }
 
             @Override

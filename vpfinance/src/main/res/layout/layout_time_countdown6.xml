@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="3dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="剩余时间"
+        android:textColor="@color/text_999999"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:id="@+id/countdown_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/text_333333"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 天 "
+        android:textColor="@color/text_333333"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/countdown_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/text_333333"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 时 "
+        android:textColor="@color/text_333333"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/countdown_minute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/text_333333"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 分 "
+        android:textColor="@color/text_333333"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/countdown_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/text_333333"
+        android:textSize="13sp"
+        android:visibility="visible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="秒"
+        android:textColor="@color/text_333333"
+        android:textSize="12sp"
+        android:visibility="visible" />
+
+</LinearLayout>

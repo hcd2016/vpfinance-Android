@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    android:orientation="vertical">
+
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_product_list" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/shape_radius6_white"
+                    android:orientation="vertical">
+
+                    <!--账户余额-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="账户余额"
+                            android:textColor="@color/text_999999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_account_balance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_333333"
+                            android:textSize="14sp"
+                            tools:text="1000元" />
+
+                        <TextView
+                            android:id="@+id/btn_recharge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="充值"
+                            android:textColor="@color/red_text2"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <!--出借金额-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="出借金额"
+                            android:textColor="@color/text_999999"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/et_loan_amount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:background="@color/gray_bg"
+                            android:hint="100元起投"
+                            android:lines="1"
+                            android:paddingBottom="9dp"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="9dp"
+                            android:textColor="@color/text_333333"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/btn_allin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="全投"
+                            android:textColor="@color/text_333333"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <!--预计收益-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="预计收益"
+                            android:textColor="@color/text_999999"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/tv_earnings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0.00元"
+                            android:textColor="@color/text_333333"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <!--优惠券-->
+                    <LinearLayout
+                        android:id="@+id/ll_discount_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="优惠券"
+                            android:textColor="@color/text_999999"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/tv_discount_counts"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_333333"
+                            android:textSize="14sp"
+                            tools:text="1张可用" />
+
+                        <ImageView
+                            android:layout_width="7dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/nav_next" />
+                    </LinearLayout>
+
+                    <include layout="@layout/line_linear_gray" />
+
+                    <!--合同范本-->
+                    <LinearLayout
+                        android:id="@+id/ll_change_checkbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_margin="15dp">
+
+                        <CheckBox
+                            android:id="@+id/mCheckBox"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:background="@drawable/agreement_checkbox_selector_new"
+                            android:button="@null"
+                            android:checked="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:text="我已阅读并同意"
+                            android:textColor="@color/text_666666"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvProtocal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:text="《合同范本》"
+                            android:textColor="@color/link_blue"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvProtocal2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="0dp"
+                            android:text="《风险披露声明》"
+                            android:textColor="@color/link_blue"
+                            android:textSize="12sp"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginBottom="150dp"
+                    android:id="@+id/tv_bottom_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="本产品认购金额为100的整数倍"
+                    android:textColor="@color/text_999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/invest"
+            style="@style/SubmitButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_btn_submit"
+            android:enabled="true"
+            android:gravity="center"
+            android:text="我要出借"
+            android:textSize="18sp"
+            android:visibility="visible" />
+    </RelativeLayout>
+</LinearLayout>

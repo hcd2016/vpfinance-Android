@@ -121,10 +121,10 @@ public class HttpLoader {
 
         if (method.equals("get")) {
 
-//            FinanceApplication.getAppContext().requestInfoMap.put(reqId,new ServerDownRequestInfo(ServerDownRequestInfo.METHOD.GET,url,params));
+//            App.getAppContext().requestInfoMap.put(reqId,new ServerDownRequestInfo(ServerDownRequestInfo.METHOD.GET,url,params));
             HttpDownloader.doGet(url + Utils.buildGetUrl(params, true), new HttpResponseHandler(reqId));
         } else {
-//            FinanceApplication.getAppContext().requestInfoMap.put(reqId,new ServerDownRequestInfo(ServerDownRequestInfo.METHOD.POST,url,params));
+//            App.getAppContext().requestInfoMap.put(reqId,new ServerDownRequestInfo(ServerDownRequestInfo.METHOD.POST,url,params));
 //            url = "http://192.168.1.129:17190/AuthorizationApplication";
             HttpDownloader.doPost(url, params, new HttpResponseHandler(reqId));
         }

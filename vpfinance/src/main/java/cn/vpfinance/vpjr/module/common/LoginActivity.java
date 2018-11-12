@@ -6,7 +6,6 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,13 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.jewelcredit.ui.widget.ActionBarWhiteLayout;
 import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
-import com.mob.tools.utils.SharePrefrenceHelper;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.yintong.pay.utils.Md5Algorithm;
@@ -37,17 +34,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.BankCardDao;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
 import cn.vpfinance.vpjr.greendao.DaoSession;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.greendao.UserDao;
-import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity;
-import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.view.EditTextWithDel;
@@ -294,7 +289,7 @@ public class LoginActivity extends BaseActivity {
                 doLogin();
                 break;
             case R.id.ibWeiXinLogin:
-                IWXAPI mWxApi = ((FinanceApplication) getApplication()).mWxApi;
+                IWXAPI mWxApi = ((App) getApplication()).mWxApi;
                 if (!mWxApi.isWXAppInstalled()) {
                     Utils.Toast("您还未安装微信客户端");
                     return;
@@ -371,7 +366,7 @@ public class LoginActivity extends BaseActivity {
             }
             int needUpdatePwd = json.optInt("needUpdatePwd", 0);//1就是需要修改密码
             if (needUpdatePwd == 1) {
-                ((FinanceApplication) getApplication()).isNeedUpdatePwd = true;
+                ((App) getApplication()).isNeedUpdatePwd = true;
             }
 
             if (user != null) {
@@ -404,7 +399,7 @@ public class LoginActivity extends BaseActivity {
                 setResult(RESULT_OK, intent);
                 //清理login present标志
                 HttpService.clearPresentLoginFlag();
-                ((FinanceApplication) getApplication()).login = true;
+                ((App) getApplication()).login = true;
                 startActivity(new Intent(this, LockSetupActivity.class));
                 finish();
             }
@@ -423,7 +418,7 @@ public class LoginActivity extends BaseActivity {
                 findViewById(R.id.btnLogin).setEnabled(true);
                 return;
             } else {
-                FinanceApplication application = (FinanceApplication) getApplication();
+                App application = (App) getApplication();
                 application.isLogin = true;
                 SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, isPersonType);
                 mHttpService.getUserInfo();

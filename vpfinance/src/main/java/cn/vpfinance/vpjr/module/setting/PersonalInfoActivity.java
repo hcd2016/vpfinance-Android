@@ -46,9 +46,8 @@ import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.BankCard;
 import cn.vpfinance.vpjr.greendao.BankCardDao;
@@ -73,7 +72,6 @@ import cn.vpfinance.vpjr.util.FileUtil;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.ScreenUtil;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
-import cn.vpfinance.vpjr.util.VerifyUtils;
 import cn.vpfinance.vpjr.view.CircleImg;
 import cn.vpfinance.vpjr.view.popwindow.SelectPicPopupWindow;
 import de.greenrobot.event.EventBus;
@@ -581,8 +579,8 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
 //                builder.setPositiveButton("退出登录", new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
-//                        FinanceApplication application = (FinanceApplication)getApplication();
-//                        application.guideConfig.put(FinanceApplication.SHOW_SETUP_GUIDE, false);
+//                        App application = (App)getApplication();
+//                        application.guideConfig.put(App.SHOW_SETUP_GUIDE, false);
 //                        logout();
 //                    }
 //                });
@@ -592,8 +590,8 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 dialogFragment.setOnAllLinstener(new CommonDialogFragment.onAllListener() {
                     @Override
                     public void clickOk() {
-//                        FinanceApplication application = (FinanceApplication)getApplication();
-//                        application.guideConfig.put(FinanceApplication.SHOW_SETUP_GUIDE, false);
+//                        App application = (App)getApplication();
+//                        application.guideConfig.put(App.SHOW_SETUP_GUIDE, false);
                         logout();
                     }
 
@@ -668,7 +666,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                     commonTipsDialog.setOnRightClickListener(new CommonTipsDialog.OnRightClickListener() {
                         @Override
                         public void onRightClick() {//确定
-                            IWXAPI mWxApi = ((FinanceApplication) getApplication()).mWxApi;
+                            IWXAPI mWxApi = ((App) getApplication()).mWxApi;
                             if (!mWxApi.isWXAppInstalled()) {
                                 Utils.Toast("您还未安装微信客户端");
                                 return;
@@ -748,7 +746,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         preferencesHelper.removeKey(SharedPreferencesHelper.KEY_LOCK_STRING);
         preferencesHelper.removeKey(SharedPreferencesHelper.KEY_LOCK_USER_ID);
 
-        ((FinanceApplication) getApplication()).isLogin = false;
+        ((App) getApplication()).isLogin = false;
         mHttpService.logout();
         AppState.instance().logout();
         Intent intent = new Intent(this, MainActivity.class);
@@ -1020,7 +1018,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
-                .addHeader("APP-VERSION",Utils.getVersion(FinanceApplication.getAppContext()))
+                .addHeader("APP-VERSION",Utils.getVersion(App.getAppContext()))
                 .build();
 
         okHttpClient.newCall(request).enqueue(new Callback() {

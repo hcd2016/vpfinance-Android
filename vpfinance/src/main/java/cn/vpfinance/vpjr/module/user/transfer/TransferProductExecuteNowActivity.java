@@ -1,6 +1,5 @@
 package cn.vpfinance.vpjr.module.user.transfer;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import com.jewelcredit.util.DifColorTextStringBuilder;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
-import com.yintong.pay.utils.Md5Algorithm;
 
 import org.json.JSONObject;
 
@@ -22,8 +20,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.Constant;
-import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
@@ -273,7 +271,7 @@ public class TransferProductExecuteNowActivity extends BaseActivity {
                     gotoWeb(url, "转让债权");
                     break;
                 case "1":
-                    Utils.Toast(FinanceApplication.getContext(), mess);
+                    Utils.Toast(App.getContext(), mess);
                     break;
             }
         }

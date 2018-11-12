@@ -29,8 +29,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.Constant;
-import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.adapter.LoanSignDepositListAdapter;
 import cn.vpfinance.vpjr.adapter.LoanSignListNewAdapter;
 import cn.vpfinance.vpjr.base.BaseActivity;
@@ -85,7 +85,7 @@ public class NewSearchActivity extends BaseActivity {
         mContext = this;
         mHttpService = new HttpService(this, this);
 
-        int currentListTabType = ((FinanceApplication) getApplication()).currentListTabType;
+        int currentListTabType = ((App) getApplication()).currentListTabType;
 //
         if (currentListTabType == Constant.TYPE_POOL) {
             mDepositAdapter = new LoanSignDepositListAdapter(mContext);
@@ -159,7 +159,7 @@ public class NewSearchActivity extends BaseActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int currentListTabType = ((FinanceApplication) getApplication()).currentListTabType;
+                int currentListTabType = ((App) getApplication()).currentListTabType;
 
                 switch (currentListTabType) {
                     /*case Constant.TYPE_BANK:
@@ -213,7 +213,7 @@ public class NewSearchActivity extends BaseActivity {
 
     public void requestNet() {
         String searchText = mSearchText.getText().toString();
-        int currentListTabType = ((FinanceApplication) getApplication()).currentListTabType;
+        int currentListTabType = ((App) getApplication()).currentListTabType;
 
         switch (currentListTabType) {
             case Constant.TYPE_BANK:
@@ -249,7 +249,7 @@ public class NewSearchActivity extends BaseActivity {
                     }
                     totalData.addAll(listNew.loansigns);
                 }
-                int currentListTabType = ((FinanceApplication) getApplication()).currentListTabType;
+                int currentListTabType = ((App) getApplication()).currentListTabType;
                 mListAdapter.setData(totalData, currentListTabType);
             }
         } else if (reqId == ServiceCmd.CmdId.CMD_Loan_Sign_Pool.ordinal()) {

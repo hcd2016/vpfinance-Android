@@ -12,7 +12,7 @@ import org.joda.time.Interval;
 import org.joda.time.Period;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 
 
 /**
@@ -86,7 +86,7 @@ public class MyCountDownTimer extends LinearLayout {
      * @return
      */
     private long getCurrentTime(Context context){
-        FinanceApplication application = (FinanceApplication) context.getApplicationContext();
+        App application = (App) context.getApplicationContext();
         long serviceTime = application.differTime + System.currentTimeMillis();
 //        Logger.e("getCurrentTime: differTime:"+application.differTime+",serviceTime: "+serviceTime);
         return serviceTime;

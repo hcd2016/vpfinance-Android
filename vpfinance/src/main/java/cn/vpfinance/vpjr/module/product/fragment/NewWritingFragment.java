@@ -3,15 +3,21 @@ package cn.vpfinance.vpjr.module.product.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
@@ -37,18 +43,19 @@ import cn.vpfinance.vpjr.util.Common;
 public class NewWritingFragment extends BaseFragment {
 
     private static final String PRODUCT_ID = "loanId";
-    private static final String NET_URL    = "netUrl";
+    private static final String NET_URL = "netUrl";
 
-    @Bind(R.id.list_view)
-    ListView       mListView;
+    @Bind(R.id.recyclerView)
+//    ListView       mListView;
+            RecyclerView recyclerView;
     @Bind(R.id.lookOtherProduct)
-    Button         mLookOtherProduct;
+    Button mLookOtherProduct;
     @Bind(R.id.rl_show_login)
-    RelativeLayout mRlShowLogin;
+    LinearLayout mRlShowLogin;
 
 
-    private long        mLoanId;
-    private String      mNetUrl;
+    private long mLoanId;
+    private String mNetUrl;
     private HttpService mHttpService;
 
 
@@ -68,8 +75,10 @@ public class NewWritingFragment extends BaseFragment {
     public void onResume() {
         if (AppState.instance().logined()) {
             mRlShowLogin.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
         } else {
             mRlShowLogin.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
         }
         super.onResume();
     }
@@ -86,9 +95,12 @@ public class NewWritingFragment extends BaseFragment {
 
 //                if (newWritingBean.dataType == 1) {//1.为纯文字，如风险控制这种
 //                }
-                ListViewAdapter adapter = new ListViewAdapter(mContext);
-                mListView.setAdapter(adapter);
-                adapter.setData(newWritingBean.data);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                MyAdapter myAdapter = new MyAdapter(newWritingBean.data);
+                recyclerView.setAdapter(myAdapter);
+//                ListViewAdapter adapter = new ListViewAdapter(mContext);
+//                mListView.setAdapter(adapter);
+//                adapter.setData(newWritingBean.data);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -119,57 +131,70 @@ public class NewWritingFragment extends BaseFragment {
     }
 
 
-    private class ListViewAdapter extends BaseAdapter {
+//    private class ListViewAdapter extends BaseAdapter {
+//
+//        private Context mContext;
+//        private List<NewWritingBean.DataBean> mData;
+//
+//        public ListViewAdapter(Context context) {
+//            mContext = context;
+//        }
+//
+//        public void setData(List<NewWritingBean.DataBean> data) {
+//            this.mData = data;
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mData == null ? 0 : mData.size();
+//        }
+//
+//        @Override
+//        public NewWritingBean.DataBean getItem(int position) {
+//            return mData == null ? null : mData.get(position);
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return 0;
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            ViewHolder viewHolder = null;
+//            if (null == convertView) {
+//                viewHolder = new ViewHolder();
+//                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_regular_product_project_introduction, null);
+//                viewHolder.titlTextView = (TextView) convertView.findViewById(R.id.item_regular_product_project_introduction_title_textview);
+//                viewHolder.contentTextView = (TextView) convertView.findViewById(R.id.item_regular_product_project_introduction_content_textview);
+//            } else {
+//                viewHolder = (ViewHolder) convertView.getTag();
+//            }
+//
+//            NewWritingBean.DataBean dataBean = mData.get(position);
+//            viewHolder.titlTextView.setText(dataBean.key);
+//            viewHolder.contentTextView.setText("\u3000\u3000" + dataBean.value);
+//
+//            convertView.setTag(viewHolder);
+//            return convertView;
+//        }
+//
+//        public class ViewHolder {
+//            public TextView titlTextView;
+//            public TextView contentTextView;
+//        }
+//    }
 
-        private Context                       mContext;
-        private List<NewWritingBean.DataBean> mData;
+    private class MyAdapter extends BaseQuickAdapter<NewWritingBean.DataBean,BaseViewHolder> {
 
-        public ListViewAdapter(Context context) {
-            mContext = context;
-        }
-
-        public void setData(List<NewWritingBean.DataBean> data) {
-            this.mData = data;
+        public MyAdapter(@Nullable List<NewWritingBean.DataBean> data) {
+            super(R.layout.item_regular_product_project_introduction,data);
         }
 
         @Override
-        public int getCount() {
-            return mData == null ? 0 : mData.size();
-        }
-
-        @Override
-        public NewWritingBean.DataBean getItem(int position) {
-            return mData == null ? null : mData.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder viewHolder = null;
-            if (null == convertView) {
-                viewHolder = new ViewHolder();
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_regular_product_project_introduction, null);
-                viewHolder.titlTextView = (TextView) convertView.findViewById(R.id.item_regular_product_project_introduction_title_textview);
-                viewHolder.contentTextView = (TextView) convertView.findViewById(R.id.item_regular_product_project_introduction_content_textview);
-            } else {
-                viewHolder = (ViewHolder) convertView.getTag();
-            }
-
-            NewWritingBean.DataBean dataBean = mData.get(position);
-            viewHolder.titlTextView.setText(dataBean.key);
-            viewHolder.contentTextView.setText("\u3000\u3000" + dataBean.value);
-
-            convertView.setTag(viewHolder);
-            return convertView;
-        }
-
-        public class ViewHolder {
-            public TextView titlTextView;
-            public TextView contentTextView;
+        protected void convert(BaseViewHolder helper, NewWritingBean.DataBean item) {
+            helper.setText(R.id.item_regular_product_project_introduction_title_textview,item.key);
+            helper.setText(R.id.item_regular_product_project_introduction_content_textview,"\u3000\u3000" + item.value);
         }
     }
 

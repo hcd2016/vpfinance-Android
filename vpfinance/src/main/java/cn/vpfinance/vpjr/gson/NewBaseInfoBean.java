@@ -59,6 +59,7 @@ public class NewBaseInfoBean {
     public int    graceDays; //是否是浮动计息,大于0为浮动计息
     public String    flowInvestReminder; //浮动计息文案
     public int riskLevel;//标的风险等级 1 保守型 2稳健型 3积极型
+    public double tenderMoney; //购买了多少
 
     /**
      * value : 1477904984000

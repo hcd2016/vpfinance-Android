@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,6 @@ import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
@@ -35,7 +33,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.dialog.TextInputDialogFragment;
@@ -50,7 +48,6 @@ import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.gson.FinanceProduct;
 import cn.vpfinance.vpjr.gson.ProductCarInfo;
-import cn.vpfinance.vpjr.model.BuyResult;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.model.ProductCarDescriptionInfo;
 import cn.vpfinance.vpjr.model.RegularProductInfo;
@@ -235,7 +232,7 @@ public class RegularProductBorrowerFragment2 extends BaseFragment implements Vie
                     intent.putExtra(ProductInvestActivity.TYPE_PRODUCT, ProductInvestActivity.TYPE_CAR_PRODUCT);
                     intent.putExtra("pid", "" + product.getPid());
                     intent.putExtra(ProductInvestActivity.IS_ORDER, true);
-                    FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
+                    App myApp = (App) getActivity().getApplication();
                     myApp.currentPid = "" + product.getPid();
                     startActivity(intent);
                 }
@@ -250,7 +247,7 @@ public class RegularProductBorrowerFragment2 extends BaseFragment implements Vie
                     intent.putExtra(ProductInvestActivity.IPHONE, product.getGivePhone());
                     intent.putExtra(ProductInvestActivity.TYPE_PRODUCT, ProductInvestActivity.TYPE_CAR_PRODUCT);
                     intent.putExtra("pid", "" + product.getPid());
-                    FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
+                    App myApp = (App) getActivity().getApplication();
                     myApp.currentPid = "" + product.getPid();
                     startActivity(intent);
                 }

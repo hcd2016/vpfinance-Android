@@ -17,13 +17,12 @@ import com.jewelcredit.util.ServiceCmd;
 import org.json.JSONObject;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity;
 import cn.vpfinance.vpjr.gson.FinanceProduct;
 import cn.vpfinance.vpjr.gson.PersonalInfo;
 import cn.vpfinance.vpjr.model.RegularProductInfo;
-import cn.vpfinance.vpjr.util.Common;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -184,7 +183,7 @@ public class RegularProductBorrowerCreditFragment extends BaseFragment implement
         if (product != null){
             Intent intent = new Intent(getActivity(), ProductInvestActivity.class);
             intent.putExtra("pid", "" + product.getPid());
-            FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
+            App myApp = (App) getActivity().getApplication();
             myApp.currentPid = ""+product.getPid();
             startActivity(intent);
         }

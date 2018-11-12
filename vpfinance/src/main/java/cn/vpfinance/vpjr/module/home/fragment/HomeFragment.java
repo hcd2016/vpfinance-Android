@@ -4,8 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +23,10 @@ import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
@@ -35,7 +38,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
-import cn.vpfinance.vpjr.adapter.HomeDepositAdapter;
 import cn.vpfinance.vpjr.adapter.HomeRegularAdapter;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.greendao.User;
@@ -92,6 +94,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     ImageView ivMsgPoint;
     @Bind(R.id.tv_title)
     TextView tvTitle;
+    @Bind(R.id.refresh)
+    SmartRefreshLayout refresh;
     private Context mContext;
     private HttpService mHttpService;
 
@@ -111,7 +115,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private FloatingAdView mFloatingAdView2;
     private RelativeLayout mRelativeLayout;
     private RelativeLayout mRelativeLayout2;
-    private SwipeRefreshLayout vSwipeRefreshLayout;
+    //    private SwipeRefreshLayout vSwipeRefreshLayout;
     private RelativeLayout rootView;
 
     public static HomeFragment newInstance() {
@@ -189,17 +193,25 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mHttpService.getAppmemberIndex(false);
         mHttpService.getShareRedPacketList();
         mHttpService.getHomeEvent();
-
-        vSwipeRefreshLayout = ((SwipeRefreshLayout) view.findViewById(R.id.vSwipeRefreshLayout));
-        vSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(mContext, R.color.main_color));
-        vSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        refresh.setEnableLoadMore(false);
+        refresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 mHttpService.getShareRedPacketList();
                 mHttpService.getAppmemberIndex(false);
                 mHttpService.getHomeEvent();
             }
         });
+//        vSwipeRefreshLayout = ((SwipeRefreshLayout) view.findViewById(R.id.vSwipeRefreshLayout));
+//        vSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(mContext, R.color.main_color));
+//        vSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                mHttpService.getShareRedPacketList();
+//                mHttpService.getAppmemberIndex(false);
+//                mHttpService.getHomeEvent();
+//            }
+//        });
 
         initView(view);
         return view;
@@ -237,7 +249,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
         }
         if (req == ServiceCmd.CmdId.CMD_APPMEMBER_INDEX.ordinal()) {
-            vSwipeRefreshLayout.setRefreshing(false);
+//            vSwipeRefreshLayout.setRefreshing(false);
+            refresh.finishRefresh();
             AppmemberIndexBean appmemberIndexBean = mHttpService.onGetAppmemberIndex(json);
             if (appmemberIndexBean != null) {
                 List<AppmemberIndexBean.BannerBean> banner = appmemberIndexBean.banner;
@@ -466,16 +479,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         } else {
             mRegularProduct.setVisibility(View.GONE);
         }
-        //定存宝
-        List<AppmemberIndexBean.LoanDataBean.LoansignPoolBean> loansignPool = loanData.loansignPool;
-        if (loansignPool != null && loansignPool.size() != 0) {
-            mDepositProduct.setVisibility(VISIBLE);
-            HomeDepositAdapter adapter = new HomeDepositAdapter();
-            adapter.setData(mContext, loansignPool);
-            mDepositProduct.setAdapter(adapter);
-        } else {
-            mDepositProduct.setVisibility(View.GONE);
-        }
+//        //定存宝
+//        List<AppmemberIndexBean.LoanDataBean.LoansignPoolBean> loansignPool = loanData.loansignPool;
+//        if (loansignPool != null && loansignPool.size() != 0) {
+//            mDepositProduct.setVisibility(VISIBLE);
+//            HomeDepositAdapter adapter = new HomeDepositAdapter();
+//            adapter.setData(mContext, loansignPool);
+//            mDepositProduct.setAdapter(adapter);
+//        } else {
+//            mDepositProduct.setVisibility(View.GONE);
+//        }
 
     }
 
@@ -519,8 +532,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void onHttpError(int reqId, String errmsg) {
-        if (isAdded() && vSwipeRefreshLayout != null) {
-            vSwipeRefreshLayout.setRefreshing(false);
+        if (isAdded()) {
+            refresh.finishRefresh();
         }
         onHttpCache(reqId);
     }
@@ -599,9 +612,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.iv_message://消息中心
                 if (!AppState.instance().logined()) {
-                    ((MainActivity)getActivity()).gotoActivity(LoginActivity.class);
+                    ((MainActivity) getActivity()).gotoActivity(LoginActivity.class);
                     Utils.Toast("请先登录");
-                }else {
+                } else {
                     ((MainActivity) getActivity()).gotoActivity(MessageActivity.class);
                 }
                 break;

@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseActivity;
 
 public class ServerDownActivity extends BaseActivity{
@@ -34,14 +34,14 @@ public class ServerDownActivity extends BaseActivity{
         findViewById(R.id.btnRefresh).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* Map<Integer, ServerDownRequestInfo> requestInfoMap = FinanceApplication.getAppContext().requestInfoMap;
+               /* Map<Integer, ServerDownRequestInfo> requestInfoMap = App.getAppContext().requestInfoMap;
                 Iterator<Map.Entry<Integer, ServerDownRequestInfo>> iterator = requestInfoMap.entrySet().iterator();
                 while (iterator.hasNext()){
                     Map.Entry<Integer, ServerDownRequestInfo> next = iterator.next();
                     Integer key = next.getKey();
                     ServerDownRequestInfo value = next.getValue();
                     //先移除,在请求,失败则再次添加进去
-//                    FinanceApplication.getAppContext().requestInfoMap.remove(key);
+//                    App.getAppContext().requestInfoMap.remove(key);
 
                     if (value.getMethodType() == ServerDownRequestInfo.METHOD.GET){
                         mHttpService.httpClient.doGet(value.getUrl(),value.getParams(),key,false);
@@ -74,7 +74,7 @@ public class ServerDownActivity extends BaseActivity{
                 Toast.makeText(this, "再按一次退出微品金融.", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
-                FinanceApplication.appExit();
+                App.appExit();
             }
             return true;
         }

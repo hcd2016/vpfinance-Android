@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,20 +18,17 @@ import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
 import cn.vpfinance.vpjr.greendao.DaoSession;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.model.Config;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.IdcardUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;

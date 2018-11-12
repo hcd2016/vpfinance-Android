@@ -177,7 +177,7 @@ public class SharePop extends PopupWindow {
                 paramsToShare.setText(mMsg);
             } else if ("Email".equals(platform.getName()) || "ShortMessage".equals(platform.getName())) {
                 paramsToShare.setTitle(mTitle);
-            }else if ("QQ".equals(platform.getName())) {
+            }else if ("qq".equals(platform.getName())) {
                 paramsToShare.setUrl(mShareUrl);
                 paramsToShare.setTitle(mTitle);
                 paramsToShare.setText(mMsg);

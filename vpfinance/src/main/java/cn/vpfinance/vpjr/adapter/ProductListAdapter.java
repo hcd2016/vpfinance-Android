@@ -252,7 +252,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //                    holder.circular.setProgress((float) pro);
                     String value = product.process+"";
                     holder.progress.setProgress((int) product.process);
-                    holder.tv_progress_num.setText(value+"%");
+                    holder.tv_progress_num.setText(FormatUtils.formatAbout(value)+"%");
 
 
                     int loanstate = loansign.loanstate;
@@ -304,7 +304,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     }
 //                    holder.circular.setStrokeWidth(5);
 
-                    holder.tv_progress_num.setText(value+"%");
+                    holder.tv_progress_num.setText(FormatUtils.formatAbout(value)+"%");
                     holder.ll_progress_container.setVisibility(View.VISIBLE);
                     holder.progress.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.process_red_bg));
 
@@ -345,7 +345,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             }
 //                            holder.circular.setProgress(value);
                             holder.ll_progress_container.setVisibility(View.VISIBLE);
-                            holder.tv_progress_num.setText(value+"%");
+                            holder.tv_progress_num.setText(FormatUtils.formatAbout(value)+"%");
                             holder.progress.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.process_red_bg));
 //                            holder.progress.setProgress((int) product.process);
 //                            holder.progress.setProgressDrawable(d);
@@ -376,7 +376,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                             holder.ll_progress_container.setVisibility(View.VISIBLE);
                             holder.tv_progress_num.setTextColor(Utils.getColor(R.color.text_999999));
-                            holder.tv_progress_num.setText(value+"%");
+                            holder.tv_progress_num.setText("100.00%");
                             holder.progress.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.process_gray_bg));
 
 //                            holder.progress.setProgressTextColor(mContext.getResources().getColor(R.color.text_999999));
@@ -403,10 +403,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //                            holder.progress.setUnreachedBarColor(mContext.getResources().getColor(R.color.process_gray_noamal));
 //                            holder.progress.setProgress(0);
 //                            holder.progress.setProgressTextColor(mContext.getResources().getColor(R.color.text_999999));
-                            holder.progress.setProgress(0);
+                            holder.progress.setProgress(100);
                             holder.ll_progress_container.setVisibility(View.VISIBLE);
                             holder.tv_progress_num.setTextColor(Utils.getColor(R.color.text_999999));
-                            holder.tv_progress_num.setText(value+"%");
+                            holder.tv_progress_num.setText("100.00%");
                             holder.progress.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.process_gray_bg));
 
 
@@ -443,7 +443,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }else{
                             holder.tvTerm.setText(loansign.month + "个月");
                         }
-                        holder.tvLoanTatol.setText(FormatUtils.formatDown2(loansign.issueLoan / 10000) + "万");
+                        if(loansign.issueLoan >= 10000) {
+                            holder.tvLoanTatol.setText(FormatUtils.formatDown2(loansign.issueLoan / 10000) + "万");
+                        }else {
+                            holder.tvLoanTatol.setText(FormatUtils.formatDown2(loansign.issueLoan)+"元");
+                        }
                         if (reward > 0) {
                             reward *= 100;
                             String tmp = FormatUtils.formatRate(rate-reward);

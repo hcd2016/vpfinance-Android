@@ -1,6 +1,5 @@
 package cn.vpfinance.vpjr.module.common;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,7 +25,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.BankCardDao;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
@@ -37,7 +35,6 @@ import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.gson.UserRegisterBean;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity;
-import cn.vpfinance.vpjr.module.user.OpenBankHintActivity;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
@@ -299,7 +296,7 @@ public class LoginPasswordActivity extends BaseActivity {
                 }
                 int needUpdatePwd = json.optInt("needUpdatePwd", 0);//1就是需要修改密码
                 if (needUpdatePwd == 1) {
-                    ((FinanceApplication) getApplication()).isNeedUpdatePwd = true;
+                    ((App) getApplication()).isNeedUpdatePwd = true;
                 }
 
                 if (user != null) {
@@ -328,14 +325,14 @@ public class LoginPasswordActivity extends BaseActivity {
                         preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
                     }
 //                    preferencesHelper.putBooleanValue(uid,true);//
-//                    FinanceApplication application = (FinanceApplication)getApplication();
+//                    App application = (App)getApplication();
 //                    application.isFirstRegieter = true;
                     preferencesHelper.putBooleanValue(uid+"is_first_register",true);//保存新注册用户是否打开过引导
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
                     //清理login present标志
                     HttpService.clearPresentLoginFlag();
-                    ((FinanceApplication) getApplication()).login = true;
+                    ((App) getApplication()).login = true;
                     startActivity(new Intent(this, LockSetupActivity.class));
                     if (userRegisterBean.getIsFromWeixin()) {
                         EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_REGISTER_SUCCESS));
@@ -377,7 +374,7 @@ public class LoginPasswordActivity extends BaseActivity {
     }
 
     private void doLogin() {
-        FinanceApplication application = (FinanceApplication) getApplication();
+        App application = (App) getApplication();
         application.isLogin = true;
         //登录成功保存是否是个人账户
         SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, userRegisterBean.getUserType());

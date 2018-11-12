@@ -5,7 +5,7 @@
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_bg">
+    android:background="@color/red_text2">
 
 
     <LinearLayout
@@ -54,13 +54,14 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/vSwipeRefreshLayout"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/titleBar">
 
         <android.support.v4.widget.NestedScrollView
+            android:background="@color/gray_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
@@ -286,7 +287,7 @@
                                     android:id="@+id/tv_yi_num"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="1008"
+                                    android:text="0"
                                     android:textColor="@color/text_333333"
                                     android:textSize="18sp" />
 
@@ -302,7 +303,7 @@
                                     android:id="@+id/tv_wan_num"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="1008"
+                                    android:text="0"
                                     android:textColor="@color/text_333333"
                                     android:textSize="18sp" />
 
@@ -318,7 +319,7 @@
                                     android:id="@+id/tv_yuan_num"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="1008"
+                                    android:text="0"
                                     android:textColor="@color/text_333333"
                                     android:textSize="18sp" />
 
@@ -363,7 +364,7 @@
                                     android:id="@+id/tv_yi_num_get"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="1008"
+                                    android:text="0"
                                     android:textColor="@color/text_333333"
                                     android:textSize="18sp" />
 
@@ -379,7 +380,7 @@
                                     android:id="@+id/tv_wan_num_get"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="1008"
+                                    android:text="0"
                                     android:textColor="@color/text_333333"
                                     android:textSize="18sp" />
 
@@ -395,7 +396,7 @@
                                     android:id="@+id/tv_yuan_num_get"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="1008"
+                                    android:text="0"
                                     android:textColor="@color/text_333333"
                                     android:textSize="18sp" />
 
@@ -423,7 +424,7 @@
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/floatingAdViewParent"

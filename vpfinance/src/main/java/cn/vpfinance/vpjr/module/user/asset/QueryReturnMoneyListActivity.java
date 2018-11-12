@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.Constant;
-import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
 import cn.vpfinance.vpjr.greendao.DaoSession;
@@ -41,7 +41,6 @@ import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import de.greenrobot.dao.query.QueryBuilder;
 import de.greenrobot.event.EventBus;
@@ -88,12 +87,12 @@ public class QueryReturnMoneyListActivity extends BaseActivity {
 				.setImageButtonRight(R.drawable.img_calendar_switcher, new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(FinanceApplication.getAppContext());
+						SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(App.getAppContext());
 						sp.putStringValue(SharedPreferencesHelper.STATE_RETURN_CALENDER_OR_LIST,"1");
 						Intent intent = new Intent(QueryReturnMoneyListActivity.this,ReturnMoneyCalendarActivity.class);
 						intent.putExtra(Constant.AccountType,accountType);
 						gotoActivity(intent);
-						Utils.Toast(FinanceApplication.getAppContext(), "回款查询已切换至日历视图");
+						Utils.Toast(App.getAppContext(), "回款查询已切换至日历视图");
 						finish();
 					}
 				});

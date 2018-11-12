@@ -1,7 +1,6 @@
 package cn.vpfinance.vpjr.module.gusturelock;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -30,15 +29,12 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.android.wxapi.WXEntryActivity;
-import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.greendao.BankCardDao;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
 import cn.vpfinance.vpjr.greendao.DaoSession;
 import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.model.Config;
-import cn.vpfinance.vpjr.module.common.WeiXinBindPhoneActivity;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.util.StatusBarCompat1;

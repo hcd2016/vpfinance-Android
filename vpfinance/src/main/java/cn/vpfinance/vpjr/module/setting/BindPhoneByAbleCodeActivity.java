@@ -1,12 +1,9 @@
 package cn.vpfinance.vpjr.module.setting;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,12 +17,7 @@ import org.json.JSONObject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
-import cn.vpfinance.vpjr.module.common.CaptchaActivity;
-import cn.vpfinance.vpjr.module.common.LoginPasswordActivity;
-import cn.vpfinance.vpjr.module.common.RegisterCompanyInfoActivity;
-import cn.vpfinance.vpjr.module.common.WebViewActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.EventStringModel;
 import cn.vpfinance.vpjr.util.FormatUtils;

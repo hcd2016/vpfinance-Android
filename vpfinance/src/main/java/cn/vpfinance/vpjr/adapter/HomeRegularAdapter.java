@@ -19,6 +19,7 @@ import cn.vpfinance.vpjr.gson.AppmemberIndexBean;
 import cn.vpfinance.vpjr.model.RefreshCountDown;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.util.Common;
+import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.view.MyCountDownTimer;
 import de.greenrobot.event.EventBus;
 
@@ -168,7 +169,15 @@ public class HomeRegularAdapter extends BaseAdapter {
                     tv_float.setText(rateStr);
                     //金额
                     String issueLoanStr = loansign.issueLoan;
-                    mMoney.setText(TextUtils.isEmpty(issueLoanStr) ? "" : issueLoanStr);
+                    if(!TextUtils.isEmpty(issueLoanStr) ){
+                        double v = Double.parseDouble(loansign.issueLoan);
+                        if(v >= 10000) {
+                            mMoney.setText(FormatUtils.formatDown2(v / 10000) + "万");
+                        }else {
+                            mMoney.setText(FormatUtils.formatDown2(v ) + "元");
+                        }
+                    }
+
                     //点击事件
                     final int pid = loansign.id;
                     itemView.findViewById(R.id.product_view).setOnClickListener(new View.OnClickListener() {

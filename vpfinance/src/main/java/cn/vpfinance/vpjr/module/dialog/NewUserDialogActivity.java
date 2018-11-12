@@ -9,20 +9,18 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.jewelcredit.util.Utils;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.QueryPopUpBean;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 import cn.vpfinance.vpjr.module.user.BindBankHintActivity;
-import cn.vpfinance.vpjr.util.AlertDialogUtils;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 
@@ -233,7 +231,7 @@ public class NewUserDialogActivity extends BaseActivity {
 
     private void goBindBankHintActivity() {
         if (user != null) {
-            boolean isOpenHx = ((FinanceApplication) getApplication()).isOpenHx;
+            boolean isOpenHx = ((App) getApplication()).isOpenHx;
             if (TextUtils.isEmpty(user.getRealName())) {
                 RealnameAuthActivity.goThis(NewUserDialogActivity.this);
             } else if (!isOpenHx) {

@@ -7,7 +7,7 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/view"
@@ -20,54 +20,54 @@
             android:background="@color/white"
             android:orientation="vertical">
 
-            <include layout="@layout/view_product_baseinfo_header" />
+            <!--<include layout="@layout/view_product_baseinfo_header" />-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@color/bg_gray2" />
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="10dp"-->
+                <!--android:background="@color/bg_gray2" />-->
 
 
-            <RelativeLayout
-                android:visibility="gone"
-                tools:visibility="visible"
-                android:id="@+id/rl_warning_desc_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="14dp">
+            <!--<RelativeLayout-->
+                <!--android:visibility="gone"-->
+                <!--tools:visibility="visible"-->
+                <!--android:id="@+id/rl_warning_desc_container"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingTop="14dp">-->
 
-                <ImageView
-                    android:id="@+id/iv_warning"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="17dp"
-                    android:src="@drawable/icon_warning" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_warning"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingLeft="17dp"-->
+                    <!--android:src="@drawable/icon_warning" />-->
 
-                <TextView
-                    android:id="@+id/tv_warning_desc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="18dp"
-                    android:layout_marginLeft="7dp"
-                    android:layout_toRightOf="@+id/iv_warning"
-                    android:paddingRight="21dp"
-                    android:text="该产品采用浮动计息方式，最大还款日期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_warning_desc"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="18dp"-->
+                    <!--android:layout_marginLeft="7dp"-->
+                    <!--android:layout_toRightOf="@+id/iv_warning"-->
+                    <!--android:paddingRight="21dp"-->
+                    <!--android:text="该产品采用浮动计息方式，最大还款日期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>" />-->
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:layout_below="@+id/tv_warning_desc"
-                    android:background="@color/bg_gray2" />
-            </RelativeLayout>
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="10dp"-->
+                    <!--android:layout_below="@+id/tv_warning_desc"-->
+                    <!--android:background="@color/bg_gray2" />-->
+            <!--</RelativeLayout>-->
 
-            <ImageView
-                android:id="@+id/img_activity"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/bg_gray2"
-                android:scaleType="matrix"
-                android:visibility="gone"
-                tools:visibility="visible" />
+            <!--<ImageView-->
+                <!--android:id="@+id/img_activity"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:background="@color/bg_gray2"-->
+                <!--android:scaleType="matrix"-->
+                <!--android:visibility="gone"-->
+                <!--tools:visibility="visible" />-->
             <!-- -->
             <LinearLayout
                 android:id="@+id/ll_container"
@@ -77,20 +77,20 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvRefundDes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/bg_gray2"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:textColor="@color/red_top"
-                android:textSize="@dimen/text_size_10"
-                android:visibility="gone"
-                tools:text="温馨提示：借款人若提前(部分)还款，投资人利息按实际借款期限计算，并额外享有提前还款金额7天的利息。"
-                tools:visibility="visible" />
+            <!--<TextView-->
+                <!--android:id="@+id/tvRefundDes"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@color/bg_gray2"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:paddingRight="10dp"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:textColor="@color/red_top"-->
+                <!--android:textSize="@dimen/text_size_10"-->
+                <!--android:visibility="gone"-->
+                <!--tools:text="温馨提示：借款人若提前(部分)还款，投资人利息按实际借款期限计算，并额外享有提前还款金额7天的利息。"-->
+                <!--tools:visibility="visible" />-->
 
             <View
                 android:layout_width="match_parent"
@@ -203,86 +203,86 @@
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/invest"
-        style="@style/SubmitButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bg_btn_submit"
-        android:enabled="true"
-        android:gravity="center"
-        android:text="我要出借"
-        android:textSize="18sp"
-        android:visibility="visible" />
+    <!--<Button-->
+        <!--android:id="@+id/invest"-->
+        <!--style="@style/SubmitButtonStyle"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="@drawable/bg_btn_submit"-->
+        <!--android:enabled="true"-->
+        <!--android:gravity="center"-->
+        <!--android:text="我要出借"-->
+        <!--android:textSize="18sp"-->
+        <!--android:visibility="visible" />-->
 
 
     <!--开始抢标布局-->
-    <LinearLayout
-        android:id="@+id/order_ll"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:visibility="gone">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/order_ll"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="@color/white"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:visibility="visible">-->
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:minWidth="250dp">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:minWidth="250dp">-->
 
-            <LinearLayout
-                android:id="@+id/ll_time"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+            <!--<LinearLayout-->
+                <!--android:id="@+id/ll_time"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="30dp"
-                    android:text="开始抢标"
-                    android:textColor="@color/normal_text_color"
-                    android:textSize="@dimen/text_size_12" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_marginLeft="30dp"-->
+                    <!--android:text="开始抢标"-->
+                    <!--android:textColor="@color/normal_text_color"-->
+                    <!--android:textSize="@dimen/text_size_12" />-->
 
-                <cn.vpfinance.vpjr.view.MyCountDownTimer
-                    android:id="@+id/order_countDown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
-                    custom:newLayout="@layout/layout_time_countdown2" />
+                <!--<cn.vpfinance.vpjr.view.MyCountDownTimer-->
+                    <!--android:id="@+id/order_countDown"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--custom:newLayout="@layout/layout_time_countdown2" />-->
 
-            </LinearLayout>
-        </RelativeLayout>
+            <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        <!--<View-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1" />-->
 
-        <TextView
-            android:id="@+id/btnOrder"
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/order_selector"
-            android:enabled="false"
-            android:gravity="center"
-            android:text="预售中"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/btnOrder"-->
+            <!--android:layout_width="110dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@drawable/order_selector"-->
+            <!--android:enabled="false"-->
+            <!--android:gravity="center"-->
+            <!--android:text="预售中"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="15sp" />-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="45dp"
-        android:background="@color/bg_gray2" />
+    <!--<View-->
+        <!--android:id="@+id/view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="45dp"-->
+        <!--android:background="@color/bg_gray2" />-->
 
 </RelativeLayout>

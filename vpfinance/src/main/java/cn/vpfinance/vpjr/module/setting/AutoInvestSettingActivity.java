@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.AutoInvestSettingBean;
@@ -128,7 +128,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
         if (user != null && user.getUserId() != 0) {
             userId = user.getUserId();
         } else {
-            Utils.Toast(FinanceApplication.getContext(), "登录失败,请重新登录");
+            Utils.Toast(App.getContext(), "登录失败,请重新登录");
             gotoActivity(LoginActivity.class);
             finish();
             return;

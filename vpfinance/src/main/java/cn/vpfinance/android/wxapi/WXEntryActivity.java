@@ -37,7 +37,7 @@ import cn.sharesdk.wechat.utils.WXAppExtendObject;
 import cn.sharesdk.wechat.utils.WXMediaMessage;
 import cn.sharesdk.wechat.utils.WechatHandlerActivity;
 import cn.vpfinance.vpjr.Constant;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.greendao.BankCardDao;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
 import cn.vpfinance.vpjr.greendao.DaoSession;
@@ -46,9 +46,6 @@ import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.gson.UserRegisterBean;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.model.WXAccessTokenAModel;
-import cn.vpfinance.vpjr.module.common.CaptchaActivity;
-import cn.vpfinance.vpjr.module.common.LoginPasswordActivity;
-import cn.vpfinance.vpjr.module.common.RegisterCompanyInfoActivity;
 import cn.vpfinance.vpjr.module.common.WeiXinBindPhoneActivity;
 import cn.vpfinance.vpjr.module.gusturelock.LockSetupActivity;
 import cn.vpfinance.vpjr.retrofit.RetrofitUtil;
@@ -83,7 +80,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        IWXAPI mWxApi = ((FinanceApplication) getApplication()).mWxApi;
+        IWXAPI mWxApi = ((App) getApplication()).mWxApi;
         mWxApi.handleIntent(getIntent(), this);
         httpService = new HttpService(this, this);
     }
@@ -229,7 +226,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                         }
                         Utils.Toast("登录成功!");
                     }
-                    FinanceApplication application = (FinanceApplication) getApplication();
+                    App application = (App) getApplication();
                     application.isLogin = true;
                     SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, userRegisterBean.getUserType());
                     getUser();
@@ -262,7 +259,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
             }
             int needUpdatePwd = json.optInt("needUpdatePwd", 0);//1就是需要修改密码
             if (needUpdatePwd == 1) {
-                ((FinanceApplication) getApplication()).isNeedUpdatePwd = true;
+                ((App) getApplication()).isNeedUpdatePwd = true;
             }
 
             if (user != null) {
@@ -292,7 +289,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                 setResult(RESULT_OK, intent);
                 //清理login present标志
                 HttpService.clearPresentLoginFlag();
-                ((FinanceApplication) getApplication()).login = true;
+                ((App) getApplication()).login = true;
                 startActivity(new Intent(this, LockSetupActivity.class));
                 EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS));
                 finish();

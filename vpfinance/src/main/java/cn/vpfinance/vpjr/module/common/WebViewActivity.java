@@ -1,9 +1,7 @@
 package cn.vpfinance.vpjr.module.common;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -39,22 +37,19 @@ import com.umeng.analytics.MobclickAgent;
 import org.apache.http.cookie.Cookie;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.product.invest.BankInvestSuccessHintActivity;
 import cn.vpfinance.vpjr.module.welcome.WelcomeActivity;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FileUtil;
 import cn.vpfinance.vpjr.util.Logger;
@@ -139,7 +134,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
         settings.setAppCacheEnabled(true);
-        String appCachePath = FinanceApplication.getAppContext().getCacheDir().getAbsolutePath();
+        String appCachePath = App.getAppContext().getCacheDir().getAbsolutePath();
         settings.setAppCachePath(appCachePath);
         settings.setDomStorageEnabled(true);
         settings.setJavaScriptEnabled(true);

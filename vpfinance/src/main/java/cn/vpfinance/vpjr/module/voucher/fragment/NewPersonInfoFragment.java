@@ -26,6 +26,7 @@ import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.adapter.NewPersonInfoListAdapter;
 import cn.vpfinance.vpjr.gson.LoanPersonInfo;
+import cn.vpfinance.vpjr.view.CoordinatorLayoutListView;
 
 /**
  * Created by Administrator on 2016/10/24.
@@ -39,7 +40,7 @@ public class NewPersonInfoFragment extends BaseFragment {
     private static final int    TITLE_VIEWTYPE   = 1;
     private static final int    CONTENT_VIEWTYPE = 2;
     @Bind(R.id.listView)
-    ListView       mListView;
+    CoordinatorLayoutListView mListView;
     @Bind(R.id.lookOtherProduct)
     Button         mLookOtherProduct;
     @Bind(R.id.rl_show_login)

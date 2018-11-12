@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
 import cn.vpfinance.vpjr.greendao.DaoSession;
 import cn.vpfinance.vpjr.greendao.User;
@@ -312,7 +311,7 @@ public class LockSetupActivity extends Activity implements
                         sp.putBooleanValue(uid + "is_first_register", false);
                     }
                 }
-//            FinanceApplication application = (FinanceApplication) this.getApplication();
+//            App application = (App) this.getApplication();
 //            if (application.isFirstRegieter) {
 //                OpenBankHintActivity.goThis(this);
 //                application.isFirstRegieter = false;

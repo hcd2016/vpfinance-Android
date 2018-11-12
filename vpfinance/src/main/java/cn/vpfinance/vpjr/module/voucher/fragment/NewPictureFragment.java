@@ -3,6 +3,9 @@ package cn.vpfinance.vpjr.module.voucher.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +13,19 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.message.proguard.A;
 
 import org.json.JSONObject;
 
@@ -43,12 +51,12 @@ public class NewPictureFragment extends BaseFragment {
     //    private static final String SHOW_TYPE  = "showType";
     private static final String NET_URL    = "netUrl";
 
-    @Bind(R.id.grid_view)
-    GridView       mGridView;
+    @Bind(R.id.recyclerView)
+    RecyclerView recyclerView;
     @Bind(R.id.lookOtherProduct)
     Button         mLookOtherProduct;
     @Bind(R.id.rl_show_login)
-    RelativeLayout mRlShowLogin;
+    LinearLayout mRlShowLogin;
 
     private long        mLoanId;
     private String      mNetUrl;
@@ -78,8 +86,10 @@ public class NewPictureFragment extends BaseFragment {
     public void onResume() {
         if (AppState.instance().logined()) {
             mRlShowLogin.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
         } else {
             mRlShowLogin.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
         }
         super.onResume();
     }
@@ -97,9 +107,13 @@ public class NewPictureFragment extends BaseFragment {
 
 //                if (newWritingBean.dataType == 2) {//2为纯图片，如资质材料这种
 //                }
-                GridViewAdapter adapter = new GridViewAdapter(mContext);
-                mGridView.setAdapter(adapter);
-                adapter.setData(newWritingBean.data);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
+                recyclerView.setLayoutManager(gridLayoutManager);
+                MyAdapter myAdapter = new MyAdapter(newWritingBean.data);
+                recyclerView.setAdapter(myAdapter);
+//                GridViewAdapter adapter = new GridViewAdapter(mContext);
+//                mGridView.setAdapter(adapter);
+//                adapter.setData(newWritingBean.data);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -118,19 +132,77 @@ public class NewPictureFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    private class GridViewAdapter extends BaseAdapter {
+//    private class GridViewAdapter extends BaseAdapter {
+//
+//        private Context                       mContext;
+//        private List<NewWritingBean.DataBean> mData;
+//        private ArrayList<String> images = new ArrayList<>();
+//
+//        public GridViewAdapter(Context context) {
+//            mContext = context;
+//        }
+//
+//        public void setData(List<NewWritingBean.DataBean> data) {
+//            this.mData = data;
+//            images.clear();
+//            for (NewWritingBean.DataBean bean : data) {
+//                String image = bean.value;
+//                images.add(image);
+//            }
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return mData == null ? 0 : mData.size();
+//        }
+//
+//        @Override
+//        public NewWritingBean.DataBean getItem(int position) {
+//            return mData == null ? null : mData.get(position);
+//        }
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return position;
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            ViewHolder viewHolder = null;
+//            if (null == convertView) {
+//                viewHolder = new ViewHolder();
+//                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_regular_product_qualification_material, null);
+//                viewHolder.imageView = (ImageView) convertView.findViewById(R.id.pager_regular_product_qualification_material_imageview);
+//                viewHolder.textView = (TextView) convertView.findViewById(R.id.pager_regular_product_qualification_material_textview);
+//            } else {
+//                viewHolder = (ViewHolder) convertView.getTag();
+//            }
+//            NewWritingBean.DataBean dataBean = mData.get(position);
+//            final String imageUrl = dataBean.value;
+//            final PictureZoomHelper pictureZoomHelper = new PictureZoomHelper();
+//            ImageLoader.getInstance().displayImage(imageUrl, viewHolder.imageView, pictureZoomHelper.getDisplayImgOptions());
+//            viewHolder.textView.setText(dataBean.key);
+//            viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    pictureZoomHelper.showPicture(mContext, imageUrl,images);
+//                }
+//            });
+//
+//            convertView.setTag(viewHolder);
+//            return convertView;
+//        }
+//
+//        public class ViewHolder {
+//            public ImageView imageView;
+//            public TextView  textView;
+//        }
+//    }
 
-        private Context                       mContext;
-        private List<NewWritingBean.DataBean> mData;
-        private ArrayList<String> images = new ArrayList<>();
-
-        public GridViewAdapter(Context context) {
-            mContext = context;
-        }
-
-        public void setData(List<NewWritingBean.DataBean> data) {
-            this.mData = data;
-            images.clear();
+    private class  MyAdapter extends BaseQuickAdapter<NewWritingBean.DataBean ,BaseViewHolder> {
+        ArrayList<String> images = new ArrayList<>();
+        public MyAdapter(@Nullable List<NewWritingBean.DataBean> data) {
+            super(R.layout.item_regular_product_qualification_material,data);
             for (NewWritingBean.DataBean bean : data) {
                 String image = bean.value;
                 images.add(image);
@@ -138,50 +210,19 @@ public class NewPictureFragment extends BaseFragment {
         }
 
         @Override
-        public int getCount() {
-            return mData == null ? 0 : mData.size();
-        }
-
-        @Override
-        public NewWritingBean.DataBean getItem(int position) {
-            return mData == null ? null : mData.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder viewHolder = null;
-            if (null == convertView) {
-                viewHolder = new ViewHolder();
-                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_regular_product_qualification_material, null);
-                viewHolder.imageView = (ImageView) convertView.findViewById(R.id.pager_regular_product_qualification_material_imageview);
-                viewHolder.textView = (TextView) convertView.findViewById(R.id.pager_regular_product_qualification_material_textview);
-            } else {
-                viewHolder = (ViewHolder) convertView.getTag();
-            }
-            NewWritingBean.DataBean dataBean = mData.get(position);
-            final String imageUrl = dataBean.value;
+        protected void convert(BaseViewHolder helper, NewWritingBean.DataBean item) {
+            helper.setText(R.id.pager_regular_product_qualification_material_textview,item.key);
+            ImageView imageView = helper.getView(R.id.pager_regular_product_qualification_material_imageview);
+            final String imageUrl = item.value;
             final PictureZoomHelper pictureZoomHelper = new PictureZoomHelper();
-            ImageLoader.getInstance().displayImage(imageUrl, viewHolder.imageView, pictureZoomHelper.getDisplayImgOptions());
-            viewHolder.textView.setText(dataBean.key);
-            viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+            ImageLoader.getInstance().displayImage(imageUrl, imageView, pictureZoomHelper.getDisplayImgOptions());
+
+            imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     pictureZoomHelper.showPicture(mContext, imageUrl,images);
                 }
             });
-
-            convertView.setTag(viewHolder);
-            return convertView;
-        }
-
-        public class ViewHolder {
-            public ImageView imageView;
-            public TextView  textView;
         }
     }
 

@@ -1,8 +1,7 @@
 package cn.vpfinance.vpjr.module.list;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,10 @@ import android.widget.TextView;
 
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.json.JSONObject;
 
@@ -48,6 +51,8 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
 
 
     public static final String LIST_TYPE = "list_type";
+    @Bind(R.id.refresh)
+    SmartRefreshLayout refresh;
     private int typeList;
     private List<LoanSignListNewBean.LoansignsBean> totalData = new ArrayList<>();
     private HttpService mHttpService;
@@ -84,18 +89,39 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
         myAdapter = new ProductListAdapter(getContext());
         mRecyclerView.setAdapter(myAdapter);
 
-        PullRefreshUtil.setRefresh(mRecyclerView, true, true);
+        PullRefreshUtil.setRefresh(mRecyclerView, false, true);
         mRecyclerView.isMore(true);
         mRecyclerView.setVerticalScrollBarEnabled(true);
-
-        mRecyclerView.setOnPullDownRefreshListener(new PullRefreshView.OnPullDownRefreshListener() {
+//        refresh.setEnableLoadMore(true);
+        refresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 pageNum = 0;
                 isShouldClear = true;
                 loadDate();
             }
         });
+//        refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+//            @Override
+//            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+//                pageNum++;
+//                loadDate();
+//            }
+//
+//            @Override
+//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+//
+//            }
+//        });
+        refresh.setEnableLoadMore(false);
+//        mRecyclerView.setOnPullDownRefreshListener(new PullRefreshView.OnPullDownRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                pageNum = 0;
+//                isShouldClear = true;
+//                loadDate();
+//            }
+//        });
         mRecyclerView.setOnPullUpRefreshListener(new PullRefreshView.OnPullUpRefreshListener() {
             @Override
             public void onRefresh() {
@@ -103,18 +129,20 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
                 loadDate();
             }
         });
+
+
         myAdapter.setOnItemClickListener(new ProductListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(LoanSignListNewBean.LoansignsBean item) {
                 if (item != null && item.loansign != null) {
                     if (isAdded()) {
-                        if (typeList == Constant.TYPE_REGULAR || typeList == Constant.TYPE_BANK){
+                        if (typeList == Constant.TYPE_REGULAR || typeList == Constant.TYPE_BANK) {
                             if (item.loansign.productType == 3) {
                                 PresellProductActivity.goPresellProductActivity(getActivity(), "" + item.loansign.id);
                             } else {
-                                NewRegularProductActivity.goNewRegularProductActivity(mContext,item.loansign.id,0,item.loansignbasic.loanTitle,false);
+                                NewRegularProductActivity.goNewRegularProductActivity(mContext, item.loansign.id, 0, item.loansignbasic.loanTitle, false);
                             }
-                        }else if (typeList == Constant.TYPE_TRANSFER){
+                        } else if (typeList == Constant.TYPE_TRANSFER) {
                             NewTransferProductActivity.goNewTransferProductActivity(mContext, item.loansign.id);
                         }
                     }
@@ -124,7 +152,7 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
 //        new Handler().postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
-                mHttpService.getLoanSignListNew(typeList, pageNum * PAGE_SIZE, PAGE_SIZE, "");
+        mHttpService.getLoanSignListNew(typeList, pageNum * PAGE_SIZE, PAGE_SIZE, "");
 //            }
 //        },2000);
         return view;
@@ -146,8 +174,9 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
         if (!isHttpHandle(json)) return;
         if (reqId == ServiceCmd.CmdId.CMD_Loan_Sign_List_New.ordinal()) {
             EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_PRODUCT_LIST_LOAD_SUCCECC));
-            mRecyclerView.refreshFinish();
-            if (isShouldClear){
+//            mRecyclerView.refreshFinish();
+            refresh.finishRefresh();
+            if (isShouldClear) {
                 clearData();
                 isShouldClear = false;
             }
@@ -160,19 +189,25 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
                 if (listNew.loansigns != null) {
                     boolean isMore = listNew.total > (pageNum + 1) * PAGE_SIZE;
                     mRecyclerView.isMore(isMore);
+                    refresh.finishLoadMore(true);
                     totalData.addAll(listNew.loansigns);
                     mRecyclerView.refreshFinish();
+                }else {
+                    refresh.finishLoadMoreWithNoMoreData();
                 }
                 myAdapter.setData(totalData, typeList);
+                refresh.finishLoadMoreWithNoMoreData();
             }
+            refresh.finishRefresh();
         }
     }
 
     @Override
     public void onHttpError(int reqId, String errmsg) {
         if (!isAdded()) return;
-        if (reqId == ServiceCmd.CmdId.CMD_Loan_Sign_List_New.ordinal()){
-            mRecyclerView.refreshFinish();
+        if (reqId == ServiceCmd.CmdId.CMD_Loan_Sign_List_New.ordinal()) {
+//            mRecyclerView.refreshFinish();
+            refresh.finishRefresh();
         }
     }
 

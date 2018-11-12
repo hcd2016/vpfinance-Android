@@ -7,14 +7,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.jewelcredit.util.HttpService;
-import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
 
 import org.json.JSONObject;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.module.home.MainActivity;

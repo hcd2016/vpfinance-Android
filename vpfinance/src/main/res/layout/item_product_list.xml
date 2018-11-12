@@ -90,7 +90,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="1.1"
                             android:orientation="vertical">
 
                             <LinearLayout
@@ -103,7 +103,7 @@
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/red_text2"
                                     android:textSize="30sp"
-                                    tools:text="9.0" />
+                                    tools:text="10.0" />
 
                                 <TextView
                                     android:id="@+id/item_loan_rate_percent"
@@ -116,6 +116,7 @@
                                     android:textSize="15sp" />
 
                                 <TextView
+                                    android:visibility="gone"
                                     android:id="@+id/tv_addrate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -213,7 +214,7 @@
                         android:orientation="horizontal">
 
                         <ProgressBar
-                            android:progressDrawable="@drawable/progress_bar_red_bg"
+                            android:progressDrawable="@drawable/process_red_bg"
                             android:id="@+id/progress"
                             android:max="100"
                             style="?android:attr/progressBarStyleHorizontal"
@@ -225,7 +226,7 @@
                             android:layout_marginLeft="6dp"
                             android:textColor="@color/red_text2"
                             android:textSize="12sp"
-                            android:text="50%"
+                            android:text="0.00%"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -245,6 +246,8 @@
         </LinearLayout>
 
         <ImageView
+            tools:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/rewardIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

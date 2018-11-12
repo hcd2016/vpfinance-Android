@@ -3,15 +3,16 @@ package cn.vpfinance.vpjr.module.product.fragment;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
@@ -34,7 +35,7 @@ import de.greenrobot.event.EventBus;
  */
 public class ProductInvestListFragment extends BaseFragment {
 
-    private ListView mListView;
+    //    private ListView mListView;
     private TextView mTextView;
 
     private HttpService mHttpService = null;
@@ -61,7 +62,7 @@ public class ProductInvestListFragment extends BaseFragment {
     private long serverTime;
     private boolean requesting = false;//
 
-    public static ProductInvestListFragment newInstance(long pid, int type, int frequency, boolean isDeposit,long serviceTime) {
+    public static ProductInvestListFragment newInstance(long pid, int type, int frequency, boolean isDeposit, long serviceTime) {
         ProductInvestListFragment frag = new ProductInvestListFragment();
         Bundle args = new Bundle();
         args.putInt(ARGS_PRODUCT_TYPE, type);
@@ -92,22 +93,22 @@ public class ProductInvestListFragment extends BaseFragment {
         request();
     }
 
-    private void request(){
-        if (!requesting){
-            if (is_deposit) {
-                mHttpService.getProductInvestRecordForDeposit("" + pid, page, PAGE_SIZE,serverTime);// PAGE_SIZE
-            } else {
-                mHttpService.getProductInvestRecord("" + pid, page, PAGE_SIZE,serverTime);// PAGE_SIZE
-            }
-        }
+    private void request() {
+//        if (!requesting) {
+//            if (is_deposit) {
+//                mHttpService.getProductInvestRecordForDeposit("" + pid, page, PAGE_SIZE, serverTime);// PAGE_SIZE
+//            } else {
+                mHttpService.getProductInvestRecord("" + pid, page, PAGE_SIZE, serverTime);// PAGE_SIZE
+//            }
+//        }
         requesting = true;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_regular_list, null);
-        mListView = (ListView) view.findViewById(R.id.listView);
+        View view = inflater.inflate(R.layout.activity_invest_record, null);
+//        mListView = (ListView) view.findViewById(R.id.listView);
         mTextView = (TextView) view.findViewById(R.id.textview);
         mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,36 +117,39 @@ public class ProductInvestListFragment extends BaseFragment {
                 request();
             }
         });
-        mListView.setEmptyView(mTextView);
-        mListView.setAdapter(mListAdapter);
+//        mListView.setEmptyView(mTextView);
+//        mListView.setAdapter(mListAdapter);
+//
+//        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+//
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//                if (view.getLastVisiblePosition() == view.getCount() - 1) {
+//                    request();
+//                }
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//            }
+//        });
 
-        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (view.getLastVisiblePosition() == view.getCount() - 1) {
-                    request();
-                }
-            }
 
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            }
-        });
 
         mRefresh = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
         mRefresh.setColorSchemeResources(R.color.main_color);
         mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (!requesting){
+                if (!requesting) {
                     allList.clear();
                     page = 0;
                     mRefresh.setRefreshing(true);
                     if (is_deposit) {
-                        mHttpService.getProductInvestRecordForDeposit("" + pid, 0, PAGE_SIZE,serverTime);// PAGE_SIZE
+                        mHttpService.getProductInvestRecordForDeposit("" + pid, 0, PAGE_SIZE, serverTime);// PAGE_SIZE
                     } else {
-                        mHttpService.getProductInvestRecord("" + pid, 0, PAGE_SIZE,serverTime);// PAGE_SIZE
+                        mHttpService.getProductInvestRecord("" + pid, 0, PAGE_SIZE, serverTime);// PAGE_SIZE
                     }
                 }
                 requesting = true;
@@ -163,7 +167,7 @@ public class ProductInvestListFragment extends BaseFragment {
 
     @Override
     public void onHttpSuccess(int reqId, JSONObject json) {
-        super.onHttpSuccess(reqId,json);
+        super.onHttpSuccess(reqId, json);
     }
 
     @Override
@@ -245,20 +249,20 @@ public class ProductInvestListFragment extends BaseFragment {
 
             LoanRecord product = null;
 
-            try{
+            try {
                 product = list.get(position);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
             if (product != null) {
                 holder.tvPresell.setVisibility(product.getIsBook() == 1 ? View.VISIBLE : View.GONE);
 
-                if (totalCount > 0 && (totalCount-position > 0)){
+                if (totalCount > 0 && (totalCount - position > 0)) {
 //                    holder.tv_order_id.setText(""+product.getId());
                     holder.tv_order_id.setVisibility(View.VISIBLE);
-                    holder.tv_order_id.setText(""+(totalCount-position));
-                }else{
+                    holder.tv_order_id.setText("" + (totalCount - position));
+                } else {
                     holder.tv_order_id.setVisibility(View.GONE);
                 }
 
@@ -328,5 +332,6 @@ public class ProductInvestListFragment extends BaseFragment {
 //		}
 //		return result.toString();
 //	}
+
 
 }

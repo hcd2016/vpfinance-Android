@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ll"
@@ -11,8 +11,8 @@
         android:layout_height="45dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp">
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <TextView
             android:id="@+id/tvKey"
@@ -33,11 +33,9 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="满标后次日开始计息"
-            android:textSize="12sp"
-            android:textColor="@color/text_1c1c1c" />
+            android:textColor="@color/text_1c1c1c"
+            android:textSize="12sp" />
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/background_gray" />
+
+    <include layout="@layout/line_linear_gray_margin15" />
 </LinearLayout>

@@ -24,7 +24,7 @@ import java.text.DecimalFormat;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity;
@@ -450,7 +450,7 @@ public class ProductJewelryBaseInfoFragment extends BaseFragment implements View
                     intent.putExtra(ProductInvestActivity.TYPE_PRODUCT, ProductInvestActivity.TYPE_Jewelry_PRODUCT);
                     intent.putExtra(ProductInvestActivity.IPHONE, product.getGivePhone());
                     intent.putExtra("pid", "" + product.getPid());
-                    FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
+                    App myApp = (App) getActivity().getApplication();
                     myApp.currentPid = "" + product.getPid();
                     startActivity(intent);
                 }
@@ -466,7 +466,7 @@ public class ProductJewelryBaseInfoFragment extends BaseFragment implements View
                     intent.putExtra(ProductInvestActivity.IS_ORDER, true);
                     intent.putExtra(ProductInvestActivity.TYPE_PRODUCT, ProductInvestActivity.TYPE_Jewelry_PRODUCT);
                     intent.putExtra("pid", "" + product.getPid());
-                    FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
+                    App myApp = (App) getActivity().getApplication();
                     myApp.currentPid = "" + product.getPid();
                     startActivity(intent);
                 }

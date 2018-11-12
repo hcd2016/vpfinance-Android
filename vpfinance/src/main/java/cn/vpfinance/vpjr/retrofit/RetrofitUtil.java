@@ -16,7 +16,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.network.ApiService;
 import cn.vpfinance.vpjr.network.HttpConstant;
 import okhttp3.Cookie;
@@ -80,7 +80,7 @@ public class RetrofitUtil {
 //                                .addHeader("Connection", "keep-alive")
 //                                .addHeader("Accept", "*/*")
 //                                .addHeader("Cookie", "add cookies here")
-                                .addHeader("APP-VERSION", Utils.getVersion(FinanceApplication.getAppContext()))
+                                .addHeader("APP-VERSION", Utils.getVersion(App.getAppContext()))
                                 .build();
                         return chain.proceed(request);
                     }
@@ -148,7 +148,7 @@ public class RetrofitUtil {
 //                                .addHeader("Connection", "keep-alive")
 //                                .addHeader("Accept", "*/*")
 //                                .addHeader("Cookie", "add cookies here")
-                                    .addHeader("APP-VERSION", Utils.getVersion(FinanceApplication.getAppContext()))
+                                    .addHeader("APP-VERSION", Utils.getVersion(App.getAppContext()))
                                     .build();
                             return chain.proceed(request);
                         }

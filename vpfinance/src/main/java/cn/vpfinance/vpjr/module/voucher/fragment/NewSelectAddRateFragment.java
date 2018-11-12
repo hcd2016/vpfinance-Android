@@ -22,7 +22,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.module.dialog.CommonDialogFragment;
 import cn.vpfinance.vpjr.module.voucher.NewSelectVoucherActivity;
@@ -188,7 +188,7 @@ public class NewSelectAddRateFragment extends BaseFragment implements AdapterVie
     @Override
     public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
 
-        SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(FinanceApplication.getAppContext());
+        SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(App.getAppContext());
         if (isFrist) {
 
             if (((NewSelectVoucherActivity) getActivity()).alertDialog("1") && !"1".equals(sp.getStringValue(SharedPreferencesHelper.VOUCHER_ISSHOW_DIALOG))) {
@@ -204,7 +204,7 @@ public class NewSelectAddRateFragment extends BaseFragment implements AdapterVie
                     @Override
                     public void clickCancel() {
                         isFrist = false;
-                        SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(FinanceApplication.getAppContext());
+                        SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(App.getAppContext());
                         sp.putStringValue(SharedPreferencesHelper.VOUCHER_ISSHOW_DIALOG, "1");
                     }
                 });

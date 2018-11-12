@@ -3,6 +3,7 @@ package cn.vpfinance.vpjr.module.product.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.gson.NewWritingAndPicBean;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.PictureZoomHelper;
+import cn.vpfinance.vpjr.view.CoordinatorLayoutListView;
 
 /**
  * Created by Administrator on 2016/10/24.
@@ -45,11 +47,13 @@ public class NewWritingAndPicFragment extends BaseFragment {
     //    private static final String SHOW_TYPE = "showType";
     private static final String NET_URL    = "netUrl";
     @Bind(R.id.list_view)
-    ListView       mListView;
+    CoordinatorLayoutListView mListView;
     @Bind(R.id.lookOtherProduct)
     Button         mLookOtherProduct;
     @Bind(R.id.rl_show_login)
-    RelativeLayout mRlShowLogin;
+    LinearLayout mRlShowLogin;
+    @Bind(R.id.nestedScrollView)
+    NestedScrollView nestedScrollView;
     private long        mLoanId;
     private String      mShowType;
     private String      mNetUrl;
@@ -79,8 +83,10 @@ public class NewWritingAndPicFragment extends BaseFragment {
     public void onResume() {
         if (AppState.instance().logined()) {
             mRlShowLogin.setVisibility(View.GONE);
+            nestedScrollView.setVisibility(View.VISIBLE);
         } else {
             mRlShowLogin.setVisibility(View.VISIBLE);
+            nestedScrollView.setVisibility(View.GONE);
         }
         super.onResume();
     }

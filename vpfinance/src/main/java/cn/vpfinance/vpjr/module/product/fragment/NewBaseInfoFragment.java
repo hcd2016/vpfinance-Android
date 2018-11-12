@@ -3,7 +3,6 @@ package cn.vpfinance.vpjr.module.product.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,21 +10,14 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.google.gson.Gson;
 import com.jewelcredit.util.AppState;
-import com.jewelcredit.util.DifColorTextStringBuilder;
 import com.jewelcredit.util.HttpService;
-import com.jewelcredit.util.MyClickableSpan;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONObject;
 
@@ -36,8 +28,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.Constant;
-import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.DepositTab1Bean;
@@ -53,9 +45,7 @@ import cn.vpfinance.vpjr.module.product.invest.ProductInvestActivity;
 import cn.vpfinance.vpjr.module.product.record.NewRepayListActivity;
 import cn.vpfinance.vpjr.module.product.record.ProductInvestListActivity;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
-import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.view.MyCountDownTimer;
 
@@ -68,72 +58,72 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 
     private static final int START_REFRESH = 100;
     private static final int CALCULATE_COMPLETE = 99;
-    @Bind(R.id.product_name)
-    TextView mProductName;
-    @Bind(R.id.ivProductState)
-    ImageView mIvProductState;
-    @Bind(R.id.ivAllowTransfer)
-    ImageView mIvAllowTransfer;
+    //    @Bind(R.id.product_name)
+//    TextView mProductName;
+//    @Bind(R.id.ivProductState)
+//    ImageView mIvProductState;
+//    @Bind(R.id.ivAllowTransfer)
+//    ImageView mIvAllowTransfer;
     //    @Bind(R.id.isAllowTrip)
 //    ImageView mIsAllowTrip;
 //    @Bind(R.id.ivCleanProduct)
 //    ImageView mIvCleanProduct;
 //    @Bind(R.id.tvAtrri)
 //    TextView mTvAtrri;
-    @Bind(R.id.product_name_state)
-    LinearLayout mProductNameState;
-    @Bind(R.id.product_rate)
-    TextView mProductRate;
-    @Bind(R.id.invest_time)
-    TextView mInvestTime;
-    @Bind(R.id.product_usable_buy)
-    TextView mProductUsableBuy;
-    @Bind(R.id.product_total_money)
-    TextView mProductTotalMoney;
-    @Bind(R.id.product_info)
-    LinearLayout mProductInfo;
-    @Bind(R.id.product_progress)
-    NumberProgressBar mProductProgress;
-    @Bind(R.id.detal_reward)
-    TextView mDetalReward;
-    @Bind(R.id.ic_iphone7_index)
-    ImageView mIcIphone7Index;
+//    @Bind(R.id.product_name_state)
+//    LinearLayout mProductNameState;
+//    @Bind(R.id.product_rate)
+//    TextView mProductRate;
+//    @Bind(R.id.invest_time)
+//    TextView mInvestTime;
+//    @Bind(R.id.product_usable_buy)
+//    TextView mProductUsableBuy;
+//    @Bind(R.id.product_total_money)
+//    TextView mProductTotalMoney;
+//    @Bind(R.id.product_info)
+//    LinearLayout mProductInfo;
+//    @Bind(R.id.product_progress)
+//    NumberProgressBar mProductProgress;
+//    @Bind(R.id.detal_reward)
+//    TextView mDetalReward;
+//    @Bind(R.id.ic_iphone7_index)
+//    ImageView mIcIphone7Index;
     @Bind(R.id.ll_container)
     LinearLayout mLlContainer;
-    @Bind(R.id.tvRefundDes)
-    TextView mTvRefundDes;
+    //    @Bind(R.id.tvRefundDes)
+//    TextView mTvRefundDes;
     @Bind(R.id.tvInvestCount)
     TextView mTvInvestCount;
     @Bind(R.id.clickInvestRecord)
     LinearLayout mClickInvestRecord;
     @Bind(R.id.clickToAvailableTime)
     LinearLayout mClickToAvailableTime;
-    @Bind(R.id.invest)
-    Button mInvest;
-    @Bind(R.id.order_countDown)
-    MyCountDownTimer mOrderCountDown;
-    @Bind(R.id.ll_time)
-    LinearLayout mLlTime;
+    //    @Bind(R.id.invest)
+//    Button mInvest;
+//    @Bind(R.id.order_countDown)
+//    MyCountDownTimer mOrderCountDown;
+//    @Bind(R.id.ll_time)
+//    LinearLayout mLlTime;
     @Bind(R.id.orderVoucherNum)
     TextView mOrderVoucherNum;
-    @Bind(R.id.btnOrder)
-    TextView mBtnOrder;
-    @Bind(R.id.order_ll)
-    LinearLayout mOrderLl;
-    @Bind(R.id.img_activity)
-    ImageView mImgActivity;
-    @Bind(R.id.product_total_money_text)
-    TextView product_total_money_text;
-    @Bind(R.id.product_usable_buy_text)
-    TextView product_usable_buy_text;
-    @Bind(R.id.iv_fdjx)
-    ImageView ivFdjx;
-    @Bind(R.id.iv_warning)
-    ImageView ivWarning;
-    @Bind(R.id.tv_warning_desc)
-    TextView tvWarningDesc;
-    @Bind(R.id.rl_warning_desc_container)
-    RelativeLayout rlWarningDescContainer;
+    //    @Bind(R.id.btnOrder)
+//    TextView mBtnOrder;
+//    @Bind(R.id.order_ll)
+//    LinearLayout mOrderLl;
+//    @Bind(R.id.img_activity)
+//    ImageView mImgActivity;
+//    @Bind(R.id.product_total_money_text)
+//    TextView product_total_money_text;
+//    @Bind(R.id.product_usable_buy_text)
+//    TextView product_usable_buy_text;
+//    @Bind(R.id.iv_fdjx)
+//    ImageView ivFdjx;
+//    @Bind(R.id.iv_warning)
+//    ImageView ivWarning;
+//    @Bind(R.id.tv_warning_desc)
+//    TextView tvWarningDesc;
+//    @Bind(R.id.rl_warning_desc_container)
+//    RelativeLayout rlWarningDescContainer;
     @Bind(R.id.tv_risk_tips)
     TextView tvRiskTips;
 //    @Bind(R.id.bankAccountStatus)
@@ -189,8 +179,8 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void initListener() {
-        mInvest.setOnClickListener(this);
-        mBtnOrder.setOnClickListener(this);
+//        mInvest.setOnClickListener(this);
+//        mBtnOrder.setOnClickListener(this);
         mClickInvestRecord.setOnClickListener(this);
         mClickToAvailableTime.setOnClickListener(this);
 
@@ -220,9 +210,9 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-        if (mOrderCountDown != null) {
-            mOrderCountDown.cancel();
-        }
+//        if (mOrderCountDown != null) {
+//            mOrderCountDown.cancel();
+//        }
         mHandle.removeCallbacksAndMessages(null);
     }
 
@@ -231,11 +221,11 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
         if (!isHttpHandle(json)) return;
         if (reqId == ServiceCmd.CmdId.CMD_Bank_Real_Tender_Money.ordinal()) {
             realTenderMoney = mHttpService.getOnBankRealTenderMoney(json);
-            if (isOrder) {
-                mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan - realTenderMoney) + "元");//可购余额
-            } else {
-                mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan - realTenderMoney) + "元");//可购余额
-            }
+//            if (isOrder) {
+//                mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan - realTenderMoney) + "元");//可购余额
+//            } else {
+//                mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan - realTenderMoney) + "元");//可购余额
+//            }
 
         } else if (reqId == ServiceCmd.CmdId.CMD_Regular_Tab.ordinal()) {
             mHttpService.getServiceTime();
@@ -243,14 +233,14 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 Gson gson = new Gson();
                 if (isDeposit) {
                     depositTab1Bean = gson.fromJson(json.toString(), DepositTab1Bean.class);
-                    product_usable_buy_text.setText("剩余金额");
-                    product_total_money_text.setText("计划金额");
+//                    product_usable_buy_text.setText("剩余金额");
+//                    product_total_money_text.setText("计划金额");
                     initData(depositTab1Bean);
                     initDepositBean(depositTab1Bean);
                 } else {
                     mNewBaseInfoBean = gson.fromJson(json.toString(), NewBaseInfoBean.class);
-                    product_usable_buy_text.setText("可购余额");
-                    product_total_money_text.setText("项目总额");
+//                    product_usable_buy_text.setText("可购余额");
+//                    product_total_money_text.setText("项目总额");
                     initData(mNewBaseInfoBean);
                 }
             } catch (Exception e) {
@@ -386,7 +376,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 }
                 intent.putExtra(Constant.AccountType, accountType);
                 intent.putExtra(DepositInvestActivity.IS_ORDER, false);
-                FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
+                App myApp = (App) getActivity().getApplication();
                 myApp.currentPid = "" + mNewBaseInfoBean.loanId;
                 intent.putExtra("isGraceDays", mNewBaseInfoBean.graceDays);//是否是浮动计息产品
                 startActivity(intent);
@@ -433,115 +423,115 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 
     private void initData(DepositTab1Bean depositTab1Bean) {
         if (depositTab1Bean != null) {
-
-            if (depositTab1Bean.frequency == null) {
-                depositTab1Bean.frequency = -1;
-            }
-            initViewAndData2(depositTab1Bean.data);
-            mIcIphone7Index.setVisibility(View.GONE);
-            mImgActivity.setVisibility(View.GONE);
-
-            mProductName.setText(depositTab1Bean.loanTitle);//标名
-            mProductRate.setText(FormatUtils.formatAbout((float) (depositTab1Bean.rate)) + "%");//约定年利率
-
-            mProductTotalMoney.setText(FormatUtils.formatDown2(depositTab1Bean.issueloan / 10000) + "万");//项目总额
-            mInvestTime.setText(depositTab1Bean.term);//项目期限
-
-            mProductUsableBuy.setText(FormatUtils.formatAbout(depositTab1Bean.surplusMoney) + "元");
-
-            mTvInvestCount.setText("已有" + depositTab1Bean.buyCount + "人出借");
-            mIvProductState.setVisibility(View.GONE);
-//            float pro = (float) ((issueloan - buyMoney) / issueloan);
-            float pro = (float) (depositTab1Bean.process);
-//            mProductProgress.setProgress(pro);
-
-            loanstate = depositTab1Bean.loanState;
-            String state = "我要出借";
-            switch (loanstate) {//1未发布 2进行中 3回款中 4已完成
-                case 1:
-                    state = getString(R.string.productState1);//待售
-                    mInvest.setVisibility(View.GONE);
-                    mOrderLl.setVisibility(View.VISIBLE);
-                    isOrder = true;
-                    mProductProgress.setProgress(0);
-                    break;
-                case 2:
-                    mOrderLl.setVisibility(View.GONE);
-                    mInvest.setVisibility(View.VISIBLE);
-                    long currentTimeMillis = System.currentTimeMillis();
-                    if (pro >= 100) {
-                        state = "进行中";
-                        if (depositTab1Bean.canBuyMoney <= 0.005) {
-                            state = "满标审核";
-                        }
-                        mInvest.setEnabled(false);
-                    } else if (depositTab1Bean.endTime <= currentTimeMillis) {
-                        state = getString(R.string.productState5);
-                        mInvest.setEnabled(false);
-                        mClickToAvailableTime.setVisibility(View.VISIBLE);
-                    } else {
-                        state = getString(R.string.productState2);
-                        mInvest.setEnabled(true);
-                    }
-                    mProductProgress.setProgress(pro);
-                    break;
-                case 3:
-                    mOrderLl.setVisibility(View.GONE);
-                    mInvest.setVisibility(View.VISIBLE);
-                    state = getString(R.string.productState3);
-                    pro = 100;
-                    mProductProgress.setProgress(pro);
-                    mInvest.setEnabled(false);
-                    mClickToAvailableTime.setVisibility(View.VISIBLE);
-                    break;
-                case 4:
-                    mOrderLl.setVisibility(View.GONE);
-                    mInvest.setVisibility(View.VISIBLE);
-                    state = getString(R.string.productState4);
-                    pro = 100;
-                    mProductProgress.setProgress(pro);
-                    mInvest.setEnabled(false);
-                    mClickToAvailableTime.setVisibility(View.VISIBLE);
-                    break;
-                case 5:
-                    mOrderLl.setVisibility(View.GONE);
-                    mInvest.setVisibility(View.VISIBLE);
-                    state = getString(R.string.productState5);
-                    mInvest.setEnabled(false);
-                    mClickToAvailableTime.setVisibility(View.VISIBLE);
-                    break;
-            }
-            mInvest.setText(state);
-
-            if (loanstate > 2) {
-                //
-            }
+//
+//            if (depositTab1Bean.frequency == null) {
+//                depositTab1Bean.frequency = -1;
+//            }
+//            initViewAndData2(depositTab1Bean.data);
+//            mIcIphone7Index.setVisibility(View.GONE);
+//            mImgActivity.setVisibility(View.GONE);
+//
+//            mProductName.setText(depositTab1Bean.loanTitle);//标名
+//            mProductRate.setText(FormatUtils.formatAbout((float) (depositTab1Bean.rate)) + "%");//约定年利率
+//
+//            mProductTotalMoney.setText(FormatUtils.formatDown2(depositTab1Bean.issueloan / 10000) + "万");//项目总额
+//            mInvestTime.setText(depositTab1Bean.term);//项目期限
+//
+//            mProductUsableBuy.setText(FormatUtils.formatAbout(depositTab1Bean.surplusMoney) + "元");
+//
+//            mTvInvestCount.setText("已有" + depositTab1Bean.buyCount + "人出借");
+//            mIvProductState.setVisibility(View.GONE);
+////            float pro = (float) ((issueloan - buyMoney) / issueloan);
+//            float pro = (float) (depositTab1Bean.process);
+////            mProductProgress.setProgress(pro);
+//
+//            loanstate = depositTab1Bean.loanState;
+//            String state = "我要出借";
+//            switch (loanstate) {//1未发布 2进行中 3回款中 4已完成
+//                case 1:
+//                    state = getString(R.string.productState1);//待售
+//                    mInvest.setVisibility(View.GONE);
+//                    mOrderLl.setVisibility(View.VISIBLE);
+//                    isOrder = true;
+//                    mProductProgress.setProgress(0);
+//                    break;
+//                case 2:
+//                    mOrderLl.setVisibility(View.GONE);
+//                    mInvest.setVisibility(View.VISIBLE);
+//                    long currentTimeMillis = System.currentTimeMillis();
+//                    if (pro >= 100) {
+//                        state = "进行中";
+//                        if (depositTab1Bean.canBuyMoney <= 0.005) {
+//                            state = "满标审核";
+//                        }
+//                        mInvest.setEnabled(false);
+//                    } else if (depositTab1Bean.endTime <= currentTimeMillis) {
+//                        state = getString(R.string.productState5);
+//                        mInvest.setEnabled(false);
+//                        mClickToAvailableTime.setVisibility(View.VISIBLE);
+//                    } else {
+//                        state = getString(R.string.productState2);
+//                        mInvest.setEnabled(true);
+//                    }
+//                    mProductProgress.setProgress(pro);
+//                    break;
+//                case 3:
+//                    mOrderLl.setVisibility(View.GONE);
+//                    mInvest.setVisibility(View.VISIBLE);
+//                    state = getString(R.string.productState3);
+//                    pro = 100;
+//                    mProductProgress.setProgress(pro);
+//                    mInvest.setEnabled(false);
+//                    mClickToAvailableTime.setVisibility(View.VISIBLE);
+//                    break;
+//                case 4:
+//                    mOrderLl.setVisibility(View.GONE);
+//                    mInvest.setVisibility(View.VISIBLE);
+//                    state = getString(R.string.productState4);
+//                    pro = 100;
+//                    mProductProgress.setProgress(pro);
+//                    mInvest.setEnabled(false);
+//                    mClickToAvailableTime.setVisibility(View.VISIBLE);
+//                    break;
+//                case 5:
+//                    mOrderLl.setVisibility(View.GONE);
+//                    mInvest.setVisibility(View.VISIBLE);
+//                    state = getString(R.string.productState5);
+//                    mInvest.setEnabled(false);
+//                    mClickToAvailableTime.setVisibility(View.VISIBLE);
+//                    break;
+//            }
+//            mInvest.setText(state);
+//
+//            if (loanstate > 2) {
+//                //
+//            }
             if (1 == loanstate) {
                 long totleTime = depositTab1Bean.publishTime;
-                mOrderCountDown.setCountDownTime(mContext, totleTime);
-                mOrderCountDown.setOnFinishListener(new MyCountDownTimer.onFinish() {
-                    @Override
-                    public void finish() {
-//                        isDeposit = false;
-                        mHandle.sendEmptyMessageDelayed(START_REFRESH, Constant.delay);
-                    }
-                });
+//                mOrderCountDown.setCountDownTime(mContext, totleTime);
+//                mOrderCountDown.setOnFinishListener(new MyCountDownTimer.onFinish() {
+//                    @Override
+//                    public void finish() {
+////                        isDeposit = false;
+//                        mHandle.sendEmptyMessageDelayed(START_REFRESH, Constant.delay);
+//                    }
+//                });
                 if (depositTab1Bean.bookCouponNumber > 0) {
                     //有可使用状态的预约券
                     mOrderVoucherNum.setVisibility(View.VISIBLE);
                     mOrderVoucherNum.setText("您有" + depositTab1Bean.bookCouponNumber + "张预约券！点击进行预约。");
-                    mBtnOrder.setEnabled(true);
-                    mBtnOrder.setText("预约出借");
+//                    mBtnOrder.setEnabled(true);
+//                    mBtnOrder.setText("预约出借");
                 } else {
-                    mBtnOrder.setEnabled(false);
+//                    mBtnOrder.setEnabled(false);
                 }
                 double canOrderMoney = depositTab1Bean.issueloan * depositTab1Bean.bookPercent;
 //                double alreadyOrder = depositTab1Bean.issueloan - depositTab1Bean.canBuyMoney;
                 if (canOrderMoney <= depositTab1Bean.tenderMoney) {
                     String str = "预售中\n预约已满额";
                     String targetStr = "预约已满额";
-                    Utils.setTwoTextSize(str, targetStr, 10, mBtnOrder);
-                    mBtnOrder.setEnabled(false);
+//                    Utils.setTwoTextSize(str, targetStr, 10, mBtnOrder);
+//                    mBtnOrder.setEnabled(false);
                 }
             }
         }
@@ -555,50 +545,50 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
             initViewAndData(mNewBaseInfoBean.data);
 
             //国庆投资送iphone7活动
-            if ("1".equals(mNewBaseInfoBean.givePhone)) {
-                mIcIphone7Index.setVisibility(View.VISIBLE);
-                mImgActivity.setVisibility(View.VISIBLE);
-                mImgActivity.setOnClickListener(this);
-                ImageLoader.getInstance().displayImage(mNewBaseInfoBean.imageUrl, mImgActivity);
-                ImageLoader.getInstance().displayImage(mNewBaseInfoBean.imageTagUrl, mIcIphone7Index);
-            } else {
-                mIcIphone7Index.setVisibility(View.GONE);
-                mImgActivity.setVisibility(View.GONE);
-            }
+//            if ("1".equals(mNewBaseInfoBean.givePhone)) {
+//                mIcIphone7Index.setVisibility(View.VISIBLE);
+//                mImgActivity.setVisibility(View.VISIBLE);
+//                mImgActivity.setOnClickListener(this);
+//                ImageLoader.getInstance().displayImage(mNewBaseInfoBean.imageUrl, mImgActivity);
+//                ImageLoader.getInstance().displayImage(mNewBaseInfoBean.imageTagUrl, mIcIphone7Index);
+//            } else {
+//                mIcIphone7Index.setVisibility(View.GONE);
+//                mImgActivity.setVisibility(View.GONE);
+//            }
 
 
-            mProductName.setText(mNewBaseInfoBean.loanTitle);//标名
-            float v = (float) ((mNewBaseInfoBean.rate - mNewBaseInfoBean.reward) * 100);
-            mProductRate.setText(FormatUtils.formatAbout(v) + "%");//约定年利率
-            if (!TextUtils.isEmpty(mNewBaseInfoBean.issueloan + "")) {
-                //                mIssueloan = Double.parseDouble(mNewBaseInfoBean.issueloan+"");
-                //                mHadTenderMoney = Double.parseDouble(mNewBaseInfoBean.hadTenderMoney+"");
-            }
-            mProductTotalMoney.setText(FormatUtils.formatDown2(mNewBaseInfoBean.issueloan / 10000) + "万");//项目总额
-            mInvestTime.setText(mNewBaseInfoBean.month);//项目期限
+//            mProductName.setText(mNewBaseInfoBean.loanTitle);//标名
+//            float v = (float) ((mNewBaseInfoBean.rate - mNewBaseInfoBean.reward) * 100);
+//            mProductRate.setText(FormatUtils.formatAbout(v) + "%");//约定年利率
+//            if (!TextUtils.isEmpty(mNewBaseInfoBean.issueloan + "")) {
+            //                mIssueloan = Double.parseDouble(mNewBaseInfoBean.issueloan+"");
+            //                mHadTenderMoney = Double.parseDouble(mNewBaseInfoBean.hadTenderMoney+"");
+//            }
+//            mProductTotalMoney.setText(FormatUtils.formatDown2(mNewBaseInfoBean.issueloan / 10000) + "万");//项目总额
+//            mInvestTime.setText(mNewBaseInfoBean.month);//项目期限
 
 //            if (mNewBaseInfoBean.product == 4){
 //                bankAccountStatus.setVisibility(View.VISIBLE);
 //            }else{
 //                bankAccountStatus.setVisibility(View.GONE);
 //            }
-            if ("1".equals(mNewBaseInfoBean.status)) {
-                //预约标
-                mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan) + "元");//可购余额
-            } else {
-                if (mNewBaseInfoBean.product != 4) {
-                    mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan - mNewBaseInfoBean.hadTenderMoney) + "元");//可购余额
-                } else {
-                    mHttpService.getBankRealTenderMoney("" + mNewBaseInfoBean.loanId);
-                }
-            }
+//            if ("1".equals(mNewBaseInfoBean.status)) {
+//                //预约标
+//                mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan) + "元");//可购余额
+//            } else {
+//                if (mNewBaseInfoBean.product != 4) {
+//                    mProductUsableBuy.setText(FormatUtils.formatAbout(mNewBaseInfoBean.issueloan - mNewBaseInfoBean.hadTenderMoney) + "元");//可购余额
+//                } else {
+//                    mHttpService.getBankRealTenderMoney("" + mNewBaseInfoBean.loanId);
+//                }
+//            }
 
             mTvInvestCount.setText("已有" + mNewBaseInfoBean.buyCount + "人出借");
 
-            if (mNewBaseInfoBean.reward != 0) {
-                mDetalReward.setVisibility(View.VISIBLE);
-                mDetalReward.setText("+" + mNewBaseInfoBean.reward * 100 + "%");//加息
-            }
+//            if (mNewBaseInfoBean.reward != 0) {
+//                mDetalReward.setVisibility(View.VISIBLE);
+//                mDetalReward.setText("+" + mNewBaseInfoBean.reward * 100 + "%");//加息
+//            }
 
 //            if ("1".equals(mNewBaseInfoBean.isAllowTrip)) {//是否是旅游标
 //                mIsAllowTrip.setVisibility(View.VISIBLE);
@@ -606,14 +596,14 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 //                mIsAllowTrip.setVisibility(View.GONE);
 //            }
 
-            if ("true".equals(mNewBaseInfoBean.allowTransfer)) {//是否允许转让
-                mIvAllowTransfer.setVisibility(View.VISIBLE);
-            }
-
-            if (!TextUtils.isEmpty(mNewBaseInfoBean.remark)) {
-                mTvRefundDes.setVisibility(View.VISIBLE);
-                mTvRefundDes.setText(mNewBaseInfoBean.remark);
-            }
+//            if ("true".equals(mNewBaseInfoBean.allowTransfer)) {//是否允许转让
+//                mIvAllowTransfer.setVisibility(View.VISIBLE);
+//            }
+//
+//            if (!TextUtils.isEmpty(mNewBaseInfoBean.remark)) {
+//                mTvRefundDes.setVisibility(View.VISIBLE);
+//                mTvRefundDes.setText(mNewBaseInfoBean.remark);
+//            }
 
 //            double p = 0;
 //            try {
@@ -627,133 +617,133 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //            }
-            float pro = mNewBaseInfoBean.process;
-            String loanstate = mNewBaseInfoBean.status;
+//            float pro = mNewBaseInfoBean.process;
+//            String loanstate = mNewBaseInfoBean.status;
 
-            String state = "我要出借";
-            if (!TextUtils.isEmpty(loanstate)) {
-                switch (loanstate) {//1未发布 2进行中 3回款中 4已完成
-                    case "1":
-                        state = getString(R.string.productState1);//待售
-                        mInvest.setVisibility(View.GONE);
-                        mOrderLl.setVisibility(View.VISIBLE);
-                        isOrder = true;
-                        //                    invest.setEnabled(false);
-                        break;
-                    case "2":
-                        if (100 > pro) {
-                            state = getString(R.string.productState2);
-                            mInvest.setEnabled(true);
-                        } else {
-                            state = "进行中";
-                            if (mNewBaseInfoBean.hadTenderMoney >= mNewBaseInfoBean.issueloan) {
-                                state = "满标审核";
-                            }
-                            mInvest.setEnabled(false);
-                        }
-                        break;
-                    case "3":
-                        state = getString(R.string.productState3);
-                        pro = 100;
-                        mInvest.setEnabled(false);
-                        mClickToAvailableTime.setVisibility(View.VISIBLE);
-                        //                    finishInvest();
-                        break;
-                    case "4":
-                        state = getString(R.string.productState4);
-                        pro = 100;
-                        mInvest.setEnabled(false);
-                        mClickToAvailableTime.setVisibility(View.VISIBLE);
-                        //                    finishInvest();
-                        break;
-                }
-            }
-
-            mInvest.setText(state);
-            if ("1".equals(loanstate)) {//预售中
-                mProductProgress.setProgress(0);
-            } else {
-                mProductProgress.setProgress(pro);
-            }
-
-            if (pro >= 100) {
-                if (mInvest != null) {
-                    mInvest.setBackgroundColor(Color.parseColor("#CCCCCC"));
-                    //                    invest.setTextColor(Color.parseColor("#999999"));
-                    mInvest.setEnabled(false);
-                } else {
-                    mInvest.setEnabled(true);
-                }
-            }
-
-            Common.productSubType(mContext, mIvProductState, mNewBaseInfoBean.subType);
-
-            if ("1".equals(loanstate) && (!TextUtils.isEmpty(mNewBaseInfoBean.publishTime))) {
-                try {
-                    String publishTime = mNewBaseInfoBean.publishTime;
-                    long totleTime = Long.parseLong(publishTime);
-                    if (!AppState.instance().logined()) {
-                        mBtnOrder.setEnabled(true);
-                        mOrderCountDown.setCountDownTime(mContext, totleTime);
-                    } else {
-                        if (!TextUtils.isEmpty(mNewBaseInfoBean.bookCouponNumber) && 0 < Integer.parseInt(mNewBaseInfoBean.bookCouponNumber)) {
-                            //有可使用状态的预约券
-                            mOrderVoucherNum.setVisibility(View.VISIBLE);
-                            mOrderVoucherNum.setText("您有" + mNewBaseInfoBean.bookCouponNumber + "张预约券！点击进行预约。");
-                            mBtnOrder.setEnabled(true);
-                            mBtnOrder.setText("预约出借");
-                            mOrderCountDown.setCountDownTime(mContext, totleTime);
-                        } else {
-                            double orderMoney = mNewBaseInfoBean.issueloan * mNewBaseInfoBean.bookPercent - mNewBaseInfoBean.hadTenderMoney;
-                            if (orderMoney <= 0) {
-                                String str = "预售中\n预约已满额";
-                                String targetStr = "预约已满额";
-                                Utils.setTwoTextSize(str, targetStr, 10, mBtnOrder);
-                                //                            btnOrder.setText("预售中\n预约已满额");
-                            }
-                            mBtnOrder.setEnabled(false);
-                            mOrderCountDown.setCountDownTime(mContext, totleTime);
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if (mNewBaseInfoBean.graceDays > 0) {//是浮动计息
-            rlWarningDescContainer.setVisibility(View.VISIBLE);
-            ivFdjx.setVisibility(View.VISIBLE);
-            setWarningContent(mNewBaseInfoBean);
-        } else {
-            ivFdjx.setVisibility(View.GONE);
-            rlWarningDescContainer.setVisibility(View.GONE);
+//            String state = "我要出借";
+//            if (!TextUtils.isEmpty(loanstate)) {
+//                switch (loanstate) {//1未发布 2进行中 3回款中 4已完成
+//                    case "1":
+//                        state = getString(R.string.productState1);//待售
+//                        mInvest.setVisibility(View.GONE);
+//                        mOrderLl.setVisibility(View.VISIBLE);
+//                        isOrder = true;
+//                        //                    invest.setEnabled(false);
+//                        break;
+//                    case "2":
+//                        if (100 > pro) {
+//                            state = getString(R.string.productState2);
+//                            mInvest.setEnabled(true);
+//                        } else {
+//                            state = "进行中";
+//                            if (mNewBaseInfoBean.hadTenderMoney >= mNewBaseInfoBean.issueloan) {
+//                                state = "满标审核";
+//                            }
+//                            mInvest.setEnabled(false);
+//                        }
+//                        break;
+//                    case "3":
+//                        state = getString(R.string.productState3);
+//                        pro = 100;
+//                        mInvest.setEnabled(false);
+//                        mClickToAvailableTime.setVisibility(View.VISIBLE);
+//                        //                    finishInvest();
+//                        break;
+//                    case "4":
+//                        state = getString(R.string.productState4);
+//                        pro = 100;
+//                        mInvest.setEnabled(false);
+//                        mClickToAvailableTime.setVisibility(View.VISIBLE);
+//                        //                    finishInvest();
+//                        break;
+//                }
+//            }
+//
+//            mInvest.setText(state);
+//            if ("1".equals(loanstate)) {//预售中
+//                mProductProgress.setProgress(0);
+//            } else {
+//                mProductProgress.setProgress(pro);
+//            }
+//
+//            if (pro >= 100) {
+//                if (mInvest != null) {
+//                    mInvest.setBackgroundColor(Color.parseColor("#CCCCCC"));
+//                    //                    invest.setTextColor(Color.parseColor("#999999"));
+//                    mInvest.setEnabled(false);
+//                } else {
+//                    mInvest.setEnabled(true);
+//                }
+//            }
+//
+//            Common.productSubType(mContext, mIvProductState, mNewBaseInfoBean.subType);
+//
+//            if ("1".equals(loanstate) && (!TextUtils.isEmpty(mNewBaseInfoBean.publishTime))) {
+//                try {
+//                    String publishTime = mNewBaseInfoBean.publishTime;
+//                    long totleTime = Long.parseLong(publishTime);
+//                    if (!AppState.instance().logined()) {
+//                        mBtnOrder.setEnabled(true);
+//                        mOrderCountDown.setCountDownTime(mContext, totleTime);
+//                    } else {
+//                        if (!TextUtils.isEmpty(mNewBaseInfoBean.bookCouponNumber) && 0 < Integer.parseInt(mNewBaseInfoBean.bookCouponNumber)) {
+//                            //有可使用状态的预约券
+//                            mOrderVoucherNum.setVisibility(View.VISIBLE);
+//                            mOrderVoucherNum.setText("您有" + mNewBaseInfoBean.bookCouponNumber + "张预约券！点击进行预约。");
+//                            mBtnOrder.setEnabled(true);
+//                            mBtnOrder.setText("预约出借");
+//                            mOrderCountDown.setCountDownTime(mContext, totleTime);
+//                        } else {
+//                            double orderMoney = mNewBaseInfoBean.issueloan * mNewBaseInfoBean.bookPercent - mNewBaseInfoBean.hadTenderMoney;
+//                            if (orderMoney <= 0) {
+//                                String str = "预售中\n预约已满额";
+//                                String targetStr = "预约已满额";
+//                                Utils.setTwoTextSize(str, targetStr, 10, mBtnOrder);
+//                                //                            btnOrder.setText("预售中\n预约已满额");
+//                            }
+//                            mBtnOrder.setEnabled(false);
+//                            mOrderCountDown.setCountDownTime(mContext, totleTime);
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        if (mNewBaseInfoBean.graceDays > 0) {//是浮动计息
+//            rlWarningDescContainer.setVisibility(View.VISIBLE);
+//            ivFdjx.setVisibility(View.VISIBLE);
+//            setWarningContent(mNewBaseInfoBean);
+//        } else {
+//            ivFdjx.setVisibility(View.GONE);
+//            rlWarningDescContainer.setVisibility(View.GONE);
         }
     }
 
-    /**
-     * 设置高亮提示内容
-     *
-     * @param mNewBaseInfoBean
-     */
-    private void setWarningContent(final NewBaseInfoBean mNewBaseInfoBean) {
-        //        final String content = "该产品52.12%采用浮动计息36.85%方式，最大还款日40.50%期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>";
-        String content = mNewBaseInfoBean.flowInvestReminder + "  了解详情>>";
-        List<String> floatPercent = Utils.getFloatPercent(content);
-        DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
-        difColorTextStringBuilder.setContent(content);
-        for (int i = 0; i < floatPercent.size(); i++) {
-            difColorTextStringBuilder.setHighlightContent(floatPercent.get(i), R.color.red_text);
-        }
-        difColorTextStringBuilder.setHighlightContent("了解详情>>", R.color.red_text)
-                .setHighlightContent("了解详情>>", new MyClickableSpan() {
-                    @Override
-                    public void onClick(View widget) {
-                        gotoWeb("/h5/help/floatProductTips?loanId=" + mNewBaseInfoBean.loanId, "");
-                    }
-                })
-                .setTextView(tvWarningDesc)
-                .create();
-    }
+//    /**
+//     * 设置高亮提示内容
+//     *
+//     * @param mNewBaseInfoBean
+//     */
+//    private void setWarningContent(final NewBaseInfoBean mNewBaseInfoBean) {
+//        //        final String content = "该产品52.12%采用浮动计息36.85%方式，最大还款日40.50%期为1个月+7天；1个月内还款年利率为7.2%，超过1个月的7天浮动计息期每天以7.5%的年利率计息。了解详情>>";
+//        String content = mNewBaseInfoBean.flowInvestReminder + "  了解详情>>";
+//        List<String> floatPercent = Utils.getFloatPercent(content);
+//        DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
+//        difColorTextStringBuilder.setContent(content);
+//        for (int i = 0; i < floatPercent.size(); i++) {
+//            difColorTextStringBuilder.setHighlightContent(floatPercent.get(i), R.color.red_text);
+//        }
+//        difColorTextStringBuilder.setHighlightContent("了解详情>>", R.color.red_text)
+//                .setHighlightContent("了解详情>>", new MyClickableSpan() {
+//                    @Override
+//                    public void onClick(View widget) {
+//                        gotoWeb("/h5/help/floatProductTips?loanId=" + mNewBaseInfoBean.loanId, "");
+//                    }
+//                })
+//                .setTextView(tvWarningDesc)
+//                .create();
+//    }
 
     private void initViewAndData2(List<DepositTab1Bean.DataBean> data) {
         if (data == null)
@@ -904,7 +894,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 //                        }
 //                        intent.putExtra(Constant.AccountType, accountType);
 //                        intent.putExtra(DepositInvestActivity.IS_ORDER, false);
-//                        FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
+//                        App myApp = (App) getActivity().getApplication();
 //                        myApp.currentPid = "" + mNewBaseInfoBean.loanId;
 //                        intent.putExtra("isGraceDays",mNewBaseInfoBean.graceDays);//是否是浮动计息产品
 //                        startActivity(intent);
@@ -990,7 +980,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                         intent.putExtra(Constant.AccountType, accountType);
                         //                    intent.putExtra(ProductInvestActivity.TYPE_PRODUCT, ProductInvestActivity.TYPE_Jewelry_PRODUCT);
                         intent.putExtra("pid", "" + mNewBaseInfoBean.loanId);
-                        FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
+                        App myApp = (App) getActivity().getApplication();
                         myApp.currentPid = "" + mNewBaseInfoBean.loanId;
                         startActivity(intent);
                     }
@@ -1023,7 +1013,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 }
                 break;
             case R.id.tv_risk_tips://风险提示
-                gotoWeb("/registration/riskAgreement","风险提示");
+                gotoWeb("/registration/riskAgreement", "风险提示");
                 break;
         }
     }

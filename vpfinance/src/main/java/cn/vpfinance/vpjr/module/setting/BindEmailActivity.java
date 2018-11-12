@@ -19,15 +19,12 @@ import com.jewelcredit.util.Utils;
 
 import org.json.JSONObject;
 
-import java.text.BreakIterator;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseActivity;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 
 /**
@@ -130,7 +127,7 @@ public class BindEmailActivity extends BaseActivity {
                     break;
             }
             if(!TextUtils.isEmpty(str)) {
-                Utils.Toast(FinanceApplication.getAppContext(), str);
+                Utils.Toast(App.getAppContext(), str);
             }
         }
         if (reqId == ServiceCmd.CmdId.CMD_RESPONSIBLE_PHONE.ordinal()) {//获取经办人手机号

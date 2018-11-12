@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.greendao.LoanRecord;
 import cn.vpfinance.vpjr.gson.FinanceProduct;
@@ -469,7 +469,7 @@ public class RegularProductBorrowerFragment extends BaseFragment implements View
             Intent intent = new Intent(getActivity(), ProductInvestActivity.class);
             intent.putExtra(ProductInvestActivity.IPHONE, product.getGivePhone());
             intent.putExtra("pid", "" + product.getPid());
-            FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
+            App myApp = (App) getActivity().getApplication();
             myApp.currentPid = "" + product.getPid();
             startActivity(intent);
         }
@@ -506,7 +506,7 @@ public class RegularProductBorrowerFragment extends BaseFragment implements View
                     intent.putExtra(ProductInvestActivity.IPHONE, product.getGivePhone());
                     intent.putExtra(ProductInvestActivity.IS_ORDER, true);
                     intent.putExtra("pid", "" + product.getPid());
-                    FinanceApplication myApp = (FinanceApplication) getActivity().getApplication();
+                    App myApp = (App) getActivity().getApplication();
                     myApp.currentPid = "" + product.getPid();
                     startActivity(intent);
                 }

@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import java.security.KeyStore;
 import java.util.Map;
 
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 
 public class HttpDownloader {
 	public static AsyncHttpClient mClient = newHttpClient();
@@ -74,10 +74,10 @@ public class HttpDownloader {
 			schemeRegistry.register(new Scheme("https", socketFactory, 443));
 //			schemeRegistry.register(new Scheme("https", socketFactory, 8443));
 			AsyncHttpClient asyncHttpClient = new AsyncHttpClient(schemeRegistry);
-			asyncHttpClient.addHeader("APP-VERSION", Utils.getVersion(FinanceApplication.getAppContext()));
+			asyncHttpClient.addHeader("APP-VERSION", Utils.getVersion(App.getAppContext()));
 
 			//保存cookie，自动保存到了shareprefercece
-			PersistentCookieStore myCookieStore = new PersistentCookieStore(FinanceApplication.getAppContext());
+			PersistentCookieStore myCookieStore = new PersistentCookieStore(App.getAppContext());
 			asyncHttpClient.setCookieStore(myCookieStore);
 
 			return asyncHttpClient;

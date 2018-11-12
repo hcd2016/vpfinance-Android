@@ -30,12 +30,11 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.Constant;
-import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.gson.ReturnEventBean;
 import cn.vpfinance.vpjr.gson.ReturnMonthBean;
-import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.view.RobotoCalendarView;
 
@@ -92,12 +91,12 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
         .setImageButtonRight(R.drawable.img_return_list_switcher, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(FinanceApplication.getAppContext());
+                SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(App.getAppContext());
                 sp.putStringValue(SharedPreferencesHelper.STATE_RETURN_CALENDER_OR_LIST,"2");
                 Intent intent = new Intent(ReturnMoneyCalendarActivity.this,QueryReturnMoneyListActivity.class);
                 intent.putExtra(Constant.AccountType,accountType);
                 gotoActivity(intent);
-                Utils.Toast(FinanceApplication.getAppContext(), "回款查询已切换至列表视图");
+                Utils.Toast(App.getAppContext(), "回款查询已切换至列表视图");
                 finish();
             }
         });

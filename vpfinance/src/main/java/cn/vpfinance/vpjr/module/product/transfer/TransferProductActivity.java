@@ -292,7 +292,7 @@ public class TransferProductActivity extends BaseActivity implements View.OnClic
                     intent.putExtra(ProductInvestActivity.PRODUCT_TOTAL_MONEY, product.getIssueLoan());//转让总额
                     intent.putExtra(ProductInvestActivity.PRODUCT_NATIVE_MONEY, product.getOriginIssueLoan());//原始本金
                     intent.putExtra(ProductInvestActivity.TYPE_PRODUCT,ProductInvestActivity.TYPE_TRANSFER);
-//                    FinanceApplication myApp = (FinanceApplication)getApplication();
+//                    App myApp = (App)getApplication();
 //                    myApp.currentPid = ""+product.getPid();
                     startActivity(intent);
                 }

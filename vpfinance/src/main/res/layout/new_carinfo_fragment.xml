@@ -26,7 +26,12 @@
             app:tcvCanTagClick="true">
         </cn.vpfinance.vpjr.view.TagCloudView>
 
-        <ListView
+        <android.support.v4.widget.NestedScrollView
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <cn.vpfinance.vpjr.view.CoordinatorLayoutListView
             android:layout_marginTop="10dp"
             android:id="@+id/listView"
             android:layout_width="match_parent"
@@ -35,6 +40,7 @@
             android:dividerHeight="10dp"
             android:divider="@color/bg_gray2"
             android:scrollbars="none"/>
+        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 
     <RelativeLayout
