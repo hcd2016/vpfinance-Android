@@ -77,6 +77,7 @@ public class UserInfoBean implements Serializable{
     public String qqNum;//企业手机号
     public int riskLevel;//个人风险等级 1 保守型 2稳健型 3积极型
     public String riskLevelMoney;//个人风险限制金额,当为null时表示不限制金额
+    public String rechargingMoney;// 充值预授权成功金额
 
     /*可用余额*/
     public String cashBalance;

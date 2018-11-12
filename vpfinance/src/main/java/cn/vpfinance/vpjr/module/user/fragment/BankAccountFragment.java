@@ -563,6 +563,7 @@ public class BankAccountFragment extends BaseFragment {
                     intent1.putExtra("inCount", TextUtils.isEmpty(mUserInfoBean.inCount) ? "" : mUserInfoBean.inCount);
                     intent1.putExtra("frozenAmtN", TextUtils.isEmpty(mUserInfoBean.frozenAmtN) ? "" : mUserInfoBean.frozenAmtN);
                     intent1.putExtra("netAsset", TextUtils.isEmpty(mUserInfoBean.netAsset) ? "" : mUserInfoBean.netAsset);
+                    intent1.putExtra("rechargingMoney", TextUtils.isEmpty(mUserInfoBean.rechargingMoney) ? "" : mUserInfoBean.rechargingMoney);
                     intent1.putExtra(Constant.AccountType, accountType);
                     gotoActivity(intent1);
                 }

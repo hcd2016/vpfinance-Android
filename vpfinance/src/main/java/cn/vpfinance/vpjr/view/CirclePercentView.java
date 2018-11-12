@@ -11,6 +11,8 @@ import com.jewelcredit.util.Utils;
 
 import java.util.ArrayList;
 
+import cn.vpfinance.android.R;
+
 /**
  * Created by Administrator on 2015/11/2.
  */
@@ -58,47 +60,52 @@ public class CirclePercentView extends View{
         initPaint();
 
         /*内圈白色*/
-        int radius = Math.min(width, height) / 2;
+        int radius = Math.min(width, height) / 2 - 10;
         radius -= 60;
         paint.setColor(color_background);
         int centerX = width/2;
         int centerY = height/2;
-        canvas.drawCircle(centerX, centerY, radius, paint);
+//        canvas.drawCircle(centerX, centerY, radius, paint);
 
-        /*第一圈颜色*/
-        colorsNo1.add(0xFFFFE0AD);//橙色
-        colorsNo1.add(0xFFFF7A7A);//红色
-        colorsNo1.add(0xFF6386BD);//蓝色
+//        /*第一圈颜色*/
+//        colorsNo1.add(0xFFFFE0AD);//橙色
+//        colorsNo1.add(0xFFFF7A7A);//红色
+//        colorsNo1.add(0xFF6386BD);//蓝色
         float left = width*0.5f - radius;
         float top = height*0.5f - radius;
         float right = width*0.5f + radius;
         float bottom = height*0.5f + radius;
         float startAngle = 90;
-        for (int i=0 ; i < 3; i++){
-            if (percents !=null && percents.size() != 0){
-                tmpAngle = percents.get(i) * (float)360.0;
-            }else {
-                tmpAngle =(120.0f);
-            }
-            paint.setColor(colorsNo1.get(i));
-            boolean useCenter = false;
-            RectF oval = new RectF(left,top,right,bottom);
-            if (i == 2){
-                tmpAngle += 2;
-            }
-            canvas.drawArc(oval, startAngle,tmpAngle , useCenter, paint);
-            startAngle += (tmpAngle - 1);
-        }
+//        for (int i=0 ; i < 3; i++){
+//            if (percents !=null && percents.size() != 0){
+//                tmpAngle = percents.get(i) * (float)360.0;
+//            }else {
+//                tmpAngle =(120.0f);
+//            }
+//            paint.setColor(colorsNo1.get(i));
+//            boolean useCenter = false;
+//            RectF oval = new RectF(left,top,right,bottom);
+//            if (i == 2){
+//                tmpAngle += 2;
+//            }
+//            canvas.drawArc(oval, startAngle,tmpAngle , useCenter, paint);
+//            startAngle += (tmpAngle - 1);
+//        }
         /*第二圈*/
-        colorsNo2.add(0xFFFAD597);//橙色
-        colorsNo2.add(0xFFFF4D4D);//红色
-        colorsNo2.add(0xFF5777A8);//蓝色
+//        colorsNo2.add(0xFFFAD597);//橙色
+//        colorsNo2.add(0xFFFF4D4D);//红色
+//        colorsNo2.add(0xFF5777A8);//蓝色
+        colorsNo2.add(Utils.getColor(R.color.percent_view_red));//红色
+        colorsNo2.add(Utils.getColor(R.color.percent_view_blue));//蓝色
+        colorsNo2.add(Utils.getColor(R.color.percent_view_yellow));//橙色
+//        colorsNo2.add(0xff666b);//红色
+//        colorsNo2.add(0x66adff);//蓝色
         radius += strokeWidth;
         left = width*0.5f - radius;
         top = height*0.5f - radius;
         right = width*0.5f + radius;
         bottom = height*0.5f + radius;
-        startAngle = 90;
+        startAngle = 270;
         for (int i=0 ; i < 3; i++){
             if (percents !=null && percents.size() != 0){
                 tmpAngle = percents.get(i) * 360;
