@@ -228,7 +228,8 @@ public class MainActivity extends BaseActivity {
                         case R.id.maintab_mine_radiobtn:
                             SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(MainActivity.this);
                             String lockString = sharedPreferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING);
-                            if (!AppState.instance().logined() || TextUtils.isEmpty(lockString)) {
+//                            if (!AppState.instance().logined() || TextUtils.isEmpty(lockString)) {
+                            if (!AppState.instance().logined()) {
                                 self.startActivityForResult(new Intent(self, LoginActivity.class), 1);
                                 return;
                             }
