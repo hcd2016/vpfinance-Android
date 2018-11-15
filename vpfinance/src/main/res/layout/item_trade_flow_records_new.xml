@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,40 +8,12 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:paddingTop="15dp"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
-        android:id="@+id/ll_month"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        >
-
-        <View
-            android:layout_width="2dp"
-            android:layout_height="12dp"
-            android:background="@color/red_text2" />
-
-        <TextView
-            android:id="@+id/tvMonth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/text_333333"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            tools:text="5月出借" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/shape_radius6_white"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_top_radius6_white"
         android:orientation="vertical">
 
         <LinearLayout
@@ -51,13 +24,13 @@
             android:padding="15dp">
 
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/loanTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_333333"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                tools:text="企业贷 201805071" />
+                tools:text="企业贷 201805081" />
 
             <View
                 android:layout_width="0dp"
@@ -65,13 +38,14 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/tvDate"
+                android:id="@+id/recentTradeTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_999999"
                 android:textSize="12sp"
-                tools:text="2018-05-08 出借" />
+                tools:text="近期回款2018-08-08" />
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,10 +60,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="left"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvMoney"
+                    android:id="@+id/tenderMoneySum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_333333"
@@ -99,7 +74,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:text="出借金额"
                     android:textColor="@color/text_999999"
                     android:textSize="12sp" />
@@ -114,17 +89,18 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/preRepayMoneySum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_333333"
                     android:textSize="14sp"
-                    tools:text="3个月" />
+                    tools:text="4600.00元" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="期限"
+                    android:layout_marginTop="3dp"
+                    android:text="预计收益"
                     android:textColor="@color/text_999999"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -137,52 +113,43 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/repayMoneySum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_333333"
                     android:textSize="14sp"
-                    tools:text="10000.00元" />
+                    tools:text="400.00元" />
 
                 <TextView
-                    android:id="@+id/tv_earnings_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="预计收益"
+                    android:layout_marginTop="3dp"
+                    android:text="已回款金额"
                     android:textColor="@color/text_999999"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_share"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-            <include layout="@layout/line_linear_gray" />
+    <LinearLayout
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/shape_bottom_radius6_white"
+        android:id="@+id/ll_AheadReturnInfo_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp">
+        <include layout="@layout/line_linear_gray" />
 
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:src="@mipmap/icon_fenxianghongbao" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="分享红包"
-                    android:textColor="@color/red_text2"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </LinearLayout>
-
+        <ImageView
+            android:id="@+id/imageState"
+            android:layout_width="13dp"
+            android:layout_height="7dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:src="@mipmap/zhankai_r" />
     </LinearLayout>
 </LinearLayout>
+

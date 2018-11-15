@@ -47,22 +47,30 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
     TextView           mReturnNum;
     TextView           mReturnMoney;*/
     @Bind(R.id.listview)
-    ListView           mListview;
+    cn.vpfinance.vpjr.view.CoordinatorLayoutListView mListview;
     @Bind(R.id.titleBar)
-    ActionBarLayout    mTitleBar;
+    ActionBarLayout mTitleBar;
     @Bind(R.id.canlendar)
     RobotoCalendarView mCanlendar;
-    @Bind(R.id.returnNum)
-    TextView           mReturnNum;
-    @Bind(R.id.returnMoney)
-    TextView           mReturnMoney;
+//    @Bind(R.id.returnNum)
+//    TextView mReturnNum;
+//    @Bind(R.id.returnMoney)
+//    TextView mReturnMoney;
     @Bind(R.id.ll_no_data)
-    LinearLayout       mLlNoData;
+    LinearLayout mLlNoData;
+    @Bind(R.id.tv_wait_repayment_counts)
+    TextView tvWaitRepaymentCounts;
+    @Bind(R.id.tv_wait_repayment_amount)
+    TextView tvWaitRepaymentAmount;
+    @Bind(R.id.tv_repaymented_counts)
+    TextView tvRepaymentedCounts;
+    @Bind(R.id.tv_repaymented_amount)
+    TextView tvRepaymentedAmount;
     private HttpService mHttpService;
-    private MyAdapter   mMyAdapter;
-    private int         mYear;
-    private int         mMonth;
-    private int         mDay;
+    private MyAdapter mMyAdapter;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
     private int accountType = 0;
 
     @Override
@@ -75,12 +83,12 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
         //        mReturnNum = (TextView) headerView.findViewById(R.id.returnNum);
         //        mReturnMoney = (TextView) headerView.findViewById(R.id.returnMoney);
         Intent intent = getIntent();
-        if (intent != null){
-            accountType = intent.getIntExtra(Constant.AccountType,0);
+        if (intent != null) {
+            accountType = intent.getIntExtra(Constant.AccountType, 0);
         }
 
         mHttpService = new HttpService(this, this);
-        mHttpService.getReturnCalendarTime("", "",accountType);
+        mHttpService.getReturnCalendarTime("", "", accountType);
 
         Calendar calendar = Calendar.getInstance();
         mYear = calendar.get(Calendar.YEAR);
@@ -88,19 +96,19 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
         mDay = calendar.get(Calendar.DAY_OF_MONTH);
         getSelectDay(calendar);
         mTitleBar.reset().setTitle("回款日历").setHeadBackVisible(View.VISIBLE)
-        .setImageButtonRight(R.drawable.img_return_list_switcher, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(App.getAppContext());
-                sp.putStringValue(SharedPreferencesHelper.STATE_RETURN_CALENDER_OR_LIST,"2");
-                Intent intent = new Intent(ReturnMoneyCalendarActivity.this,QueryReturnMoneyListActivity.class);
-                intent.putExtra(Constant.AccountType,accountType);
-                gotoActivity(intent);
-                Utils.Toast(App.getAppContext(), "回款查询已切换至列表视图");
-                finish();
-            }
-        });
-        
+                .setImageButtonRight(R.drawable.img_return_list_switcher, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(App.getAppContext());
+                        sp.putStringValue(SharedPreferencesHelper.STATE_RETURN_CALENDER_OR_LIST, "2");
+                        Intent intent = new Intent(ReturnMoneyCalendarActivity.this, QueryReturnMoneyListActivity.class);
+                        intent.putExtra(Constant.AccountType, accountType);
+                        gotoActivity(intent);
+                        Utils.Toast(App.getAppContext(), "回款查询已切换至列表视图");
+                        finish();
+                    }
+                });
+
         //        mListview.addHeaderView(headerView);
         mMyAdapter = new MyAdapter(this);
         mListview.setAdapter(mMyAdapter);
@@ -122,12 +130,13 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
         if (reqId == ServiceCmd.CmdId.CMD_Return_Calendar_Time.ordinal()) {
             ReturnMonthBean returnMonthBean = mHttpService.onGetReturnCalendarTime(json);
             if (returnMonthBean != null) {
-                String str = "本月预计有" + returnMonthBean.getReturnCount() + "笔回款";
-                Utils.setTwoTextColor(str, returnMonthBean.getReturnCount(), getResources().getColor(R.color.text_ff5757), mReturnNum);
+//                String str = "本月预计有" + returnMonthBean.getReturnCount() + "笔回款";
+//                Utils.setTwoTextColor(str, returnMonthBean.getReturnCount(), getResources().getColor(R.color.text_ff5757), mReturnNum);
 
-                String str2 = "共" + returnMonthBean.getReturnMoney() + "元";
-                Utils.setTwoTextColor(str2, returnMonthBean.getReturnMoney(), getResources().getColor(R.color.text_ff5757), mReturnMoney);
+//                String str2 = "共" + returnMonthBean.getReturnMoney() + "元";
+//                Utils.setTwoTextColor(str2, returnMonthBean.getReturnMoney(), getResources().getColor(R.color.text_ff5757), mReturnMoney);
 
+                //todo 待设数据
                 Calendar calendar = Calendar.getInstance();
 
                 List<String> eventDays = returnMonthBean.getEventDays();
@@ -176,7 +185,7 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
     public void getSelectDay(Calendar calendar) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String dateStr = sdf.format(calendar.getTime());
-        mHttpService.getEventByDay(dateStr,accountType);
+        mHttpService.getEventByDay(dateStr, accountType);
     }
 
     @Override
@@ -196,26 +205,26 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
     public void onRightButtonClick(Calendar currentCalendar) {
         int year = currentCalendar.get(Calendar.YEAR);
         int month = currentCalendar.get(Calendar.MONTH);
-        mHttpService.getReturnCalendarTime(year + "", (month + 1) + "",accountType);
+        mHttpService.getReturnCalendarTime(year + "", (month + 1) + "", accountType);
     }
 
     @Override
     public void onLeftButtonClick(Calendar currentCalendar) {
         int year = currentCalendar.get(Calendar.YEAR);
         int month = currentCalendar.get(Calendar.MONTH);
-        mHttpService.getReturnCalendarTime(year + "", (month + 1) + "",accountType);
+        mHttpService.getReturnCalendarTime(year + "", (month + 1) + "", accountType);
     }
 
     @Override
     public void onTvTodayClick(Calendar currentCalendar) {
         getSelectDay(currentCalendar);
-        mHttpService.getReturnCalendarTime("", "",accountType);
+        mHttpService.getReturnCalendarTime("", "", accountType);
     }
 
     @Override
     public void onCurrentMonthClick(Calendar currentCalendar) {
         getSelectDay(currentCalendar);
-        mHttpService.getReturnCalendarTime("", "",accountType);
+        mHttpService.getReturnCalendarTime("", "", accountType);
     }
 
     class MyAdapter extends BaseAdapter {
@@ -223,10 +232,10 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
         public static final int ONE_TYPE = 0;
         public static final int TWO_TYPE = 1;
         private List<ReturnEventBean.AlreadyReturnRecordEntity> mAllData;
-        private Context                                         mContext;
+        private Context mContext;
         private List<ReturnEventBean.AlreadyReturnRecordEntity> mAlreadyReturnRecord;
         private List<ReturnEventBean.AlreadyReturnRecordEntity> mStayReturnRecord;
-        private ReturnEventBean.AlreadyReturnRecordEntity       mOne;
+        private ReturnEventBean.AlreadyReturnRecordEntity mOne;
         private ReturnEventBean.AlreadyReturnRecordEntity mTwo;
 
         public MyAdapter(Context context) {
@@ -289,7 +298,7 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
                 if (bean != null) {
                     String loanTitle = bean.getLoanTitle();
                     oneViewHolder.tvReturnDes.setText(loanTitle);
-
+                    //todo 数据待设
                     if ("今日待回款项".equals(loanTitle)) {
                         if (mStayReturnRecord == null || mStayReturnRecord.size() == 0) {
                             oneViewHolder.tvVisible.setVisibility(View.VISIBLE);
@@ -313,11 +322,17 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
                 if (convertView == null) {
                     twoViewHolder = new TwoViewHolder();
                     convertView = View.inflate(mContext, R.layout.item_calendar_return_money, null);
-                    twoViewHolder.tvMonthDay = (TextView) convertView.findViewById(R.id.tvMonthDay);
-                    twoViewHolder.tvYear = (TextView) convertView.findViewById(R.id.tvYear);
-                    twoViewHolder.tvProduct = (TextView) convertView.findViewById(R.id.tvProduct);
-                    twoViewHolder.tvMoney = (TextView) convertView.findViewById(R.id.tvMoney);
+//                    twoViewHolder.tvMonthDay = (TextView) convertView.findViewById(R.id.tvMonthDay);
+//                    twoViewHolder.tvYear = (TextView) convertView.findViewById(R.id.tvYear);
+//                    twoViewHolder.tvProduct = (TextView) convertView.findViewById(R.id.tvProduct);
+//                    twoViewHolder.tvMoney = (TextView) convertView.findViewById(R.id.tvMoney);
                     twoViewHolder.tvAheadReturnInfo = (TextView) convertView.findViewById(R.id.tvAheadReturnInfo);
+                    twoViewHolder.tv_product_title = (TextView) convertView.findViewById(R.id.tv_product_title);
+                    twoViewHolder.tv_date = (TextView) convertView.findViewById(R.id.tv_date);
+                    twoViewHolder.tv_principal = (TextView) convertView.findViewById(R.id.tv_principal);
+                    twoViewHolder.tv_periods = (TextView) convertView.findViewById(R.id.tv_periods);
+                    twoViewHolder.tv_earnings = (TextView) convertView.findViewById(R.id.tv_earnings);
+                    twoViewHolder.ll_AheadReturnInfo_container = (LinearLayout) convertView.findViewById(R.id.ll_AheadReturnInfo_container);
 
                     convertView.setTag(twoViewHolder);
                 } else {
@@ -329,54 +344,68 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
 
                     if (bean != null) {
 
-                        twoViewHolder.tvMoney.setTextColor(getResources().getColor(R.color.text_999999));
-                        twoViewHolder.tvMonthDay.setTextColor(getResources().getColor(R.color.text_333333));
-                        twoViewHolder.tvProduct.setTextColor(getResources().getColor(R.color.text_333333));
-                        twoViewHolder.tvYear.setTextColor(getResources().getColor(R.color.text_cccccc));
+//                        twoViewHolder.tvMoney.setTextColor(getResources().getColor(R.color.text_999999));
+//                        twoViewHolder.tvMonthDay.setTextColor(getResources().getColor(R.color.text_333333));
+//                        twoViewHolder.tvProduct.setTextColor(getResources().getColor(R.color.text_333333));
+//                        twoViewHolder.tvYear.setTextColor(getResources().getColor(R.color.text_cccccc));
 
-                        twoViewHolder.tvMonthDay.setText(mMonth + "/" + mDay);
-                        twoViewHolder.tvYear.setText(mYear + "年");
-                        twoViewHolder.tvProduct.setText(bean.getLoanTitle() + "    " + bean.getPeriods());
+                        twoViewHolder.tv_product_title.setText(bean.getLoanTitle());
+                        twoViewHolder.tv_date.setText(mYear+"-"+mMonth+"-"+mDay);
+                        twoViewHolder.tv_periods.setText(bean.getPeriods());
+                        twoViewHolder.tv_principal.setText(bean.getProfitAmount()+"元");
+                        twoViewHolder.tv_earnings.setText(bean.getProfitAmount()+"元");
 
-                        String str = "本金" + bean.getCapitalAmount() + "元+收益" + bean.getProfitAmount() + "元";
 
-                        int fstart = str.indexOf(bean.getCapitalAmount());
-                        int fend = fstart + bean.getCapitalAmount().length();
+//
+//                        twoViewHolder.tvMonthDay.setText(mMonth + "/" + mDay);
+//                        twoViewHolder.tvYear.setText(mYear + "年");
+//                        twoViewHolder.tvProduct.setText(bean.getLoanTitle() + "    " + bean.getPeriods());
 
-                        int fstart2 = str.indexOf(bean.getProfitAmount());
-                        int fend2 = fstart2 + bean.getProfitAmount().length();
+//                        String str = "本金" + bean.getCapitalAmount() + "元+收益" + bean.getProfitAmount() + "元";
+//
+//                        int fstart = str.indexOf(bean.getCapitalAmount());
+//                        int fend = fstart + bean.getCapitalAmount().length();
+//
+//                        int fstart2 = str.indexOf(bean.getProfitAmount());
+//                        int fend2 = fstart2 + bean.getProfitAmount().length();
+//
+//                        SpannableStringBuilder style = new SpannableStringBuilder(str);
+//                        style.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.text_ff5757)), fstart, fend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+//                        style.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.text_ff5757)), fstart2, fend2, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
 
-                        SpannableStringBuilder style = new SpannableStringBuilder(str);
-                        style.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.text_ff5757)), fstart, fend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-                        style.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.text_ff5757)), fstart2, fend2, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-
-                        twoViewHolder.tvMoney.setText(style);
+//                        twoViewHolder.tvMoney.setText(style);
                         //Utils.setTwoTextColor(str2, bean.getCapitalAmount(), getResources().getColor(R.color.text_ff5757), twoViewHolder.tvMoney);
-                        if (!TextUtils.isEmpty(bean.getAttribute1())){
-                            twoViewHolder.tvAheadReturnInfo.setVisibility(View.VISIBLE);
-                            twoViewHolder.tvAheadReturnInfo.setText(bean.getAttribute1()+bean.getAttribute2());
-                        }else{
-                            twoViewHolder.tvAheadReturnInfo.setVisibility(View.GONE);
+                        if (!TextUtils.isEmpty(bean.getAttribute1())) {
+                            twoViewHolder.ll_AheadReturnInfo_container.setVisibility(View.VISIBLE);
+                            twoViewHolder.tvAheadReturnInfo.setText(bean.getAttribute1() + bean.getAttribute2());
+                        } else {
+                            twoViewHolder.ll_AheadReturnInfo_container.setVisibility(View.GONE);
                         }
                     }
                 } else {//已回款的数据
                     if (bean != null) {
-                        twoViewHolder.tvMoney.setTextColor(getResources().getColor(R.color.text_999999));
-                        twoViewHolder.tvMonthDay.setTextColor(getResources().getColor(R.color.text_999999));
-                        twoViewHolder.tvProduct.setTextColor(getResources().getColor(R.color.text_999999));
-                        twoViewHolder.tvYear.setTextColor(getResources().getColor(R.color.text_999999));
+//                        twoViewHolder.tvMoney.setTextColor(getResources().getColor(R.color.text_999999));
+//                        twoViewHolder.tvMonthDay.setTextColor(getResources().getColor(R.color.text_999999));
+//                        twoViewHolder.tvProduct.setTextColor(getResources().getColor(R.color.text_999999));
+//                        twoViewHolder.tvYear.setTextColor(getResources().getColor(R.color.text_999999));
+//
+//                        twoViewHolder.tvMonthDay.setText(mMonth + "/" + mDay);
+//                        twoViewHolder.tvYear.setText(mYear + "年");
+//                        twoViewHolder.tvProduct.setText(bean.getLoanTitle() + "    " + bean.getPeriods());
+//
+//                        String str2 = "本金" + bean.getCapitalAmount() + "元+收益" + bean.getProfitAmount() + "元";
+//                        twoViewHolder.tvMoney.setText(str2);
+                        twoViewHolder.tv_product_title.setText(bean.getLoanTitle());
+                        twoViewHolder.tv_date.setText(mYear+"-"+mMonth+"-"+mDay);
+                        twoViewHolder.tv_periods.setText(bean.getPeriods());
+                        twoViewHolder.tv_principal.setText(bean.getProfitAmount()+"元");
+                        twoViewHolder.tv_earnings.setText(bean.getProfitAmount()+"元");
 
-                        twoViewHolder.tvMonthDay.setText(mMonth + "/" + mDay);
-                        twoViewHolder.tvYear.setText(mYear + "年");
-                        twoViewHolder.tvProduct.setText(bean.getLoanTitle() + "    " + bean.getPeriods());
-
-                        String str2 = "本金" + bean.getCapitalAmount() + "元+收益" + bean.getProfitAmount() + "元";
-                        twoViewHolder.tvMoney.setText(str2);
-                        if (!TextUtils.isEmpty(bean.getAttribute1())){
-                            twoViewHolder.tvAheadReturnInfo.setVisibility(View.VISIBLE);
-                            twoViewHolder.tvAheadReturnInfo.setText(bean.getAttribute1()+bean.getAttribute2());
-                        }else{
-                            twoViewHolder.tvAheadReturnInfo.setVisibility(View.GONE);
+                        if (!TextUtils.isEmpty(bean.getAttribute1())) {
+                            twoViewHolder.ll_AheadReturnInfo_container.setVisibility(View.VISIBLE);
+                            twoViewHolder.tvAheadReturnInfo.setText(bean.getAttribute1() + bean.getAttribute2());
+                        } else {
+                            twoViewHolder.ll_AheadReturnInfo_container.setVisibility(View.GONE);
                         }
                     }
                 }
@@ -403,11 +432,17 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
     }
 
     class TwoViewHolder {
-        TextView tvMonthDay;
-        TextView tvYear;
-        TextView tvProduct;
-        TextView tvMoney;
+//        TextView tvMonthDay;
+//        TextView tvYear;
+//        TextView tvProduct;
+//        TextView tvMoney;
         TextView tvAheadReturnInfo;
+        TextView tv_product_title;
+        TextView tv_date;
+        TextView tv_periods;
+        TextView tv_principal;
+        TextView tv_earnings;
+        LinearLayout ll_AheadReturnInfo_container;
     }
 
     class OneViewHolder {

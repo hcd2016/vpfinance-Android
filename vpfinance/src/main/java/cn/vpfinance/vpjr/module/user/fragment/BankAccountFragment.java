@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -24,7 +23,6 @@ import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.json.JSONObject;
 
@@ -44,12 +42,10 @@ import cn.vpfinance.vpjr.module.gusturelock.LockActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestProtocolActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestSettingActivity;
-import cn.vpfinance.vpjr.module.setting.PersonalInfoActivity;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 import cn.vpfinance.vpjr.module.trade.RechargBankActivity;
 import cn.vpfinance.vpjr.module.trade.WithdrawBankActivity;
 import cn.vpfinance.vpjr.module.user.BindBankHintActivity;
-import cn.vpfinance.vpjr.module.user.asset.AccountEActivity;
 import cn.vpfinance.vpjr.module.user.asset.FundFlowActivity;
 import cn.vpfinance.vpjr.module.user.asset.FundOverViewActivity;
 import cn.vpfinance.vpjr.module.user.asset.FundRecordsActivity;
@@ -58,14 +54,10 @@ import cn.vpfinance.vpjr.module.user.asset.QueryReturnMoneyListActivity;
 import cn.vpfinance.vpjr.module.user.asset.ReturnMoneyCalendarActivity;
 import cn.vpfinance.vpjr.module.user.asset.TransferProductListActivity;
 import cn.vpfinance.vpjr.module.user.personal.CouponActivity;
-import cn.vpfinance.vpjr.module.user.personal.InvestTopActivity;
-import cn.vpfinance.vpjr.module.user.personal.InviteGiftActivity;
-import cn.vpfinance.vpjr.module.user.personal.MyMedalActivity;
 import cn.vpfinance.vpjr.module.user.personal.TrialCoinActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
-import cn.vpfinance.vpjr.view.CircleImg;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -78,22 +70,22 @@ public class BankAccountFragment extends BaseFragment {
     private static boolean isShowing = false;
     @Bind(R.id.header_no_open)
     public LinearLayout mHeaderNoOpen;
-    @Bind(R.id.header)
-    public RelativeLayout mHeader;
+    //    @Bind(R.id.header)
+//    public RelativeLayout mHeader;
     @Bind(R.id.refresh)
     SwipeRefreshLayout mRefresh;
-    @Bind(R.id.tvUserName)
-    TextView tvUserName;
+    //    @Bind(R.id.tvUserName)
+//    TextView tvUserName;
     @Bind(R.id.tvReturnMoneyCount)
     TextView tvReturnMoneyCount;
     @Bind(R.id.tvReturnMoneyPrincipal)
     TextView tvReturnMoneyPrincipal;
-    @Bind(R.id.tvReturnMoneyIncome)
-    TextView tvReturnMoneyIncome;
-    @Bind(R.id.myDescribe)
-    TextView myDescribe;
-    @Bind(R.id.userHead)
-    CircleImg userHead;
+    //    @Bind(R.id.tvReturnMoneyIncome)
+//    TextView tvReturnMoneyIncome;
+//    @Bind(R.id.myDescribe)
+//    TextView myDescribe;
+//    @Bind(R.id.userHead)
+//    CircleImg userHead;
     @Bind(R.id.tvTotalMoney)
     TextView tvTotalMoney;
     @Bind(R.id.tvAvailableMoney)
@@ -112,14 +104,14 @@ public class BankAccountFragment extends BaseFragment {
     TextView canUseNum;
     @Bind(R.id.img_dot)
     ImageView imgDot;
-    @Bind(R.id.ivUpdateHxTag)
-    ImageView ivUpdateHxTag;
+    //    @Bind(R.id.ivUpdateHxTag)
+//    ImageView ivUpdateHxTag;
     @Bind(R.id.titleBar)
     ActionBarLayout titleBar;
     @Bind(R.id.noOpenHidden)
     LinearLayout noOpenHidden;
-    @Bind(R.id.click_account_e)
-    LinearLayout mCLickAccountE;
+    //    @Bind(R.id.click_account_e)
+//    LinearLayout mCLickAccountE;
     @Bind(R.id.click_open_bank_account)
     Button click_open_bank_account;
     @Bind(R.id.tvNoOpenHint)
@@ -128,6 +120,8 @@ public class BankAccountFragment extends BaseFragment {
     TextView tvNoOpenHint2;
     @Bind(R.id.tvOpenGuide)
     TextView tvOpenGuide;
+    @Bind(R.id.ll_assets_container)
+    LinearLayout llAssetsContainer;
 
     private User user;
     private HttpService mHttpService;
@@ -143,7 +137,7 @@ public class BankAccountFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = LayoutInflater.from(mContext).inflate(R.layout.fragment_bank_account, container, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.fragment_bank_account_new, container, false);
         ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
         mHttpService = new HttpService(getActivity(), this);
@@ -161,18 +155,17 @@ public class BankAccountFragment extends BaseFragment {
                 loadDate();
             }
         });
-        mHeader.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.account_bank_header));
+//        mHeader.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.account_bank_header));
         mHeaderNoOpen.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.account_bank_header));
 
         titleBar.reset()
-                .setTitle("我的账户")
-                .setColor(ContextCompat.getColor(getActivity(), R.color.account_bank_header))
-                .setActionRight("设置", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
-                    }
-                });
+                .setTitle("我的账户");
+//                .setImageButtonRight(R.mipmap.icon_set, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
+//                    }
+//                })
 //
 //        SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(mContext);
 //        isOpen = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT, false);
@@ -215,12 +208,12 @@ public class BankAccountFragment extends BaseFragment {
         user = DBUtils.getUser(mContext);
         if (user != null) {
             realName = user.getRealName();
-            boolean booleanValue = SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue("firstInto_" + user.getUserId(), true);
-            if (booleanValue) {
-                ivUpdateHxTag.setVisibility(View.VISIBLE);
-            } else {
-                ivUpdateHxTag.setVisibility(View.GONE);
-            }
+//            boolean booleanValue = SharedPreferencesHelper.getInstance(getActivity()).getBooleanValue("firstInto_" + user.getUserId(), true);
+//            if (booleanValue) {
+//                ivUpdateHxTag.setVisibility(View.VISIBLE);
+//            } else {
+//                ivUpdateHxTag.setVisibility(View.GONE);
+//            }
         }
         if (((MainActivity) getActivity()).mLastRadioId == R.id.maintab_mine_radiobtn) {
             loadDate();
@@ -332,7 +325,7 @@ public class BankAccountFragment extends BaseFragment {
 
 //            if (!"1".equals(mUserInfoBean.accountType)) return;
 
-        tvUserName.setText("你好!" + mUserInfoBean.userName);
+//        tvUserName.setText("你好!" + mUserInfoBean.userName);
         tvOpenBankAccount.setText("1".equals(mUserInfoBean.isAutoTender) ? "已开启" : "未开启");
 
         isOpen = "1".equals(mUserInfoBean.isOpen) ? true : false;
@@ -349,9 +342,9 @@ public class BankAccountFragment extends BaseFragment {
         canUseNum.setText((TextUtils.isEmpty(mUserInfoBean.canUseTotal) || "0".equals(mUserInfoBean.canUseTotal)) ? "" : mUserInfoBean.canUseTotal + "张券可使用");
 
         tvReturnMoneyPrincipal.setText(mUserInfoBean.capitalAmountSum);//待回款本金
-        tvReturnMoneyIncome.setText(mUserInfoBean.profitAmountSum);//待回款利息
+//        tvReturnMoneyIncome.setText(mUserInfoBean.profitAmountSum);//待回款利息
 
-        myDescribe.setText(TextUtils.isEmpty(mUserInfoBean.signature) ? "未设置签名" : mUserInfoBean.signature);//个人签名
+//        myDescribe.setText(TextUtils.isEmpty(mUserInfoBean.signature) ? "未设置签名" : mUserInfoBean.signature);//个人签名
 
         SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(getActivity());
 
@@ -374,12 +367,12 @@ public class BankAccountFragment extends BaseFragment {
                 sp.putStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId(), mHeadImgUrl);
             }
             String headUrl = SharedPreferencesHelper.getInstance(getActivity()).getStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId());
-            if (headUrl == null) {
-                userHead.setImageResource(R.drawable.user_head);
-            } else {
-                ImageLoader imageLoader = ImageLoader.getInstance();
-                imageLoader.displayImage(headUrl, userHead);
-            }
+//            if (headUrl == null) {
+//                userHead.setImageResource(R.drawable.user_head);
+//            } else {
+//                ImageLoader imageLoader = ImageLoader.getInstance();
+//                imageLoader.displayImage(headUrl, userHead);
+//            }
             //查询是否自动投标 超额或过期
             mHttpService.getQueryAutoPlankStatus(user.getUserId().toString());
         }
@@ -391,7 +384,8 @@ public class BankAccountFragment extends BaseFragment {
         isOpen = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_OPEN_BANK_ACCOUNT, false);
         isBindBank = sharedPreferencesHelper.getBooleanValue(SharedPreferencesHelper.KEY_IS_BIND_BANK, false);
         if (!isOpen) {
-            mHeader.setVisibility(View.GONE);
+//            mHeader.setVisibility(View.GONE);
+            titleBar.setColor(getResources().getColor(R.color.account_bank_header));
             mHeaderNoOpen.setVisibility(View.VISIBLE);
             mOpenContent.setVisibility(View.GONE);
             noOpenHidden.setVisibility(View.GONE);
@@ -399,19 +393,24 @@ public class BankAccountFragment extends BaseFragment {
             tvNoOpenHint.setText("为了保障您的资金安全 需先开通存管账户");
             tvNoOpenHint2.setVisibility(View.VISIBLE);
             tvNoOpenHint2.setText("开通后10分钟左右可以查看开通结果 请勿重复操作");
+            mRefresh.setColorSchemeColors(Utils.getColor(R.color.account_bank_header));
         } else if (!isBindBank) {
-            mHeader.setVisibility(View.GONE);
+            titleBar.setColor(getResources().getColor(R.color.account_bank_header));
+//            mHeader.setVisibility(View.GONE);
             mHeaderNoOpen.setVisibility(View.VISIBLE);
             mOpenContent.setVisibility(View.GONE);
             noOpenHidden.setVisibility(View.GONE);
             click_open_bank_account.setText("绑卡激活");
             tvNoOpenHint.setText("开通了银行存管的用户 需绑定银行卡激活账户");
             tvNoOpenHint2.setVisibility(View.GONE);
+            mRefresh.setColorSchemeColors(Utils.getColor(R.color.account_bank_header));
         } else {
-            mHeader.setVisibility(View.VISIBLE);
+            titleBar.setColor(getResources().getColor(R.color.red_text2));
+//            mHeader.setVisibility(View.VISIBLE);
             mHeaderNoOpen.setVisibility(View.GONE);
             mOpenContent.setVisibility(View.VISIBLE);
             noOpenHidden.setVisibility(View.VISIBLE);
+            mRefresh.setColorSchemeColors(Utils.getColor(R.color.red_text2));
         }
     }
 
@@ -421,15 +420,13 @@ public class BankAccountFragment extends BaseFragment {
             mRefresh.setRefreshing(false);
     }
 
-    @OnClick({R.id.withdraw, R.id.recharge, R.id.click_auto_invest_setting, R.id.click_account_e, R.id.click_open_bank_account, R.id.clickFundRecord, R.id.click_return_money_header, R.id.click_return_money_content, R.id.clickFundOverView, R.id.click_my_transfer, R.id.click_fund_flow, R.id.click_invest_summary,
+    @OnClick({R.id.withdraw, R.id.recharge, R.id.click_auto_invest_setting, R.id.click_open_bank_account, R.id.clickFundRecord, R.id.click_return_money_header, R.id.click_my_transfer, R.id.click_fund_flow, R.id.click_invest_summary,
             R.id.click_borrow_menu,
             R.id.clickTrialCoin,
             R.id.clickVoucher,
-            R.id.clickInviteGift,
-            R.id.invest_top,
-            R.id.my_medal,
+            R.id.ll_assets_container,
             R.id.tvOpenGuide,
-            R.id.click_risk_evaluating})
+    })
     public void click(View view) {
         switch (view.getId()) {
             case R.id.tvOpenGuide:
@@ -449,22 +446,22 @@ public class BankAccountFragment extends BaseFragment {
                     }
                 }
                 break;
-            case R.id.clickInviteGift:
-                InviteGiftActivity.goThis(mContext);
-                break;
-            case R.id.my_medal:
-                MyMedalActivity.goThis(mContext, Constant.AccountBank);
-                break;
-            case R.id.click_risk_evaluating:
+//            case R.id.clickInviteGift:
+//                InviteGiftActivity.goThis(mContext);
+//                break;
+//            case R.id.my_medal:
+//                MyMedalActivity.goThis(mContext, Constant.AccountBank);
+//                break;
+//            case R.id.click_risk_evaluating:
+//
+//                if (user != null) {
+//                    gotoWeb("/h5/help/riskInvestigation?userId=" + user.getUserId(), "风险评测");
+//                }
+//                break;
 
-                if (user != null) {
-                    gotoWeb("/h5/help/riskInvestigation?userId=" + user.getUserId(), "风险评测");
-                }
-                break;
-
-            case R.id.invest_top:
-                InvestTopActivity.goThis(mContext, Constant.AccountBank, killPercent);
-                break;
+//            case R.id.invest_top:
+//                InvestTopActivity.goThis(mContext, Constant.AccountBank, killPercent);
+//                break;
 //            case R.id.ivBandActive:
 //                user = DBUtils.getUser(mContext);
 //                if (user != null) {
@@ -518,9 +515,9 @@ public class BankAccountFragment extends BaseFragment {
 //                TicketActivity.goThis(mContext, Constant.AccountBank, voucher_count, addrate_count, presell_count);
                 CouponActivity.goThis(mContext);
                 break;
-            case R.id.click_account_e:
-                gotoActivity(AccountEActivity.class);
-                break;
+//            case R.id.click_account_e:
+//                gotoActivity(AccountEActivity.class);
+//                break;
             case R.id.click_open_bank_account:
                 user = DBUtils.getUser(mContext);
                 if (user != null) {
@@ -543,7 +540,7 @@ public class BankAccountFragment extends BaseFragment {
                     gotoActivity(LoginActivity.class);
                 }
                 break;
-            case R.id.click_return_money_content://回款查询
+//            case R.id.click_return_money_content://回款查询
             case R.id.click_return_money_header://回款日历/回款查询
                 SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(App.getAppContext());
                 String state = sp.getStringValue(SharedPreferencesHelper.STATE_RETURN_CALENDER_OR_LIST);
@@ -556,7 +553,7 @@ public class BankAccountFragment extends BaseFragment {
             case R.id.clickFundRecord://我的投资
                 goAction(FundRecordsActivity.class);
                 break;
-            case R.id.clickFundOverView://资产总览
+            case R.id.ll_assets_container://资产总览
                 if (mUserInfoBean != null) {
                     Intent intent1 = new Intent(mContext, FundOverViewActivity.class);
                     intent1.putExtra("cashBalance", TextUtils.isEmpty(mUserInfoBean.cashBalance) ? "" : mUserInfoBean.cashBalance);
@@ -598,7 +595,7 @@ public class BankAccountFragment extends BaseFragment {
                 String patternString = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING, null);
                 String saved_uid = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID);
                 String saved_logPwd = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD);
-                if (patternString == null || TextUtils.isEmpty(saved_uid) || TextUtils.isEmpty(saved_logPwd) ) {//单独处理,只要用户名,密码或手势密码为空,都需重新登录
+                if (patternString == null || TextUtils.isEmpty(saved_uid) || TextUtils.isEmpty(saved_logPwd)) {//单独处理,只要用户名,密码或手势密码为空,都需重新登录
                     Intent intent = new Intent(context, LoginActivity.class);
                     context.startActivityForResult(intent, 10086);
                 } else {
@@ -649,5 +646,11 @@ public class BankAccountFragment extends BaseFragment {
         super.onDestroy();
         ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

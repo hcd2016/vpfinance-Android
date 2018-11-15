@@ -175,7 +175,7 @@ dependencies {
     api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.0.2'
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.23'
     //下拉刷新,加载更多
-    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
 }
 
 /*

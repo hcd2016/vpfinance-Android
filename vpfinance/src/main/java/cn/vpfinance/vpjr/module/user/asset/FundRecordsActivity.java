@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -41,14 +42,14 @@ public class FundRecordsActivity extends BaseActivity implements ViewPager.OnPag
 
 	protected void initView() {
 		ActionBarLayout titleBar = (ActionBarLayout) findViewById(R.id.titleBar);
-		titleBar.setTitle("我的投资").setHeadBackVisible(View.VISIBLE);
+		titleBar.setTitle("我的出借").setHeadBackVisible(View.VISIBLE);
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		tabs.setIndicatorColor(0xFFFF3035);
 //		final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
 //				.getDisplayMetrics());
 //		mViewPager.setPageMargin(pageMargin);
-//		mViewPager.setOffscreenPageLimit(2);
+		mViewPager.setOffscreenPageLimit(2);
 
 		MyAdapter mTabsAdapter = new MyAdapter(getSupportFragmentManager());
 		mViewPager.setAdapter(mTabsAdapter);
@@ -64,11 +65,11 @@ public class FundRecordsActivity extends BaseActivity implements ViewPager.OnPag
 
 	@Override
 	public void onPageSelected(int position) {
-		if (position == 0) {
-			EventBus.getDefault().post(new RecordsRefreshBean("1"));
-		}else if (position == 1) {
-			EventBus.getDefault().post(new RecordsRefreshBean("2"));
-		}
+//		if (position == 0) {
+//			EventBus.getDefault().post(new RecordsRefreshBean("1"));
+//		}else if (position == 1) {
+//			EventBus.getDefault().post(new RecordsRefreshBean("2"));
+//		}
 	}
 
 	@Override
@@ -92,7 +93,7 @@ public class FundRecordsActivity extends BaseActivity implements ViewPager.OnPag
 		}
 	}
 
-	class MyAdapter extends FragmentPagerAdapter{
+	class MyAdapter extends FragmentStatePagerAdapter{
 
 		public MyAdapter(FragmentManager fm) {
 			super(fm);

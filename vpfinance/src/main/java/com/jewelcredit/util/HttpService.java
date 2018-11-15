@@ -3729,8 +3729,8 @@ Type	Int	Banner类型	1. 链接  2.产品
             params.put("numPerPage", numPerPage);
         }
 
-        httpClient.setTips("加载中");
-        return httpClient.doPost(url, params, cmdId.ordinal(), false, true);
+//        httpClient.setTips("加载中");
+        return httpClient.doPost(url, params, cmdId.ordinal(), false, false);
     }
 
     public NewRecordsBean onGetNewFundRecord(JSONObject jsonObject) {

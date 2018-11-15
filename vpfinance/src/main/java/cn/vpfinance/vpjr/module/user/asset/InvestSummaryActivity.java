@@ -51,7 +51,7 @@ public class InvestSummaryActivity extends BaseActivity {
         setContentView(R.layout.activity_invest_summary);
         ButterKnife.bind(this);
 
-        mToolBar.setTitle("投资统计").setHeadBackVisible(View.VISIBLE)
+        mToolBar.setTitle("出借统计").setHeadBackVisible(View.VISIBLE)
                 .setImageButtonRight(R.drawable.ic_mine_top_info, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -52,6 +52,7 @@ import cn.vpfinance.vpjr.view.MyCountDownTimer;
 /**
  * Created by Administrator on 2016/10/24.
  * 标的基本信息fragment
+ * v4.0废弃 改用 BaseInfoFragment;
  */
 public class NewBaseInfoFragment extends BaseFragment implements View.OnClickListener {
 
@@ -124,8 +125,8 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 //    TextView tvWarningDesc;
 //    @Bind(R.id.rl_warning_desc_container)
 //    RelativeLayout rlWarningDescContainer;
-    @Bind(R.id.tv_risk_tips)
-    TextView tvRiskTips;
+//    @Bind(R.id.tv_risk_tips)
+//    TextView tvRiskTips;
 //    @Bind(R.id.bankAccountStatus)
 //    TextView bankAccountStatus;
 
@@ -813,7 +814,6 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
         mStartInterest.setText(TextUtils.isEmpty(mFinanceProduct.getCreditTime2()) ? "" : mFinanceProduct.getCreditTime2());
     }*/
 
-    @OnClick({R.id.tv_risk_tips})
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -1012,9 +1012,9 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                     }
                 }
                 break;
-            case R.id.tv_risk_tips://风险提示
-                gotoWeb("/registration/riskAgreement", "风险提示");
-                break;
+//            case R.id.tv_risk_tips://风险提示
+//                gotoWeb("/registration/riskAgreement", "风险提示");
+//                break;
         }
     }
 

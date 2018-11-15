@@ -51,7 +51,7 @@ public class RobotoCalendarView extends LinearLayout {
     private ImageView leftButton;
     private ImageView rightButton;
     private TextView  tvToday;
-    private TextView  currentMonth;
+//    private TextView  currentMonth;
     private View      rootView;
     private ViewGroup robotoCalendarMonthLayout;
 
@@ -105,7 +105,7 @@ public class RobotoCalendarView extends LinearLayout {
         leftButton = (ImageView) view.findViewById(R.id.leftButton);
         rightButton = (ImageView) view.findViewById(R.id.rightButton);
         tvToday = (TextView) view.findViewById(R.id.today);
-        currentMonth = (TextView) view.findViewById(R.id.currentMonth);
+//        currentMonth = (TextView) view.findViewById(R.id.currentMonth);
         dateTitle = (TextView) view.findViewById(R.id.monthText);
 
         for (int i = 0; i < 42; i++) {
@@ -177,17 +177,17 @@ public class RobotoCalendarView extends LinearLayout {
             }
         });
 
-        currentMonth.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (robotoCalendarListener == null) {
-                    throw new IllegalStateException("You must assign a valid RobotoCalendarListener first!");
-                }
-
-                setCalendar(Calendar.getInstance());
-                robotoCalendarListener.onCurrentMonthClick(currentCalendar);
-            }
-        });
+//        currentMonth.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (robotoCalendarListener == null) {
+//                    throw new IllegalStateException("You must assign a valid RobotoCalendarListener first!");
+//                }
+//
+//                setCalendar(Calendar.getInstance());
+//                robotoCalendarListener.onCurrentMonthClick(currentCalendar);
+//            }
+//        });
     }
 
     private void setUpCalligraphy() {

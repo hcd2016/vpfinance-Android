@@ -39,6 +39,9 @@ import cn.vpfinance.vpjr.module.dialog.VoucherDialogFragment;
 import cn.vpfinance.vpjr.module.user.fragment.CouponFragment;
 import de.greenrobot.event.EventBus;
 
+/**
+ * 我的优惠券
+ */
 public class CouponActivity extends BaseActivity implements View.OnClickListener {
 
     @Bind(R.id.mActionBar)
@@ -122,10 +125,10 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
         RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.mRadioGroup);
 
         int heightPixels = getResources().getDisplayMetrics().heightPixels;
-        shadowContainer.setMinimumHeight(heightPixels - mActionBar.getMeasuredHeight() - radioGroup.getMeasuredHeight());
+        shadowContainer.setMinimumHeight(heightPixels - mActionBar.getMeasuredHeight() -mTab.getMeasuredHeight()- radioGroup.getMeasuredHeight());
 //        shadowContainer.setAlpha(0.3F);
 
-        statusWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, heightPixels - mActionBar.getMeasuredHeight(), true);
+        statusWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, heightPixels - mActionBar.getMeasuredHeight()-mTab.getMeasuredHeight(), true);
         statusWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         statusWindow.setOutsideTouchable(true);
         statusWindow.setTouchable(true);
@@ -137,16 +140,32 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
             }
         });
 
-        statusWindow.showAtLocation(mActionBar, Gravity.TOP, 0, mActionBar.getMeasuredHeight());
+        statusWindow.showAtLocation(mTab, Gravity.TOP, 0, mTab.getMeasuredHeight()+mActionBar.getMeasuredHeight());
+        final RadioButton mRbAll = view.findViewById(R.id.mRbAll);
+        final RadioButton mRbVoucher = view.findViewById(R.id.mRbVoucher);
+        final RadioButton mRbPresell = view.findViewById(R.id.mRbPresell);
+        //重置状态
+        mRbAll.setTextColor(Utils.getColor(R.color.text_333333));
+        mRbVoucher.setTextColor(Utils.getColor(R.color.text_333333));
+        mRbPresell.setTextColor(Utils.getColor(R.color.text_333333));
+        mRbAll.getPaint().setFakeBoldText(false);
+        mRbVoucher.getPaint().setFakeBoldText(false);
+        mRbPresell.getPaint().setFakeBoldText(false);
         switch (type) {
             case CouponFragment.TYPE_ALL:
-                ((RadioButton) view.findViewById(R.id.mRbAll)).setChecked(true);
+                mRbAll.setChecked(true);
+                mRbAll.setTextColor(Utils.getColor(R.color.red_text2));
+                mRbAll.getPaint().setFakeBoldText(true);
                 break;
             case CouponFragment.TYPE_VOUCHER:
-                ((RadioButton) view.findViewById(R.id.mRbVoucher)).setChecked(true);
+                mRbVoucher.setTextColor(Utils.getColor(R.color.red_text2));
+                mRbVoucher.getPaint().setFakeBoldText(true);
+                mRbVoucher.setChecked(true);
                 break;
             case CouponFragment.TYPE_PRESELL:
-                ((RadioButton) view.findViewById(R.id.mRbPresell)).setChecked(true);
+                mRbPresell.setTextColor(Utils.getColor(R.color.red_text2));
+                mRbPresell.getPaint().setFakeBoldText(true);
+                mRbPresell.setChecked(true);
                 break;
         }
         shadowContainer.setOnClickListener(new View.OnClickListener() {

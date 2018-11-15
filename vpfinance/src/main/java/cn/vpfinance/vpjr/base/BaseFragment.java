@@ -33,10 +33,9 @@ public class BaseFragment extends Fragment implements HttpDownloader.HttpDownloa
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		super.onCreateView(inflater, container, savedInstanceState);
 
 //		mTitleBar = new TitleBar(null);
-		return null;
+		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 
 	@Override

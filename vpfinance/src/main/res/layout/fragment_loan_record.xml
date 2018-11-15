@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="应还本金"
+            android:textColor="@color/text_333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_principal_counts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/text_333333"
+            android:textSize="14sp"
+            tools:text="10笔" />
+
+        <TextView
+            android:id="@+id/tv_principal_total_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textColor="@color/text_333333"
+            android:textSize="14sp"
+            tools:text="共100000.00元" />
+    </LinearLayout>
+
+    <include layout="@layout/line_linear_gray_margin15" />
+
+    <!--应还本金列-->
+    <LinearLayout
+        android:id="@+id/ll_repayment_principal_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <include layout="@layout/line_linear_gray_margin15" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="应还利息"
+            android:textColor="@color/text_333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_interest_counts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/text_333333"
+            android:textSize="14sp"
+            tools:text="10笔" />
+
+        <TextView
+            android:id="@+id/tv_interest_total_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textColor="@color/text_333333"
+            android:textSize="14sp"
+            tools:text="共100000.00元" />
+    </LinearLayout>
+
+    <include layout="@layout/line_linear_gray_margin15" />
+
+    <!--应还利息列-->
+    <LinearLayout
+        android:id="@+id/ll_repayment_interest_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+</LinearLayout>

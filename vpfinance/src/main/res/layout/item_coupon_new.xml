@@ -48,14 +48,12 @@
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
 
-            <LinearLayout
-                android:orientation="vertical"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/llHeader"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical">
-
                 <ListView
                     android:id="@+id/mListView"
                     android:layout_width="match_parent"
@@ -72,7 +70,7 @@
                     android:textSize="@dimen/text_size_12"
                     tools:text="2015.10.18到期"
                     android:layout_alignParentBottom="true"/>
-            </LinearLayout>
+            </RelativeLayout>
 
             <ImageView
                 android:id="@+id/ivStatus"

@@ -90,7 +90,7 @@ public class FundRecordsActivity2 extends BaseActivity implements View.OnClickLi
 
 	protected void initView() {
 		ActionBarLayout titleBar = (ActionBarLayout) findViewById(R.id.titleBar);
-		titleBar.setTitle("我的投资").setHeadBackVisible(View.VISIBLE);
+		titleBar.setTitle("我的出借").setHeadBackVisible(View.VISIBLE);
 		listView = (ListView) findViewById(R.id.listView);
 		textview = (TextView) findViewById(R.id.textview);
 

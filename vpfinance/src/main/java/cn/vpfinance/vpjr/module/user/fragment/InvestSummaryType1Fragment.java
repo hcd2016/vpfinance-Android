@@ -102,7 +102,7 @@ public class InvestSummaryType1Fragment extends BaseFragment {
 
     private void initView(InvestSummaryTab1Bean info) {
         int count = info.getCount1() + info.getCount2() + info.getCount3() + info.getCount4() + info.getCount5();
-        mTotalInvestCount.setText("共投资\n" + count + "个项目");
+        mTotalInvestCount.setText("共出借\n" + count + "个项目");
         mType1.setText(info.getCount1() + "个");
         mType2.setText(info.getCount2() + "个");
         mType3.setText(info.getCount3() + "个");

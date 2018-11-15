@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/white"
-              android:gravity="center_vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_bg"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:paddingTop="11dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingTop="20dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/red_shugang"
-            android:layout_marginLeft="12dp"/>
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="15dp"
+            android:background="@color/red_text2" />
 
         <TextView
             android:id="@+id/tvReturnDes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
+            android:textColor="@color/text_333333"
             android:textSize="@dimen/text_size_14"
-            android:textColor="@color/text_999999"
-            tools:text="今日待回款事项"/>
+            android:textStyle="bold"
+            tools:text="今日已回款1笔共 5000.00元" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tvVisible"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        tools:text="今日无待回款项"
-        android:textColor="@color/text_999999"
         android:gravity="center"
-        tools:visibility="visible"
-        android:visibility="gone"/>
+        android:textColor="@color/text_999999"
+        android:visibility="gone"
+        tools:text="今日无待回款项"
+        tools:visibility="visible" />
 </LinearLayout>

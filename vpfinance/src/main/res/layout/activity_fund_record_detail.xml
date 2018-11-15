@@ -27,6 +27,7 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/click_look_product_detail"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -103,7 +104,7 @@
 
                 <RelativeLayout
                     android:visibility="gone"
-                    tools:visibility="visible"
+                    tools:visibility="gone"
                     android:id="@+id/rl_warning_desc_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -134,6 +135,7 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:gravity="center_vertical"

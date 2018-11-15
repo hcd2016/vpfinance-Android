@@ -18,19 +18,20 @@
         android:orientation="vertical">
 
         <com.astuetz.PagerSlidingTabStrip
+            app:pstsTabTextStyle="0"
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="42dip"
             app:pstsDividerColor="@color/transparent"
             app:pstsDividerPadding="0dp"
-            app:pstsIndicatorColor="@color/col_tab_sel"
-            app:pstsIndicatorHeight="3dp"
-            app:pstsScrollOffset="3dp"
+            app:pstsIndicatorColor="@color/red_text2"
+            app:pstsIndicatorHeight="1dp"
+            app:pstsScrollOffset="1dp"
             app:pstsShouldExpand="true"
             app:pstsTabBackground="@color/transparent"
             app:pstsTabPaddingLeftRight="3dp"
             app:pstsTextAllCaps="false"
-            app:pstsUnderlineColor="@color/col_tab_sel"
+            app:pstsUnderlineColor="@color/transparent"
             app:pstsUnderlineHeight="1px" />
 
         <android.support.v4.view.ViewPager

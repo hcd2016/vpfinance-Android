@@ -102,7 +102,7 @@ public class MessageActivity extends BaseActivity {
         }
     }
 
-    class PagerAdapter extends FragmentStatePagerAdapter {
+    class PagerAdapter extends FragmentPagerAdapter {
 
         public PagerAdapter(FragmentManager fm) {
             super(fm);

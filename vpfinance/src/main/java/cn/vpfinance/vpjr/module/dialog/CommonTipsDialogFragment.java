@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jewelcredit.util.Utils;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -50,7 +52,7 @@ public class CommonTipsDialogFragment extends DialogFragment {
         return view;
     }
 
-    public static CommonTipsDialogFragment newInstance(String title, String content, String btnLeft, String btnRight, boolean isCancel, float width, float height, int gravity) {
+    public static CommonTipsDialogFragment newInstance(String title, String content, String btnLeft, String btnRight, boolean isCancel, float width, float height, int gravity, int titleVisibility, int contentColor) {
         CommonTipsDialogFragment commonTipsDialogFragment = new CommonTipsDialogFragment();
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
@@ -61,6 +63,8 @@ public class CommonTipsDialogFragment extends DialogFragment {
         bundle.putFloat("width", width);
         bundle.putFloat("height", height);
         bundle.putInt("gravity", gravity);
+        bundle.putInt("titleVisibility", titleVisibility);
+        bundle.putInt("contentColor", contentColor);
         commonTipsDialogFragment.setArguments(bundle);
         return commonTipsDialogFragment;
     }
@@ -70,8 +74,12 @@ public class CommonTipsDialogFragment extends DialogFragment {
         String content = getArguments().getString("content");
         String btnLeft = getArguments().getString("btnLeft");
         String btnRight = getArguments().getString("btnRight");
+        int titleVisibility = getArguments().getInt("titleVisibility");
+        int contentColor = getArguments().getInt("contentColor");
+        tvTitle.setVisibility(titleVisibility);
         tvTitle.setText(title == null ? tvTitle.getText().toString() : title);
         tvContent.setText(content == null ? tvContent.getText().toString() : content);
+        tvContent.setTextColor(Utils.getColor(contentColor));
         if (btnLeft == null) {//传空为只有一个按钮
             tvBtnLeft.setVisibility(View.GONE);
             viewLine.setVisibility(View.GONE);
@@ -151,11 +159,15 @@ public class CommonTipsDialogFragment extends DialogFragment {
         show(activity.getSupportFragmentManager(), "base_dialog_tag");
     }
 
+
+
     public static class Buidler {
         public String title;
         public String content;
         public String btnLeft;
         public String btnRight;
+        public int titleVisibility;
+        public int contentColor;
         public boolean isCancel = true;//点击外部是否关闭
         public float width = 0.8f;//dialog相对屏幕宽度的百分比,默认为屏幕的百分之80
         public int gravity = Gravity.CENTER; //默认为居中
@@ -203,6 +215,15 @@ public class CommonTipsDialogFragment extends DialogFragment {
             return this;
         }
 
+        public Buidler setTitleVisibility(int visibility) {
+           this.titleVisibility = visibility;
+           return this;
+        }
+        public Buidler setContentTextColor(int color) {
+           this.contentColor = color;
+           return this;
+        }
+
         //点击左按钮是否关闭弹窗
         public Buidler setIsLeftDismiss(boolean isLeftDismiss) {
             isLeftClickDismiss = isLeftDismiss;
@@ -225,7 +246,7 @@ public class CommonTipsDialogFragment extends DialogFragment {
         }
 
         public CommonTipsDialogFragment create() {
-            CommonTipsDialogFragment dialog = newInstance(title, content, btnLeft, btnRight, isCancel, width, height, gravity);
+            CommonTipsDialogFragment dialog = newInstance(title, content, btnLeft, btnRight, isCancel, width, height, gravity,titleVisibility,contentColor);
             //将回调传出去给dialog
             dialog.setOnLeftClickListner(onLeftClickListenr);
             dialog.setOnRightClickListner(onRightClickListner);

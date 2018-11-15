@@ -34,7 +34,7 @@
                     android:gravity="center"
                     android:background="@drawable/btn_invest_summary_select"
                     android:textColor="@color/white"
-                    android:text="投资产品分布"/>
+                    android:text="出借产品分布"/>
                 <RadioButton
                     android:id="@+id/type2"
                     android:layout_width="108dp"

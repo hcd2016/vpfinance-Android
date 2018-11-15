@@ -1,5 +1,6 @@
 package cn.vpfinance.vpjr.module.home.fragment;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,13 +21,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseFragment;
+import cn.vpfinance.vpjr.base.NewBaseFragment;
 import cn.vpfinance.vpjr.module.home.MessageActivity;
 import cn.vpfinance.vpjr.module.home.MsgDetailActivity;
 
 /**
  * 平台消息
  */
-public class MsgPlatformFragment extends BaseFragment {
+public class MsgPlatformFragment extends NewBaseFragment {
     @Bind(R.id.rl_no_data_container)
     RelativeLayout rlNoDataContainer;
     @Bind(R.id.recyclerView)

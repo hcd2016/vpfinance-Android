@@ -13,12 +13,14 @@ import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.jewelcredit.ui.widget.ActionBarLayout;
+import com.jewelcredit.util.Utils;
 
 import java.util.ArrayList;
 
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.base.BaseActivity;
+import cn.vpfinance.vpjr.module.user.transfer.TranseferListFragment;
 import cn.vpfinance.vpjr.module.user.transfer.TransferAllowProductListFragment;
 import cn.vpfinance.vpjr.module.user.transfer.TransferedProductListFragment;
 import cn.vpfinance.vpjr.module.user.transfer.TransferingProductListFragment;
@@ -31,7 +33,7 @@ public class TransferProductListActivity extends BaseActivity {
     private ViewPager mViewPager;
     private PagerSlidingTabStrip tabs;
     private TransferListAdapter transferListAdapter;
-//    private ArrayList<Fragment> fragments;
+    //    private ArrayList<Fragment> fragments;
     private int accountType = 0;
 
     @Override
@@ -40,8 +42,8 @@ public class TransferProductListActivity extends BaseActivity {
         setContentView(R.layout.activity_transfer_product_list);
 
         Intent intent = getIntent();
-        if (intent != null){
-            accountType = intent.getIntExtra(Constant.AccountType,0);
+        if (intent != null) {
+            accountType = intent.getIntExtra(Constant.AccountType, 0);
         }
         initView();
     }
@@ -52,7 +54,8 @@ public class TransferProductListActivity extends BaseActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-        tabs.setIndicatorColor(0xFFFF3035);
+//        tabs.setIndicatorColor(0xFFFF3035);
+        tabs.setTextColor(Utils.getColor(R.color.text_666666));
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
                 .getDisplayMetrics());
         mViewPager.setPageMargin(pageMargin);
@@ -73,8 +76,7 @@ public class TransferProductListActivity extends BaseActivity {
 
         private final FragmentManager mFragmentManager;
 
-        public TransferListAdapter(FragmentManager fm)
-        {
+        public TransferListAdapter(FragmentManager fm) {
             super(fm);
             mFragmentManager = fm;
         }
@@ -82,16 +84,26 @@ public class TransferProductListActivity extends BaseActivity {
         @Override
         public Fragment getItem(int position) {
             //1可转让 2转让中3已转让
-            switch (position){
-                case 0:
-                    return TransferAllowProductListFragment.newInstance(accountType);
-                case 1:
-                    return TransferingProductListFragment.newInstance(accountType);
-                case 2:
-                    return TransferedProductListFragment.newInstance(accountType);
-            }
-            return TransferAllowProductListFragment.newInstance(accountType);
-//            return fragments.get(position);
+//            switch (position){
+//                case 0:
+//                    return TransferAllowProductListFragment.newInstance(accountType);
+//                case 1:
+//                    return TransferingProductListFragment.newInstance(accountType);
+//                case 2:
+//                    return TransferedProductListFragment.newInstance(accountType);
+//            }
+//            return TransferAllowProductListFragment.newInstance(accountType);
+
+
+//            switch (position) {
+//                case 0:
+//                    return TranseferListFragment.newInstance(position);
+//                case 1:
+//                    return TranseferListFragment.newInstance(position);
+//                case 2:
+//                    return TranseferListFragment.newInstance(position);
+//            }
+            return TranseferListFragment.newInstance(position);
         }
 
         @Override
@@ -112,7 +124,7 @@ public class TransferProductListActivity extends BaseActivity {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            Fragment fragment = (Fragment)super.instantiateItem(container, position);
+            Fragment fragment = (Fragment) super.instantiateItem(container, position);
             fragment.setMenuVisibility(true);
             fragment.setUserVisibleHint(true);
             return fragment;

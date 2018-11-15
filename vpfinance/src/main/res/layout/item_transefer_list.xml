@@ -7,16 +7,15 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:paddingTop="15dp"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
         android:id="@+id/ll_month"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        >
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp">
 
         <View
             android:layout_width="2dp"
@@ -37,9 +36,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/shape_radius6_white"
         android:orientation="vertical">
 
@@ -153,36 +152,5 @@
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_share"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/line_linear_gray" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:src="@mipmap/icon_fenxianghongbao" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="分享红包"
-                    android:textColor="@color/red_text2"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>
