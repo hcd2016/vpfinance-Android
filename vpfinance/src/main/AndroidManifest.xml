@@ -494,6 +494,14 @@
         <activity
             android:name="cn.vpfinance.vpjr.module.home.MsgDetailActivity"
             android:screenOrientation="portrait" />
+        <!--我的主页-->
+        <activity
+            android:name="cn.vpfinance.vpjr.module.more.MyHomePageActivity"
+            android:screenOrientation="portrait" />
+        <!--我的主页-->
+        <activity
+            android:name="cn.vpfinance.vpjr.module.more.MoreHelpActivity"
+            android:screenOrientation="portrait" />
 
         <!-- LLYT SDK END -->
 

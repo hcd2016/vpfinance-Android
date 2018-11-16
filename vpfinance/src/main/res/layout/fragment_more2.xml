@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/bg_gray2">
+    android:background="@color/bg_gray2"
+    android:orientation="vertical">
 
     <com.jewelcredit.ui.widget.ActionBarLayout
         android:id="@+id/titleBar"
@@ -16,42 +17,133 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="8dp">
+            android:background="@color/gray_bg"
+            android:orientation="vertical">
+
+            <!--头像-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/red_text2" />
+
+                <LinearLayout
+                    android:id="@+id/ll_header_contianer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/shape_radius6_white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <cn.vpfinance.vpjr.view.CircleImg
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="30dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="30dp"
+                        android:src="@mipmap/profile" />
+
+                    <TextView
+                        android:id="@+id/tv_unlogin_desc"
+                        android:text="登录查看个人信息"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/ll_logined_header_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_user_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/text_333333"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                tools:text="梨花" />
+
+                            <TextView
+                                android:id="@+id/tv_vip_level"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_toRightOf="@+id/iv_avatar"
+                                android:background="@drawable/shape_conner9_yellow"
+                                android:gravity="center"
+                                android:paddingBottom="1dp"
+                                android:paddingLeft="9dp"
+                                android:paddingRight="9dp"
+                                android:paddingTop="1dp"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                tools:text="青铜" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_signature"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/text_666666"
+                            android:textSize="14sp"
+                            tools:text="暂时没有什么想说的" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/gray_bg"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/clickNewAct"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/clickNewAct"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:background="@drawable/shape_radius6_white"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
-                            android:background="@drawable/ic_more_top_1" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
@@ -59,62 +151,76 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
                                 android:text="活动专区"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
+                                android:textColor="@color/text_333333"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="最新热门活动"
+                                android:text="尽享优惠福利"
+                                android:textColor="@color/text_666666"
                                 android:textSize="12sp" />
                         </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:background="@mipmap/more_huodong" />
                     </LinearLayout>
 
                     <View
-                        android:layout_width="4dp"
+                        android:layout_width="10dp"
                         android:layout_height="match_parent"
-                        android:background="@color/bg_gray2" />
+                        android:background="@color/gray_bg" />
 
                     <LinearLayout
                         android:id="@+id/clickNotice"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="@drawable/shape_radius6_white"
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
-                            android:background="@drawable/ic_more_top_2" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
-                                android:text="平台公告"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
+                                android:text="邀请有礼"
+                                android:textColor="@color/text_333333"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="关注平台动态"
+                                android:text="高额现金返利"
+                                android:textColor="@color/text_666666"
                                 android:textSize="12sp" />
                         </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:background="@mipmap/more_yaoqing" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="4dp"
-                    android:background="@color/bg_gray2" />
+                    android:layout_height="10dp"
+                    android:background="@color/gray_bg" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -126,38 +232,45 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:background="@drawable/shape_radius6_white"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
-                            android:background="@drawable/ic_more_top_5" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
-                                android:text="还款公告"
-                                android:textColor="@color/black"
-                                android:textSize="16sp" />
+                                android:text="出借风云榜"
+                                android:textColor="@color/text_333333"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="关注还款信息"
+                                android:text="查看出借排名"
+                                android:textColor="@color/text_666666"
                                 android:textSize="12sp" />
                         </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:background="@mipmap/more_paihang" />
+
                     </LinearLayout>
 
                     <View
-                        android:layout_width="4dp"
+                        android:layout_width="10dp"
                         android:layout_height="match_parent"
                         android:background="@color/bg_gray2" />
 
@@ -166,34 +279,39 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="@drawable/shape_radius6_white"
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
-                            android:background="@drawable/ic_more_top_3" />
-
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="4dp"
-                                android:text="常见问题"
+                                android:text="帮助中心"
                                 android:textColor="@color/black"
-                                android:textSize="16sp" />
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="常见问题指引"
+                                android:text="点击联系客服"
+                                android:textColor="@color/text_666666"
                                 android:textSize="12sp" />
                         </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:background="@mipmap/more_kefu" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -224,26 +342,25 @@
                     android:background="@color/dark_grey"
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"/>-->
-
                 <TextView
                     android:id="@+id/clickSafe"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:drawableLeft="@drawable/ic_more_no_anquanbaozhang"
+                    android:drawableLeft="@mipmap/icon_pingtaiyoushi"
                     android:drawablePadding="10dp"
                     android:drawableRight="@drawable/nav_next_2"
                     android:gravity="center|left"
-                    android:paddingLeft="16dp"
+                    android:paddingLeft="20dp"
                     android:paddingRight="16dp"
                     android:text="平台优势"
-                    android:textColor="@color/text_black" />
+                    android:textColor="@color/text_black"
+                    android:textSize="15dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@color/divider_color" />
+                    android:layout_marginLeft="52dp"
+                    android:background="@color/gray_d5d" />
 
                 <TextView
                     android:id="@+id/clickInfoShow"
@@ -253,16 +370,37 @@
                     android:drawablePadding="10dp"
                     android:drawableRight="@drawable/nav_next_2"
                     android:gravity="center|left"
-                    android:paddingLeft="16dp"
+                    android:paddingLeft="20dp"
                     android:paddingRight="16dp"
                     android:text="信息披露"
-                    android:textColor="@color/text_black" />
+                    android:textColor="@color/text_black"
+                    android:textSize="15dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="52dp"
+                    android:background="@color/divider_color" />
+
+                <TextView
+                    android:id="@+id/btn_risk"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:drawableLeft="@mipmap/icon_fengxianpinggu"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/nav_next_2"
+                    android:gravity="center|left"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="16dp"
+                    android:text="风险评估"
+                    android:textColor="@color/text_black"
+                    android:textSize="15dp" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="52dp"
                     android:background="@color/divider_color" />
 
                 <TextView
@@ -273,16 +411,37 @@
                     android:drawablePadding="10dp"
                     android:drawableRight="@drawable/nav_next_2"
                     android:gravity="center|left"
-                    android:paddingLeft="16dp"
+                    android:paddingLeft="20dp"
                     android:paddingRight="16dp"
                     android:text="风险提示"
-                    android:textColor="@color/text_black" />
+                    android:textColor="@color/text_black"
+                    android:textSize="15dp" />
+
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="52dp"
+                    android:background="@color/divider_color" />
+
+                <TextView
+                    android:id="@+id/clickAboutMe"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:drawableLeft="@drawable/ic_more_no_guanyuwomen"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/nav_next_2"
+                    android:gravity="center|left"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="16dp"
+                    android:text="关于我们"
+                    android:textColor="@color/text_black"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginLeft="52dp"
                     android:background="@color/divider_color" />
 
                 <TextView
@@ -293,16 +452,16 @@
                     android:drawablePadding="10dp"
                     android:drawableRight="@drawable/nav_next_2"
                     android:gravity="center|left"
-                    android:paddingLeft="16dp"
+                    android:paddingLeft="20dp"
                     android:paddingRight="16dp"
                     android:text="给予好评"
-                    android:textColor="@color/text_black" />
+                    android:textColor="@color/text_black"
+                    android:textSize="15dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="52dp"
                     android:background="@color/divider_color" />
 
                 <LinearLayout
@@ -311,7 +470,7 @@
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:paddingLeft="16dp"
+                    android:paddingLeft="20dp"
                     android:paddingRight="16dp">
 
                     <TextView
@@ -321,7 +480,8 @@
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
                         android:text="版本更新"
-                        android:textColor="@color/text_black" />
+                        android:textColor="@color/text_black"
+                        android:textSize="15sp" />
 
                     <View
                         android:layout_width="0dp"
@@ -342,33 +502,6 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/nav_next_2" />
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@color/divider_color" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@color/divider_color" />
-
-                <TextView
-                    android:id="@+id/clickAboutMe"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:drawableLeft="@drawable/ic_more_no_guanyuwomen"
-                    android:drawablePadding="10dp"
-                    android:drawableRight="@drawable/nav_next_2"
-                    android:gravity="center|left"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:text="关于我们"
-                    android:textColor="@color/text_black" />
 
             </LinearLayout>
 

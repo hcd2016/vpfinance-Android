@@ -154,7 +154,6 @@ public class AutoInvestSettingActivity extends BaseActivity {
             boolean isOpenBankAccount = "1".equals(intent.getStringExtra(IS_OPEN_BANK_ACCOUNT));
 //            ButterKnife.findById(this, R.id.click_authorization).setVisibility(isOpenBankAccount ? View.VISIBLE : View.GONE);
         }
-
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

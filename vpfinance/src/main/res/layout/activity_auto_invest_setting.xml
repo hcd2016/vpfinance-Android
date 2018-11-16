@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@color/bg_gray2">
+    android:background="@color/gray_bg"
+    android:orientation="vertical">
 
     <com.jewelcredit.ui.widget.ActionBarLayout
         android:id="@+id/title_bar"
@@ -23,126 +24,135 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/click_authorization"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
+                android:layout_marginBottom="1px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:gravity="center_vertical"
-                android:background="@color/white"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="1px">
+                android:paddingRight="15dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="存管标授权状态"
-                    android:textColor="@color/text_999999" />
+                    android:text="自动投标授权状态"
+                    android:textColor="@color/text_333333"
+                    android:textSize="15sp" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
+
                 <TextView
                     android:id="@+id/tvAuthorization"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_1c1c1c"
-                    tools:text="去授权"
-                    android:layout_marginRight="5dp"/>
-                <ImageView
-                    android:layout_width="8dp"
-                    android:layout_height="13dp"
-                    android:src="@drawable/arrow_right"/>
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/text_999999"
+                    tools:text="去授权" />
             </LinearLayout>
+
+            <include layout="@layout/gray_split_bar_10" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:gravity="center_vertical"
-                android:background="@color/white">
+                android:paddingRight="15dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="自动投标状态"
-                    android:textColor="@color/text_999999" />
+                    android:text="自动投标"
+                    android:textColor="@color/text_333333"
+                    android:textSize="15sp" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="关"/>
+                    android:layout_weight="1" />
+
                 <android.support.v7.widget.SwitchCompat
+                    android:background="@drawable/switch_track"
+                    app:splitTrack="false"
+                    app:showText="false"
+                    app:theme="@style/scstyle"
+                    app:trackTint="#00000000"
+                    app:thumbTint="#00000000"
                     android:id="@+id/allow_pub"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="45dp"
+                    android:layout_height="24dp"
                     android:checked="false"
-                    android:paddingLeft="7dp"
-                    android:paddingRight="7dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="开"/>
+                    />
             </LinearLayout>
 
             <LinearLayout
-                tools:visibility="visible"
-                android:visibility="gone"
                 android:id="@+id/containerSetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_marginTop="1px">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:gravity="center_vertical"
-                    android:background="@color/white"
-                    android:layout_marginTop="10dp"
                     android:visibility="gone">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="账户可用余额"
                         android:textColor="@color/text_999999" />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <TextView
                         android:id="@+id/tvBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_1c1c1c"
-                        tools:text="￥50000.24"/>
+                        tools:text="￥50000.24" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:gravity="center_vertical"
-                    android:background="@color/white"
-                    android:layout_marginTop="10dp">
+                    android:paddingRight="15dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="账户保留金额"
-                        android:textColor="@color/text_999999" />
+                        android:textColor="@color/text_333333"
+                        android:textSize="15sp" />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
 
                     <EditText
                         android:id="@+id/etReserveMoney"
@@ -153,242 +163,262 @@
                         android:hint="请输入金额"
                         android:inputType="numberDecimal"
                         android:minWidth="100dp"
-                        android:text="0"
                         android:paddingRight="10dp"
-                        android:textColor="@color/text_1c1c1c"
+                        android:text="0"
+                        android:textColor="@color/text_999999"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
+
+                <include layout="@layout/line_linear_gray_marginleft15" />
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:gravity="center_vertical"
-                    android:background="@color/white"
-                    android:layout_marginTop="1px">
+                    android:paddingRight="15dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="最大投资金额"
-                        android:textColor="@color/text_999999" />
+                        android:textColor="@color/text_333333"
+                        android:textSize="15sp" />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <EditText
                         android:id="@+id/etMaxInvestMoney"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:minWidth="100dp"
-                        android:textColor="@color/text_1c1c1c"
                         android:background="@null"
-                        android:hint="请输入金额"
                         android:gravity="right"
-                        android:paddingRight="10dp"
+                        android:hint="请输入金额"
                         android:inputType="numberDecimal"
+                        android:minWidth="100dp"
+                        android:paddingRight="10dp"
                         android:text="100000"
+                        android:textColor="@color/text_999999"
                         android:textSize="@dimen/text_size_14" />
                 </LinearLayout>
+
+                <include layout="@layout/line_linear_gray_marginleft15" />
 
                 <LinearLayout
                     android:id="@+id/go_setting_invest_type"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:gravity="center_vertical"
-                    android:background="@color/white"
-                    android:layout_marginTop="10dp">
+                    android:paddingRight="15dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="投标种类"
-                        android:textColor="@color/text_999999" />
+                        android:textColor="@color/text_333333"
+                        android:textSize="15sp" />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <TextView
                         android:id="@+id/tvInvestType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_1c1c1c"
+                        android:layout_marginRight="5dp"
                         android:text="不限"
-                        android:layout_marginRight="5dp"/>
-                    <ImageView
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
-                        android:src="@drawable/arrow_right"/>
+                        android:textColor="@color/text_999999" />
                 </LinearLayout>
+
+                <include layout="@layout/line_linear_gray_marginleft15" />
+
                 <LinearLayout
                     android:id="@+id/go_setting_refund_way"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:gravity="center_vertical"
-                    android:background="@color/white"
-                    android:layout_marginTop="1px">
+                    android:paddingRight="15dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="还款方式"
-                        android:textColor="@color/text_999999" />
+                        android:textColor="@color/text_333333"
+                        android:textSize="15sp" />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <TextView
                         android:id="@+id/tvRefundType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_1c1c1c"
+                        android:layout_marginRight="5dp"
                         android:text="不限"
-                        android:layout_marginRight="5dp"/>
-                    <ImageView
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
-                        android:src="@drawable/arrow_right"/>
+                        android:textColor="@color/text_999999" />
                 </LinearLayout>
+
+                <include layout="@layout/line_linear_gray_marginleft15" />
+
                 <LinearLayout
                     android:id="@+id/go_setting_deadline"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:gravity="center_vertical"
-                    android:background="@color/white"
-                    android:layout_marginTop="1px">
+                    android:paddingRight="15dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="借款期限"
-                        android:textColor="@color/text_999999" />
+                        android:textColor="@color/text_333333"
+                        android:textSize="15sp" />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <TextView
                         android:id="@+id/tvBorrowTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_1c1c1c"
+                        android:layout_marginRight="5dp"
                         android:text="1-12个月"
-                        android:layout_marginRight="5dp"/>
-                    <ImageView
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
-                        android:src="@drawable/arrow_right"/>
+                        android:textColor="@color/text_999999" />
                 </LinearLayout>
+
+                <include layout="@layout/line_linear_gray_marginleft15" />
+
                 <LinearLayout
                     android:id="@+id/go_setting_rate"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:gravity="center_vertical"
-                    android:background="@color/white"
-                    android:layout_marginTop="1px">
+                    android:paddingRight="15dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="预期年化收益"
-                        android:textColor="@color/text_999999" />
+                        android:textColor="@color/text_333333"
+                        android:textSize="15sp" />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <TextView
                         android:id="@+id/tvRate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_1c1c1c"
+                        android:layout_marginRight="5dp"
                         android:text="1%-12%"
-                        android:layout_marginRight="5dp"/>
-                    <ImageView
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
-                        android:src="@drawable/arrow_right"/>
+                        android:textColor="@color/text_999999" />
                 </LinearLayout>
+
+                <include layout="@layout/line_linear_gray_marginleft15" />
+
                 <LinearLayout
                     android:id="@+id/go_setting_risk_level"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:gravity="center_vertical"
-                    android:background="@color/white"
-                    android:layout_marginTop="1px">
+                    android:paddingRight="15dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="风险等级"
-                        android:textColor="@color/text_999999" />
+                        android:textColor="@color/text_333333"
+                        android:textSize="15sp" />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <TextView
                         android:id="@+id/tvRiskLevel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_1c1c1c"
+                        android:layout_marginRight="5dp"
                         android:text="不限"
-                        android:layout_marginRight="5dp"/>
-                    <ImageView
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
-                        android:src="@drawable/arrow_right"/>
+                        android:textColor="@color/text_999999" />
                 </LinearLayout>
+
+                <include layout="@layout/line_linear_gray_marginleft15" />
+
                 <LinearLayout
                     android:id="@+id/go_setting_coupon"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:gravity="center_vertical"
-                    android:background="@color/white"
-                    android:layout_marginTop="1px"
-                    android:layout_marginBottom="30dp">
+                    android:paddingRight="15dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="优惠券"
-                        android:textColor="@color/text_999999" />
+                        android:textColor="@color/text_333333"
+                        android:textSize="15sp" />
+
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <TextView
                         android:id="@+id/tvVoucher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_1c1c1c"
+                        android:layout_marginRight="5dp"
                         android:text="不使用"
-                        android:layout_marginRight="5dp"/>
-                    <ImageView
-                        android:layout_width="8dp"
-                        android:layout_height="13dp"
-                        android:src="@drawable/arrow_right"/>
+                        android:textColor="@color/text_999999" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
+
     <Button
-        android:enabled="false"
         android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:text="保存设置"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/selector_submit_square"
+        android:enabled="false"
+        android:text="保存"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_18"
-        android:layout_alignParentBottom="true"/>
+        android:textSize="@dimen/text_size_18" />
 </RelativeLayout>

@@ -75,15 +75,15 @@ public class GroupAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
-            convertView = View.inflate(context,R.layout.item_voucher_selector, null);
+            convertView = View.inflate(context,R.layout.item_voucher_selector_new, null);
             holder = new ViewHolder();
-            holder.voucher_bg = (RelativeLayout) convertView.findViewById(R.id.voucher_bg);
+//            holder.voucher_bg = (RelativeLayout) convertView.findViewById(R.id.voucher_bg);
             holder.voucher_time = (TextView) convertView.findViewById(R.id.voucher_time);
             holder.voucher_info = (TextView) convertView.findViewById(R.id.voucher_info);
             holder.voucher_money = (TextView) convertView.findViewById(R.id.voucher_money);
             holder.checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
             holder.voucherState = (ImageView) convertView.findViewById(R.id.voucherState);
-            holder.ivStatus = (ImageView) convertView.findViewById(R.id.ivStatus);
+//            holder.ivStatus = (ImageView) convertView.findViewById(R.id.ivStatus);
             convertView.setTag(holder);
 
         }
@@ -104,13 +104,13 @@ public class GroupAdapter extends BaseAdapter {
             holder.voucher_time.setText("有效期至"+ Utils.getDate(bean.getExpireDate()));
             holder.status = bean.getVoucherStatus();
             if (bean.getVoucherStatus() == 2){
-                holder.ivStatus.setVisibility(View.VISIBLE);
+//                holder.ivStatus.setVisibility(View.VISIBLE);
                 holder.checkBox.setVisibility(View.GONE);
-                holder.voucherState.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_voucher_header_nousable));
+                holder.voucherState.setBackgroundDrawable(context.getResources().getDrawable(R.mipmap.card_dongjie));
             }else{
-                holder.ivStatus.setVisibility(View.GONE);
+//                holder.ivStatus.setVisibility(View.GONE);
                 holder.checkBox.setVisibility(View.VISIBLE);
-                holder.voucherState.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.bg_voucher_header_usable));
+                holder.voucherState.setBackgroundDrawable(context.getResources().getDrawable(R.mipmap.card_daijinquan));
             }
         }
         holder.checkBox.setChecked(getIsSelected().get(position));
@@ -122,9 +122,9 @@ public class GroupAdapter extends BaseAdapter {
         TextView       voucher_money;
         TextView       voucher_time;
         TextView       voucher_info;
-        RelativeLayout voucher_bg;
+//        RelativeLayout voucher_bg;
         ImageView      voucherState;
-        ImageView      ivStatus;
+//        ImageView      ivStatus;
         public CheckBox checkBox;
         public int status;
     }

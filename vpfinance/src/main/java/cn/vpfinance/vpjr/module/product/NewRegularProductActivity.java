@@ -434,10 +434,10 @@ public class NewRegularProductActivity extends BaseActivity {
                 tvAddrate.setVisibility(View.GONE);
             }
             itemLoanTerm.setText(newBaseInfoBean.month);//项目期限
-            if(newBaseInfoBean.issueloan > 10000) {
+            if (newBaseInfoBean.issueloan > 10000) {
                 itemLoanTotle.setText(FormatUtils.formatDown2(newBaseInfoBean.issueloan / 10000) + "万");//项目总额
-            }else {
-                itemLoanTotle.setText(FormatUtils.formatDown2(newBaseInfoBean.issueloan)+"元");
+            } else {
+                itemLoanTotle.setText(FormatUtils.formatDown2(newBaseInfoBean.issueloan) + "元");
             }
 
             //默认状态
@@ -535,7 +535,7 @@ public class NewRegularProductActivity extends BaseActivity {
             MyAdapter myAdapter = new MyAdapter(getSupportFragmentManager());
             mPager.setAdapter(myAdapter);
 //            mTabs.setViewPager(mPager);
-            if (mFragments.size() <= 4) {
+            if (mFragments.size() <= 3) {
                 mTabs.setTabMode(TabLayout.MODE_FIXED);
             } else {
                 mTabs.setTabMode(TabLayout.MODE_SCROLLABLE);

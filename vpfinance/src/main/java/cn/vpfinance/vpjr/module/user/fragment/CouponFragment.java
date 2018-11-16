@@ -240,36 +240,50 @@ public class CouponFragment extends BaseFragment {
                 if (bean.couponType == 2) {//1代金券 2预约券
                     switch (status) {
                         case CouponFragment.STATUS_UNUSED:
-                            holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_presell_header_usable));
+                            holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.mipmap.card_yuyuequan));
                             break;
                         case CouponFragment.STATUS_USED:
-                            holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_presell_header_nousable));
+                            holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.mipmap.card_dongjie));
                             break;
                         case CouponFragment.STATUS_INVALID:
-                            holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_presell_header_nousable));
+                            holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.mipmap.card_dongjie));
                             break;
                     }
-                    holder.ivStatus.setVisibility(bean.voucherStatus == 2 ? View.VISIBLE : View.GONE);
+//                    holder.ivStatus.setVisibility(bean.voucherStatus == 2 ? View.VISIBLE : View.GONE);
                     holder.presellName.setText("预");
-                    holder.voucher_get.setText(bean.getWay);
+                    holder.tv_rmb.setVisibility(View.GONE);
+//                    holder.voucher_get.setText(bean.getWay);
+                    holder.voucher_get.setText("预约券");
                     holder.voucher_time.setText("有效期至" + bean.expiredTm);
                     ArrayAdapter arrayAdapter = new ArrayAdapter(mContext, R.layout.item_coupon_remark, R.id.tvInfo, bean.remarkList);
                     holder.mListView.setAdapter(arrayAdapter);
                 } else if (bean.couponType == 1) {
                     switch (status) {
                         case CouponFragment.STATUS_UNUSED:
-                            holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_voucher_header_usable));
+                            holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.mipmap.card_daijinquan));
                             break;
                         case CouponFragment.STATUS_USED:
-                            holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_voucher_header_nousable));
+                            holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.mipmap.card_dongjie));
                             break;
                         case CouponFragment.STATUS_INVALID:
-                            holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_voucher_header_nousable));
+                            holder.voucherState.setBackgroundDrawable(mContext.getResources().getDrawable(R.mipmap.card_dongjie));
                             break;
                     }
-                    holder.ivStatus.setVisibility(bean.voucherStatus == 2 ? View.VISIBLE : View.GONE);
+//                    holder.ivStatus.setVisibility(bean.voucherStatus == 2 ? View.VISIBLE : View.GONE);
+
+                    //todo 待加状态
+                    if(bean.voucherStatus == 2) {
+//                        holder.ll_state_container
+//                        holder.tv_state_desc
+                    }else {
+
+                    }
+
                     holder.presellName.setText(bean.denomination);
-                    holder.voucher_get.setText(bean.getWay);
+//                    holder.voucher_get.setText(bean.getWay);
+                    holder.voucher_get.setText("代金券");
+                    holder.tv_rmb.setVisibility(View.VISIBLE);
+
                     holder.voucher_time.setText("有效期至" + bean.expiredTm);
                     ArrayAdapter arrayAdapter = new ArrayAdapter(mContext, R.layout.item_coupon_remark, R.id.tvInfo, bean.remarkList);
                     holder.mListView.setAdapter(arrayAdapter);
@@ -293,7 +307,10 @@ public class CouponFragment extends BaseFragment {
             TextView voucher_get;
             TextView voucher_time;
             ListView mListView;
-            ImageView ivStatus;
+            LinearLayout ll_state_container;
+            TextView tv_state_desc;
+            TextView tv_rmb;
+//            ImageView ivStatus;
 
             public CouponViewHolder(View itemView) {
                 super(itemView);
@@ -302,7 +319,10 @@ public class CouponFragment extends BaseFragment {
                 voucher_get = (TextView) itemView.findViewById(R.id.voucher_get);
                 voucher_time = (TextView) itemView.findViewById(R.id.voucher_time);
                 mListView = (ListView) itemView.findViewById(R.id.mListView);
-                ivStatus = (ImageView) itemView.findViewById(R.id.ivStatus);
+                tv_rmb = (TextView) itemView.findViewById(R.id.tv_rmb);
+                tv_state_desc = (TextView) itemView.findViewById(R.id.tv_state_desc);
+                ll_state_container = (LinearLayout) itemView.findViewById(R.id.ll_state_container);
+//                ivStatus = (ImageView) itemView.findViewById(R.id.ivStatus);
             }
         }
     }

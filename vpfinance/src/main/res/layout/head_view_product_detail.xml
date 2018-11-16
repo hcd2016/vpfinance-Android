@@ -143,7 +143,7 @@
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:background="@drawable/shape_shu_xuxian"
+                            android:background="@drawable/shape_shu_xuxian_line"
                             android:layerType="software" />
 
                         <android.support.constraint.ConstraintLayout

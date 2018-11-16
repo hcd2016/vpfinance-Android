@@ -279,4 +279,13 @@
     <style name="TabLayoutStyle">
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="scstyle" parent="Theme.AppCompat.Light">
+
+        <item name="colorControlActivated">#00000000</item>
+
+        <item name="colorSwitchThumbNormal">#00000000</item>
+
+        <item name="android:colorForeground">#00000000</item>
+    </style>
 </resources>

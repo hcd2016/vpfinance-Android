@@ -83,7 +83,7 @@ public class NewSelectVoucherActivity extends BaseActivity implements View.OnCli
     private void init() {
         mTitleBar.setTitle("选择优惠券")
                 .setHeadBackVisible(View.VISIBLE)
-                .setImageButtonRight(R.drawable.ic_mine_top_info, new View.OnClickListener() {
+                .setImageButtonRight(R.mipmap.icon_info, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         gotoWeb("/AppContent/voucher", "代金券");
