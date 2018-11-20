@@ -13,6 +13,7 @@ import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
 
 /**
+ * 关注我们
  */
 public class AddWeiXinActivity extends BaseActivity {
 
@@ -20,7 +21,7 @@ public class AddWeiXinActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_weixin);
-        ((ActionBarLayout) findViewById(R.id.titleBar)).setTitle("关于我们").setHeadBackVisible(View.VISIBLE);
+        ((ActionBarLayout) findViewById(R.id.titleBar)).setTitle("关注我们").setHeadBackVisible(View.VISIBLE);
 //        公众号已经复制，请打开微信添加关注。
         findViewById(R.id.addWeixin).setOnClickListener(new View.OnClickListener() {
             @Override

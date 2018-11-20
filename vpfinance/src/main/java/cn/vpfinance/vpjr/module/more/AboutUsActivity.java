@@ -19,10 +19,10 @@ import cn.vpfinance.vpjr.base.BaseActivity;
 
 public class AboutUsActivity extends BaseActivity implements View.OnClickListener {
 
-    private TextView phone1;
-    private TextView phone2;
-    private TextView name1;
-    private TextView name2;
+//    private TextView phone1;
+//    private TextView phone2;
+//    private TextView name1;
+//    private TextView name2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,21 +30,22 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
         setContentView(R.layout.activity_about_us);
 
         ((ActionBarLayout) findViewById(R.id.titleBar)).setTitle("关于我们").setHeadBackVisible(View.VISIBLE);
-        ((TextView)findViewById(R.id.currVer)).setText("当前版本为" + Utils.getVersion(this));
+        ((TextView)findViewById(R.id.currVer)).setText("微品金融 V" + Utils.getVersion(this));
 
-        findViewById(R.id.clickPhone).setOnClickListener(this);
+//        findViewById(R.id.clickPhone).setOnClickListener(this);
         findViewById(R.id.clickVP).setOnClickListener(this);
         findViewById(R.id.clickAttent).setOnClickListener(this);
+        findViewById(R.id.ll_company_profile).setOnClickListener(this);
 
-        phone1 = (TextView) findViewById(R.id.phone1);
-        phone2 = (TextView) findViewById(R.id.phone2);
-        name1 = (TextView) findViewById(R.id.name1);
-        name2 = (TextView) findViewById(R.id.name2);
-
-        setLink(phone1);
-        setLink(phone2);
-        setLink(name1);
-        setLink(name2);
+//        phone1 = (TextView) findViewById(R.id.phone1);
+//        phone2 = (TextView) findViewById(R.id.phone2);
+//        name1 = (TextView) findViewById(R.id.name1);
+//        name2 = (TextView) findViewById(R.id.name2);
+//
+//        setLink(phone1);
+//        setLink(phone2);
+//        setLink(name1);
+//        setLink(name2);
     }
 
     private void setLink(TextView tv){
@@ -71,25 +72,28 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
                 i.setData(uri);
                 startActivity(i);
                 break;
-            case R.id.clickPhone:
-                Intent intent=new Intent("android.intent.action.DIAL", Uri.parse("tel:0755-86627551"));
-                startActivity(intent);
-                break;
+//            case R.id.clickPhone:
+//                Intent intent=new Intent("android.intent.action.DIAL", Uri.parse("tel:0755-86627551"));
+//                startActivity(intent);
+//                break;
             case R.id.clickAttent:
                 gotoActivity(AddWeiXinActivity.class);
                 break;
-            case R.id.phone1:
-                copeTv(phone1);
+            case R.id.ll_company_profile://公司简介
+                //todo
                 break;
-            case R.id.phone2:
-                copeTv(phone2);
-                break;
-            case R.id.name1:
-                copeTv(name1);
-                break;
-            case R.id.name2:
-                copeTv(name2);
-                break;
+//            case R.id.phone1:
+//                copeTv(phone1);
+//                break;
+//            case R.id.phone2:
+//                copeTv(phone2);
+//                break;
+//            case R.id.name1:
+//                copeTv(name1);
+//                break;
+//            case R.id.name2:
+//                copeTv(name2);
+//                break;
         }
     }
 }
