@@ -129,7 +129,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
     private ActionBarLayout titlebar;
     public static final String NONENAME = "未设置用户名";
     private CircleImg mUserHead;
-    private ImageView user_background;
+//    private ImageView user_background;
     private boolean isUserHead = true;
 
     private SelectPicPopupWindow menuWindow;
@@ -172,7 +172,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         isBandCark = (TextView) findViewById(R.id.isBandCark);
 //        lockSwitch = (SwitchCompat) findViewById(R.id.switch1);
         mUserHead = (CircleImg) findViewById(R.id.userHead);
-        user_background = (ImageView) findViewById(R.id.user_background);
+//        user_background = (ImageView) findViewById(R.id.user_background);
         mViewLl = findViewById(R.id.view_ll);
         mPrivate_setting = (LinearLayout) findViewById(R.id.private_setting);
         my_describe = (TextView) findViewById(R.id.my_describe);
@@ -222,7 +222,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             return;
         }
         ImageLoader imageLoader = ImageLoader.getInstance();
-        imageLoader.displayImage(bgUrl, user_background);
+//        imageLoader.displayImage(bgUrl, user_background);
     }
 
     protected void initView() {
@@ -251,7 +251,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         ll_my_describe.setOnClickListener(this);
         mPrivate_setting.setOnClickListener(this);
         mUserHead.setOnClickListener(this);
-        user_background.setOnClickListener(this);
+//        user_background.setOnClickListener(this);
 //        modifypasword.setOnClickListener(this);
         paypassword.setOnClickListener(this);
         ll_realname.setOnClickListener(this);
@@ -610,24 +610,24 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
 //            case R.id.modifyUserName:
 //                gotoActivity(ModifyUserNameActivity.class);
 //                break;
-            case R.id.user_background:
-                isUserHead = false;
-//                Window window = getWindow();
-//                WindowManager.LayoutParams lp = window.getAttributes();
-//                lp.dimAmount=0.5f;
-//                window.setAttributes(lp);
-//                window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-                menuWindow = new SelectPicPopupWindow(this, itemsOnClick);
-                menuWindow.showAtLocation(mViewLl,
-                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, mBottomStatusHeight);
-                ScreenUtil.lightoff(this);
-                menuWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                    @Override
-                    public void onDismiss() {
-                        ScreenUtil.lighton(PersonalInfoActivity.this);
-                    }
-                });
-                break;
+//            case R.id.user_background:
+//                isUserHead = false;
+////                Window window = getWindow();
+////                WindowManager.LayoutParams lp = window.getAttributes();
+////                lp.dimAmount=0.5f;
+////                window.setAttributes(lp);
+////                window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//                menuWindow = new SelectPicPopupWindow(this, itemsOnClick);
+//                menuWindow.showAtLocation(mViewLl,
+//                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, mBottomStatusHeight);
+//                ScreenUtil.lightoff(this);
+//                menuWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+//                    @Override
+//                    public void onDismiss() {
+//                        ScreenUtil.lighton(PersonalInfoActivity.this);
+//                    }
+//                });
+//                break;
             case R.id.userHead:
                 isUserHead = true;
                 menuWindow = new SelectPicPopupWindow(this, itemsOnClick);
@@ -1115,12 +1115,12 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             bm = BitmapFactory.decodeFile(photoUri.getPath(), option);
             picPath = photoUri.getPath();
         }
-        // 显示在图片控件上
-        if (bm != null) {
-            user_background.setImageBitmap(bm);
-        } else {
-            Utils.Toast(this, "选择图片错误");
-        }
+//        // 显示在图片控件上
+//        if (bm != null) {
+////            user_background.setImageBitmap(bm);
+//        } else {
+//            Utils.Toast(this, "选择图片错误");
+//        }
 
         String method = ServiceCmd.getMethodName(ServiceCmd.CmdId.CMD_Upload_BackGround);
         String url = HttpService.mBaseUrl + method;

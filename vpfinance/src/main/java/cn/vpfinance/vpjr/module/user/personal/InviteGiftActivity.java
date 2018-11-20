@@ -26,6 +26,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.base.BaseActivity;
+import cn.vpfinance.vpjr.module.dialog.InviteGifeDialog;
 import cn.vpfinance.vpjr.module.more.MyQRcodeActivity;
 import cn.vpfinance.vpjr.module.dialog.TextInputDialogFragment;
 import cn.vpfinance.vpjr.greendao.DaoMaster;
@@ -37,6 +38,7 @@ import cn.vpfinance.vpjr.model.InviteShowInfo;
 import cn.vpfinance.vpjr.model.PromoteLinks;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.util.Common;
+import cn.vpfinance.vpjr.util.FormatUtils;
 import de.greenrobot.dao.query.QueryBuilder;
 
 /**
@@ -105,15 +107,18 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void onClick(View v) {
-                String msg = "";
-                if (info != null) {
-                    if (mPromoteLinks != null) {
-                        msg = TextUtils.isEmpty(mPromoteLinks.getMsg()) ? "" : mPromoteLinks.getMsg();
-                    }
-                    MyQRcodeActivity.goQRCodeActivity(InviteGiftActivity.this, info.shareUrl, info.imageUrl, msg);
-                } else {
-                    MyQRcodeActivity.goQRCodeActivity(InviteGiftActivity.this, null, null, msg);
-                }
+                InviteGifeDialog inviteGifeDialog = new InviteGifeDialog(InviteGiftActivity.this);
+                inviteGifeDialog.setData(info.shareUrl,info.imageUrl,mPromoteLinks.getMsg());
+                inviteGifeDialog.show();
+//                String msg = "";
+//                if (info != null) {
+//                    if (mPromoteLinks != null) {
+//                        msg = TextUtils.isEmpty(mPromoteLinks.getMsg()) ? "" : mPromoteLinks.getMsg();
+//                    }
+//                    MyQRcodeActivity.goQRCodeActivity(InviteGiftActivity.this, info.shareUrl, info.imageUrl, msg);
+//                } else {
+//                    MyQRcodeActivity.goQRCodeActivity(InviteGiftActivity.this, null, null, msg);
+//                }
 //                if (null == mPromoteLinks) {
 //                    mHttpService.getPromoteLinks();
 //                    Toast.makeText(InviteGiftActivity.this, "正在获取邀请链接，请稍后再试", Toast.LENGTH_SHORT).show();
@@ -201,9 +206,9 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
         if (reqId == ServiceCmd.CmdId.CMD_InviteGiftShowInfo.ordinal()) {
             InviteShowInfo inviteShowInfo = mHttpService.onGetInviteShowInfo(json);
             if ("true".equals(inviteShowInfo.success)) {
-                bonusesCount.setText(inviteShowInfo.bonusesCount);
+                bonusesCount.setText(FormatUtils.formatAbout(inviteShowInfo.bonusesCount)+"元");
                 invitePerCount.setText(inviteShowInfo.invitePerCount + "人");
-                registerRewardCount.setText(inviteShowInfo.registerRewardCount);
+                registerRewardCount.setText(FormatUtils.formatAbout(inviteShowInfo.registerRewardCount)+"元");
             }
         }
 

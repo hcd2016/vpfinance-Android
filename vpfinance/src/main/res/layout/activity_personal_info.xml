@@ -22,11 +22,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:background="@color/bg_gray2" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,11 +38,12 @@
                     android:paddingRight="15dp">
 
                     <TextView
+                        android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
-                        android:text="更换头像"
+                        android:text="头像"
                         android:textColor="@color/text_1c1c1c" />
 
                     <TextView
@@ -61,10 +57,10 @@
 
                     <cn.vpfinance.vpjr.view.CircleImg
                         android:id="@+id/userHead"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginRight="8dp"
-                        android:src="@drawable/personal_head" />
+                        android:src="@mipmap/profile" />
 
                     <ImageView
                         android:layout_width="6dp"
@@ -72,56 +68,7 @@
                         android:background="@drawable/nav_next" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/bg_gray2"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:drawablePadding="10dp"
-                        android:gravity="center_vertical"
-                        android:text="更换个人主页背景"
-                        android:textColor="@color/text_1c1c1c" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:textColor="@android:color/white"
-                        android:visibility="invisible" />
-
-                    <ImageView
-                        android:id="@+id/user_background"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginRight="8dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/bg_personalcard_header" />
-
-                    <ImageView
-                        android:layout_width="6dp"
-                        android:layout_height="11dp"
-                        android:background="@drawable/nav_next" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/bg_gray2" />
+                <include layout="@layout/line_linear_gray_marginleft15" />
 
                 <LinearLayout
                     android:id="@+id/clickUserInfo"
@@ -133,11 +80,12 @@
                     android:paddingRight="15dp">
 
                     <TextView
+                        android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
-                        android:text="修改用户名"
+                        android:text="用户名"
                         android:textColor="@color/text_1c1c1c" />
 
                     <View
@@ -163,10 +111,7 @@
                         android:background="@drawable/nav_next" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/bg_gray2" />
+                <include layout="@layout/line_linear_gray_marginleft15" />
 
                 <LinearLayout
                     android:id="@+id/ll_my_describe"
@@ -178,6 +123,7 @@
                     android:paddingRight="15dp">
 
                     <TextView
+                        android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:drawablePadding="10dp"
@@ -209,27 +155,52 @@
                         android:background="@drawable/nav_next" />
                 </LinearLayout>
 
+                <include layout="@layout/line_linear_gray_marginleft15" />
+
+                <LinearLayout
+                    android:id="@+id/private_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:text="隐私设置"
+                        android:textColor="@color/text_1c1c1c" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="11dp"
+                        android:background="@drawable/nav_next" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/bg_gray2">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="15dp"
-                            android:gravity="bottom"
-                            android:paddingBottom="5dp"
-                            android:text="微品账户"
-                            android:textColor="@color/text_999999"
-                            android:textSize="@dimen/text_size_12" />
-                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/gray_bg"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="微品账户"
+                        android:textColor="@color/text_999999"
+                        android:textSize="14sp" />
 
                     <LinearLayout
                         android:id="@+id/ll_realname"
@@ -241,6 +212,7 @@
                         android:paddingRight="15dp">
 
                         <TextView
+                            android:textSize="15sp"
                             android:id="@+id/realname"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -268,10 +240,7 @@
                             android:background="@drawable/nav_next" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/bg_gray2" />
+                    <include layout="@layout/line_linear_gray_marginleft15" />
 
                     <LinearLayout
                         android:id="@+id/ll_bind_phone"
@@ -283,12 +252,13 @@
                         android:paddingRight="15dp">
 
                         <TextView
+                            android:textSize="15sp"
                             android:id="@+id/tv_bind_phone_desc"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
-                            android:text="手机号绑定"
+                            android:text="修改绑定手机号"
                             android:textColor="@color/text_1c1c1c" />
 
                         <View
@@ -304,24 +274,13 @@
                             android:gravity="center"
                             tools:text="183****3352" />
 
-                        <TextView
-                            android:id="@+id/goChange"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="8dp"
-                            android:gravity="center"
-                            android:text="去修改" />
-
                         <ImageView
                             android:layout_width="6dp"
                             android:layout_height="11dp"
                             android:background="@drawable/nav_next" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/bg_gray2" />
+                    <include layout="@layout/line_linear_gray_marginleft15" />
 
                     <LinearLayout
                         android:id="@+id/ll_bindemail"
@@ -333,6 +292,7 @@
                         android:paddingRight="15dp">
 
                         <TextView
+                            android:textSize="15sp"
                             android:id="@+id/bindemail"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -360,10 +320,7 @@
                             android:background="@drawable/nav_next" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/divider_color" />
+                    <include layout="@layout/line_linear_gray_marginleft15" />
 
                     <LinearLayout
                         android:id="@+id/ll_weixin_bind_container"
@@ -375,6 +332,7 @@
                         android:paddingRight="15dp">
 
                         <TextView
+                            android:textSize="15sp"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:drawablePadding="10dp"
@@ -401,10 +359,7 @@
                             android:background="@drawable/nav_next" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/divider_color" />
+                    <include layout="@layout/line_linear_gray_marginleft15" />
 
                     <LinearLayout
                         android:id="@+id/safety_centre"
@@ -416,6 +371,7 @@
                         android:paddingRight="15dp">
 
                         <TextView
+                            android:textSize="15sp"
                             android:layout_width="wrap_content"
                             android:layout_height="48dp"
                             android:drawablePadding="10dp"
@@ -462,10 +418,6 @@
                     <!--android:background="@drawable/nav_next" />-->
                     <!--</LinearLayout>-->
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/divider_color" />
 
                     <!--<LinearLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -629,21 +581,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/bg_gray2">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="15dp"
-                            android:gravity="bottom"
-                            android:paddingBottom="5dp"
-                            android:text="银行存管账户"
-                            android:textColor="@color/text_999999"
-                            android:textSize="@dimen/text_size_12" />
-                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/gray_bg"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="存管账户"
+                        android:textColor="@color/text_999999"
+                        android:textSize="14sp" />
 
                     <LinearLayout
                         android:id="@+id/deposit_account_set"
@@ -655,6 +602,7 @@
                         android:paddingRight="15dp">
 
                         <TextView
+                            android:textSize="15sp"
                             android:layout_width="wrap_content"
                             android:layout_height="48dp"
                             android:drawablePadding="10dp"
@@ -734,10 +682,7 @@
                     <!--android:background="@drawable/nav_next" />-->
                     <!--</LinearLayout>-->
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/divider_color" />
+                    <include layout="@layout/line_linear_gray_marginleft15" />
 
                     <LinearLayout
                         android:id="@+id/ll_bind_hx_bankcard"
@@ -749,6 +694,7 @@
                         android:paddingRight="15dp">
 
                         <TextView
+                            android:textSize="15sp"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:drawablePadding="10dp"
@@ -777,56 +723,10 @@
                 </LinearLayout>
 
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/bg_gray2">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="bottom"
-                        android:paddingBottom="5dp"
-                        android:text="个人隐私设置"
-                        android:textColor="@color/text_999999"
-                        android:textSize="@dimen/text_size_12" />
-                </RelativeLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/private_setting"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:drawablePadding="10dp"
-                        android:gravity="center_vertical"
-                        android:text="是否公开我的主页信息"
-                        android:textColor="@color/text_1c1c1c" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <ImageView
-                        android:layout_width="6dp"
-                        android:layout_height="11dp"
-                        android:background="@drawable/nav_next" />
-                </LinearLayout>
-
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:background="@color/bg_gray2" />
+                    android:background="@color/gray_bg" />
 
                 <TextView
                     android:id="@+id/logout"
@@ -838,7 +738,14 @@
                     android:paddingLeft="30dp"
                     android:paddingRight="12dp"
                     android:text="安全退出"
-                    android:textColor="@color/text_1c1c1c" />
+                    android:textColor="@color/text_666666"
+                    android:textSize="15sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/gray_bg" />
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
