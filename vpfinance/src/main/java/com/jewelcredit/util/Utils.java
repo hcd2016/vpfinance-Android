@@ -1,6 +1,7 @@
 package com.jewelcredit.util;
 
 import android.app.DatePickerDialog;
+import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -64,6 +65,7 @@ import java.util.regex.Pattern;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.module.common.WebViewActivity;
+import cn.vpfinance.vpjr.module.more.MyQRcodeActivity;
 
 
 public class Utils {

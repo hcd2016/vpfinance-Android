@@ -502,6 +502,14 @@
         <activity
             android:name="cn.vpfinance.vpjr.module.more.MoreHelpActivity"
             android:screenOrientation="portrait" />
+        <!--风云榜-->
+        <activity
+            android:name="cn.vpfinance.vpjr.module.more.InvestTopNewActivity"
+            android:screenOrientation="portrait" />
+        <!--意见反馈-->
+        <activity
+            android:name="cn.vpfinance.vpjr.module.more.FeekBackActivity"
+            android:screenOrientation="portrait" />
 
         <!-- LLYT SDK END -->
 

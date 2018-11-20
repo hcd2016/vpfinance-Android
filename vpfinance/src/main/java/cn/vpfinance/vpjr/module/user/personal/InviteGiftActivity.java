@@ -9,10 +9,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.highlight.Highlight;
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.AppState;
+import com.jewelcredit.util.DifColorTextStringBuilder;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
+import com.jewelcredit.util.Utils;
 
 import org.json.JSONObject;
 
@@ -56,8 +59,8 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
 
     private MyQRcodeActivity.ShareInfo info;
 
-    public static void goThis(Context context){
-        Intent intent = new Intent(context,InviteGiftActivity.class);
+    public static void goThis(Context context) {
+        Intent intent = new Intent(context, InviteGiftActivity.class);
         context.startActivity(intent);
     }
 
@@ -81,9 +84,15 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
         registerRewardCount = (TextView) findViewById(R.id.registerRewardCount);
         bonusesCount = (TextView) findViewById(R.id.bonusesCount);
         tvInviteGift = (TextView) findViewById(R.id.tvInviteGift);
-        if (user != null){
+        if (user != null) {
             String cellPhone = TextUtils.isEmpty(user.getCellPhone()) ? "" : user.getCellPhone();
-            tvInviteGift.setText("3.好友注册输入您的专享邀请码："+cellPhone);
+            String content = "3.好友注册输入您的专享邀请码：" + cellPhone;
+            DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
+            difColorTextStringBuilder.setContent(content)
+                    .setHighlightContent(cellPhone, R.color.text_333333)
+                    .setTextView(tvInviteGift)
+                    .create();
+//            tvInviteGift.setText("3.好友注册输入您的专享邀请码："+cellPhone);
         }
 
         findViewById(R.id.awardRecordForInvest).setOnClickListener(this);
@@ -98,12 +107,12 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
             public void onClick(View v) {
                 String msg = "";
                 if (info != null) {
-                    if (mPromoteLinks != null){
+                    if (mPromoteLinks != null) {
                         msg = TextUtils.isEmpty(mPromoteLinks.getMsg()) ? "" : mPromoteLinks.getMsg();
                     }
                     MyQRcodeActivity.goQRCodeActivity(InviteGiftActivity.this, info.shareUrl, info.imageUrl, msg);
                 } else {
-                    MyQRcodeActivity.goQRCodeActivity(InviteGiftActivity.this, null, null,msg);
+                    MyQRcodeActivity.goQRCodeActivity(InviteGiftActivity.this, null, null, msg);
                 }
 //                if (null == mPromoteLinks) {
 //                    mHttpService.getPromoteLinks();
@@ -113,28 +122,28 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
 //                }
             }
         });
-        if (user != null){
+        if (user != null) {
             mHttpService.getInviteShowInfo(user.getUserId() + "");
         }
 
     }
+
     private void getUser() {
-        if (mHttpService ==null){
-            mHttpService =new HttpService(this,this);
+        if (mHttpService == null) {
+            mHttpService = new HttpService(this, this);
         }
         DaoMaster.DevOpenHelper dbHelper;
         SQLiteDatabase db;
         DaoMaster daoMaster;
         DaoSession daoSession;
 
-        dbHelper = new DaoMaster.DevOpenHelper(this, Config.DB_NAME , null);
+        dbHelper = new DaoMaster.DevOpenHelper(this, Config.DB_NAME, null);
         db = dbHelper.getWritableDatabase();
         daoMaster = new DaoMaster(db);
         daoSession = daoMaster.newSession();
         userDao = daoSession.getUserDao();
 
-        if(AppState.instance().logined())
-        {
+        if (AppState.instance().logined()) {
             if (userDao != null) {
                 QueryBuilder<User> qb = userDao.queryBuilder();
                 List<User> userList = qb.list();
@@ -142,16 +151,14 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
                     user = userList.get(0);
                 }
             }
-        }
-        else
-        {
+        } else {
             Toast.makeText(this, "请登录.", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
     }
 
-    private void showShare(String text, String imageUrl,String link) {
+    private void showShare(String text, String imageUrl, String link) {
 //        ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
@@ -166,8 +173,7 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
         // text是分享文本，所有平台都需要这个字段
         oks.setText(text);
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        if(!TextUtils.isEmpty(imageUrl))
-        {
+        if (!TextUtils.isEmpty(imageUrl)) {
             oks.setImagePath(imageUrl);
         }
         // url仅在微信（包括好友和朋友圈）中使用
@@ -211,7 +217,7 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.clickRule:
                 gotoActivity(RuleActivity.class);
                 break;

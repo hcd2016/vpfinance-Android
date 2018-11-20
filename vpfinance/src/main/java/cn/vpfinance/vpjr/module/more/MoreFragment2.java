@@ -235,7 +235,8 @@ public class MoreFragment2 extends BaseFragment implements View.OnClickListener 
 //                gotoWeb(url, "还款公告");
 //                break;
             case R.id.clickRepay://风云榜
-                InvestTopActivity.goThis(getActivity(), 1, "");
+//                InvestTopActivity.goThis(getActivity(), 1, "");
+                gotoActivity(InvestTopNewActivity.class);
                 break;
             case R.id.clickAboutMe:
                 startActivity(new Intent(getActivity(), AboutUsActivity.class));

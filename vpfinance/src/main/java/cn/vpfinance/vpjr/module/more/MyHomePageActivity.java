@@ -2,15 +2,18 @@ package cn.vpfinance.vpjr.module.more;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jewelcredit.ui.widget.ActionBarLayout;
+import com.jewelcredit.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +66,12 @@ public class MyHomePageActivity extends BaseActivity {
         list.add("1");
         list.add("1");
         list.add("1");
+        list.add("1");
+        list.add("1");
+        list.add("1");
+        list.add("1");
         titleBar.setTitle("我的主页").setHeadBackVisible(View.VISIBLE);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3) ;
         recyclerView.setLayoutManager(gridLayoutManager);
         MyMedalAdapter myMedalAdapter = new MyMedalAdapter(list);
         recyclerView.setAdapter(myMedalAdapter);

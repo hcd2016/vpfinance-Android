@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_bg"
+    android:orientation="vertical">
+
+    <com.jewelcredit.ui.widget.ActionBarLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/ll_choise_type_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tv_question_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择反馈问题类型"
+            android:textColor="@color/text_333333"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="13dp"
+            android:layout_height="7dp"
+            android:src="@drawable/arrow_down" />
+    </LinearLayout>
+
+    <include layout="@layout/gray_split_bar_10" />
+
+    <EditText
+        android:id="@+id/et_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="left"
+        android:hint="请输入您要反馈的问题和建议，我们会认真对待用户的每 一条反馈！"
+        android:maxEms="200"
+        android:minHeight="150dp"
+        android:padding="15dp"
+        android:textColor="@color/text_999999"
+        android:textSize="13sp" />
+
+    <include layout="@layout/gray_split_bar_10" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请上传照片"
+            android:textColor="@color/text_999999"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/iv_pic"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="15dp"
+            android:src="@mipmap/jia_pic" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_btn_comit"
+        style="@style/SubmitButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red_text2"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="提交反馈"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+</LinearLayout>
