@@ -3,6 +3,7 @@ package cn.vpfinance.vpjr.module.product;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,6 +11,7 @@ import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.google.gson.Gson;
@@ -61,7 +63,7 @@ public class NewRegularProductActivity extends BaseActivity {
     @Bind(R.id.titleBar)
     ActionBarLayout      mTitleBar;
     @Bind(R.id.tabs)
-    PagerSlidingTabStrip mTabs;
+    TabLayout mTabs;
     @Bind(R.id.pager)
     ViewPager            mPager;
     private HttpService                                         mHttpService;
@@ -186,12 +188,13 @@ public class NewRegularProductActivity extends BaseActivity {
 
     protected void initView(){
         try{
-            mTabs.setIndicatorColor(0xFFFF3035);
+//            mTabs.setIndicatorColor(0xFFFF3035);
             mPager.setPageMargin(Utils.dip2px(this, 4));
             mPager.setOffscreenPageLimit(5);
             MyAdapter myAdapter = new MyAdapter(getSupportFragmentManager());
             mPager.setAdapter(myAdapter);
-            mTabs.setViewPager(mPager);
+            mTabs.setupWithViewPager(mPager);
+//            mTabs.setViewPager(mPager);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -253,6 +256,11 @@ public class NewRegularProductActivity extends BaseActivity {
                     }
                 }
             }
+        }
+        if(tabList.size() > 3) {
+            mTabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+        }else {
+            mTabs.setTabMode(TabLayout.MODE_FIXED);
         }
 
     }
@@ -321,6 +329,11 @@ public class NewRegularProductActivity extends BaseActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return mTabName == null ? "" : mTabName.get(position);
+        }
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+//            super.setPrimaryItem(container, position, object);
         }
     }
 }
