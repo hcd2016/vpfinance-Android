@@ -162,7 +162,7 @@ dependencies {
     //引入walle多渠道的依赖
     //    compile "com.meituan.android.walle:library:1.1.6"
 
-    
+
     //retrofit框架相关
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation('com.squareup.retrofit2:converter-gson:2.1.0') {
