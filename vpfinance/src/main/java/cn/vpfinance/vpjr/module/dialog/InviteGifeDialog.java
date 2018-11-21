@@ -3,6 +3,10 @@ package cn.vpfinance.vpjr.module.dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -55,8 +59,6 @@ public class InviteGifeDialog extends TBaseDialog {
     TextView tvSms;
     @Bind(R.id.tv_copy)
     TextView tvCopy;
-    @Bind(R.id.line_gray)
-    View lineGray;
     @Bind(R.id.tv_cancel)
     TextView tvCancel;
 
@@ -76,7 +78,6 @@ public class InviteGifeDialog extends TBaseDialog {
     }
 
     public void setData(String shareUrl,String imgUrl,String msg) {
-        msg = null;
         if(!TextUtils.isEmpty(msg)) {
             this.shareUrl = shareUrl + msg;
         }else {
@@ -89,7 +90,7 @@ public class InviteGifeDialog extends TBaseDialog {
         }
     }
 
-    @OnClick({R.id.tv_wechat, R.id.tv_moments, R.id.tv_qq, R.id.tv_sina, R.id.tv_qzone, R.id.tv_email, R.id.tv_sms, R.id.tv_copy, R.id.line_gray, R.id.tv_cancel})
+    @OnClick({R.id.tv_wechat, R.id.tv_moments, R.id.tv_qq, R.id.tv_sina, R.id.tv_qzone, R.id.tv_email, R.id.tv_sms, R.id.tv_copy, R.id.tv_cancel})
     public void onViewClicked(View view) {
         String platform = "";
         switch (view.getId()) {
@@ -136,7 +137,7 @@ public class InviteGifeDialog extends TBaseDialog {
     public class ShareContentCustomizeDemo implements ShareContentCustomizeCallback {
 
         public void onShare(Platform platform, Platform.ShareParams paramsToShare) {
-            paramsToShare.setText("我是测试文本,我能分享成功吗?"+shareUrl);
+            paramsToShare.setText(shareUrl);
             if("SinaWeibo".equals(platform.getName())){
                 paramsToShare.setTitle(mContext.getResources().getString(R.string.share));
             }else if("QZone".equals(platform.getName())){
@@ -145,9 +146,15 @@ public class InviteGifeDialog extends TBaseDialog {
                 paramsToShare.setSite(mContext.getResources().getString(R.string.app_name));
                 paramsToShare.setSiteUrl(HttpService.mBaseUrl);
             }else if ("Wechat".equals(platform.getName()) || "WechatMoments".equals(platform.getName())){
+                paramsToShare.setTitle("微品金融-足不出户实现财富增值");
                 paramsToShare.setUrl(shareUrl);
+                paramsToShare.setImageData(BitmapFactory.decodeResource(mContext.getResources(),R.drawable.logo));
             }else if("Email".equals(platform.getName()) || "ShortMessage".equals(platform.getName())){
                 paramsToShare.setTitle(mContext.getResources().getString(R.string.share));
+            }else if("QQ".equals(platform.getName())) {
+                paramsToShare.setTitleUrl(HttpService.mBaseUrl);
+                paramsToShare.setTitle("微品金融-足不出户实现财富增值");
+                paramsToShare.setImageData(BitmapFactory.decodeResource(mContext.getResources(),R.drawable.logo));
             }
         }
     }
@@ -160,13 +167,14 @@ public class InviteGifeDialog extends TBaseDialog {
         oks.disableSSOWhenAuthorize();
         //不同平台的分享参数，请看文档
 //        oks.setText(text);
-        oks.setText("我是测试文本,我能分享成功吗?");
+        oks.setText(shareUrl);
         //oks.setSilent(silent);
 //        oks.setDialogMode(false);
-        oks.disableSSOWhenAuthorize();
+//        oks.disableSSOWhenAuthorize();
         if (platform != null) {
             oks.setPlatform(platform);
         }
+        oks.setUrl(shareUrl);
         // 去自定义不同平台的字段内容
         oks.setShareContentCustomizeCallback(new ShareContentCustomizeDemo());
         oks.show(mContext);

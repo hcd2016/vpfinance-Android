@@ -80,6 +80,14 @@ public class RegisterCompanyInfoActivity extends BaseActivity {
             Utils.Toast("法人代表名字不能为空");
             return;
         }
+        if (etCompanyName.getText().toString().contains(" ")) {
+            Utils.Toast("企业名称不允许输入空格");
+            return;
+        }
+        if (etLegalName.getText().toString().contains(" ")) {
+            Utils.Toast("法人姓名不允许输入空格");
+            return;
+        }
         if (etCreditNum.getText().toString().length() != 18) {
             Utils.Toast("请输入18位社会信用");
             return;

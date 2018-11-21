@@ -5,11 +5,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,15 +25,17 @@ import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
+import com.ms.banner.BannerConfig;
+import com.ms.banner.Transformer;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -55,6 +60,7 @@ import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.GlideRoundTransform;
 import cn.vpfinance.vpjr.util.StatusBarCompat1;
+import cn.vpfinance.vpjr.view.BannerImageLoader;
 import cn.vpfinance.vpjr.view.FloatingAdView;
 import cn.vpfinance.vpjr.view.LinearLayoutForListView;
 import de.greenrobot.event.EventBus;
@@ -217,6 +223,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         return view;
     }
 
+
     private void initView(View view) {
         mBanner = ((ConvenientBanner) view.findViewById(R.id.convenientBanner));
     }
@@ -254,9 +261,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             AppmemberIndexBean appmemberIndexBean = mHttpService.onGetAppmemberIndex(json);
             if (appmemberIndexBean != null) {
                 List<AppmemberIndexBean.BannerBean> banner = appmemberIndexBean.banner;
-//                initBanner(banner);
+
                 if (mIsfirst) {
-                    //只有是第一次进来才设置banner，避免重复刷新数据 页面切换时banner又回到第一页
+//                    只有是第一次进来才设置banner，避免重复刷新数据 页面切换时banner又回到第一页
                     mBanner.setPages(
                             new CBViewHolderCreator<LocalImageHolderView>() {
                                 @Override
@@ -265,10 +272,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                 }
                             }, banner)
                             //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-                            .setPageIndicator(new int[]{R.drawable.icon_yuan2, R.drawable.shape_circle_white})
+                            .setPageIndicator(new int[]{R.drawable.shape_circle_gray, R.drawable.shape_circle_white})
                             //设置指示器的方向
-                            .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
-                            .setBackgroundResource(R.drawable.shape_radius5_tanst);
+                            .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
                     if (mBanner != null) {
                         mBanner.startTurning(3000);
                     }
@@ -389,18 +395,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
 
-    private void setBannerIndicatorLocation() {
-        ViewGroup viewGroup = (ViewGroup) mBanner.getViewPager().getParent();
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            if (viewGroup.getChildAt(i).getId() == R.id.loPageTurningPoint) {
-                View group = viewGroup.getChildAt(i);
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) group.getLayoutParams();
-                layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL | RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
-                layoutParams.setMargins(0, 0, 0, Utils.dip2px(getActivity(), 10));
-                group.setLayoutParams(layoutParams);
-            }
-        }
-    }
+//    private void setBannerIndicatorLocation() {
+//        ViewGroup viewGroup = (ViewGroup) mBanner.getViewPager().getParent();
+//        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+//            if (viewGroup.getChildAt(i).getId() == R.id.loPageTurningPoint) {
+//                View group = viewGroup.getChildAt(i);
+//                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) group.getLayoutParams();
+//                layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+//                layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
+//                layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
+//                layoutParams.addRule(RelativeLayout.CENTER_VERTICAL,RelativeLayout.TRUE);
+//                layoutParams.setMargins(0, 0, 0, Utils.dip2px(getActivity(), 10));
+//                group.setLayoutParams(layoutParams);
+//            }
+//        }
+//    }
 
 
     private void initBusinessMode(final List<AppmemberIndexBean.UrlsBean> urls) {

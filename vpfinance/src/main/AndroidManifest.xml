@@ -534,9 +534,9 @@
             	的类，这个类可以监听到页面的生命周期，也可以获取授权页面的各种UI控件。
             	开发者可以通过继承AuthorizeAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
             -->
-            <meta-data
-                android:name="AuthorizeAdapter"
-                android:value="cn.sharesdk.demo.MyAdapter" />
+            <!--<meta-data-->
+                <!--android:name="AuthorizeAdapter"-->
+                <!--android:value="cn.sharesdk.demo.MyAdapter" />-->
 
             <!--
             	QZoneWebShareAdapter表示一个继承自cn.sharesdk.tencent.qzone.QZoneWebShareAdapter
@@ -549,29 +549,44 @@
             	Dropbox的SSO功能需要在此处添加一个对ACTION_VIEW事件的过滤器，其中的scheme是
             	“db-”前缀再开发者应用的加上appKey。如果此过滤器不设置，则不能完成SSO功能授权
             -->
-            <intent-filter>
-                <data android:scheme="db-7janx53ilz11gbs" />
+            <!--<intent-filter>-->
+                <!--<data android:scheme="db-7janx53ilz11gbs" />-->
 
-                <action android:name="android.intent.action.VIEW" />
+                <!--<action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.BROWSABLE" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
 
             <!--
                 如果集成QQ分享，或者使用QQ客户端来进行QQ空间的分享，须要在此处添加一个对ACTION_VIEW
                 事件的过滤器，其中的scheme是“tencent”前缀再开发者应用的加上appId。如果此过滤器不设置，
                 则分享结束以后不能得到正确的回调
             -->
+            <!--<intent-filter>-->
+                <!--<data android:scheme="tencent1104564657" />-->
+
+                <!--<action android:name="android.intent.action.VIEW" />-->
+
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+                <!--<category android:name="android.intent.category.BROWSABLE" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
             <intent-filter>
-                <data android:scheme="tencent1104564657" />
-
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1104564657" />
             </intent-filter>
         </activity>
+        <!-- 填写您从Mob开发者后台中得到的Appkey和AppSecret -->
+        <meta-data android:name="Mob-AppKey" android:value="770d9303300c"/>
+        <meta-data android:name="Mob-AppSecret" android:value="1a46b4a2687480f5b71dba8e6c83b1f0"/>
         <!-- 微信分享回调 -->
         <activity
             android:name=".wxapi.WXEntryActivity"

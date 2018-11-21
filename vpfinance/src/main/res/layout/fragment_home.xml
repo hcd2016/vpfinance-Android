@@ -35,22 +35,24 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 tools:text="微品金融" />
+
             <ImageView
-                android:paddingRight="15dp"
                 android:id="@+id/iv_message"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:src="@mipmap/icon_message"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="15dp"
+                android:src="@mipmap/icon_message" />
+
             <ImageView
                 android:id="@+id/iv_msg_point"
-                android:layout_marginTop="14dp"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/shape_circle_radis2_white"
                 android:layout_width="4dp"
-                android:layout_height="4dp" />
+                android:layout_height="4dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/shape_circle_radis2_white" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -61,9 +63,9 @@
         android:layout_below="@id/titleBar">
 
         <android.support.v4.widget.NestedScrollView
-            android:background="@color/gray_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/gray_bg"
             android:fillViewport="true"
             android:overScrollMode="never"
             android:scrollbars="none">
@@ -95,14 +97,15 @@
                     </LinearLayout>
 
                     <com.bigkoo.convenientbanner.ConvenientBanner
-                        android:id="@+id/convenientBanner"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:background="@drawable/shape_radius5_tanst"
-                        app:canLoop="true" />
+                    android:id="@+id/convenientBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/shape_radius5_tanst"
+                    app:canLoop="true" />
+
                 </RelativeLayout>
 
                 <LinearLayout

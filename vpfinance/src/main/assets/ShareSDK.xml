@@ -122,6 +122,7 @@
         SortId="7"
         AppId="1104564657"
         AppKey="HEltUpVeHQ5K7aOp"
+		BypassApproval="false"
         ShareByAppClient="true"
         Enable="true" />
     

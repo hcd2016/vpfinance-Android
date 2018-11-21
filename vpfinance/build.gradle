@@ -176,6 +176,7 @@ dependencies {
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.23'
     //下拉刷新,加载更多
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+    implementation 'com.github.wenchaosong:Banner:2.2.5'
 }
 
 /*

@@ -191,6 +191,10 @@ public class RegisterActivity extends BaseActivity {
                 return;
             }
         } else {
+            if(etEmailText.contains(" ")) {
+                Utils.Toast(this, "不允许输入空格");
+                return;
+            }
             if (!Utils.checkEmail(etEmailText)) {
                 Utils.Toast(this, "邮箱格式不正确!");
                 return;
