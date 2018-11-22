@@ -28,6 +28,7 @@ import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.IsGetWelfareBean;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.common.RegisterActivity;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 import cn.vpfinance.vpjr.module.user.BindBankHintActivity;
 import cn.vpfinance.vpjr.module.user.OpenBankHintActivity;
@@ -63,7 +64,7 @@ public class NewWelfareActivity extends BaseActivity {
 
         titleBar = ((ActionBarLayout) findViewById(R.id.titleBar));
         titleBar.setHeadBackVisible(View.VISIBLE).setTitle("新手大礼包");
-        titleBar2 = (RelativeLayout)findViewById(R.id.titleBar2);
+        titleBar2 = (RelativeLayout) findViewById(R.id.titleBar2);
         tvRegister = ((TextView) findViewById(R.id.tvRegister));
         tvBindBank = ((TextView) findViewById(R.id.tvBindBank));
         tvInvest = ((TextView) findViewById(R.id.tvInvest));
@@ -71,7 +72,7 @@ public class NewWelfareActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) titleBar2.getLayoutParams();
             int top = StatusBarCompat1.getStatusBarHeight(this);
-            layoutParams.setMargins(0,top,0,0);
+            layoutParams.setMargins(0, top, 0, 0);
             titleBar2.setLayoutParams(layoutParams);
         }
 
@@ -83,9 +84,9 @@ public class NewWelfareActivity extends BaseActivity {
             public void onScrollChanged(HideTitleScrollView scrollView, int x, int y, int oldx, int oldy) {
                 titleBar.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
                 int measuredHeight = titleBar.getMeasuredHeight();
-                if (hideTitleScrollView.getScrollY() < measuredHeight * 3 ){
+                if (hideTitleScrollView.getScrollY() < measuredHeight * 3) {
                     ViewHelper.setAlpha(titleBar, (float) hideTitleScrollView.getScrollY() / (float) (measuredHeight * 3));
-                }else{
+                } else {
                     ViewHelper.setAlpha(titleBar, 1);
                 }
             }
@@ -104,24 +105,35 @@ public class NewWelfareActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 User user = DBUtils.getUser(NewWelfareActivity.this);
-                if (logined && user != null){
-                    if (!TextUtils.isEmpty(user.getRealName())){
+                if (logined && user != null) {
+                    if (!TextUtils.isEmpty(user.getRealName())) {
                         RealnameAuthActivity.goThis(NewWelfareActivity.this);
                         Utils.Toast("请先去实名认证");
-                    }else{
-                        BindBankHintActivity.goThis(NewWelfareActivity.this,user.getUserId().toString());
+                    } else {
+                        BindBankHintActivity.goThis(NewWelfareActivity.this, user.getUserId().toString());
                     }
-                }else{
-                    new AlertDialog.Builder(NewWelfareActivity.this)
-                            .setMessage("请先去登录")
-                            .setPositiveButton("登录", new DialogInterface.OnClickListener() {
+                } else {
+//                    new AlertDialog.Builder(NewWelfareActivity.this)
+//                            .setMessage("请先去登录")
+//                            .setPositiveButton("登录", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    gotoActivity(LoginActivity.class);
+//                                }
+//                            })
+//                            .setNegativeButton("取消",null)
+//                            .show();
+                    new CommonTipsDialogFragment.Buidler()
+                            .setContent("请先去登录")
+                            .setBtnRight("登录")
+                            .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void rightClick() {
                                     gotoActivity(LoginActivity.class);
                                 }
                             })
-                            .setNegativeButton("取消",null)
-                            .show();
+                            .setBtnLeft("取消")
+                            .createAndShow(NewWelfareActivity.this);
                 }
 //
             }
@@ -131,7 +143,7 @@ public class NewWelfareActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NewWelfareActivity.this, MainActivity.class);
-                intent.putExtra(MainActivity.SWITCH_TAB_NUM,1);
+                intent.putExtra(MainActivity.SWITCH_TAB_NUM, 1);
                 gotoActivity(intent);
             }
         });
@@ -140,7 +152,7 @@ public class NewWelfareActivity extends BaseActivity {
     @Override
     public void onHttpSuccess(int reqId, JSONObject json) {
         super.onHttpSuccess(reqId, json);
-        if (reqId == ServiceCmd.CmdId.CMD_IS_GET_WELFARE.ordinal()){
+        if (reqId == ServiceCmd.CmdId.CMD_IS_GET_WELFARE.ordinal()) {
             IsGetWelfareBean isGetWelfareBean = new Gson().fromJson(json.toString(), IsGetWelfareBean.class);
             tvRegister.setVisibility(isGetWelfareBean.register == 1 ? View.VISIBLE : View.INVISIBLE);
             tvBindBank.setVisibility(isGetWelfareBean.addCard == 1 ? View.VISIBLE : View.INVISIBLE);
@@ -156,13 +168,13 @@ public class NewWelfareActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        if (AppState.instance().logined()){
+        if (AppState.instance().logined()) {
 
             User user = DBUtils.getUser(this);
-            if (user != null){
+            if (user != null) {
                 mHttpService.getIsWelfare(user.getUserId().toString());
             }
-        }else{
+        } else {
             tvRegister.setVisibility(View.INVISIBLE);
             tvBindBank.setVisibility(View.INVISIBLE);
             tvInvest.setVisibility(View.INVISIBLE);

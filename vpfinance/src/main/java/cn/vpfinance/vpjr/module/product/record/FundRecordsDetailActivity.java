@@ -25,11 +25,8 @@ import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.gson.RecordDetailBean;
-import cn.vpfinance.vpjr.module.dialog.CommonDialogFragment;
-import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.dialog.PotocolDialog;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
-import cn.vpfinance.vpjr.module.product.transfer.NewTransferProductActivity;
 import cn.vpfinance.vpjr.util.FormatUtils;
 
 /**

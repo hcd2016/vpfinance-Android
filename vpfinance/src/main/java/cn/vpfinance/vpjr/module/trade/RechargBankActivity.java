@@ -27,10 +27,13 @@ import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.EAccountBean;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.dialog.HxUpdateDialog;
 import cn.vpfinance.vpjr.module.user.BindBankHintActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
+
+import static android.view.View.GONE;
 
 /**
  * 银行存管 - 充值
@@ -98,15 +101,27 @@ public class RechargBankActivity extends BaseActivity {
                 final Long userId = user.getUserId();
                 boolean isBindBank = SharedPreferencesHelper.getInstance(this).getBooleanValue(SharedPreferencesHelper.KEY_IS_BIND_BANK);
                 if (!isBindBank) {
-                    new AlertDialog.Builder(this).setMessage(getResources().getString(R.string.message_no_bind_bank))
-                            .setPositiveButton("去绑定", new DialogInterface.OnClickListener() {
+//                    new AlertDialog.Builder(this).setMessage(getResources().getString(R.string.message_no_bind_bank))
+//                            .setPositiveButton("去绑定", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    BindBankHintActivity.goThis(RechargBankActivity.this, userId.toString());
+//                                }
+//                            })
+//                            .setNegativeButton("取消", null)
+//                            .show();
+                    new CommonTipsDialogFragment.Buidler()
+                            .setTitleVisibility(GONE)
+                            .setContent("您未绑定银行卡")
+                            .setBtnRight("去绑定")
+                            .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    BindBankHintActivity.goThis(RechargBankActivity.this, userId.toString());
+                                public void rightClick() {
+                                    Utils.Toast("点击了右按钮");
                                 }
                             })
-                            .setNegativeButton("取消", null)
-                            .show();
+                            .setBtnLeft("取消")
+                            .createAndShow(this);
                     return;
                 }
                 String money = mMoney.getText().toString();

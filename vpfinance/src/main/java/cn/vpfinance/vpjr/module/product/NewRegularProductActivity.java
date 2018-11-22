@@ -10,6 +10,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.util.ArrayMap;
@@ -53,6 +54,7 @@ import cn.vpfinance.vpjr.gson.TabPermissionBean;
 import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
 import cn.vpfinance.vpjr.module.common.fragment.WebViewFragment;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.dialog.InvestmentRiskTipsDialog;
 import cn.vpfinance.vpjr.module.product.fragment.BaseInfoFragment;
 import cn.vpfinance.vpjr.module.product.fragment.NewCarInfoFragment;
@@ -265,12 +267,32 @@ public class NewRegularProductActivity extends BaseActivity {
             if (null == mUserInfoBean) return;
             if (newBaseInfoBean.product == 4 &&
                     !mUserInfoBean.isOpen.equals("1")) {
-                new AlertDialog.Builder(NewRegularProductActivity.this)
+//                new AlertDialog.Builder(NewRegularProductActivity.this)
+//                        .setTitle("开通存管账户")
+//                        .setMessage("根据监管要求，请先开通银行存管账户")
+//                        .setPositiveButton("立即开通", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                User user = DBUtils.getUser(NewRegularProductActivity.this);
+//                                if (user != null) {
+//                                    if (TextUtils.isEmpty(user.getRealName())) {
+//                                        RealnameAuthActivity.goThis(NewRegularProductActivity.this);
+//                                        Utils.Toast("请先去实名认证");
+//                                    } else {
+//                                        gotoWeb("/hx/account/create?userId=" + user.getUserId(), "");
+//                                    }
+//                                }
+//                            }
+//                        })
+//                        .setNegativeButton("暂不", null)
+//                        .show();
+                new CommonTipsDialogFragment.Buidler()
                         .setTitle("开通存管账户")
-                        .setMessage("根据监管要求，请先开通银行存管账户")
-                        .setPositiveButton("立即开通", new DialogInterface.OnClickListener() {
+                        .setContent("根据监管要求，请先开通银行存管账户")
+                        .setBtnRight("立即开通")
+                        .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void rightClick() {
                                 User user = DBUtils.getUser(NewRegularProductActivity.this);
                                 if (user != null) {
                                     if (TextUtils.isEmpty(user.getRealName())) {
@@ -282,8 +304,8 @@ public class NewRegularProductActivity extends BaseActivity {
                                 }
                             }
                         })
-                        .setNegativeButton("暂不", null)
-                        .show();
+                        .setBtnLeft("暂不")
+                        .createAndShow(NewRegularProductActivity.this);
                 return;
             }
 
@@ -294,18 +316,31 @@ public class NewRegularProductActivity extends BaseActivity {
                 return;
             }
             if (newBaseInfoBean.answerStatus == 2) {
-                new AlertDialog.Builder(NewRegularProductActivity.this)
-                        .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行出借")
-                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                new AlertDialog.Builder(NewRegularProductActivity.this)
+//                        .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行出借")
+//                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                if (user != null) {
+//                                    gotoWeb("/h5/help/riskInvestigation?userId=" + user.getUserId(), "风险评测");
+//                                }
+//                            }
+//                        })
+//                        .setNegativeButton("下次再说", null)
+//                        .show();
+                new CommonTipsDialogFragment.Buidler()
+                        .setContent("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行出借")
+                        .setBtnRight("确认")
+                        .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void rightClick() {
                                 if (user != null) {
                                     gotoWeb("/h5/help/riskInvestigation?userId=" + user.getUserId(), "风险评测");
                                 }
                             }
                         })
-                        .setNegativeButton("下次再说", null)
-                        .show();
+                        .setBtnLeft("下次再说")
+                        .createAndShow(NewRegularProductActivity.this);
                 return;
             }
 

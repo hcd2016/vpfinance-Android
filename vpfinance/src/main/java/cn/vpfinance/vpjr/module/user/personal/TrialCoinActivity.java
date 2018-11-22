@@ -25,6 +25,7 @@ import java.util.Date;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.base.BaseActivity;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.setting.PasswordChangeActivity;
 import cn.vpfinance.vpjr.module.dialog.WithdrawDialogFragment;
 import cn.vpfinance.vpjr.greendao.BonusProfit;
@@ -35,6 +36,8 @@ import cn.vpfinance.vpjr.module.user.BindBankHintActivity;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
+
+import static android.view.View.GONE;
 
 /**
  */
@@ -292,17 +295,29 @@ public class TrialCoinActivity extends BaseActivity implements View.OnClickListe
         if (bindBank){
             mHttpService.drawEarnings();
         }else{
-            new AlertDialog.Builder(this)
-                    .setMessage("请先绑卡激活E账户再领取体验金收益")
-                    .setNegativeButton("去激活", new DialogInterface.OnClickListener() {
+//            new AlertDialog.Builder(this)
+//                    .setMessage("请先绑卡激活E账户再领取体验金收益")
+//                    .setNegativeButton("去激活", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            BindBankHintActivity.goThis(TrialCoinActivity.this,user.getUserId().toString());
+//                        }
+//                    })
+//                    .setNegativeButton("取消",null)
+//                    .create()
+//                    .show();
+            new CommonTipsDialogFragment.Buidler()
+                    .setTitleVisibility(GONE)
+                    .setContent("请先绑卡激活E账户再领取体验金收益")
+                    .setBtnRight("去激活")
+                    .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void rightClick() {
                             BindBankHintActivity.goThis(TrialCoinActivity.this,user.getUserId().toString());
                         }
                     })
-                    .setNegativeButton("取消",null)
-                    .create()
-                    .show();
+                    .setBtnLeft("取消")
+                    .createAndShow(this);
         }
         /*if (user != null){
             String mRealname = user.getRealName();

@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -24,6 +26,9 @@ import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONObject;
 
@@ -39,6 +44,7 @@ import cn.vpfinance.vpjr.gson.QueryAutoStatusBean;
 import cn.vpfinance.vpjr.gson.UserInfoBean;
 import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.gusturelock.LockActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.module.setting.AutoInvestProtocolActivity;
@@ -156,7 +162,6 @@ public class BankAccountFragment extends BaseFragment {
                 loadDate();
             }
         });
-//        mHeader.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.account_bank_header));
         mHeaderNoOpen.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.account_bank_header));
 
         titleBar.reset()
@@ -608,18 +613,32 @@ public class BankAccountFragment extends BaseFragment {
                 if (!isShowing) {
                     isShowing = true;
                     String message = json.optString("message");
-                    new AlertDialog.Builder(context)
-                            .setMessage(message)
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    new AlertDialog.Builder(context)
+//                            .setMessage(message)
+//                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    AppState.instance().logout();
+//                                    Intent intent = new Intent(context, MainActivity.class);
+//                                    intent.putExtra(MainActivity.SWITCH_TAB_NUM, 0);
+//                                    context.startActivity(intent);
+//                                    isShowing = false;
+//                                }
+//                            }).create().show();
+                    new CommonTipsDialogFragment.Buidler()
+                            .setContent(message)
+                            .setBtnRight("确定")
+                            .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void rightClick() {
                                     AppState.instance().logout();
                                     Intent intent = new Intent(context, MainActivity.class);
                                     intent.putExtra(MainActivity.SWITCH_TAB_NUM, 0);
                                     context.startActivity(intent);
                                     isShowing = false;
                                 }
-                            }).create().show();
+                            })
+                            .createAndShow((FragmentActivity) context);
                 }
             }
         }

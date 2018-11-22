@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.jewelcredit.util.Utils;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.download.SpUtils;
 import cn.vpfinance.vpjr.module.dialog.CommonDialogFragment;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.dialog.RechargeCloseDialog;
 import cn.vpfinance.vpjr.module.setting.RealnameAuthActivity;
 
@@ -120,16 +122,27 @@ public class AlertDialogUtils {
     }
 
     public static void confirmGoRecharg(final Context context){
-        new AlertDialog.Builder(context).setMessage("由于监管要求，平台发布产品将以银行存管为主，确定要将资金充值到连连账户吗？")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//        new AlertDialog.Builder(context).setMessage("由于监管要求，平台发布产品将以银行存管为主，确定要将资金充值到连连账户吗？")
+//                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+////                        context.startActivity(new Intent(context, RechargeActivity.class));
+//                    }
+//                })
+//                .setNegativeButton("取消",null)
+//                .create()
+//                .show();
+        new CommonTipsDialogFragment.Buidler()
+                .setContent("由于监管要求，平台发布产品将以银行存管为主，确定要将资金充值到连连账户吗？")
+                .setBtnRight("确定")
+                .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void rightClick() {
 //                        context.startActivity(new Intent(context, RechargeActivity.class));
                     }
                 })
-                .setNegativeButton("取消",null)
-                .create()
-                .show();
+                .setBtnLeft("取消")
+                .createAndShow((FragmentActivity) context);
     }
 
     /**
@@ -158,11 +171,28 @@ public class AlertDialogUtils {
     }
 
     public static void openBankAccount(final Context context, final boolean isRealName,final String userId){
-        new AlertDialog.Builder(context)
-                .setMessage("请先开通存管账户")
-                .setPositiveButton("去开通", new DialogInterface.OnClickListener() {
+//        new AlertDialog.Builder(context)
+//                .setMessage("请先开通存管账户")
+//                .setPositiveButton("去开通", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (!isRealName){
+//                            Utils.Toast(context, "开通存管账户前请先进行实名认证");
+//                            context.startActivity(new Intent(context, RealnameAuthActivity.class));
+//                        }else{
+//                            Utils.goToWeb(context, "/hx/account/create?userId=" + userId,"");
+//                        }
+//                    }
+//                })
+//                .setNegativeButton("取消",null)
+//                .create()
+//                .show();
+        new CommonTipsDialogFragment.Buidler()
+                .setContent("请先开通存管账户")
+                .setBtnRight("去开通")
+                .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void rightClick() {
                         if (!isRealName){
                             Utils.Toast(context, "开通存管账户前请先进行实名认证");
                             context.startActivity(new Intent(context, RealnameAuthActivity.class));
@@ -171,8 +201,7 @@ public class AlertDialogUtils {
                         }
                     }
                 })
-                .setNegativeButton("取消",null)
-                .create()
-                .show();
+                .setBtnLeft("取消")
+                .createAndShow((FragmentActivity) context);
     }
 }

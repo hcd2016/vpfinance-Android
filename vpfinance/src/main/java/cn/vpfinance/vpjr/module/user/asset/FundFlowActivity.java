@@ -45,10 +45,13 @@ import cn.vpfinance.vpjr.greendao.UserDao;
 import cn.vpfinance.vpjr.model.Config;
 import cn.vpfinance.vpjr.model.FundFlowInfo;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.StatusBarCompat1;
 import de.greenrobot.dao.query.QueryBuilder;
 import de.greenrobot.event.EventBus;
+
+import static android.view.View.GONE;
 
 /**
  * Created by Administrator on 2015/10/30.
@@ -403,20 +406,32 @@ public class FundFlowActivity extends BaseActivity implements View.OnClickListen
                                 holder.btnWithdrawOk.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(FundFlowActivity.this);
-                                        builder.setMessage("是否撤回提现");
-                                        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                mHttpService.getCancelWithdraw(applyId);
-                                            }
-                                        });
-                                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        });
-                                        builder.show();
+//                                        AlertDialog.Builder builder = new AlertDialog.Builder(FundFlowActivity.this);
+//                                        builder.setMessage("是否撤回提现");
+//                                        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                                mHttpService.getCancelWithdraw(applyId);
+//                                            }
+//                                        });
+//                                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                            }
+//                                        });
+//                                        builder.show();
+                                        new CommonTipsDialogFragment.Buidler()
+                                                .setTitleVisibility(GONE)
+                                                .setContent("是否撤回提现")
+                                                .setBtnRight("确认")
+                                                .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
+                                                    @Override
+                                                    public void rightClick() {
+                                                        mHttpService.getCancelWithdraw(applyId);
+                                                    }
+                                                })
+                                                .setBtnLeft("取消")
+                                                .createAndShow(FundFlowActivity.this);
                                     }
                                 });
                             }

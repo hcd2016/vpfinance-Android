@@ -34,9 +34,12 @@ import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.AutoInvestSettingBean;
 import cn.vpfinance.vpjr.gson.QueryAutoStatusBean;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.Logger;
+
+import static android.view.View.GONE;
 
 /**
  * 自动投标设置
@@ -510,16 +513,28 @@ public class AutoInvestSettingActivity extends BaseActivity {
                 } else if (bean.isHXAutoPlank == 0) {//去授权
                     gotoWeb("hx/loansign/authAutoBid?userId=" + userId, "自动授权");
                 } else if (bean.isHXAutoPlank == 1) {//已授权
-                    new AlertDialog.Builder(this)
-                            .setMessage("需要撤销自动投标授权?")
-                            .setPositiveButton("取消", null)
-                            .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+//                    new AlertDialog.Builder(this)
+//                            .setMessage("需要撤销自动投标授权?")
+//                            .setPositiveButton("取消", null)
+//                            .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    AutoInvestCancelInfoActivity.goThis(AutoInvestSettingActivity.this);
+//                                }
+//                            })
+//                            .show();
+                    new CommonTipsDialogFragment.Buidler()
+                            .setTitleVisibility(GONE)
+                            .setContent("需要撤销自动投标授权")
+                            .setBtnRight("确定")
+                            .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                                 @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
+                                public void rightClick() {
                                     AutoInvestCancelInfoActivity.goThis(AutoInvestSettingActivity.this);
                                 }
                             })
-                            .show();
+                            .setBtnLeft("取消")
+                            .createAndShow(AutoInvestSettingActivity.this);
                 }
                 break;
         }

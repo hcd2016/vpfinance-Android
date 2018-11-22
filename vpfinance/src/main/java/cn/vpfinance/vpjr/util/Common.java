@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.gusturelock.LockActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
 
@@ -101,18 +103,32 @@ public class Common {
                 if (!isShowing) {
                     isShowing = true;
                     String message = json.optString("message");
-                    new AlertDialog.Builder(context)
-                            .setMessage(message)
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    new AlertDialog.Builder(context)
+//                            .setMessage(message)
+//                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    AppState.instance().logout();
+//                                    Intent intent = new Intent(context, MainActivity.class);
+//                                    intent.putExtra(MainActivity.SWITCH_TAB_NUM, 0);
+//                                    context.startActivity(intent);
+//                                    isShowing = false;
+//                                }
+//                            }).create().show();
+                    new CommonTipsDialogFragment.Buidler()
+                            .setContent(message)
+                            .setBtnRight("确定")
+                            .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void rightClick() {
                                     AppState.instance().logout();
                                     Intent intent = new Intent(context, MainActivity.class);
                                     intent.putExtra(MainActivity.SWITCH_TAB_NUM, 0);
                                     context.startActivity(intent);
                                     isShowing = false;
                                 }
-                            }).create().show();
+                            })
+                            .createAndShow((FragmentActivity) context);
                 }
             }
         }

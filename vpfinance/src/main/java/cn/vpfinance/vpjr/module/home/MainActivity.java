@@ -52,6 +52,8 @@ import cn.vpfinance.vpjr.gson.QueryAutoStatusBean;
 import cn.vpfinance.vpjr.gson.QueryPopUpBean;
 import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.AutoStatusDialog;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.dialog.NewUserDialogActivity;
 import cn.vpfinance.vpjr.module.dialog.UpdateDialogFragment;
 import cn.vpfinance.vpjr.module.gusturelock.LockActivity;
@@ -69,6 +71,8 @@ import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.util.UpdateAppUtil;
 import cn.vpfinance.vpjr.view.popwindow.MainTab2Menu;
 import de.greenrobot.event.EventBus;
+
+import static android.view.View.GONE;
 
 
 public class MainActivity extends BaseActivity {
@@ -321,17 +325,29 @@ public class MainActivity extends BaseActivity {
                 //两年没换密码就提示更换一下密码
                 App application = (App) getApplication();
                 if (application.isNeedUpdatePwd) {
-                    new AlertDialog.Builder(this)
-                            .setMessage("您已经很久没更换过密码了，请更换登录密码保障您的账户安全")
+//                    new AlertDialog.Builder(this)
+//                            .setMessage("您已经很久没更换过密码了，请更换登录密码保障您的账户安全")
+//                            .setCancelable(false)
+//                            .setPositiveButton("去更换密码", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    startActivity(new Intent(MainActivity.this, PasswordChangeActivity.class));
+//                                }
+//                            })
+//                            .setNegativeButton("取消", null)
+//                            .show();
+                    new CommonTipsDialogFragment.Buidler()
+                            .setContent("您已经很久没更换过密码了，请更换登录密码保障您的账户安全")
                             .setCancelable(false)
-                            .setPositiveButton("去更换密码", new DialogInterface.OnClickListener() {
+                            .setBtnRight("去更换密码")
+                            .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void rightClick() {
                                     startActivity(new Intent(MainActivity.this, PasswordChangeActivity.class));
                                 }
                             })
-                            .setNegativeButton("取消", null)
-                            .show();
+                            .setBtnLeft("取消")
+                            .createAndShow(this);
                     application.isNeedUpdatePwd = false;
                 }
                 mLastRadioId = R.id.maintab_mine_radiobtn;
@@ -561,38 +577,89 @@ public class MainActivity extends BaseActivity {
     }
 
     private void showAutoStatusDialog(String title, String message, final String status) {
-        new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("重新授权", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if ("2".equals(status)) {
-                            AutoInvestOverInfoActivity.goThis(MainActivity.this);
-                        } else if ("3".equals(status)) {
-                            gotoWeb("hx/loansign/authAutoBid?userId=" + user.getUserId(), "自动授权");
-                        }
-                    }
-                })
-                .setNegativeButton("暂不", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Calendar calendar = Calendar.getInstance();
-                        int year = calendar.get(Calendar.YEAR);
-                        int month = calendar.get(Calendar.MONTH) + 1;
-                        int day = calendar.get(Calendar.DAY_OF_MONTH) + 1;
-                        String data = year + "-" + month + "-" + day;
-                        SharedPreferencesHelper.getInstance(MainActivity.this).putStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME, user.getUserId() + "_" + data);
-                    }
-                })
-                .setNeutralButton("不再提醒", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        SharedPreferencesHelper.getInstance(MainActivity.this).putStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME, user.getUserId() + "_" + "2024-02-02");
-                    }
-                })
-                .create()
-                .show();
+//        new AlertDialog.Builder(this)
+//                .setTitle(title)
+//                .setMessage(message)
+//                .setPositiveButton("重新授权", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        if ("2".equals(status)) {
+//                            AutoInvestOverInfoActivity.goThis(MainActivity.this);
+//                        } else if ("3".equals(status)) {
+//                            gotoWeb("hx/loansign/authAutoBid?userId=" + user.getUserId(), "自动授权");
+//                        }
+//                    }
+//                })
+//                .setNegativeButton("暂不", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        Calendar calendar = Calendar.getInstance();
+//                        int year = calendar.get(Calendar.YEAR);
+//                        int month = calendar.get(Calendar.MONTH) + 1;
+//                        int day = calendar.get(Calendar.DAY_OF_MONTH) + 1;
+//                        String data = year + "-" + month + "-" + day;
+//                        SharedPreferencesHelper.getInstance(MainActivity.this).putStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME, user.getUserId() + "_" + data);
+//                    }
+//                })
+//                .setNeutralButton("不再提醒", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        SharedPreferencesHelper.getInstance(MainActivity.this).putStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME, user.getUserId() + "_" + "2024-02-02");
+//                    }
+//                })
+//                .create()
+//                .show();
+        AutoStatusDialog autoStatusDialog = new AutoStatusDialog(this);
+        autoStatusDialog.setTvTitle(title);
+        autoStatusDialog.setTvContent(message);
+        autoStatusDialog.setOnAllLinstener(new AutoStatusDialog.onAllListener() {
+            @Override
+            public void clickOk() {
+                if ("2".equals(status)) {
+                    AutoInvestOverInfoActivity.goThis(MainActivity.this);
+                } else if ("3".equals(status)) {
+                    gotoWeb("hx/loansign/authAutoBid?userId=" + user.getUserId(), "自动授权");
+                }
+            }
+
+            @Override
+            public void clickCancel() {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH) + 1;
+                int day = calendar.get(Calendar.DAY_OF_MONTH) + 1;
+                String data = year + "-" + month + "-" + day;
+                SharedPreferencesHelper.getInstance(MainActivity.this).putStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME, user.getUserId() + "_" + data);
+            }
+
+            @Override
+            public void clickNoTips() {
+                SharedPreferencesHelper.getInstance(MainActivity.this).putStringValue(SharedPreferencesHelper.KEY_SHOW_AUTO_STATUS_TIME, user.getUserId() + "_" + "2024-02-02");
+            }
+        });
+        autoStatusDialog.show();
+//        new CommonTipsDialogFragment.Buidler()
+//                .setTitle(title)
+//                .setContent(message)
+//                .setBtnRight("重新授权")
+//                .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
+//                    @Override
+//                    public void rightClick() {
+//                        if ("2".equals(status)) {
+//                            AutoInvestOverInfoActivity.goThis(MainActivity.this);
+//                        } else if ("3".equals(status)) {
+//                            gotoWeb("hx/loansign/authAutoBid?userId=" + user.getUserId(), "自动授权");
+//                        }
+//                    }
+//                })
+//                .setBtnLeft("取消")
+//                .setOnLeftClickListenr(new CommonTipsDialogFragment.OnLeftClickListner() {
+//                    @Override
+//                    public void leftClick() {
+//
+//                    }
+//                })
+//                .createAndShow(getActivity());
     }
 
     @Override

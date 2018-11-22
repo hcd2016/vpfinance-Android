@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
@@ -25,8 +27,6 @@ import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
-import com.ms.banner.BannerConfig;
-import com.ms.banner.Transformer;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -51,6 +51,7 @@ import cn.vpfinance.vpjr.gson.IndexPacketBean;
 import cn.vpfinance.vpjr.model.RefreshCountDown;
 import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.home.IndexRedPacketActivity;
 import cn.vpfinance.vpjr.module.home.InviteGiftIntroduceActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
@@ -60,11 +61,11 @@ import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.GlideRoundTransform;
 import cn.vpfinance.vpjr.util.StatusBarCompat1;
-import cn.vpfinance.vpjr.view.BannerImageLoader;
 import cn.vpfinance.vpjr.view.FloatingAdView;
 import cn.vpfinance.vpjr.view.LinearLayoutForListView;
 import de.greenrobot.event.EventBus;
 
+import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
