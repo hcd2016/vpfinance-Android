@@ -250,6 +250,14 @@ public class CaptchaActivity extends BaseActivity {
                     SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, userRegisterBean.getUserType());
                     getUser();
                     mHttpService.getUserInfo();
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    //清理login present标志
+                    HttpService.clearPresentLoginFlag();
+                    ((App) getApplication()).login = true;
+                    startActivity(new Intent(this, LockSetupActivity.class));
+                    EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS));//微信登录成功
+                    finish();
                     break;
                 case "2"://此用户为企业用户，不允许注册，请跳转到企业注册页面
                     Utils.Toast("该企业未注册，请前往企业注册页面");
@@ -305,15 +313,6 @@ public class CaptchaActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(uid) && !uid.equals(savedUid)) {
                     preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
                 }
-
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                //清理login present标志
-                HttpService.clearPresentLoginFlag();
-                ((App) getApplication()).login = true;
-                startActivity(new Intent(this, LockSetupActivity.class));
-                EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS));//微信登录成功
-                finish();
             }
         }
     }

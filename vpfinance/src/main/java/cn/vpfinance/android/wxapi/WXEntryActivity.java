@@ -231,6 +231,14 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                     SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, userRegisterBean.getUserType());
                     getUser();
                     httpService.getUserInfo();
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    //清理login present标志
+                    HttpService.clearPresentLoginFlag();
+                    ((App) getApplication()).login = true;
+                    startActivity(new Intent(this, LockSetupActivity.class));
+                    EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS));
+                    finish();
                     break;
                 case "2"://已注销
                     Utils.Toast("账户已注销");
@@ -269,12 +277,12 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                 SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
                 String username = user.getUserName();
                 String cellPhone = user.getCellPhone();
-                if (userRegisterBean.getUserType()) {//个人用户
-                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_CELL_PHONE, cellPhone);
-                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
-                } else {//企业用户
-                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME, username);//保存登录企业用户名
-                }
+//                if (userRegisterBean.getUserType()) {//个人用户
+//                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_CELL_PHONE, cellPhone);
+//                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+//                } else {//企业用户
+//                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME, username);//保存登录企业用户名
+//                }
                 preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, username);
                 if (user != null) {
                     preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID, "" + user.getId());
@@ -285,14 +293,6 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                     preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_ID, uid);
                 }
 
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                //清理login present标志
-                HttpService.clearPresentLoginFlag();
-                ((App) getApplication()).login = true;
-                startActivity(new Intent(this, LockSetupActivity.class));
-                EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_LOGIN_SUCCESS));
-                finish();
             }
         }
         if (reqId == ServiceCmd.CmdId.CMD_WEIXIN_BIND.ordinal()) {//绑定微信

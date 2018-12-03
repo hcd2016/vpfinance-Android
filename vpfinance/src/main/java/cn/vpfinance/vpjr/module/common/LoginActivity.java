@@ -22,6 +22,7 @@ import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
+import com.mob.tools.utils.SharePrefrenceHelper;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.yintong.pay.utils.Md5Algorithm;
@@ -82,8 +83,9 @@ public class LoginActivity extends BaseActivity {
     private boolean isFirstClick = true;
     private int screenHeight;
     private int keyHeight;
-    private String personPhone;
+//    private String personPhone;
     private String companyUsername;
+    private String personUserName;
 
 
     @Override
@@ -124,12 +126,13 @@ public class LoginActivity extends BaseActivity {
         }
 
         SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
-        personPhone = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_CELL_PHONE);
+//        personPhone = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_CELL_PHONE);
+        personUserName = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME);
         companyUsername = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME);
         String name = "";
         if (isPersonType) {//个人用户记住之前登录手机号,企业用户记住企业名称
-            etUsername.setText(personPhone);
-            name = personPhone;
+            etUsername.setText(personUserName);
+            name = personUserName;
         } else {
             etUsername.setText(companyUsername);
             name = companyUsername;
@@ -200,8 +203,8 @@ public class LoginActivity extends BaseActivity {
             titleBar.setTitle("登录");
             tvRegister.setText("立即注册");
             titleBar.setActionRight("企业用户");
-            if (!TextUtils.isEmpty(personPhone)) {
-                etUsername.setText(personPhone);
+            if (!TextUtils.isEmpty(personUserName)) {
+                etUsername.setText(personUserName);
             } else {
                 etUsername.setText("");
                 etUsername.setHint("请输入手机号/用户名");
@@ -375,12 +378,12 @@ public class LoginActivity extends BaseActivity {
                 }
                 SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
                 String cellPhone = user.getCellPhone();
-                if (isPersonType) {//个人用户
-                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_CELL_PHONE, cellPhone);
-                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
-                } else {//企业用户
-                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME, username);//保存登录企业用户名
-                }
+//                if (isPersonType) {//个人用户
+//                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_CELL_PHONE, cellPhone);
+//                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+//                } else {//企业用户
+//                    preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME, username);//保存登录企业用户名
+//                }
                 preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, username);
                 if (user != null) {
                     preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_ID, "" + user.getId());
@@ -399,9 +402,6 @@ public class LoginActivity extends BaseActivity {
                 setResult(RESULT_OK, intent);
                 //清理login present标志
                 HttpService.clearPresentLoginFlag();
-                ((App) getApplication()).login = true;
-                startActivity(new Intent(this, LockSetupActivity.class));
-                finish();
             }
         }
         if (req == ServiceCmd.CmdId.CMD_userLogin.ordinal() || req == ServiceCmd.CmdId.CMD_enterpriseUserLogin.ordinal() && (!isFinishing())) {
@@ -418,11 +418,23 @@ public class LoginActivity extends BaseActivity {
                 findViewById(R.id.btnLogin).setEnabled(true);
                 return;
             } else {
+                SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance(this);
+                if (isPersonType) {//个人用户
+//                    sharedPreferencesHelper.putStringValue(SharedPreferencesHelper.KEY_CELL_PHONE, cellPhone);
+                    sharedPreferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+                } else {//企业用户
+                    sharedPreferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME, username);//保存登录企业用户名
+                }
+
                 App application = (App) getApplication();
                 application.isLogin = true;
                 SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, isPersonType);
                 mHttpService.getUserInfo();
                 getUser();
+
+                ((App) getApplication()).login = true;
+                startActivity(new Intent(this, LockSetupActivity.class));
+                finish();
             }
         }
     }

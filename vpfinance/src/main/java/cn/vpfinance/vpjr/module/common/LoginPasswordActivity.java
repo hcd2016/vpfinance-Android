@@ -306,12 +306,12 @@ public class LoginPasswordActivity extends BaseActivity {
                     SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
                     String username = user.getUserName();
                     String cellPhone = user.getCellPhone();
-                    if(userRegisterBean.getUserType()) {//个人用户
-                        preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_CELL_PHONE, cellPhone);
-                        preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
-                    }else {//企业用户
-                        preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME, username);//保存登录企业用户名
-                    }
+//                    if(userRegisterBean.getUserType()) {//个人用户
+//                        preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_CELL_PHONE, cellPhone);
+//                        preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+//                    }else {//企业用户
+//                        preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME, username);//保存登录企业用户名
+//                    }
                     String password = etFirstPwd.getText().toString();
                     preferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, username);
                     if (user != null) {
@@ -328,18 +328,6 @@ public class LoginPasswordActivity extends BaseActivity {
 //                    App application = (App)getApplication();
 //                    application.isFirstRegieter = true;
                     preferencesHelper.putBooleanValue(uid+"is_first_register",true);//保存新注册用户是否打开过引导
-                    Intent intent = new Intent();
-                    setResult(RESULT_OK, intent);
-                    //清理login present标志
-                    HttpService.clearPresentLoginFlag();
-                    ((App) getApplication()).login = true;
-                    startActivity(new Intent(this, LockSetupActivity.class));
-                    if (userRegisterBean.getIsFromWeixin()) {
-                        EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_REGISTER_SUCCESS));
-                    } else {
-                        EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_REGISTER_FINISH));
-                    }
-                    finish();
                 }
             }
             if (reqId == ServiceCmd.CmdId.CMD_userLogin.ordinal() || reqId == ServiceCmd.CmdId.CMD_enterpriseUserLogin.ordinal()) {
@@ -355,6 +343,18 @@ public class LoginPasswordActivity extends BaseActivity {
                     }
                 } else {
                     doLogin();
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    //清理login present标志
+                    HttpService.clearPresentLoginFlag();
+                    ((App) getApplication()).login = true;
+                    startActivity(new Intent(this, LockSetupActivity.class));
+                    if (userRegisterBean.getIsFromWeixin()) {
+                        EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_WEIXIN_REGISTER_SUCCESS));
+                    } else {
+                        EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_REGISTER_FINISH));
+                    }
+                    finish();
                 }
             }
             if (reqId == ServiceCmd.CmdId.CMD_COMPANY_REGISTER.ordinal()) {//企业注册
