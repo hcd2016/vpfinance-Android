@@ -182,6 +182,9 @@ public class ServiceCmd {
         CMD_COMPANY_REGISTER,//企业注册
         CMD_WEIXIN_ACCESS_TOKEN,//微信access_token,不取这的url
         CMD_ASSIGNMENT_OF_DEBT_COMMIT//债权转让(提交)
+        ,CMD_MSG_LIST//消息中心列表
+        ,CMD_IS_READ_MSG//是否有未读消息
+        ,CMD_ALL_READ//设为全部已读
     }
 
     public static String[] methods = {
@@ -364,6 +367,9 @@ public class ServiceCmd {
             "Appregister/companyRegist",//企业注册
             "https://api.weixin.qq.com/sns/oauth2/access_token?",//微信access_token不取这的url
             "/AppAssignment/nowTransfer"//债权转让(提交)
+            ,"Appmember/messageCenter"//消息中心列表
+            ,"Appmember/queryUnRead"//是否有未读消息
+            ,"Appmember/allRead"//设为全部已读
     };
 
     public static String getMethodName(CmdId methodId) {

@@ -1,12 +1,9 @@
 package cn.vpfinance.vpjr.module.user.fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -25,10 +22,6 @@ import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONObject;
 
@@ -129,6 +122,8 @@ public class BankAccountFragment extends BaseFragment {
     TextView tvOpenGuide;
     @Bind(R.id.ll_assets_container)
     LinearLayout llAssetsContainer;
+    @Bind(R.id.tv_no_data_header)
+    TextView tvNoDataHeader;
 
     private User user;
     private HttpService mHttpService;
@@ -155,7 +150,7 @@ public class BankAccountFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        mRefresh.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.account_bank_header));
+        mRefresh.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.red_text2));
         mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -239,11 +234,13 @@ public class BankAccountFragment extends BaseFragment {
             mHttpService.getBankCard(sesnId);
         }
     }
+    boolean isRequestSucess = false;
 
     @Override
     public void onHttpSuccess(int reqId, final JSONObject json) {
         if (!isHttpHandle(json)) return;
         if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal() && ((MainActivity) getActivity()).mLastRadioId == R.id.maintab_mine_radiobtn) {
+            isRequestSucess = true;
             if (isForceLogout(getActivity(), json)) return;
         }
         mRefresh.setRefreshing(false);
@@ -263,6 +260,7 @@ public class BankAccountFragment extends BaseFragment {
                 imgDot.setVisibility(View.GONE);
             }
         } else if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
+            isRequestSucess = true;
             /** 第二种解析*/
             mUserInfoBean = mHttpService.onGetUserInfo(json);
             initUser();
@@ -293,6 +291,7 @@ public class BankAccountFragment extends BaseFragment {
 //            }
 //        }
     }
+
 
 
     private String killPercent;
@@ -424,6 +423,12 @@ public class BankAccountFragment extends BaseFragment {
     public void onHttpError(int reqId, String errmsg) {
         if (mRefresh != null)
             mRefresh.setRefreshing(false);
+        if(reqId ==  ServiceCmd.CmdId.CMD_member_center.ordinal()) {
+            if(!isRequestSucess) {
+                tvNoDataHeader.setVisibility(View.VISIBLE);
+                llAssetsContainer.setVisibility(View.GONE);
+            }
+        }
     }
 
     @OnClick({R.id.withdraw, R.id.recharge, R.id.click_auto_invest_setting, R.id.click_open_bank_account, R.id.clickFundRecord, R.id.click_return_money_header, R.id.click_my_transfer, R.id.click_fund_flow, R.id.click_invest_summary,

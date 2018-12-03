@@ -487,7 +487,7 @@
             android:screenOrientation="portrait"></activity>
         <!--消息中心-->
         <activity
-            android:name="cn.vpfinance.vpjr.module.home.MessageActivity"
+            android:name="cn.vpfinance.vpjr.module.home.MsgActivity"
             android:screenOrientation="portrait" />
 
         <!--消息详情-->

@@ -646,11 +646,17 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 gotoActivity(intent2);
                 break;
             case R.id.ll_my_describe:
+                if(mUserInfoBean == null ) {
+                    return;
+                }
                 Intent intent3 = new Intent(this, MyDescribeAcitvity.class);
                 intent3.putExtra(MyDescribeAcitvity.DES, mUserInfoBean.signature);
                 gotoActivity(intent3);
                 break;
             case R.id.ll_bind_phone:
+                if(mUserInfoBean == null ) {
+                    return;
+                }
                 SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
                 if (sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
                     BindPhoneActivity.goThis(this,mUserInfoBean.phone);
@@ -659,6 +665,9 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 }
                 break;
             case R.id.ll_weixin_bind_container://微信绑定
+                if(mUserInfoBean == null || mUserInfoBean.isBindWx == null) {
+                    return;
+                }
                 final CommonTipsDialog commonTipsDialog = new CommonTipsDialog(this);
                 if (mUserInfoBean.isBindWx.equals("0")) {
                     commonTipsDialog.setTitle("微信绑定");

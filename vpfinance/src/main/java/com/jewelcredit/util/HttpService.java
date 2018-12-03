@@ -6228,4 +6228,39 @@ Type	Int	Banner类型	1. 链接  2.产品
         param.put("transferPrice",transferPrice);
         return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
     }
+
+    /**
+     * 消息中心列表
+     * @param type 1系统消息 2还款公告
+     *@param pageNum 页数,默认1
+     */
+    public boolean getMsgList(String type,String pageNum) {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_MSG_LIST;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        param.put("type",type);
+        param.put("pageNum",pageNum);
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+    /**
+     * 是否有未读消息(首页)
+     */
+    public boolean getIsUnRead() {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_IS_READ_MSG;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
+    /**
+     * 全部已读提交
+     */
+    public boolean getAllRead() {
+        ServiceCmd.CmdId cmdId = ServiceCmd.CmdId.CMD_ALL_READ;
+        String method = ServiceCmd.getMethodName(cmdId);
+        String url = getServiceUrl(method);
+        Map<String, String> param = new ArrayMap<String, String>();
+        return httpClient.doPost(url, param, cmdId.ordinal(), false, false);
+    }
 }

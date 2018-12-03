@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jewelcredit.util.Utils;
 import com.tdk.utils.HttpDownloader;
 
 import org.json.JSONArray;
@@ -41,5 +42,12 @@ public class NewBaseFragment extends Fragment implements HttpDownloader.HttpDown
     @Override
     public void onHttpError(int reqId, String errmsg) {
 
+    }
+
+    public void gotoWeb(String url, String title)
+    {
+        if (isAdded()) {
+            Utils.goToWeb(getActivity(), url, title);
+        }
     }
 }

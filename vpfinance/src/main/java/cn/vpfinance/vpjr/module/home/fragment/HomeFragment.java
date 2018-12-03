@@ -5,18 +5,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
@@ -35,7 +30,6 @@ import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -51,11 +45,10 @@ import cn.vpfinance.vpjr.gson.IndexPacketBean;
 import cn.vpfinance.vpjr.model.RefreshCountDown;
 import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
-import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.home.IndexRedPacketActivity;
 import cn.vpfinance.vpjr.module.home.InviteGiftIntroduceActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;
-import cn.vpfinance.vpjr.module.home.MessageActivity;
+import cn.vpfinance.vpjr.module.home.MsgActivity;
 import cn.vpfinance.vpjr.module.home.NewWelfareActivity;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
@@ -65,7 +58,6 @@ import cn.vpfinance.vpjr.view.FloatingAdView;
 import cn.vpfinance.vpjr.view.LinearLayoutForListView;
 import de.greenrobot.event.EventBus;
 
-import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
@@ -200,6 +192,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mHttpService.getAppmemberIndex(false);
         mHttpService.getShareRedPacketList();
         mHttpService.getHomeEvent();
+        mHttpService.getIsUnRead();
         refresh.setEnableLoadMore(false);
         refresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -207,6 +200,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 mHttpService.getShareRedPacketList();
                 mHttpService.getAppmemberIndex(false);
                 mHttpService.getHomeEvent();
+                mHttpService.getIsUnRead();
             }
         });
 //        vSwipeRefreshLayout = ((SwipeRefreshLayout) view.findViewById(R.id.vSwipeRefreshLayout));
@@ -325,6 +319,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 });
             } else {
                 mRelativeLayout2.setVisibility(View.GONE);
+            }
+        }
+
+        if (req == ServiceCmd.CmdId.CMD_IS_READ_MSG.ordinal()) {//是否有未读消息
+            String status = json.optString("status");
+            if (!TextUtils.isEmpty(status) && status.equals("1")) {
+                ivMsgPoint.setVisibility(VISIBLE);
+            } else {
+                ivMsgPoint.setVisibility(View.GONE);
             }
         }
     }
@@ -519,6 +522,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     if (mHttpService != null) {
 //                        Logger.e("Time2"+System.currentTimeMillis());
                         mHttpService.getAppmemberIndex(false);
+                        mHttpService.getIsUnRead();
                     }
                 }
             }, Constant.delay);
@@ -577,7 +581,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     switch (type) {
                         case 1:
                             if (!TextUtils.isEmpty(dataUrl)) {
-                                gotoWeb(dataUrl, "");
+//                                if(position == 0) {
+//                                    gotoWeb("http://new.vpfinance.cn/activityManage/toActivityPage?platform=h5&activityType=30&isShare=1","");
+//                                }else {
+                                    gotoWeb(dataUrl, "");
+//                                }
                             }
                             break;
                         case 2:
@@ -621,12 +629,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_message://消息中心
-                if (!AppState.instance().logined()) {
-                    ((MainActivity) getActivity()).gotoActivity(LoginActivity.class);
-                    Utils.Toast("请先登录");
-                } else {
-                    ((MainActivity) getActivity()).gotoActivity(MessageActivity.class);
-                }
+//                if (!AppState.instance().logined()) {
+//                    ((MainActivity) getActivity()).gotoActivity(LoginActivity.class);
+//                    Utils.Toast("请先登录");
+//                } else {
+                ((MainActivity) getActivity()).gotoActivity(MsgActivity.class);
+//                }
                 break;
         }
     }

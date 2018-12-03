@@ -140,12 +140,12 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:text="0.00"
                                 android:id="@+id/tvTotalIncome"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="30dp"
                                 android:gravity="center"
+                                android:text="0.00"
                                 android:textColor="@color/text_333333"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
@@ -171,12 +171,12 @@
 
 
                                 <TextView
-                                    android:text="0.00"
-                                    android:gravity="center"
                                     android:id="@+id/tvTotalMoney"
                                     android:layout_width="0dp"
-                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:text="0.00"
                                     android:textColor="@color/text_333333"
                                     android:textSize="14sp"
                                     android:textStyle="bold"
@@ -184,24 +184,24 @@
 
 
                                 <TextView
-                                    android:text="0.00"
                                     android:id="@+id/tvReturnMoneyPrincipal"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="center"
+                                    android:text="0.00"
                                     android:textColor="@color/text_333333"
                                     android:textSize="14sp"
                                     android:textStyle="bold"
                                     tools:text="3000000.00" />
 
                                 <TextView
-                                    android:text="0.00"
                                     android:id="@+id/tvAvailableMoney"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:gravity="center"
+                                    android:text="0.00"
                                     android:textColor="@color/text_333333"
                                     android:textSize="14sp"
                                     android:textStyle="bold"
@@ -281,6 +281,18 @@
                                     android:textSize="16sp" />
                             </LinearLayout>
                         </LinearLayout>
+
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/tv_no_data_header"
+                            android:layout_width="match_parent"
+                            android:layout_height="240dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/shape_radius6_white"
+                            android:gravity="center"
+                            android:text="账户数据请求失败,请下拉刷新" />
                     </RelativeLayout>
 
                     <!--中间横排按钮,我的出借等-->

@@ -24,16 +24,16 @@
             android:text="常见问题"
             android:textColor="@color/text_333333" />
 
-        <include layout="@layout/line_linear_gray_marginleft15" />
+        <!--<include layout="@layout/line_linear_gray_marginleft15" />-->
 
-        <TextView
-            android:id="@+id/tv_btn_feedback"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableRight="@drawable/nav_next_2"
-            android:padding="15dp"
-            android:text="我要反馈"
-            android:textColor="@color/text_333333" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_btn_feedback"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawableRight="@drawable/nav_next_2"-->
+            <!--android:padding="15dp"-->
+            <!--android:text="我要反馈"-->
+            <!--android:textColor="@color/text_333333" />-->
 
         <include layout="@layout/line_linear_gray_marginleft15" />
 

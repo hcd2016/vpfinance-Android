@@ -68,8 +68,8 @@
     <string name="fetch_passcode">获取验证码</string>
 
     <string name="maintab_home">首页</string>
-    <string name="maintab_plan">我要出借</string>
-    <string name="maintab_mine">我的账户</string>
+    <string name="maintab_plan">出借</string>
+    <string name="maintab_mine">账户</string>
     <string name="maintab_more">更多</string>
     <string name="maintab_finance">实时财务</string>
 
