@@ -602,7 +602,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private void showShare(String title, String text, String imageUrl, String link) {
         if (TextUtils.isEmpty(link)) return;
         //去掉后面的get参数
-        link = HttpService.mBaseUrl + Uri.parse(link).getPath();
+//        link = HttpService.mBaseUrl + Uri.parse(link).getPath();
 //        Logger.e("title:"+title+",text:"+text+",imageUrl:"+imageUrl+",link:"+link);
         //imageUrl为空时，就算有link也只是单纯的文字，不能跳转（微信）
         // 注意:大坑,图片先要下载到本地
