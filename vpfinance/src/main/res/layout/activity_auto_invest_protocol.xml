@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="（3）授权人同意，在开启自动投标状态期间，资金投资项目所返还的本金及获得的项目利息将继续由微品金融提供自动投标服务，继续投入融资项目中，返还的本金及获得的项目利息再投资的部分同样适用本协议各项约定。"
+                android:text="（3）授权人同意，在开启自动投标状态期间，资金出借项目所返还的本金及获得的项目利息将继续由微品金融提供自动投标服务，继续投入融资项目中，返还的本金及获得的项目利息再出借的部分同样适用本协议各项约定。"
                 android:lineSpacingExtra="3dp"
                 android:layout_marginTop="10dp"/>
             <TextView

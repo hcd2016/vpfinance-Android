@@ -64,7 +64,7 @@ public class FundRecordsDepositDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_fund_record_deposit_detail);
 
         ButterKnife.bind(this);
-        mTitleBar.setHeadBackVisible(View.VISIBLE).setTitle("投资详情");
+        mTitleBar.setHeadBackVisible(View.VISIBLE).setTitle("出借详情");
 
         mHttpService = new HttpService(this,this);
         Intent intent = getIntent();
@@ -116,7 +116,7 @@ public class FundRecordsDepositDetailActivity extends BaseActivity {
                 }
             });
 
-            invest_time.setText("投资时间："+bean.tenderTime);
+            invest_time.setText("出借时间："+bean.tenderTime);
             product_title.setText(bean.title);
 
             String loanState = "";

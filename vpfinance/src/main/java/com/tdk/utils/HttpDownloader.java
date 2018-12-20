@@ -1,5 +1,6 @@
 package com.tdk.utils;
 
+import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.Utils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
@@ -20,70 +21,68 @@ import java.util.Map;
 import cn.vpfinance.vpjr.FinanceApplication;
 
 public class HttpDownloader {
-	public static AsyncHttpClient mClient = newHttpClient();
+    public static AsyncHttpClient mClient = newHttpClient();
 
-	public HttpDownloader()
-	{
+    public HttpDownloader() {
 //		mClient.setMaxRetriesAndTimeout(3, 60000000);
-		mClient.setMaxConnections(20);
-		mClient.setConnectTimeout(36000);
-		mClient.setTimeout(36000);
-		mClient.setResponseTimeout(36000);
-		mClient.setEnableRedirects(true);
+        mClient.setMaxConnections(20);
+        mClient.setConnectTimeout(200000);
+        mClient.setTimeout(200000);
+//		mClient.setTimeout(200000);
+        mClient.setResponseTimeout(200000);
+        mClient.setEnableRedirects(true);
 
-	}
+    }
 
-	public static void doGet(String url, JsonHttpResponseHandler respHandler)
-	{
-		mClient.get(url, respHandler);
-	}
+    public static void doGet(String url, JsonHttpResponseHandler respHandler) {
+        mClient.get(url, respHandler);
+    }
 
 
-	public static void doGetFile(String url, FileAsyncHttpResponseHandler respHandler)
-	{
-		mClient.get(url, respHandler);
-	}
+    public static void doGetFile(String url, FileAsyncHttpResponseHandler respHandler) {
+        mClient.get(url, respHandler);
+    }
 
-	public static void doPost(String url, Map<String, String> params, JsonHttpResponseHandler respHandler)
-	{
-		mClient.post(url, new RequestParams(params), respHandler);
-	}
+    public static void doPost(String url, Map<String, String> params, JsonHttpResponseHandler respHandler) {
+        mClient.post(url, new RequestParams(params), respHandler);
+    }
 
-	public static void doPostFile(String url, Map<String, String> params, FileAsyncHttpResponseHandler respHandler)
-	{
-		mClient.post(url, new RequestParams(params), respHandler);
-	}
+    public static void doPostFile(String url, Map<String, String> params, FileAsyncHttpResponseHandler respHandler) {
+        mClient.post(url, new RequestParams(params), respHandler);
+    }
 
-	private static AsyncHttpClient newHttpClient()
-	{
+    private static AsyncHttpClient newHttpClient() {
 //		InputStream ins = null;
-		try
-		{
+        try {
 
 //			ins = context.getAssets().open("app_pay.cer"); //下载的证书放到项目中的assets目录中
 //			CertificateFactory cerFactory = CertificateFactory.getInstance("X.509");
 //			Certificate cer = cerFactory.generateCertificate(ins);
 //			KeyStore keyStore = KeyStore.getInstance("PKCS12", "BC");
-			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-			keyStore.load(null, null);
+            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            keyStore.load(null, null);
 //			keyStore.setCertificateEntry("trust", cer);
-			SSLSocketFactoryEx socketFactory = new SSLSocketFactoryEx(keyStore);
-			socketFactory.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-			SchemeRegistry schemeRegistry = new SchemeRegistry();
-			schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-			schemeRegistry.register(new Scheme("https", socketFactory, 443));
+            SSLSocketFactoryEx socketFactory = new SSLSocketFactoryEx(keyStore);
+            socketFactory.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+            SchemeRegistry schemeRegistry = new SchemeRegistry();
+            schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+            schemeRegistry.register(new Scheme("https", socketFactory, 443));
 //			schemeRegistry.register(new Scheme("https", socketFactory, 8443));
-			AsyncHttpClient asyncHttpClient = new AsyncHttpClient(schemeRegistry);
-			asyncHttpClient.addHeader("APP-VERSION", Utils.getVersion(FinanceApplication.getAppContext()));
+            AsyncHttpClient asyncHttpClient = new AsyncHttpClient(schemeRegistry);
+            asyncHttpClient.addHeader("APP-VERSION", Utils.getVersion(FinanceApplication.getAppContext()));
+            asyncHttpClient.setTimeout(HttpService.getDelaySeconds() * 1000);
+            asyncHttpClient.setConnectTimeout(HttpService.getDelaySeconds() * 1000);
+            asyncHttpClient.setResponseTimeout(HttpService.getDelaySeconds() * 1000);
 
-			//保存cookie，自动保存到了shareprefercece
-			PersistentCookieStore myCookieStore = new PersistentCookieStore(FinanceApplication.getAppContext());
-			asyncHttpClient.setCookieStore(myCookieStore);
 
-			return asyncHttpClient;
-		} catch (Exception e) {
+            //保存cookie，自动保存到了shareprefercece
+            PersistentCookieStore myCookieStore = new PersistentCookieStore(FinanceApplication.getAppContext());
+            asyncHttpClient.setCookieStore(myCookieStore);
 
-		}
+            return asyncHttpClient;
+        } catch (Exception e) {
+
+        }
 //		finally {
 //			try {
 //				if (ins != null)
@@ -93,17 +92,18 @@ public class HttpDownloader {
 //			}
 //		}
 
-		return new AsyncHttpClient();
-	}
+        return new AsyncHttpClient();
+    }
 
 
+    public static abstract interface HttpDownloaderListener {
+        public abstract void onHttpSuccess(int reqId, JSONObject json);
 
-	public static abstract interface HttpDownloaderListener
-	{
-		public abstract void onHttpSuccess(int reqId, JSONObject json);
-		public abstract void onHttpSuccess(int reqId, JSONArray json);
-		public abstract void onHttpCache(int reqId);
-		public abstract void onHttpError(int reqId, String errmsg);
-	}
+        public abstract void onHttpSuccess(int reqId, JSONArray json);
+
+        public abstract void onHttpCache(int reqId);
+
+        public abstract void onHttpError(int reqId, String errmsg);
+    }
 }
 

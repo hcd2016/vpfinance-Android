@@ -46,7 +46,6 @@ import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseActivity;
@@ -73,9 +72,9 @@ import cn.vpfinance.vpjr.util.FileUtil;
 import cn.vpfinance.vpjr.util.FormatUtils;
 import cn.vpfinance.vpjr.util.ScreenUtil;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
-import cn.vpfinance.vpjr.util.VerifyUtils;
 import cn.vpfinance.vpjr.view.CircleImg;
 import cn.vpfinance.vpjr.view.popwindow.SelectPicPopupWindow;
+import de.greenrobot.dao.DbUtils;
 import de.greenrobot.event.EventBus;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -99,6 +98,8 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
     TextView tvWeixinBindDesc;
     @Bind(R.id.ll_weixin_bind_container)
     LinearLayout llWeixinBindContainer;
+    @Bind(R.id.ll_change_company_info)
+    LinearLayout llChangeCompanyInfo;
     private LinearLayout modifypasword;
     private TextView realname;
     private TextView bindbankcard;
@@ -263,6 +264,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         forgetPayPassword.setOnClickListener(this);
         ll_bind_phone.setOnClickListener(this);
         llWeixinBindContainer.setOnClickListener(this);
+        llChangeCompanyInfo.setOnClickListener(this);
         ll_clickUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -455,9 +457,9 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 tvUserName.setText(newUserName);
             } else if ("2".equals(ret)) {
                 Toast.makeText(this, "用户名已经被占用", Toast.LENGTH_SHORT).show();
-            } else if("3".equals(ret)){
+            } else if ("3".equals(ret)) {
                 Toast.makeText(this, "用户名不能为手机或邮箱格式", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 Toast.makeText(this, "修改用户名失败", Toast.LENGTH_SHORT).show();
             }
         }
@@ -515,11 +517,11 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             if (json != null) {
                 emailPass = (String) json.opt("emailPass");
             }
-            if(isPersonType) {
+            if (isPersonType) {
                 boolean b = "1".equals(emailPass);
                 isBandMail.setText(b ? "已绑定" : "未绑定");
                 isBandMail.setTextColor(b ? getResources().getColor(R.color.text_999999) : getResources().getColor(R.color.red_text));
-            }else {
+            } else {
                 isBandMail.setText("已绑定");
             }
 
@@ -655,9 +657,9 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             case R.id.ll_bind_phone:
                 SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
                 if (sp.getBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE)) {
-                    BindPhoneActivity.goThis(this,mUserInfoBean.phone);
+                    BindPhoneActivity.goThis(this, mUserInfoBean.phone);
                 } else {
-                    BindPhoneActivity.goThis(this,mUserInfoBean.qqNum);
+                    BindPhoneActivity.goThis(this, mUserInfoBean.qqNum);
                 }
                 break;
             case R.id.ll_weixin_bind_container://微信绑定
@@ -696,6 +698,9 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 commonTipsDialog.setRightBtnTextColor(R.color.red_text);
                 commonTipsDialog.show();
                 break;
+            case R.id.ll_change_company_info://经办人信息变更
+                gotoWeb("/hx/enterprise/alter?userId="+ DBUtils.getUser(this).getUserId(),"经办人信息变更");
+                break;
         }
     }
 
@@ -714,8 +719,8 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             public boolean onTextConfrim(String value) {
                 if (value != null) {
 //                    if (VerifyUtils.checkUserName(PersonalInfoActivity.this, value)) {
-                        newUserName = value;
-                        mHttpService.updateUserBasicInfo(value, "" + user.getUserId());
+                    newUserName = value;
+                    mHttpService.updateUserBasicInfo(value, "" + user.getUserId());
 //                    } else {
 //                        Utils.Toast(PersonalInfoActivity.this, "用户名不能为手机或邮箱格式");
 //                    }
@@ -1020,7 +1025,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
-                .addHeader("APP-VERSION",Utils.getVersion(FinanceApplication.getAppContext()))
+                .addHeader("APP-VERSION", Utils.getVersion(FinanceApplication.getAppContext()))
                 .build();
 
         okHttpClient.newCall(request).enqueue(new Callback() {

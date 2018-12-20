@@ -100,7 +100,7 @@ public class ProductInvestSuccessByActiveActivity extends BaseActivity implement
         setContentView(R.layout.activity_product_invest_success_by_active);
         ButterKnife.bind(this);
 
-        mTitleBar.setTitle("投资成功").setHeadBackVisible(View.VISIBLE);
+        mTitleBar.setTitle("出借成功").setHeadBackVisible(View.VISIBLE);
         mHttpService = new HttpService(this, this);
         mHttpService.getRedPacketInfo();
         Intent intent = getIntent();

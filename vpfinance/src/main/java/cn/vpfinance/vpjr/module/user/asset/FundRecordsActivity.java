@@ -41,7 +41,7 @@ public class FundRecordsActivity extends BaseActivity implements ViewPager.OnPag
 
 	protected void initView() {
 		ActionBarLayout titleBar = (ActionBarLayout) findViewById(R.id.titleBar);
-		titleBar.setTitle("我的投资").setHeadBackVisible(View.VISIBLE);
+		titleBar.setTitle("我的出借").setHeadBackVisible(View.VISIBLE);
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		tabs.setIndicatorColor(0xFFFF3035);

@@ -54,7 +54,7 @@
                         android:paddingLeft="2dp"
                         android:paddingRight="2dp"
                         android:paddingTop="1dp"
-                        android:text="已投资"
+                        android:text="已出借"
                         android:textColor="@color/red_text"
                         android:textSize="@dimen/text_size_10" />
 
@@ -96,7 +96,7 @@
                         android:id="@+id/invest_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="投资时间：2016-11-11 15:11:35"
+                        android:text="出借时间：2016-11-11 15:11:35"
                         android:textColor="@color/text_999999"
                         android:textSize="@dimen/text_size_12" />
                 </LinearLayout>
@@ -144,7 +144,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="投资金额"
+                        android:text="出借金额"
                         android:textColor="@color/text_999999" />
 
                     <View
@@ -266,7 +266,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="投资收益"
+                        android:text="出借收益"
                         android:textColor="@color/text_999999" />
 
                     <View
@@ -375,7 +375,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_1c1c1c"
-                        tools:text="定期投资" />
+                        tools:text="定期出借" />
                 </LinearLayout>
 
                 <View

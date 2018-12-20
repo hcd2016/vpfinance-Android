@@ -40,7 +40,7 @@
                         android:id="@+id/status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="已投资"
+                        android:text="已出借"
                         android:textColor="@color/red_text"
                         android:layout_marginLeft="8dp"
                         android:paddingLeft="2dp"
@@ -84,7 +84,7 @@
                         android:id="@+id/invest_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="投资时间：2016-11-11 15:11:35"
+                        tools:text="出借时间：2016-11-11 15:11:35"
                         android:textSize="@dimen/text_size_12"
                         android:textColor="@color/text_999999"/>
                 </LinearLayout>

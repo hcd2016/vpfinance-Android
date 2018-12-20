@@ -350,7 +350,7 @@ public class ProductJewelryBaseInfoFragment extends BaseFragment implements View
                             orderVoucherNum.setVisibility(View.VISIBLE);
                             orderVoucherNum.setText("您有" + product.getBookCouponNumber() + "张预约券！点击进行预约。");
                             btnOrder.setEnabled(true);
-                            btnOrder.setText("预约投资");
+                            btnOrder.setText("预约出借");
                         } else {
                             double orderMoney = product.getIssueLoan() * product.getBookPercent() - product.getTotal_tend_money();
                             if (orderMoney <= 0) {

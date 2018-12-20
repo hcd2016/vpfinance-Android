@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="产品投资按期限分布"
+            android:text="产品出借按期限分布"
             android:padding="10dp"
             android:textColor="@color/white"
             android:gravity="center"

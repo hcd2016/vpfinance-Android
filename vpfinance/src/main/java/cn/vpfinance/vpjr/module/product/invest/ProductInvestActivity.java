@@ -69,9 +69,9 @@ import de.greenrobot.event.EventBus;
 public class ProductInvestActivity extends BaseActivity implements View.OnClickListener {
 
     public static final String PRODUCT_ID = "product_id";//pid
-    public static final String NAME_MONEY = "money";//投资金额
-    public static final String VOUCHEREVENT = "voucherevent";//投资金额
-    public static final String ADDRATEEVENT = "addrateevent";//投资金额
+    public static final String NAME_MONEY = "money";//出借金额
+    public static final String VOUCHEREVENT = "voucherevent";//出借金额
+    public static final String ADDRATEEVENT = "addrateevent";//出借金额
     @Bind(R.id.iv_fdjx)
     ImageView ivFdjx;
     private ActionBarLayout titleBar;
@@ -102,10 +102,10 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     public static final String PRODUCT_TOTAL_MONEY = "product_total_money";
     public static final String PRODUCT_NATIVE_MONEY = "product_native_money";
     public static final String PRODUCT_TRANSFER_RATE = "product_transfer_rate";
-    public static final String AVAIL_MONEY = "avail_money";//可投资金额
+    public static final String AVAIL_MONEY = "avail_money";//可出借金额
     public static final String IS_ORDER = "order";//是否是预约购买
-    public static final String IPHONE = "iphone";//是否是投资送iphone7
-    public static final int TYPE_TRANSFER = 1; //投资债权转让
+    public static final String IPHONE = "iphone";//是否是出借送iphone7
+    public static final int TYPE_TRANSFER = 1; //出借债权转让
     public static final int TYPE_CAR_PRODUCT = 2; //车贷
     public static final int TYPE_Jewelry_PRODUCT = 3; //珠宝贷
 
@@ -218,7 +218,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
 //        mHttpService.getFundOverInfo("" + user.getUserId(),accountType);
 
         if ("1".equals(mIPhone) && !isOrder) {
-            //投资送iphone活动
+            //出借送iphone活动
             ll_acitvity.setVisibility(View.VISIBLE);
             ll_normal.setVisibility(View.GONE);
         } else {
@@ -242,7 +242,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             mHttpService.getFixProduct(pid, "" + 0);
             mHttpService.loanVoucherIsUse(pid, "" + user.getUserId());
             mHttpService.getVoucherlist("" + 1, pid);//获取代金券
-            mHttpService.getAddRateInvest(1 + "", pid, "");//投资可用加息券
+            mHttpService.getAddRateInvest(1 + "", pid, "");//出借可用加息券
             mHttpService.getProtocol(pid + "");//协议
         }
 
@@ -1000,8 +1000,8 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                     investmentRiskTipsDialog.setCancleText("返回修改");
                     investmentRiskTipsDialog.setOnConfimClickListner(new InvestmentRiskTipsDialog.OnConfimClickListner() {
                         @Override
-                        public void onConfimClick() {//继续投资
-                            //投资
+                        public void onConfimClick() {//出借出借
+                            //出借
                             if (accountType == Constant.AccountBank) {
                                 investBank();
                             } else if (accountType == Constant.AccountLianLain) {
@@ -1018,7 +1018,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                     });
                     investmentRiskTipsDialog.show();
                 } else {
-                    //投资
+                    //出借
                     if (accountType == Constant.AccountBank) {
                         investBank();
                     } else if (accountType == Constant.AccountLianLain) {

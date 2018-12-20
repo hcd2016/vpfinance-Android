@@ -213,7 +213,7 @@ public class TrialCoinActivity extends BaseActivity implements View.OnClickListe
                 if(model != null){
                     if (model.bonusProfit!= null){
                         tvChequeMoney.setText(String.format("￥%.2f", Utils.doubleFloor(model.bonusProfit.totalEarning)));
-                        tvDeadInfo.setText("投资金额" + String.format("%.2f", model.bonusProfit.principal) + "元");
+                        tvDeadInfo.setText("出借金额" + String.format("%.2f", model.bonusProfit.principal) + "元");
                     }
                 }
                 tvDeadInfo.setVisibility(View.VISIBLE);
@@ -226,7 +226,7 @@ public class TrialCoinActivity extends BaseActivity implements View.OnClickListe
                 if(model != null){
                     if (model.bonusProfit!= null){
                         tvChequeMoney.setText(String.format("￥%.2f", Utils.doubleFloor(model.bonusProfit.totalEarning)));
-                        tvDeadInfo.setText("投资金额" + String.format("%.2f", model.bonusProfit.principal) + "元");
+                        tvDeadInfo.setText("出借金额" + String.format("%.2f", model.bonusProfit.principal) + "元");
                     }
                 }
 

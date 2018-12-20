@@ -310,7 +310,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
             }
             if (((NewRegularProductActivity) getActivity()).answerStatus == 2) {
                 new AlertDialog.Builder(mContext)
-                        .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行出借")
+                        .setMessage("为合理优化您的资产配置，请完成风险测评")
                         .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -362,7 +362,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
-    //投资跳转
+    //出借跳转
     public void invest() {
         if (isDeposit) {
             if (depositTab1Bean != null) {
@@ -956,7 +956,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 
                 if (((NewRegularProductActivity) getActivity()).answerStatus == 2) {
                     new AlertDialog.Builder(mContext)
-                            .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行出借")
+                            .setMessage("为合理优化您的资产配置，请完成风险测评")
                             .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

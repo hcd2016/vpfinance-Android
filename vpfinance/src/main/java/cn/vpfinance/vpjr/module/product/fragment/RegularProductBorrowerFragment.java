@@ -261,7 +261,7 @@ public class RegularProductBorrowerFragment extends BaseFragment implements View
             }
 
             String buyCount = product.getBuyCount();
-            tvInvestCount.setText("已有" + buyCount + "人投资");
+            tvInvestCount.setText("已有" + buyCount + "人出借");
 
             long refundWay = product.getRefundWay();
             String refunWayStr = "";
@@ -363,7 +363,7 @@ public class RegularProductBorrowerFragment extends BaseFragment implements View
                             orderVoucherNum.setVisibility(View.VISIBLE);
                             orderVoucherNum.setText("您有" + product.getBookCouponNumber() + "张预约券！点击进行预约。");
                             btnOrder.setEnabled(true);
-                            btnOrder.setText("预约投资");
+                            btnOrder.setText("预约出借");
                         } else {
                             double orderMoney = product.getIssueLoan() * product.getBookPercent() - product.getTotal_tend_money();
                             if (orderMoney <= 0) {

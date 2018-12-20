@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="1.由于银行返回数据存在延迟，在您完成投资操作后，10-20分钟后可以显示出借记录"
+            android:text="1.由于银行返回数据存在延迟，在您完成出借操作后，10-20分钟后可以显示出借记录"
             android:lineSpacingExtra="2dp"/>
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="3.如果您未在银行页面完成投资操作，您本次投资使用的优惠券会暂时冻结，稍后会返回到您的账户中。"
+            android:text="3.如果您未在银行页面完成出借操作，您本次出借使用的优惠券会暂时冻结，稍后会返回到您的账户中。"
             android:lineSpacingExtra="2dp"/>
 
         <TextView
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="5.投资遇到其他问题请联系客服。"
+            android:text="5.出借遇到其他问题请联系客服。"
             android:lineSpacingExtra="2dp"/>
 
         <CheckBox

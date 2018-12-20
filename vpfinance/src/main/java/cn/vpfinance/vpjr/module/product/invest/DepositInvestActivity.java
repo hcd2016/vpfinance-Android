@@ -192,7 +192,7 @@ public class DepositInvestActivity extends BaseActivity implements View.OnClickL
 //        }
 
         mHttpService.getVoucherlist("" + 1, ""+pid);//获取代金券
-        mHttpService.getAddRateInvest(1 + "", ""+pid, "");//投资可用加息券
+        mHttpService.getAddRateInvest(1 + "", ""+pid, "");//出借可用加息券
         mHttpService.getProtocol(""+pid,""+poolId);//协议
     }
 
@@ -583,7 +583,7 @@ public class DepositInvestActivity extends BaseActivity implements View.OnClickL
     }
 
     /**
-     * 投资
+     * 出借
      */
     private void invest() {
         investMoney = etRechargeMoney.getText().toString();

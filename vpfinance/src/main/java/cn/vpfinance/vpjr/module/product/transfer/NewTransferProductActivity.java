@@ -278,7 +278,7 @@ public class NewTransferProductActivity extends BaseActivity implements View.OnC
                 }
                 if (mBean.answerStatus == 2) {//风险评测
                     new AlertDialog.Builder(mContext)
-                            .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行出借")
+                            .setMessage("为合理优化您的资产配置，请完成风险测评")
                             .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

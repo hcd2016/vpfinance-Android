@@ -776,6 +776,39 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/gray_d5d" />
+
+                <LinearLayout
+                    android:id="@+id/ll_change_company_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:text="经办人信息变更"
+                        android:textColor="@color/text_1c1c1c" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="11dp"
+                        android:background="@drawable/nav_next" />
+                </LinearLayout>
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"

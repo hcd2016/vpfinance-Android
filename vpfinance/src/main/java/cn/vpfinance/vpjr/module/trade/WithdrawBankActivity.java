@@ -126,7 +126,7 @@ public class WithdrawBankActivity extends BaseActivity {
                 }
                 break;
             case R.id.iv_hint:
-                Utils.Toast(WithdrawBankActivity.this,"提现或投资中银行待审金额");
+                Utils.Toast(WithdrawBankActivity.this,"提现或出借中银行待审金额");
                 break;
             case R.id.tvWithDrawInfo:
                 gotoWeb("/h5/help/hxGuideWith","提现图文指引");

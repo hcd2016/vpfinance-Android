@@ -476,7 +476,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="18dp"
-                            android:text="点此投资\n选择iPhone7"
+                            android:text="点此出借\n选择iPhone7"
                             android:textColor="@color/text_1c1c1c"
                             android:textSize="@dimen/text_size_10" />
 

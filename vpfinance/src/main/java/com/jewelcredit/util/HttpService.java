@@ -112,7 +112,7 @@ public class HttpService {
     private String mPasscodeErrmsg = "";
     private Context mContext = null;
 
-    private static final int DELAY_SECONDS = 60;
+    private static final int DELAY_SECONDS = 30 ; //超时时间设置 单位S
     private static boolean mPresentLoginFlag = false;
     private static long mLastPresentLoginTime = 0;
     // 两次present login的时间间隔为5秒
@@ -1619,13 +1619,13 @@ loanunit	int	最小出借单位	（投资金额须为些参数的1或N倍）
             if (isDeposit) {
                 switch (status) {
                     case 0:
-                        statusDesc = "你的帐户余额小于投资金额,请充值";
+                        statusDesc = "你的帐户余额小于出借金额,请充值";
                         break;
                     case 1:
                         statusDesc = "投标成功";
                         break;
                     case 2:
-                        statusDesc = "该标的可投金额小于您投资金额";
+                        statusDesc = "该标的可投金额小于您出借金额";
                         break;
                     case 3:
                         statusDesc = "用户不存在";
@@ -1646,7 +1646,7 @@ loanunit	int	最小出借单位	（投资金额须为些参数的1或N倍）
             } else {
                 switch (status) {
                     case 0:
-                        statusDesc = "你的帐户余额小于投资金额";
+                        statusDesc = "你的帐户余额小于出借金额";
                         break;
                     case 1:
                     case 10:

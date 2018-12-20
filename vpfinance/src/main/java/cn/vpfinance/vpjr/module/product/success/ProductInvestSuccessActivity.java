@@ -389,7 +389,7 @@ public class ProductInvestSuccessActivity extends BaseActivity implements View.O
             if (!("1".equals(mAllowGetVoucher) && "1".equals(mAllowRedPacket) && "0".equals(mCashTime))) {
                 showDialog("");
             } else {
-                tvNextInvest.setText("继续投资");
+                tvNextInvest.setText("继续出借");
             }
         } else if (reqId == ServiceCmd.CmdId.CMD_RedPactetInfo.ordinal()) {
             if (json != null) {

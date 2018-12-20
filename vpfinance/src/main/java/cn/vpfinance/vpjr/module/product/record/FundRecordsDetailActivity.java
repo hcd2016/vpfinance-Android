@@ -97,7 +97,7 @@ public class FundRecordsDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fund_record_detail);
         ButterKnife.bind(this);
-        mTitleBar.setHeadBackVisible(View.VISIBLE).setTitle("投资详情");
+        mTitleBar.setHeadBackVisible(View.VISIBLE).setTitle("出借详情");
 
         Intent intent = getIntent();
         if (intent == null) return;
@@ -121,7 +121,7 @@ public class FundRecordsDetailActivity extends BaseActivity {
 
                 mLoanTitle = bean.loanTitle;
                 mProductTitle.setText(mLoanTitle);
-                mInvestTime.setText("投资时间：" + bean.tenderTime);
+                mInvestTime.setText("出借时间：" + bean.tenderTime);
                 String text = FormatUtils.formatDown(bean.tenderMoney);
                 mInvestMoney.setText(text);
                 mIncome.setText(bean.expectProfit);
