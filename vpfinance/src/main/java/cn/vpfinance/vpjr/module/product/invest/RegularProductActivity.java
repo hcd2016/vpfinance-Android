@@ -604,7 +604,7 @@ public class RegularProductActivity extends BaseActivity implements HttpDownload
 	}
 
 	private BaseFragment isShowTab(BaseFragment fragment, int status){
-		if (status == 2){//为2的话除了投资了记录的tab以外其余tab需要登录
+		if (status == 2){//为2的话除了出借了记录的tab以外其余tab需要登录
 			if (AppState.instance().logined()){
 //				needJumpLogin = false;
 				return fragment;

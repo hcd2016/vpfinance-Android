@@ -345,7 +345,7 @@ public class NewFundRecordsListFragment extends BaseFragment {
 
 
                     viewHolder.tvTitle.setText(bean.getTitle());//项目名字
-                    viewHolder.tvMoney.setText(bean.getTenderMoney() + "元");//投资金额
+                    viewHolder.tvMoney.setText(bean.getTenderMoney() + "元");//出借金额
                     viewHolder.tvDate.setText(bean.getTenderTime());//时间
 
                 }

@@ -376,7 +376,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
         } else {
             if (mNewBaseInfoBean != null) {
                 Intent intent = new Intent(getActivity(), ProductInvestActivity.class);
-                if ("1".equals(mNewBaseInfoBean.imageUrlJump)) {//跳转本地活动投资页面
+                if ("1".equals(mNewBaseInfoBean.imageUrlJump)) {//跳转本地活动出借页面
                     intent.putExtra(ProductInvestActivity.IPHONE, mNewBaseInfoBean.givePhone);
                 }
                 intent.putExtra("pid", "" + mNewBaseInfoBean.loanId);
@@ -554,7 +554,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
             }
             initViewAndData(mNewBaseInfoBean.data);
 
-            //国庆投资送iphone7活动
+            //国庆出借送iphone7活动
             if ("1".equals(mNewBaseInfoBean.givePhone)) {
                 mIcIphone7Index.setVisibility(View.VISIBLE);
                 mImgActivity.setVisibility(View.VISIBLE);
@@ -867,7 +867,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 //
 //                if (((NewRegularProductActivity) getActivity()).answerStatus == 2) {
 //                    new AlertDialog.Builder(mContext)
-//                            .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行投资")
+//                            .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行出借")
 //                            .setPositiveButton("确认", new DialogInterface.OnClickListener() {
 //                                @Override
 //                                public void onClick(DialogInterface dialog, int which) {
@@ -894,7 +894,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
 //                } else {
 //                    if (mNewBaseInfoBean != null) {
 //                        Intent intent = new Intent(getActivity(), ProductInvestActivity.class);
-//                        if ("1".equals(mNewBaseInfoBean.imageUrlJump)) {//跳转本地活动投资页面
+//                        if ("1".equals(mNewBaseInfoBean.imageUrlJump)) {//跳转本地活动出借页面
 //                            intent.putExtra(ProductInvestActivity.IPHONE, mNewBaseInfoBean.givePhone);
 //                        }
 //                        intent.putExtra("pid", "" + mNewBaseInfoBean.loanId);
@@ -983,7 +983,7 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 } else {
                     if (mNewBaseInfoBean != null) {
                         Intent intent = new Intent(getActivity(), ProductInvestActivity.class);
-                        if ("1".equals(mNewBaseInfoBean.imageUrlJump)) {//是 1 跳转本地活动投资页面
+                        if ("1".equals(mNewBaseInfoBean.imageUrlJump)) {//是 1 跳转本地活动出借页面
                             intent.putExtra(ProductInvestActivity.IPHONE, mNewBaseInfoBean.givePhone);
                         }
                         intent.putExtra(ProductInvestActivity.IS_ORDER, true);

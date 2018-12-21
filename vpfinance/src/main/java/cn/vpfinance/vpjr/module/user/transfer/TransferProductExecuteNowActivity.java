@@ -243,7 +243,7 @@ public class TransferProductExecuteNowActivity extends BaseActivity {
                 llTransferTimesContainer.setVisibility(View.GONE);
             } else {
                 llTransferTimesContainer.setVisibility(View.VISIBLE);
-                String content = "该持有债权本月剩余可转让" + transferTime + " 次";
+                String content = "该持有债权本月剩余可转让" + transferTime + " 次。";
                 DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
                 difColorTextStringBuilder.setContent(content)
                         .setHighlightContent(transferTime + "", R.color.red_text2)

@@ -26,7 +26,7 @@ public class DepositTab1Bean{
      * totalPeriod : 3
      * canBuyMoney : 0
      * rate : 7.5
-     * scope : 投标范围++您投资的每一笔金额将由系统根据您选择的产品类型自动分配到以下债权列表的其中一个或以上的标的中
+     * scope : 投标范围++您出借的每一笔金额将由系统根据您选择的产品类型自动分配到以下债权列表的其中一个或以上的标的中
      * poolId : 1
      * term : 3个月
      * loanState : 2

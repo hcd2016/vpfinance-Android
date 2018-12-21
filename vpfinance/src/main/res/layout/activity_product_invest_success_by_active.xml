@@ -36,14 +36,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="恭喜您，投资成功！"
+                    android:text="恭喜您，出借成功！"
                     android:textColor="@color/dark_red"
                     android:textSize="18sp"/>
                 <!--<TextView
                     android:id="@+id/tvMoney"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="投资金额 ￥20000.00"
+                    android:text="出借金额 ￥20000.00"
                     android:textSize="18sp"
                     android:layout_marginTop="8dp"/>-->
             </LinearLayout>
@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="18dp"
-                        android:text="投资金额"
+                        android:text="出借金额"
                         android:textColor="@color/text_999999"/>
 
                     <TextView
@@ -237,7 +237,7 @@
                     android:layout_height="35dp"
                     android:background="@drawable/bg_trans_red_corners"
                     android:gravity="center"
-                    android:text="继续投资"
+                    android:text="继续出借"
                     android:textColor="@color/red_text"/>
             </LinearLayout>
         </LinearLayout>

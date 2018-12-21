@@ -32,7 +32,7 @@
                 android:layout_height="80dp"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                tools:text="共投资\nXXX个项目"
+                tools:text="共出借\nXXX个项目"
                 android:textSize="@dimen/text_size_12"
                 android:textColor="@color/white"
                 android:background="@drawable/bg_tv_circlr_white_border"/>

@@ -35,7 +35,7 @@ tinkerSupport {
 
     // 构建基准包和补丁包都要指定不同的tinkerId，并且必须保证唯一性 base patch
 //    tinkerId = "base-3.6.3_1"
-    tinkerId = "base-3.6.6"
+    tinkerId = "base-3.6.7"
 
     // 构建多渠道补丁时使用
      buildAllFlavorsDir = "${bakPath}/${baseApkDir}"

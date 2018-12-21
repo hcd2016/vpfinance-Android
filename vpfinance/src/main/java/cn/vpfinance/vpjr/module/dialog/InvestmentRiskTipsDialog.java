@@ -12,7 +12,7 @@ import butterknife.OnClick;
 import cn.vpfinance.android.R;
 
 /**
- * 投资风险提示dialog
+ * 出借风险提示dialog
  */
 public class InvestmentRiskTipsDialog extends TBaseDialog {
     @Bind(R.id.tv_desc1)

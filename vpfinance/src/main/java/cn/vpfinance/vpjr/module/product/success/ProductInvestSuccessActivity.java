@@ -287,14 +287,14 @@ public class ProductInvestSuccessActivity extends BaseActivity implements View.O
             btnRedPacket.setOnClickListener(this);
             if ("1".equals(state)) {
                 tvRedPacketCount.setText("恭喜您获得该产品的红包");
-                //            tvInfo.setText("首次投资本产品即可获得红包");
+                //            tvInfo.setText("首次出借本产品即可获得红包");
                 //            btnRedPacket.setVisibility(View.VISIBLE);
                 btnRedPacket.setText("分享给好友");
                 btnRedPacket.setEnabled(true);
                 ivBg.setBackgroundResource(R.drawable.bg_dialog_invest_success);
             } else if ("2".equals(state)) {
                 tvRedPacketCount.setText("您已获得过本产品的红包");
-                //            tvInfo.setText("首次投资本产品即可获得红包");
+                //            tvInfo.setText("首次出借本产品即可获得红包");
                 //            btnRedPacket.setVisibility(View.GONE);
                 btnRedPacket.setText("继续出借");
                 btnRedPacket.setEnabled(true);

@@ -1531,7 +1531,7 @@ isBookInvest    1   //为1时是预约购买
     }
 
     /**
-     * 重载投资方法  投资送iphone时使用
+     * 重载出借方法  出借送iphone时使用
      *
      * @param loanId
      * @param money
@@ -1558,7 +1558,7 @@ user_id	Long	true	用户ID号
 trans_password	String	true	Md5加密后传输
 user_voucher	Int	fasle	是否使用代金券（复选框即可，使用逻辑服务器后台优选）0. 否1. 是(如果有)
 isBookInvest    1   //为1时是预约购买
-getIphone  投资送iphone活动
+getIphone  出借送iphone活动
 */
 
         Map<String, String> params = new ArrayMap<String, String>();
@@ -1593,7 +1593,7 @@ bidEndTime	Long	招标结束时间	长整形数字，需转换为时间
 money	double	帐户余额
 maxMoney	double	剩余可投金额
 reMoney	double	标的剩余待募集金额
-loanunit	int	最小出借单位	（投资金额须为些参数的1或N倍）
+loanunit	int	最小出借单位	（出借金额须为些参数的1或N倍）
  */
         if (json != null) {
             result = new BuyResult();
@@ -2304,9 +2304,9 @@ views        	int	浏览数
         JSONArray loanrecords = json.optJSONArray("loanrecords");
         if (loanrecords != null) {
 			/*
-username	String	投资人姓名
+username	String	出借人姓名
 rate	double	标的年化利率
-tendMoney	double	投资金额
+tendMoney	double	出借金额
 payStatus	String	支付状态
 paytime	String	支付时间
 			 */
@@ -3904,7 +3904,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 投资奖励记录
+     * 出借奖励记录
      *
      * @param uid
      * @param pageNum
@@ -4585,7 +4585,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 投资统计资产总额
+     * 出借统计资产总额
      *
      * @return
      */
@@ -4630,7 +4630,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 投资统计收益统计
+     * 出借统计收益统计
      *
      * @return
      */
@@ -4825,7 +4825,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 产品投资分布
+     * 产品出借分布
      *
      * @return
      */
@@ -5025,7 +5025,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 投资可用加息券
+     * 出借可用加息券
      *
      * @param pageNum
      * @param loanId
@@ -5040,7 +5040,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         Map<String, String> params = new ArrayMap<String, String>();
         params.put("pageNum", pageNum);//当前页
         params.put("loanId", loanId);//标的号
-        params.put("money", money);//投资金额
+        params.put("money", money);//出借金额
 
         return httpClient.doPost(url, params, cmdId.ordinal(), false, false);
     }
@@ -5068,7 +5068,7 @@ Type	Int	Banner类型	1. 链接  2.产品
         String url = getServiceUrl(method);
 
         Map<String, String> params = new ArrayMap<String, String>();
-        params.put("money", money);//投资金额
+        params.put("money", money);//出借金额
         params.put("rate", rate);//加息利率
         params.put("addRatePeriod", addRatePeriod);//加息天数
 
@@ -5129,7 +5129,7 @@ Type	Int	Banner类型	1. 链接  2.产品
     }
 
     /**
-     * 投资送iphone页面描述
+     * 出借送iphone页面描述
      *
      * @param type
      * @return
@@ -5695,7 +5695,7 @@ Type	Int	Banner类型	1. 链接  2.产品
      *
      * @param isAutoPlank        是否开启自动投标0否 1 是
      * @param userRemainingMoney 帐户保留金额
-     * @param userMaxLoanMoney   最大投资金额
+     * @param userMaxLoanMoney   最大出借金额
      * @param loanPeriodBegin    最小借款期限
      * @param loanPeriodEnd      最大借款期限
      * @param rateBegin          最低利率，小数

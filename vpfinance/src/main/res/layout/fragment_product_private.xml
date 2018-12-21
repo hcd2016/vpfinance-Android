@@ -18,7 +18,7 @@
             android:id="@+id/info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="该项目已满标，为保护借款人信息，详细内容仅对投资用户显示，敬请谅解。"
+            android:text="该项目已满标，为保护借款人信息，详细内容仅对出借用户显示，敬请谅解。"
             android:textColor="@color/text_999999"/>
         <Button
             android:id="@+id/lookOtherProduct"

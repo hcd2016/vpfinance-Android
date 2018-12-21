@@ -16,7 +16,7 @@ public class PresellProductInfo {
     public String issueLoan;    //标的项目总金额
     public String total_tend_money; //已结买的标
 
-    public String totalMoney; //平台投资总金额
+    public String totalMoney; //平台出借总金额
     public String success; //是否成功
 
     public String borrowLoanPercent; // 标已经购买百分比

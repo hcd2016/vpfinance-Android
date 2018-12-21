@@ -30,7 +30,7 @@ import cn.vpfinance.vpjr.module.user.fragment.InvestSummaryType3Fragment;
 import cn.vpfinance.vpjr.util.Common;
 
 /**
- * 投资统计
+ * 出借统计
  */
 public class InvestSummaryActivity extends BaseActivity {
 

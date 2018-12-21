@@ -125,6 +125,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         this.refreshBtn.setOnClickListener(this);
         this.webView = ((WebView) findViewById(R.id.webview_main));
 
+
         mFakeStatusBar = findViewById(R.id.fake_status_bar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mFakeStatusBar.setVisibility(View.VISIBLE);

@@ -75,7 +75,7 @@
                     android:id="@+id/strength_des"
                     android:textSize="13sp"
                     android:drawableLeft="@drawable/pk"
-                    tools:text="击败了20%的投资达人"/>
+                    tools:text="击败了20%的出借达人"/>
 
                 <View
                     android:layout_width="0dp"
@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    tools:text="总投资(元)"
+                    tools:text="总出借(元)"
                     android:layout_gravity="right"
                     android:layout_marginRight="5dp"
                     android:textColor="@color/white"/>
@@ -120,7 +120,7 @@
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:layout_marginTop="5dp"
-                 tools:text="总投资(元)"
+                 tools:text="总出借(元)"
                  android:layout_gravity="right"
                  android:textColor="@color/white"/>
          </LinearLayout>-->

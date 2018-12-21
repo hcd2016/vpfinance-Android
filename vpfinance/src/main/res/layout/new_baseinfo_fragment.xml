@@ -89,7 +89,7 @@
                 android:textColor="@color/red_top"
                 android:textSize="@dimen/text_size_10"
                 android:visibility="gone"
-                tools:text="温馨提示：借款人若提前(部分)还款，投资人利息按实际借款期限计算，并额外享有提前还款金额7天的利息。"
+                tools:text="温馨提示：借款人若提前(部分)还款，出借人利息按实际借款期限计算，并额外享有提前还款金额7天的利息。"
                 tools:visibility="visible" />
 
             <View
@@ -124,7 +124,7 @@
                     android:gravity="center_vertical|right"
                     android:paddingRight="7dp"
                     android:textColor="@color/text_999999"
-                    tools:text="已有43笔投资" />
+                    tools:text="已有43笔出借" />
 
                 <ImageView
                     android:layout_width="6dp"

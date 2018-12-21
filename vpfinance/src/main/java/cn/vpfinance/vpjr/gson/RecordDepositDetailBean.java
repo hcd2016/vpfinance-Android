@@ -21,7 +21,7 @@ public class RecordDepositDetailBean {
     public int status;
     public int poolId;
     public String finishTime;//预计还款时间
-    public String tenderTime;//投资时间
+    public String tenderTime;//出借时间
     public List<List<ContentListBean>> contentList;
     public List<ProcotolListBean> procotolList;
 

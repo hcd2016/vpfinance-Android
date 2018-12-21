@@ -47,7 +47,7 @@ import cn.vpfinance.vpjr.util.Logger;
 import cn.vpfinance.vpjr.util.ScreenUtil;
 
 /**
- * 参加活动投资成功的界面,比如iphone7活动
+ * 参加活动出借成功的界面,比如iphone7活动
  */
 public class ProductInvestSuccessByActiveActivity extends BaseActivity implements View.OnClickListener {
 

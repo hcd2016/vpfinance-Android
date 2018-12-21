@@ -272,6 +272,11 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             }
         });
 
+        if (isPersonType) {
+            llChangeCompanyInfo.setVisibility(View.GONE);
+        } else {
+            llChangeCompanyInfo.setVisibility(View.VISIBLE);
+        }
         findViewById(R.id.deposit_account_set).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -699,7 +704,15 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 commonTipsDialog.show();
                 break;
             case R.id.ll_change_company_info://经办人信息变更
-                gotoWeb("/hx/enterprise/alter?userId="+ DBUtils.getUser(this).getUserId(),"经办人信息变更");
+                if (mUserInfoBean != null || user != null) {
+                    Long userId = user.getUserId();
+                    if (!TextUtils.isEmpty(mUserInfoBean.isOpen) && !"1".equals(mUserInfoBean.isOpen)) {
+                        boolean isRealName = !TextUtils.isEmpty(mUserInfoBean.realName);
+                        AlertDialogUtils.openBankAccount(PersonalInfoActivity.this, isRealName, userId.toString());
+                        return;
+                    }
+                    gotoWeb("/hx/enterprise/alter?userId=" + DBUtils.getUser(this).getUserId(), "经办人信息变更");
+                }
                 break;
         }
     }

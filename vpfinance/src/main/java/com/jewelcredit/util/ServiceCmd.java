@@ -62,7 +62,7 @@ public class ServiceCmd {
         CMD_FundRecord,  //出借记录
         CMD_TradeFlowRecord, //回款记录
         CMD_InviteGiftShowInfo,  //邀请有礼显示信息
-        CMD_InvestAwardRecord,  //投资奖励记录
+        CMD_InvestAwardRecord,  //出借奖励记录
         CMD_RegistAwardRecord,  //注册奖励记录
         CMD_GETUI_loginSendMess,
         CMD_ResetPayPassword,  //找回交易密码
@@ -102,10 +102,10 @@ public class ServiceCmd {
         CMD_voucherRate,//代金券比率
         CMD_OneYear,//周年庆活动
         CMD_OneYear_GetVoucher,//周年庆活动是否领取过代金券
-        CMD_AssetStatistics,//投资统计资产总额
-        CMD_TenderPromit,//投资统计收益总额
+        CMD_AssetStatistics,//出借统计资产总额
+        CMD_TenderPromit,//出借统计收益总额
         CMD_Invest_Top,//财富收益榜排名
-        CMD_ProductInvestDistribution,//产品投资分布
+        CMD_ProductInvestDistribution,//产品出借分布
         CMD_LookAllMedals,//查看所有勋章
         CMD_Personal_Card,//个人名片
         CMD_Upload_BackGround,//背景上传
@@ -116,20 +116,20 @@ public class ServiceCmd {
         CMD_Car_Product_Protocol_2,//车贷协议二
         CMD_Voice_Captcha, //语音验证码
         CMD_Addrate_Ticket_Tab, //获取加息券(分不同类型)
-        CMD_Addrate_Ticket_invest, //投资可用加息券
+        CMD_Addrate_Ticket_invest, //出借可用加息券
         CMD_Addrate_Income, //计算加息抵扣金额
         CMD_Home_Event,//奥运推广页
         CMD_Webview_Share_Content,//获取webview分享内容
         CMD_Webview_Share_Success,//获取webview分享成功后传递数据给后台
         CMD_Transfer_cost,//转让手续费
-        CMD_Invest_Give_Iphone,//投资送iphone页面文案
+        CMD_Invest_Give_Iphone,//出借送iphone页面文案
         CMD_Loan_Sign_List_New,//新的定期界面
         CMD_loanSignInfo_New,//新的定期产品详情
         CMD_Regular_Tab,//通用请求tab接口
         CMD_Tab_Permission,//tab查看权限控制
         CMD_Transfer_Product_Info,//债权转让基本信息
         CMD_VERSION_CHECK,//版本更新检查
-        CMD_LOAN_PROTOCOL,//投资协议
+        CMD_LOAN_PROTOCOL,//出借协议
         CMD_IMAGE_CODE,//图形验证码
         CMD_VERIFY_IMAGE_CODE,//图形验证码校验
         CMD_Record_Detail_info,//出借记录详情
@@ -244,7 +244,7 @@ public class ServiceCmd {
             "MyCount/tenderRecord",//出借记录
             "MyCount/returnMoney",//回款记录
             "generalizeApp/generMainPage", //邀请有礼显示信息
-            "generalizeApp/generTenderRecord",//投资奖励记录
+            "generalizeApp/generTenderRecord",//出借奖励记录
             "generalizeApp/invitePerRecord",//注册奖励记录
             "GeTui/saveClientId",
             "appupdate_info/reset_trans_pwd",//找回交易密码
@@ -284,10 +284,10 @@ public class ServiceCmd {
             "AppVoucher/voucherrate",    //代金券比率
             "apponeyear/showBox",    //周年庆活动
             "apponeyear/getVoucher",    //周年庆活动是否领取代金券
-            "appmedal/assetStatistics",    //投资统计资产总额
-            "appmedal/tenderPromit",//投资统计收益总额
+            "appmedal/assetStatistics",    //出借统计资产总额
+            "appmedal/tenderPromit",//出借统计收益总额
             "appmedal/promitRank",    //财富收益榜排名
-            "appmedal/productTenderDistri",    //产品投资分布
+            "appmedal/productTenderDistri",    //产品出借分布
             "appmedal/selectUserMedals",    //查看所有勋章
             "appmedal/mySocialCenter",    //个人名片
             "AppUtil/backgroundImageload",    //背景上传接口
@@ -298,26 +298,26 @@ public class ServiceCmd {
             "loaninfo/loan_protocol_carloan",    //车贷协议二
             "Appregister/sendYuyinMess",//语音验证码
             "AppCoupon/couponlisttab",//获取加息券(分不同类型)
-            "AppCoupon/couponlistCanUse",//投资可用加息券
+            "AppCoupon/couponlistCanUse",//出借可用加息券
             "AppCoupon/caculateAddIncome",//计算加息抵扣金额
             "AppCoupon/olympicsPage",//奥运推广页
             "activity/getShareContent",//获取webview分享内容
             "newyear/shareAddDrawNum.htm",//获取webview分享成功后传递数据给后台
             "AppLoan/getDebtFee",//转让手续费
-            "AppLoan/investPage",//投资送iphone页面文案
+            "AppLoan/investPage",//出借送iphone页面文案
             "AppLoan/loanSignListNew",//新的定期界面
             "AppLoan/loanSignInfoNew",//新的定期产品详情
             "cmd_regular_tab",//通用请求tab接口
             "AppLoan/getAccessType",//tab查看权限控制
             "AppLoan/showTabContent",//债权转让基本信息
             "appupdate_info/queryAppVersionStatus",//版本更新检查
-            "AppLoan/getProtocol",//投资协议
+            "AppLoan/getProtocol",//出借协议
             "Appregister/sendImageCode",//图形验证码
             "Appregister/verifyImageCode",//图形验证码校验
             "AppLoan/getTenderRecordDetail",//出借记录详情
             "AppLoanPool/tenderRecordDetail",//出借记录详情(定存宝)
             "MyCount/getReturnCalendarTime",//查询指定月份有回款事件的天数
-            "MyCount/getEventByDay",//查询指定天的回款事件
+            "MyCount/getEventByDay",//查询指定天的回款事件`
             "Appmember/index",//首页3.0.0
             "AppLoanPool/loanSignPool",//定存宝列表
             "AppLoanPool/loanSignPoolInfo",//定存宝产品详情

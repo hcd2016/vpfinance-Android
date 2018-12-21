@@ -108,7 +108,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
     /*
     自动投标默认设置项
     1.账户保留金额 0元
-    2.最大投资金额  10万
+    2.最大出借金额  10万
     3.投标种类  不限
     4.还款方式 不限
     5.借款期限 1-12个月
@@ -187,7 +187,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
             }
         });
 
-        etMaxInvestMoney.addTextChangedListener(new TextWatcher() {//最大投资金额监听
+        etMaxInvestMoney.addTextChangedListener(new TextWatcher() {//最大出借金额监听
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -200,7 +200,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(s.toString()) && bean.userMaxLoanMoney != Double.parseDouble(s.toString())) {//最大投资金额发生了变化
+                if (!TextUtils.isEmpty(s.toString()) && bean.userMaxLoanMoney != Double.parseDouble(s.toString())) {//最大出借金额发生了变化
                     btnSubmit.setEnabled(true);
                     bean.userMaxLoanMoney = Double.parseDouble(s.toString());
                 }
@@ -239,7 +239,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
         double rateBegin = bean.rateBegin;// 最低利率，小数
         double rateEnd = bean.rateEnd;// 最高利率
 
-        //1、车贷宝，2、消费宝，8、供应链，10、企业贷，11、珠宝贷，12、融租宝,13个人贷,14智存投资
+        //1、车贷宝，2、消费宝，8、供应链，10、企业贷，11、珠宝贷，12、融租宝,13个人贷,14智存出借
         String investTypeStr = FormatUtils.checkDot(bean.loanType);
         String refundTypeStr = FormatUtils.checkDot(bean.refundWay);
         String riskLevelStr = bean.securityLevel;

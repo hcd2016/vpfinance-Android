@@ -39,7 +39,7 @@ import de.greenrobot.dao.query.QueryBuilder;
 
 /**
  * Created by Administrator on 2015/11/13.
- * 投资奖励记录
+ * 出借奖励记录
  */
 public class AwardRecordForInvestActivity extends BaseActivity {
 

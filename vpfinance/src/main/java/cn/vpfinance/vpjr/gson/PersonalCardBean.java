@@ -12,7 +12,7 @@ public class PersonalCardBean {
      * imageUrl : /upload/userheader/20160629150843.JPG
      * loginStatus : 刚刚
      * returnRate : {"avgProfit":"9.47","myProfit":"5.88","maxProfit":"14.51"}
-     * userMedals : [{"id":"16","logo":"http://192.168.1.193/resources/imgs/medal/medal5_yes_","condition":"单个产品最后一个用户投资","description":"即时更新，有效期永久(可叠加)","name":"一锤定音","medalCategoryId":"3"},{"id":"15","logo":"http://192.168.1.193/resources/imgs/medal/medal4_yes_","condition":"用APP投资产品","description":"即时更新，有效期永久(并列)","name":"掌控全局","medalCategoryId":"2"},{"id":"18","logo":"http://192.168.1.193/resources/imgs/medal/medal7_yes_","condition":"单个产品投资金额最大的用户","description":"即时更新，有效期永久(可叠加)","name":"一鸣惊人","medalCategoryId":"3"}]
+     * userMedals : [{"id":"16","logo":"http://192.168.1.193/resources/imgs/medal/medal5_yes_","condition":"单个产品最后一个用户出借","description":"即时更新，有效期永久(可叠加)","name":"一锤定音","medalCategoryId":"3"},{"id":"15","logo":"http://192.168.1.193/resources/imgs/medal/medal4_yes_","condition":"用APP出借产品","description":"即时更新，有效期永久(并列)","name":"掌控全局","medalCategoryId":"2"},{"id":"18","logo":"http://192.168.1.193/resources/imgs/medal/medal7_yes_","condition":"单个产品出借金额最大的用户","description":"即时更新，有效期永久(可叠加)","name":"一鸣惊人","medalCategoryId":"3"}]
      * month5 : 0.54
      * month4 : 9.89
      * level : 初窥门径Ⅲ
@@ -51,7 +51,7 @@ public class PersonalCardBean {
     /**
      * id : 16
      * logo : http://192.168.1.193/resources/imgs/medal/medal5_yes_
-     * condition : 单个产品最后一个用户投资
+     * condition : 单个产品最后一个用户出借
      * description : 即时更新，有效期永久(可叠加)
      * name : 一锤定音
      * medalCategoryId : 3

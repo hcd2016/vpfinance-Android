@@ -632,7 +632,7 @@ public class DepositInvestActivity extends BaseActivity implements View.OnClickL
 //                Iterator it=selectTypes.iterator();
 //                DepositInvestInfo.InvestScopeBean next = (DepositInvestInfo.InvestScopeBean) it.next();
 //                if (next.money < investMoneyFloat){
-//                    Toast.makeText(this, next.key+"当前剩余认购余额为"+next.money+",请调整您的投资金额或分期类型",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(this, next.key+"当前剩余认购余额为"+next.money+",请调整您的出借金额或分期类型",Toast.LENGTH_LONG).show();
 //                    return;
 //                }
 //            }

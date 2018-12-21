@@ -189,7 +189,7 @@ public class ProductJewelryBaseInfoFragment extends BaseFragment implements View
         if (event != null) {
             product = event.product;
 
-            //国庆投资送iphone7活动
+            //国庆出借送iphone7活动
             if ("1".equals(product.getGivePhone())) {
                 mIcIphone7Index.setVisibility(View.VISIBLE);
                 mImgActivity.setVisibility(View.VISIBLE);

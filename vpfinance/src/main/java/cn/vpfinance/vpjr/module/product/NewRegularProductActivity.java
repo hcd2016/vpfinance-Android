@@ -57,7 +57,7 @@ public class NewRegularProductActivity extends BaseActivity {
     public static final String PRODUCT_TITLE     = "product_title";//标名
     public static final String IS_GE_TUI     = "is_ge_tui";//是否个推
     public static final String IS_DEPOSIT     = "is_deposit";//是否定存宝
-    public static final String RecordPoolId     = "recordPoolId";//如果是从定存宝的投资详情进去标的详情,传递(RecordPoolId),其他的不传递
+    public static final String RecordPoolId     = "recordPoolId";//如果是从定存宝的出借详情进去标的详情,传递(RecordPoolId),其他的不传递
     public int answerStatus;//1不弹 2弹提示框, 去做风险测评
 
     @Bind(R.id.titleBar)

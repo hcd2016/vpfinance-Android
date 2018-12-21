@@ -10,7 +10,7 @@ public class AllMedalsBean {
     /**
      * id : 15
      * logo : http://192.168.1.193/resources/imgs/medal/medal7_yes_
-     * condition : 用APP投资产品
+     * condition : 用APP出借产品
      * description : 即时更新，有效期永久(并列)
      * name : 掌控全局
      * medalCategoryId : 2

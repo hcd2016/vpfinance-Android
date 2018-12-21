@@ -100,7 +100,7 @@ public class ProductCategoryFragment extends BaseFragment {
         }*/
         if (reqId == ServiceCmd.CmdId.CMD_Loan_Sign_Type.ordinal()) {
             Logger.e("Json:" + json.toString());
-//            String json2 = "{\"types\":[{\"name\":\"投资产品\",\"value\":\"1\"},{\"name\":\"转让专区\",\"value\":\"2\"}]}";
+//            String json2 = "{\"types\":[{\"name\":\"出借产品\",\"value\":\"1\"},{\"name\":\"转让专区\",\"value\":\"2\"}]}";
 //            String json3 = "";
             LoanSignTypeBean typeBean = new Gson().fromJson(json.toString(), LoanSignTypeBean.class);
             updateView(typeBean);
@@ -149,7 +149,7 @@ public class ProductCategoryFragment extends BaseFragment {
     boolean productListLoadSuccess = false;
 
     public void onEventMainThread(RefreshTab event) {
-        if (event != null && isAdded() && event.tabType == RefreshTab.TAB_LIST) {//切换我要投资TAB时
+        if (event != null && isAdded() && event.tabType == RefreshTab.TAB_LIST) {//切换我要出借TAB时
             if (mHttpService != null) {
                 if (!productListLoadSuccess) {
                     mHttpService.getLoanSignType();
@@ -194,7 +194,7 @@ public class ProductCategoryFragment extends BaseFragment {
                     return ProductListFragment.getInstance(Constant.TYPE_BANK);
                 case Constant.TYPE_TRANSFER://债权转让
                     return ProductListFragment.getInstance(Constant.TYPE_TRANSFER);
-                case Constant.TYPE_POOL://智存投资
+                case Constant.TYPE_POOL://智存出借
                     return ProductDepositListFragment.getInstance();
             }
             return null;
