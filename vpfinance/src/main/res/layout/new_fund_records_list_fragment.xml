@@ -35,7 +35,7 @@
             tools:visibility="visible"
             android:gravity="center"
             android:textColor="@color/text_999999"
-            android:text="您还没有投资哦" />
+            android:text="您还没有出借哦" />
     </RelativeLayout>
 
 </LinearLayout>

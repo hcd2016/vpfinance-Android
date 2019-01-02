@@ -353,7 +353,7 @@
                 android:layout_height="match_parent"
                 android:paddingRight="7dp"
                 android:layout_weight="1"
-                tools:text="已有43笔投资"
+                tools:text="已有43笔出借"
                 android:gravity="center_vertical|right"
                 android:textColor="@color/text_999999"
                 android:drawablePadding="10dp"/>

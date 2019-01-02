@@ -47,7 +47,7 @@ import cn.vpfinance.vpjr.util.Logger;
 import cn.vpfinance.vpjr.util.ScreenUtil;
 
 /**
- * 参加活动投资成功的界面,比如iphone7活动
+ * 参加活动出借成功的界面,比如iphone7活动
  */
 public class ProductInvestSuccessByActiveActivity extends BaseActivity implements View.OnClickListener {
 
@@ -100,7 +100,7 @@ public class ProductInvestSuccessByActiveActivity extends BaseActivity implement
         setContentView(R.layout.activity_product_invest_success_by_active);
         ButterKnife.bind(this);
 
-        mTitleBar.setTitle("投资成功").setHeadBackVisible(View.VISIBLE);
+        mTitleBar.setTitle("出借成功").setHeadBackVisible(View.VISIBLE);
         mHttpService = new HttpService(this, this);
         mHttpService.getRedPacketInfo();
         Intent intent = getIntent();

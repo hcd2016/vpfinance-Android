@@ -361,7 +361,7 @@
                     android:layout_weight="1"
                     android:drawablePadding="10dp"
                     android:gravity="center_vertical|right"
-                    tools:text="已有43笔投资"
+                    tools:text="已有43笔出借"
                     android:textColor="@color/text_999999"/>
                 <ImageView
                     android:layout_width="6dp"

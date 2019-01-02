@@ -158,9 +158,9 @@
         android:paddingRight="15dp">
 
         <View
-            android:layout_marginTop="3dp"
             android:layout_width="2dp"
             android:layout_height="12dp"
+            android:layout_marginTop="3dp"
             android:background="@color/red_text2" />
 
         <TextView
@@ -182,9 +182,9 @@
         android:paddingRight="15dp">
 
         <View
-            android:layout_marginTop="3dp"
             android:layout_width="2dp"
             android:layout_height="12dp"
+            android:layout_marginTop="3dp"
             android:background="@color/red_text2" />
 
         <TextView
@@ -193,6 +193,33 @@
             android:layout_marginLeft="11dp"
             android:lineSpacingExtra="10dp"
             android:text="转让产品若 3 天内未满标则转让失败，转让人将继续持有原债权。"
+            android:textColor="@color/text_999999" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_transfer_times_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/red_text2" />
+
+        <TextView
+            android:id="@+id/tv_transfer_times"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11dp"
+            android:lineSpacingExtra="10dp"
+            android:text="该持有债权本月剩余可转让 1 次"
             android:textColor="@color/text_999999" />
     </LinearLayout>
 
@@ -208,6 +235,7 @@
             style="@style/SubmitButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/red_text2"
             android:text="确认转让" />
     </LinearLayout>
 

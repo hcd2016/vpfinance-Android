@@ -28,9 +28,9 @@ import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
  * type 1: 体验金 + 优惠券 + 绑卡激活
  * type 2: 体验金 + 绑卡激活
  * type 3: 绑卡激活
- * type 4: 绑卡激活奖励 + 首次投资奖励
+ * type 4: 绑卡激活奖励 + 首次出借奖励
  * type 5: 绑卡激活奖励
- * type 6: 首笔投资奖励
+ * type 6: 首笔出借奖励
  */
 public class NewUserDialogActivity extends BaseActivity {
 

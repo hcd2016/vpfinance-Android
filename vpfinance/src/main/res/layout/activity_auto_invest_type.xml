@@ -305,7 +305,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="智存投资"
+                    android:text="智存出借"
                     android:textColor="@color/text_1c1c1c" />
 
                 <CheckBox

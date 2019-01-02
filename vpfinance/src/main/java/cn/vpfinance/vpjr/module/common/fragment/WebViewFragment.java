@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.FinanceApplication;
 import cn.vpfinance.vpjr.base.BaseFragment;
 
 /**
@@ -35,7 +37,14 @@ public class WebViewFragment extends BaseFragment{
         View view = LayoutInflater.from(mContext).inflate(R.layout.fragment_webview,null);
         webView = ((WebView) view.findViewById(R.id.webview));
         webView.setWebViewClient(new MyWebViewClient());
-
+        WebSettings settings = webView.getSettings();
+        settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setAppCacheEnabled(true);
+        String appCachePath = FinanceApplication.getAppContext().getCacheDir().getAbsolutePath();
+        settings.setAppCachePath(appCachePath);
+        settings.setDomStorageEnabled(true);
+        settings.setJavaScriptEnabled(true);
 //        init();
         Bundle arguments = getArguments();
         if (arguments != null){

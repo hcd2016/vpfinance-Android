@@ -107,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_black_title_1c"
                         android:textSize="@dimen/text_size_12"
-                        tools:text="投资任意定期投资产品可用" />
+                        tools:text="出借任意定期出借产品可用" />
                 </LinearLayout>
 
                 <TextView

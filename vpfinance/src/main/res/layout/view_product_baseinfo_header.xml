@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="8dp"
                 android:maxLines="2"
-                android:text="投资产品"
+                android:text="出借产品"
                 android:textColor="@color/text_1c1c1c"
                 android:textSize="18sp" />
 

@@ -10,6 +10,6 @@ public class InviteShowInfo {
     public String invitePerCount;
     /*累计注册奖励*/
     public String registerRewardCount;
-    /*累计投资奖励*/
+    /*累计出借奖励*/
     public String bonusesCount;
 }

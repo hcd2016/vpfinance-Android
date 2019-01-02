@@ -19,6 +19,7 @@ import android.webkit.CookieSyncManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -120,6 +121,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         this.refreshBtn.setOnClickListener(this);
         this.webView = ((WebView) findViewById(R.id.webview_main));
 
+
         mFakeStatusBar = findViewById(R.id.fake_status_bar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mFakeStatusBar.setVisibility(View.VISIBLE);
@@ -208,7 +210,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             if (url.contains(",1") && url.contains("hx/repayment/repay")) {
                 url = url.replace(",1", "");
             }
-            if(url.contains("riskCompleteClick")) {
+            if (url.contains("riskCompleteClick")) {
                 finish();
                 return;
             }
@@ -439,6 +441,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         //登录成功后uid替换
         if (!TextUtils.isEmpty(mTempUrl)) {
             Uri uri = Uri.parse(mTempUrl);
+//        if (!TextUtils.isEmpty(str)) {
+//            Uri uri = Uri.parse(str);
             String path = uri.getPath();
             String uid = uri.getQueryParameter("uid");
             String type = uri.getQueryParameter("type");
@@ -493,6 +497,29 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             Utils.Toast(WebViewActivity.this, description);
         }
 
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            String url = "";
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                url = request.getUrl().toString();
+            } else {
+                url = request.toString();
+            }
+            Logger.e("shouldOverrideUrlLoading:" + url);
+            if (TextUtils.isEmpty(url)) return true;
+            //vpfinance://toLogin
+            //如果跳转链接出现vpfinance://开头的就去调用相对应的方法
+            if (!TextUtils.isEmpty(url) && url.contains("vpfinance://")) {
+                String methodName = url.substring("vpfinance://".length());
+//                Logger.e("qqq:"+methodName);
+                if ("toLogin".equals(methodName)) {
+                    mTempUrl = webView.getUrl();
+                    gotoActivity(LoginActivity.class);
+                    //?uid=&isShare=1&type=4   成功后添加uid参数
+                }
+            }
+            return true;
+        }
 
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             Logger.e("shouldOverrideUrlLoading:" + url);
@@ -597,7 +624,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
     private void showShare(String title, String text, String imageUrl, String link) {
         if (TextUtils.isEmpty(link)) return;
         //去掉后面的get参数
-        link = HttpService.mBaseUrl + Uri.parse(link).getPath();
+//        link = HttpService.mBaseUrl + Uri.parse(link).getPath();
 //        Logger.e("title:"+title+",text:"+text+",imageUrl:"+imageUrl+",link:"+link);
         //imageUrl为空时，就算有link也只是单纯的文字，不能跳转（微信）
         // 注意:大坑,图片先要下载到本地
@@ -635,6 +662,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
 //                Logger.e("onComplete");
+                startRequestInformSuccess();
             }
 
             @Override
@@ -649,7 +677,6 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         });
         // 启动分享GUI
         oks.show(this);
-        startRequestInformSuccess();
     }
 
     private String getProtocol(String url) {

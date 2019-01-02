@@ -395,7 +395,7 @@ public class OtherPersonalCardActivity extends BaseActivity implements View.OnCl
     private void initPieChart() {
         mPieChart.setUsePercentValues(false);
         mPieChart.setDescription("");
-        mPieChart.setNoDataTextDescription("Ta还未投资过");
+        mPieChart.setNoDataTextDescription("Ta还未出借过");
         mPieChart.setDragDecelerationFrictionCoef(0.95f);
         mPieChart.setExtraOffsets(20f, 10f, 20f, 10f);
         mPieChart.setDrawHoleEnabled(true);

@@ -15,9 +15,9 @@ public class FundRecordInfo {
     public class RecordListInfoItem{
         /*标题*/
         public String title;
-        /*投资金额*/
+        /*出借金额*/
         public String tenderMoney;
-        /*投资时间*/
+        /*出借时间*/
         public String tenderTime;
         /*抵扣代金券金额*/
         public String voucherMoney;

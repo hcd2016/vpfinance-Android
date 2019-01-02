@@ -355,7 +355,7 @@ public class RegularProductBorrowerFragment2 extends BaseFragment implements Vie
         if (event != null && isAdded()) {
             product = event.product;
 
-            //国庆投资送iphone7活动
+            //国庆出借送iphone7活动
             if ("1".equals(product.getGivePhone())) {
                 mIcIphone7Index.setVisibility(View.VISIBLE);
                 mImgActivity.setVisibility(View.VISIBLE);
@@ -539,7 +539,7 @@ public class RegularProductBorrowerFragment2 extends BaseFragment implements Vie
                             orderVoucherNum.setVisibility(View.VISIBLE);
                             orderVoucherNum.setText("您有" + product.getBookCouponNumber() + "张预约券！点击进行预约。");
                             btnOrder.setEnabled(true);
-                            btnOrder.setText("预约投资");
+                            btnOrder.setText("预约出借");
                         } else {
                             double orderMoney = product.getIssueLoan() * product.getBookPercent() - product.getTotal_tend_money();
                             if (orderMoney <= 0) {

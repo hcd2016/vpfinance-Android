@@ -34,13 +34,13 @@
                     android:gravity="center"
                     android:background="@drawable/btn_invest_summary_select"
                     android:textColor="@color/white"
-                    android:text="出借产品分布"/>
+                    android:text="产品分布"/>
                 <RadioButton
                     android:id="@+id/type2"
                     android:layout_width="108dp"
                     android:layout_height="29dp"
                     android:button="@null"
-                    android:text="项目总额统计"
+                    android:text="总额统计"
                     android:textColor="@color/white"
                     android:background="@drawable/btn_invest_summary_select2"
                     android:gravity="center"/>
@@ -80,7 +80,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="亲，您还没进行投资喔"
+                    android:text="亲，您还没进行出借喔"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"/>
                 <Button

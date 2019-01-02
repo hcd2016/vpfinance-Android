@@ -182,7 +182,7 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:paddingTop="10dp"
-                    android:text="投标范围\n您的选择代表您已认可该类型的投资项目，系统会将您投入的资金随机分配到该类型项目的表的中。" />
+                    android:text="投标范围\n您的选择代表您已认可该类型的出借项目，系统会将您投入的资金随机分配到该类型项目的表的中。" />
 
                 <LinearLayout
                     android:id="@+id/select_type"

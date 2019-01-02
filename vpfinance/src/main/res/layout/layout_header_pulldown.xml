@@ -125,7 +125,7 @@
                 android:button="@null"
                 android:checked="true"
                 android:gravity="center"
-                android:text="定期投资"
+                android:text="定期出借"
                 android:textColor="@drawable/invest_top_text_color"
                 android:textSize="15sp"/>
 

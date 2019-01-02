@@ -83,9 +83,9 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
-//            minifyEnabled false
+//            minifyEnabled true
 //            zipAlignEnabled true
-//            shrinkResources false
+//            shrinkResources true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             signingConfig signingConfigs.release
         }
@@ -161,6 +161,7 @@ dependencies {
     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
     //引入walle多渠道的依赖
     //    compile "com.meituan.android.walle:library:1.1.6"
+
 
     //retrofit框架相关
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'

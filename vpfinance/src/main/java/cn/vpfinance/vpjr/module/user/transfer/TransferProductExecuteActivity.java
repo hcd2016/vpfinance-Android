@@ -83,7 +83,7 @@ public class TransferProductExecuteActivity extends BaseActivity implements View
         setContentView(R.layout.activity_transfer_product_execute);
         ButterKnife.bind(this);
         mContext = this;
-        titleBar.setTitle("投资详情").setHeadBackVisible(View.VISIBLE);
+        titleBar.setTitle("出借详情").setHeadBackVisible(View.VISIBLE);
 
         mHttpService = new HttpService(this, this);
 

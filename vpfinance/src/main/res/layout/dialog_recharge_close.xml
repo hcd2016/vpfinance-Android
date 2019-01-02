@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="请转入存管账户充值投资"
+            android:text="请转入存管账户充值出借"
             android:textColor="@color/text_333333"
             android:textSize="15dp" />
 

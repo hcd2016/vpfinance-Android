@@ -58,7 +58,7 @@
             android:id="@+id/tvInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="首次投资任意产品均可获得红包"
+            android:text="首次出借任意产品均可获得红包"
             android:layout_centerHorizontal="true"
             android:textColor="@color/black"
             android:textSize="12sp"

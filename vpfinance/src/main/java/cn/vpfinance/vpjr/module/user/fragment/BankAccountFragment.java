@@ -196,7 +196,7 @@ public class BankAccountFragment extends BaseFragment {
 
 
     public void onEventMainThread(RefreshTab event) {
-        if (event != null && isAdded() && event.tabType == RefreshTab.TAB_MINE) {//切换我要投资TAB时
+        if (event != null && isAdded() && event.tabType == RefreshTab.TAB_MINE) {//切换我要出借TAB时
             if (mHttpService != null) {
                 loadDate();
             }
@@ -561,7 +561,7 @@ public class BankAccountFragment extends BaseFragment {
                     goAction(ReturnMoneyCalendarActivity.class);
                 }
                 break;
-            case R.id.clickFundRecord://我的投资
+            case R.id.clickFundRecord://我的出借
                 goAction(FundRecordsActivity.class);
                 break;
             case R.id.ll_assets_container://资产总览

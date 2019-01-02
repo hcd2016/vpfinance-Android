@@ -30,7 +30,7 @@
                     android:id="@+id/product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="投资产品"
+                    android:text="出借产品"
                     android:textColor="@color/normal_text_color"
                     android:textSize="@dimen/text_size_22" />
 

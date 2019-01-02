@@ -80,7 +80,7 @@
                 android:layout_height="match_parent"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
-                android:text="投资概况"
+                android:text="出借概况"
                 />
 
             <View

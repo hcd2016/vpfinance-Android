@@ -35,7 +35,7 @@ public class BankInvestSuccessHintActivity extends BaseActivity{
         setContentView(R.layout.activity_bank_invest_success_hint);
         ButterKnife.bind(this);
 
-        mActionBar.reset().setHeadBackVisible(View.VISIBLE).setTitle("存管投资提示");
+        mActionBar.reset().setHeadBackVisible(View.VISIBLE).setTitle("存管出借提示");
 
         SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
         int bankInvestSuccessCount = preferencesHelper.getIntValue(BANK_INVEST_SUCCESS_COUNT, 0);

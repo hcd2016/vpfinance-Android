@@ -318,6 +318,9 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                         .setContent("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行出借")
                         .setBtnRight("确认")
                         .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
+                new AlertDialog.Builder(mContext)
+                        .setMessage("为合理优化您的资产配置，请完成风险测评")
+                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override
                             public void rightClick() {
                                 if (user != null) {
@@ -960,6 +963,9 @@ public class NewBaseInfoFragment extends BaseFragment implements View.OnClickLis
                 }
 
                 if (((NewRegularProductActivity) getActivity()).answerStatus == 2) {
+                    new AlertDialog.Builder(mContext)
+                            .setMessage("为合理优化您的资产配置，请完成风险测评")
+                            .setPositiveButton("确认", new DialogInterface.OnClickListener() {
 //                    new AlertDialog.Builder(mContext)
 //                            .setMessage("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行出借")
 //                            .setPositiveButton("确认", new DialogInterface.OnClickListener() {

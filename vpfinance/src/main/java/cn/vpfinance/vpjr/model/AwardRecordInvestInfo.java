@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2015/11/13.
- * 投资奖励记录bean
+ * 出借奖励记录bean
  */
 public class AwardRecordInvestInfo {
     public String success;

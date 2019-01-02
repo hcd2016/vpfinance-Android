@@ -39,7 +39,7 @@ import de.greenrobot.dao.query.QueryBuilder;
 
 /**
  * Created by Administrator on 2015/11/13.
- * 投资奖励记录
+ * 出借奖励记录
  */
 public class AwardRecordForInvestActivity extends BaseActivity {
 
@@ -63,7 +63,7 @@ public class AwardRecordForInvestActivity extends BaseActivity {
         setContentView(R.layout.activity_award_record_invest);
 
         ActionBarLayout titleBar = (ActionBarLayout) findViewById(R.id.titleBar);
-        titleBar.setTitle("投资奖励记录").setHeadBackVisible(View.VISIBLE);
+        titleBar.setTitle("出借奖励记录").setHeadBackVisible(View.VISIBLE);
         mHttpService = new HttpService(this, this);
         getUser();
         mListView = (ListView) findViewById(R.id.mListView);

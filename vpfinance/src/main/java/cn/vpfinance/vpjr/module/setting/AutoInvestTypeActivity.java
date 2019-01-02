@@ -45,7 +45,7 @@ public class AutoInvestTypeActivity extends BaseActivity {
     private int gray;
     private MyAdapter myAdapter;
     private String loanTypeValue;
-    //1、车贷宝，2、消费宝，8、供应链，10、企业贷，11、珠宝贷，12、融租宝,13个人贷,14智存投资
+    //1、车贷宝，2、消费宝，8、供应链，10、企业贷，11、珠宝贷，12、融租宝,13个人贷,14智存出借
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

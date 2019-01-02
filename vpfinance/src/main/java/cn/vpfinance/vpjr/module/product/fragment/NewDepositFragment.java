@@ -35,7 +35,7 @@ import cn.vpfinance.vpjr.util.EndLessOnScrollListener;
 import cn.vpfinance.vpjr.util.FormatUtils;
 
 /**
- * 定存宝投资详情Tab 债权列表
+ * 定存宝出借详情Tab 债权列表
  * Created by zzlz13 on 2017/4/12.
  */
 

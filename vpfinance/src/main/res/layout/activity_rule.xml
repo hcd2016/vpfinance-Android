@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="10sp"
                 android:textColor="@color/white"
-                android:text="2.有效期内好友成功投资项目，推荐人还可得额外推荐投资奖励。"
+                android:text="2.有效期内好友成功出借项目，推荐人还可得额外推荐出借奖励。"
                 android:paddingBottom="10dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/textview_padding_left_right"/>
@@ -84,7 +84,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2.推荐奖励包括注册奖励和投资奖励双重奖励；"
+                android:text="2.推荐奖励包括注册奖励和出借奖励双重奖励；"
                 android:paddingBottom="10dp"
                 android:gravity="center_vertical"
                 android:textSize="10sp"
@@ -111,7 +111,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="4.投资奖励：有效期内好友成功投资项目，推荐人可得额外推荐投资奖励；"
+                android:text="4.出借奖励：有效期内好友成功出借项目，推荐人可得额外推荐出借奖励；"
                 android:paddingBottom="10dp"
                 android:gravity="center_vertical"
                 android:textSize="10sp"
@@ -120,7 +120,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="5.推荐投资奖励收益=（0.5%*好友投资金额*项目借款期限）/12"
+                android:text="5.推荐出借奖励收益=（0.5%*好友出借金额*项目借款期限）/12"
                 android:paddingBottom="10dp"
                 android:gravity="center_vertical"
                 android:textSize="10sp"
@@ -129,7 +129,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="6.目前好友推荐关系有效期为12个月，12个月后好友投资金额将不计入投"
+                android:text="6.目前好友推荐关系有效期为12个月，12个月后好友出借金额将不计入投"
                 android:paddingBottom="10dp"
                 android:gravity="center_vertical"
                 android:textSize="10sp"
@@ -147,7 +147,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="7.代金券奖励以代金券形式即时发放，投资奖励返还方式同投资项目还款"
+                android:text="7.代金券奖励以代金券形式即时发放，出借奖励返还方式同出借项目还款"
                 android:paddingBottom="10dp"
                 android:gravity="center_vertical"
                 android:textSize="10sp"
@@ -165,7 +165,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="8.平台于每月25日左右统一发放用户上月22日至当月21日可获得的投资奖励；"
+                android:text="8.平台于每月25日左右统一发放用户上月22日至当月21日可获得的出借奖励；"
                 android:paddingBottom="10dp"
                 android:gravity="center_vertical"
                 android:textSize="10sp"

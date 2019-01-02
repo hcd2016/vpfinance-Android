@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,6 +68,10 @@ public class TransferProductExecuteNowActivity extends BaseActivity {
     private static final String TRANSFERMINRATE = "transferMinRate";
     @Bind(R.id.tv_desc)
     TextView tvDesc;
+    @Bind(R.id.tv_transfer_times)
+    TextView tvTransferTimes;
+    @Bind(R.id.ll_transfer_times_container)
+    LinearLayout llTransferTimesContainer;
     private String tenderMoneyStr;
     /**
      * 已回款
@@ -116,7 +121,7 @@ public class TransferProductExecuteNowActivity extends BaseActivity {
             accountType = intent.getIntExtra(Constant.AccountType, Constant.AccountLianLain);
 
 //            mPredictIncome.setText(stayReturnMoneyStr + "元");
-            String content = "您将全额转让该投资标的剩余本金，转让成功后您将不能继续获得标的剩余待回款利息" + stayReturnMoneyStr + "元。";
+            String content = "您将全额转让该持有债权的剩余本金，转让成功后您将不能继续获得该债权的剩余待回款利息" + stayReturnMoneyStr + "元。";
             DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
             difColorTextStringBuilder.setContent(content)
                     .setHighlightContent(stayReturnMoneyStr, R.color.red_text2)
@@ -231,6 +236,20 @@ public class TransferProductExecuteNowActivity extends BaseActivity {
             String value = FormatUtils.formatDown(v);
 //            mCostScale.setText("约定年利率:" + value + "%");
             mRealIncomeMoney.setText(arrivalMoney + "元");
+
+            //转让次数
+            int transferTime = json.optInt("transferTime");
+            if (transferTime == -1) {//无限制次数
+                llTransferTimesContainer.setVisibility(View.GONE);
+            } else {
+                llTransferTimesContainer.setVisibility(View.VISIBLE);
+                String content = "该持有债权本月剩余可转让" + transferTime + " 次。";
+                DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
+                difColorTextStringBuilder.setContent(content)
+                        .setHighlightContent(transferTime + "", R.color.red_text2)
+                        .setTextView(tvTransferTimes)
+                        .create();
+            }
         } else if (reqId == ServiceCmd.CmdId.CMD_Transfer_Assign_Now.ordinal()) {
             int msg = -1;
             try {
@@ -321,6 +340,16 @@ public class TransferProductExecuteNowActivity extends BaseActivity {
 ////                    etTransferMoney.setText(tvRefundMoney.getText());
 //                }
 //                break;
+        }
+    }
+
+    @OnClick({R.id.tv_transfer_times, R.id.ll_transfer_times_container})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_transfer_times:
+                break;
+            case R.id.ll_transfer_times_container:
+                break;
         }
     }
 }

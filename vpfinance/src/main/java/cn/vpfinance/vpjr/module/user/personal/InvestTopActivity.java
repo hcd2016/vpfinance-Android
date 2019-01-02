@@ -224,8 +224,8 @@ public class InvestTopActivity extends BaseActivity {
                         DecimalFormat dcmFmt = new DecimalFormat("#,###.00");
                         double db = Double.parseDouble(mInvestTopBean.sumTenderMoney);
                         otherViewHolder2.syn_yield.setText(dcmFmt.format(db) + "");
-                        otherViewHolder2.tv_flag.setText("总投资(元)");
-                        otherViewHolder2.strength_des.setText("击败了" + mNumber + "的投资达人");
+                        otherViewHolder2.tv_flag.setText("总出借(元)");
+                        otherViewHolder2.strength_des.setText("击败了" + mNumber + "的出借达人");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -256,7 +256,7 @@ public class InvestTopActivity extends BaseActivity {
                     DecimalFormat dcmFmt = new DecimalFormat("#,###.00");
                     double db = Double.parseDouble(tenderMoney);
                     viewHolder.syn_yield.setText(dcmFmt.format(db) + "");
-                    viewHolder.tv_flag.setText("总投资(元)");
+                    viewHolder.tv_flag.setText("总出借(元)");
 
 
 

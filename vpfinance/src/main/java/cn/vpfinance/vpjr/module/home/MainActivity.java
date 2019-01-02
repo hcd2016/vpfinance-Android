@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity {
 
     private MainTab2Menu mainTab2Menu;
     private PopupWindow titlePopupWindow;
-    private static final String SCHEDULE_PRODUCT = "定期投资";
+    private static final String SCHEDULE_PRODUCT = "定期出借";
     private static final String TRANSFER_PRODUCT = "转让专区";
     private AppUpdateInfo info;
     private DownloadObserver mDownloadObserver;

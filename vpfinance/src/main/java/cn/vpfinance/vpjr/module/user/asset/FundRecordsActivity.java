@@ -19,7 +19,7 @@ import cn.vpfinance.vpjr.module.product.fragment.NewFundRecordsListFragment;
 import de.greenrobot.event.EventBus;
 
 /**
- * 个人中心 我的投资
+ * 个人中心 我的出借
  *
  */
 public class FundRecordsActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
