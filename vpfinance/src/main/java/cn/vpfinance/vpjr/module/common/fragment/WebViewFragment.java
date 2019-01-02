@@ -11,7 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.FinanceApplication;
+import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.base.BaseFragment;
 
 /**
@@ -41,7 +41,7 @@ public class WebViewFragment extends BaseFragment{
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
         settings.setAppCacheEnabled(true);
-        String appCachePath = FinanceApplication.getAppContext().getCacheDir().getAbsolutePath();
+        String appCachePath = App.getAppContext().getCacheDir().getAbsolutePath();
         settings.setAppCachePath(appCachePath);
         settings.setDomStorageEnabled(true);
         settings.setJavaScriptEnabled(true);

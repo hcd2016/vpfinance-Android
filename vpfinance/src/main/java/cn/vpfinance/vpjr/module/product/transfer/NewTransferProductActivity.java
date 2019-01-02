@@ -314,7 +314,7 @@ public class NewTransferProductActivity extends BaseActivity implements View.OnC
 //                            .show();
 //                    return;
                     new CommonTipsDialogFragment.Buidler()
-                            .setContent("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行出借")
+                            .setContent("为合理优化您的资产配置，请完成风险测评")
                             .setBtnRight("确认")
                             .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                                 @Override

@@ -85,7 +85,7 @@ public class NewRegularProductActivity extends BaseActivity {
     public static final String PRODUCT_TITLE = "product_title";//标名
     public static final String IS_GE_TUI = "is_ge_tui";//是否个推
     public static final String IS_DEPOSIT = "is_deposit";//是否定存宝
-    public static final String RecordPoolId = "recordPoolId";//如果是从定存宝的投资详情进去标的详情,传递(RecordPoolId),其他的不传递
+    public static final String RecordPoolId = "recordPoolId";//如果是从定存宝的出借详情进去标的详情,传递(RecordPoolId),其他的不传递
     public int answerStatus;//1不弹 2弹提示框, 去做风险测评
 
     @Bind(R.id.titleBar)
@@ -329,7 +329,7 @@ public class NewRegularProductActivity extends BaseActivity {
 //                        .setNegativeButton("下次再说", null)
 //                        .show();
                 new CommonTipsDialogFragment.Buidler()
-                        .setContent("您很久未进行过出借人风险测评，根据监管要求，请先完成风险测评再进行出借")
+                        .setContent("为合理优化您的资产配置，请完成风险测评")
                         .setBtnRight("确认")
                         .setOnRightClickListener(new CommonTipsDialogFragment.OnRightClickListner() {
                             @Override
@@ -380,11 +380,11 @@ public class NewRegularProductActivity extends BaseActivity {
         }
     }
 
-    //投资跳转
+    //出借跳转
     public void invest() {
         if (newBaseInfoBean != null) {
             Intent intent = new Intent(NewRegularProductActivity.this, ProductInvestActivity.class);
-            if ("1".equals(newBaseInfoBean.imageUrlJump)) {//跳转本地活动投资页面
+            if ("1".equals(newBaseInfoBean.imageUrlJump)) {//跳转本地活动出借页面
                 intent.putExtra(ProductInvestActivity.IPHONE, newBaseInfoBean.givePhone);
             }
             intent.putExtra("pid", "" + newBaseInfoBean.loanId);

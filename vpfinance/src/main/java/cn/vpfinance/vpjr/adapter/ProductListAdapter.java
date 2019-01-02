@@ -56,7 +56,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<LoanSignListNewBean.LoansignsBean> mLoansigns;
     private Context mContext;
     private static final int ShenYangProductType = 0;//沈阳项目
-    private static final int GeneralProductType = 1;//专项投资,存管专区,转让专区
+    private static final int GeneralProductType = 1;//专项出借,存管专区,转让专区
 
     private int typeList = Constant.TYPE_REGULAR;
     private OnItemClickListener listener;
@@ -183,7 +183,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             GeneralViewHolder holder = (GeneralViewHolder)viewHolder;
             final LoanSignListNewBean.LoansignsBean product = mLoansigns.get(position);
             if (product != null){
-                //国庆投资送iphone7活动
+                //国庆出借送iphone7活动
 //                holder.iphone.setVisibility(product.givePhone == 1 ? View.VISIBLE : View.GONE);
 
                 holder.rootView.setOnClickListener(new View.OnClickListener() {

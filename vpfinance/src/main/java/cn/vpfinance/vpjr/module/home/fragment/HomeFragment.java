@@ -480,7 +480,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void initLoanProduct(AppmemberIndexBean.LoanDataBean loanData) {
         if (loanData == null) return;
 
-//        informsList.add(new Pair<String, String>("累计投资金额(元):" + loanData.totalMoney, ""));
+//        informsList.add(new Pair<String, String>("累计出借金额(元):" + loanData.totalMoney, ""));
 //        informsList.add(new Pair<String, String>("累计收益金额(元):" + loanData.totalInterest, ""));
         //普通标
         List<AppmemberIndexBean.LoanDataBean.LoansignsBean> loansigns = loanData.loansigns;

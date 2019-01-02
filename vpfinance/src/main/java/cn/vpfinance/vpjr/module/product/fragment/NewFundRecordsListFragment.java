@@ -355,7 +355,7 @@ public class NewFundRecordsListFragment extends NewBaseFragment implements HttpD
 
 
                     viewHolder.tvTitle.setText(bean.getTitle());//项目名字
-                    viewHolder.tvMoney.setText(bean.getTenderMoney() + "元");//投资金额
+                    viewHolder.tvMoney.setText(bean.getTenderMoney() + "元");//出借金额
                     String[] split = bean.getTenderTime().split(" ");
 
                     if (mType.equals("1")) {//持有中
