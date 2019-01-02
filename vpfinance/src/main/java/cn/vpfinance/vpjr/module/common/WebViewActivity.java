@@ -21,6 +21,7 @@ import android.webkit.CookieSyncManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -214,7 +215,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             if (url.contains(",1") && url.contains("hx/repayment/repay")) {
                 url = url.replace(",1", "");
             }
-            if(url.contains("riskCompleteClick")) {
+            if (url.contains("riskCompleteClick")) {
                 finish();
                 return;
             }
@@ -445,6 +446,8 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         //登录成功后uid替换
         if (!TextUtils.isEmpty(mTempUrl)) {
             Uri uri = Uri.parse(mTempUrl);
+//        if (!TextUtils.isEmpty(str)) {
+//            Uri uri = Uri.parse(str);
             String path = uri.getPath();
             String uid = uri.getQueryParameter("uid");
             String type = uri.getQueryParameter("type");
@@ -499,6 +502,29 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             Utils.Toast(WebViewActivity.this, description);
         }
 
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            String url = "";
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                url = request.getUrl().toString();
+            } else {
+                url = request.toString();
+            }
+            Logger.e("shouldOverrideUrlLoading:" + url);
+            if (TextUtils.isEmpty(url)) return true;
+            //vpfinance://toLogin
+            //如果跳转链接出现vpfinance://开头的就去调用相对应的方法
+            if (!TextUtils.isEmpty(url) && url.contains("vpfinance://")) {
+                String methodName = url.substring("vpfinance://".length());
+//                Logger.e("qqq:"+methodName);
+                if ("toLogin".equals(methodName)) {
+                    mTempUrl = webView.getUrl();
+                    gotoActivity(LoginActivity.class);
+                    //?uid=&isShare=1&type=4   成功后添加uid参数
+                }
+            }
+            return true;
+        }
 
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             Logger.e("shouldOverrideUrlLoading:" + url);
@@ -641,6 +667,7 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
 //                Logger.e("onComplete");
+                startRequestInformSuccess();
             }
 
             @Override
@@ -655,7 +682,6 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
         });
         // 启动分享GUI
         oks.show(this);
-        startRequestInformSuccess();
     }
 
     private String getProtocol(String url) {

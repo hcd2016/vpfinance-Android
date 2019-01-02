@@ -278,3 +278,12 @@ public static final int *;
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
 # -keep class android.support.**{*;}
+
+# js
+-keepattributes  Annotation
+-keepattributes  JavascriptInterface
+
+-keepclassmembernames class cn.vpfinance.vpjr.module.common.WebViewActivity{*;}
+-keep public class android.net.http.SslError
+-keepclassmembernames class cn.vpfinance.vpjr.module.common.WebViewActivity.MyWebChromeClient
+-keep class cn.vpfinance.vpjr.module.common.WebViewActivity.MyWebChromeClient
