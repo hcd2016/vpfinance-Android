@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/transparent"
     android:orientation="vertical">
-
+    <View
+        android:id="@+id/v_red_bg"
+        android:background="@color/red_text2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
     <RelativeLayout
         android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/shape_radius6_white"
-        android:paddingBottom="15dp">
-
+        android:paddingBottom="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,7 +28,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -84,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
@@ -130,15 +133,16 @@
                             </LinearLayout>
 
                             <TextView
+                                android:id="@+id/tv_rate_des"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="3dp"
                                 android:text="约定年利率"
                                 android:textColor="@color/text_999999"
                                 android:textSize="14sp" />
                         </LinearLayout>
 
                         <View
+                            android:layout_marginTop="8dp"
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:background="@drawable/shape_shu_xuxian_line"
@@ -170,7 +174,7 @@
                                 android:id="@+id/tv_money_desc"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="19dp"
+                                android:layout_marginTop="15dp"
                                 android:text="可购余额"
                                 android:textColor="@color/text_999999"
                                 android:textSize="14sp"
@@ -205,7 +209,7 @@
 
                     <LinearLayout
                         android:id="@+id/ll_progress_container"
-                        android:layout_marginTop="17dp"
+                        android:layout_marginTop="10dp"
                         android:gravity="center_vertical"
                         android:layout_marginRight="15dp"
                         android:layout_marginLeft="15dp"
@@ -238,7 +242,7 @@
                         android:layout_height="18dp"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:visibility="visible"
                         custom:newLayout="@layout/layout_time_countdown5" />
                 </LinearLayout>
@@ -265,4 +269,4 @@
             tools:src="@mipmap/chanpin_manbiao"
             tools:visibility="visible" />
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

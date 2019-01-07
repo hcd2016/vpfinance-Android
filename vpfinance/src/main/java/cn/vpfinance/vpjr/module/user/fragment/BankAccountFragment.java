@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +22,9 @@ import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.jewelcredit.util.Utils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.json.JSONObject;
 
@@ -73,7 +76,7 @@ public class BankAccountFragment extends BaseFragment {
     //    @Bind(R.id.header)
 //    public RelativeLayout mHeader;
     @Bind(R.id.refresh)
-    SwipeRefreshLayout mRefresh;
+    SmartRefreshLayout mRefresh;
     //    @Bind(R.id.tvUserName)
 //    TextView tvUserName;
     @Bind(R.id.tvReturnMoneyCount)
@@ -124,6 +127,8 @@ public class BankAccountFragment extends BaseFragment {
     LinearLayout llAssetsContainer;
     @Bind(R.id.tv_no_data_header)
     TextView tvNoDataHeader;
+    @Bind(R.id.ll_container)
+    LinearLayout llContainer;
 
     private User user;
     private HttpService mHttpService;
@@ -150,13 +155,22 @@ public class BankAccountFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        mRefresh.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.red_text2));
-        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mRefresh.setPrimaryColors(Utils.getColor(R.color.red_text2));
+        llContainer.setBackgroundColor(Utils.getColor(R.color.red_text2));
+        mRefresh.setEnableLoadMore(false);
+        mRefresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 loadDate();
             }
         });
+//        mRefresh.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.red_text2));
+//        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                loadDate();
+//            }
+//        });
         mHeaderNoOpen.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.account_bank_header));
 
         titleBar.reset()
@@ -234,6 +248,7 @@ public class BankAccountFragment extends BaseFragment {
             mHttpService.getBankCard(sesnId);
         }
     }
+
     boolean isRequestSucess = false;
 
     @Override
@@ -243,7 +258,8 @@ public class BankAccountFragment extends BaseFragment {
             isRequestSucess = true;
             if (isForceLogout(getActivity(), json)) return;
         }
-        mRefresh.setRefreshing(false);
+        mRefresh.finishRefresh();
+//        mRefresh.setRefreshing(false);
         if (reqId == ServiceCmd.CmdId.CMD_liteMoneyInfo.ordinal()) {
             String msg = json.optString("msg");
             if ("1".equals(msg)) {
@@ -291,7 +307,6 @@ public class BankAccountFragment extends BaseFragment {
 //            }
 //        }
     }
-
 
 
     private String killPercent;
@@ -398,7 +413,9 @@ public class BankAccountFragment extends BaseFragment {
             tvNoOpenHint.setText("为了保障您的资金安全 需先开通存管账户");
             tvNoOpenHint2.setVisibility(View.VISIBLE);
             tvNoOpenHint2.setText("开通后10分钟左右可以查看开通结果 请勿重复操作");
-            mRefresh.setColorSchemeColors(Utils.getColor(R.color.account_bank_header));
+//            mRefresh.setColorSchemeColors(Utils.getColor(R.color.account_bank_header));
+            mRefresh.setPrimaryColors(Utils.getColor(R.color.account_bank_header));
+            llContainer.setBackgroundColor(Utils.getColor(R.color.account_bank_header));
         } else if (!isBindBank) {
             titleBar.setColor(getResources().getColor(R.color.account_bank_header));
 //            mHeader.setVisibility(View.GONE);
@@ -408,23 +425,28 @@ public class BankAccountFragment extends BaseFragment {
             click_open_bank_account.setText("绑卡激活");
             tvNoOpenHint.setText("开通了银行存管的用户 需绑定银行卡激活账户");
             tvNoOpenHint2.setVisibility(View.GONE);
-            mRefresh.setColorSchemeColors(Utils.getColor(R.color.account_bank_header));
+//            mRefresh.setColorSchemeColors(Utils.getColor(R.color.account_bank_header));
+            mRefresh.setPrimaryColors(Utils.getColor(R.color.account_bank_header));
+            llContainer.setBackgroundColor(Utils.getColor(R.color.account_bank_header));
         } else {
             titleBar.setColor(getResources().getColor(R.color.red_text2));
 //            mHeader.setVisibility(View.VISIBLE);
             mHeaderNoOpen.setVisibility(View.GONE);
             mOpenContent.setVisibility(View.VISIBLE);
             noOpenHidden.setVisibility(View.VISIBLE);
-            mRefresh.setColorSchemeColors(Utils.getColor(R.color.red_text2));
+//            mRefresh.setColorSchemeColors(Utils.getColor(R.color.red_text2));
+            mRefresh.setPrimaryColors(Utils.getColor(R.color.red_text2));
+            llContainer.setBackgroundColor(Utils.getColor(R.color.red_text2));
         }
     }
 
     @Override
     public void onHttpError(int reqId, String errmsg) {
         if (mRefresh != null)
-            mRefresh.setRefreshing(false);
-        if(reqId ==  ServiceCmd.CmdId.CMD_member_center.ordinal()) {
-            if(!isRequestSucess) {
+//            mRefresh.setRefreshing(false);
+            mRefresh.finishRefresh();
+        if (reqId == ServiceCmd.CmdId.CMD_member_center.ordinal()) {
+            if (!isRequestSucess) {
                 tvNoDataHeader.setVisibility(View.VISIBLE);
                 llAssetsContainer.setVisibility(View.GONE);
             }

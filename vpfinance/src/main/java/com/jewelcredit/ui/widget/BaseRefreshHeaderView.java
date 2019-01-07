@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -40,6 +41,8 @@ public class BaseRefreshHeaderView extends FrameLayout implements RefreshHeader 
     TextView tvRefreshDesc;
     @Bind(R.id.ll_desc_container)
     LinearLayout llDescContainer;
+    @Bind(R.id.rl_container)
+    RelativeLayout rlContainer;
     private long lastUpdateTime = System.currentTimeMillis();
 
     public BaseRefreshHeaderView(@NonNull Context context) {
@@ -60,7 +63,7 @@ public class BaseRefreshHeaderView extends FrameLayout implements RefreshHeader 
 
     private void initView(Context context) {
         View view = View.inflate(context, R.layout.base_refresh_header_view, null);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         addView(view);
     }
 
@@ -78,6 +81,7 @@ public class BaseRefreshHeaderView extends FrameLayout implements RefreshHeader 
 
     @Override
     public void setPrimaryColors(int... colors) {
+        rlContainer.setBackgroundColor(colors[0]);
     }
 
     @Override
@@ -102,10 +106,13 @@ public class BaseRefreshHeaderView extends FrameLayout implements RefreshHeader 
 
     @Override
     public int onFinish(@NonNull RefreshLayout refreshLayout, boolean success) {
-        if(!success) {
+        if (!success) {
+            tvRefreshDesc.setText("刷新失败,请稍后重试!");
             Utils.Toast("刷新失败,请稍后重试!");
+        }else {
+            tvRefreshDesc.setText("刷新完成");
         }
-        return 0;
+        return 1000;
     }
 
     @Override
@@ -126,18 +133,21 @@ public class BaseRefreshHeaderView extends FrameLayout implements RefreshHeader 
         switch (newState) {
             case None:
             case PullDownToRefresh:
+                ivImg.setVisibility(VISIBLE);
                 tvRefreshDesc.setText("下拉刷新");
-                tvRefreshTime.setText("最后更新 "+lastTime);
+                tvRefreshTime.setText("最后更新 " + lastTime);
                 ivImg.setImageResource(R.mipmap.loading0);
                 break;
             case Refreshing:
+                ivImg.setVisibility(VISIBLE);
                 tvRefreshDesc.setText("正在刷新");
-                tvRefreshTime.setText("最后更新 "+lastTime);
+                tvRefreshTime.setText("最后更新 " + lastTime);
                 Glide.with(context).load(R.mipmap.loading2).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(ivImg);
                 break;
             case ReleaseToRefresh:
+                ivImg.setVisibility(VISIBLE);
                 tvRefreshDesc.setText("松开刷新");
-                tvRefreshTime.setText("最后更新 "+lastTime);
+                tvRefreshTime.setText("最后更新 " + lastTime);
                 ivImg.setImageResource(R.mipmap.loading1);
                 break;
         }

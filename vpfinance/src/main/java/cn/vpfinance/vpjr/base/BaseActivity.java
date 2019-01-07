@@ -24,6 +24,7 @@ import cn.vpfinance.vpjr.util.Common;
 import cn.vpfinance.vpjr.util.Logger;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.util.StatusBarCompat1;
+import cn.vpfinance.vpjr.util.StatusBarUtils;
 
 public class BaseActivity extends FragmentActivity implements HttpDownloader.HttpDownloaderListener{
 	protected TitleBar mTitleBar;
@@ -32,6 +33,7 @@ public class BaseActivity extends FragmentActivity implements HttpDownloader.Htt
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//		StatusBarUtils.hideStatusBar(this,true);//隐藏标题栏
 		StatusBarCompat1.translucentStatusBar(this);
 	}
 

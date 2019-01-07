@@ -97,14 +97,12 @@
                     </LinearLayout>
 
                     <com.bigkoo.convenientbanner.ConvenientBanner
-                    android:id="@+id/convenientBanner"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/shape_radius5_tanst"
-                    app:canLoop="true" />
+                        android:id="@+id/convenientBanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/shape_radius5_tanst"
+                        app:canLoop="true" />
 
                 </RelativeLayout>
 

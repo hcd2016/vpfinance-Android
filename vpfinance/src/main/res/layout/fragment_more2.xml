@@ -272,7 +272,7 @@
                     <View
                         android:layout_width="10dp"
                         android:layout_height="match_parent"
-                        android:background="@color/bg_gray2" />
+                        android:background="@color/gray_bg" />
 
                     <LinearLayout
                         android:id="@+id/clickHelp"

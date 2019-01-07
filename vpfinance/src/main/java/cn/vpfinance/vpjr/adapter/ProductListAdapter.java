@@ -182,6 +182,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }else{
             GeneralViewHolder holder = (GeneralViewHolder)viewHolder;
             final LoanSignListNewBean.LoansignsBean product = mLoansigns.get(position);
+            if(position == 0) {
+                holder.v_red_bg.setVisibility(View.VISIBLE);
+            }else {
+                holder.v_red_bg.setVisibility(View.GONE);
+            }
+
             if (product != null){
                 //国庆出借送iphone7活动
 //                holder.iphone.setVisibility(product.givePhone == 1 ? View.VISIBLE : View.GONE);
@@ -460,9 +466,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             holder.tvRate.setText(tmp);
                             holder.tv_addrate.setVisibility(View.GONE);
                         }
-//                        holder.tv_rate_des.setText("约定年利率");
-
+                        holder.tv_rate_des.setText("约定年利率");
+                        holder.tv_deadline.setText("项目期限");
                     }else if (typeList == Constant.TYPE_TRANSFER){
+                        holder.tv_deadline.setText("剩余期限");
 //                        holder.tvMonthInfo.setText("剩余期限");
 //                        holder.tvTotalMoneyInfo.setText("转让总额");
 //                        holder.bankAccountStatus.setVisibility(View.GONE);
@@ -474,7 +481,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         if (loansign.issueLoan >= 10000){
                             holder.tvLoanTatol.setText(FormatUtils.formatDown2(loansign.issueLoan / 10000) + "万");
                         }else{
-                            holder.tvLoanTatol.setText(FormatUtils.formatDown2(loansign.issueLoan));
+                            holder.tvLoanTatol.setText(FormatUtils.formatDown2(loansign.issueLoan)+"元");
                         }
                         if (reward > 0) {
                             holder.rewardIv.setVisibility(View.VISIBLE);
@@ -483,7 +490,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         double promitRate = product.promitRate*100;
                         String tmp = FormatUtils.formatDown(promitRate);
                         holder.tvRate.setText(tmp);
-//                        holder.tv_rate_des.setText("转让利率");
+                        holder.tv_rate_des.setText("转让利率");
                         holder.rewardIv.setVisibility(View.INVISIBLE);
                     }
                 }
@@ -517,8 +524,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView tvRate;
         @Bind(R.id.item_loan_rate_percent)
         TextView tvRatePercent;
-//        @Bind(R.id.tv_rate_des)
-//        TextView tv_rate_des;
+        @Bind(R.id.tv_rate_des)
+        TextView tv_rate_des;
         @Bind(R.id.item_loan_term)
         TextView tvTerm;
 //        @Bind(R.id.status)
@@ -549,6 +556,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         MyCountDownTimer countDown;
         @Bind(R.id.tv_addrate)
         TextView tv_addrate;
+        @Bind(R.id.tv_deadline)
+        TextView tv_deadline;
 //        @Bind(R.id.iphone7)
 //        ImageView iphone;
         @Bind(R.id.iv_fdjx)
@@ -559,8 +568,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         ProgressBar progress;
         @Bind(R.id.tv_progress_num)
         TextView tv_progress_num;
+        @Bind(R.id.tv_money_desc)
+        TextView tv_money_desc;
         @Bind(R.id.ll_progress_container)
         LinearLayout ll_progress_container;
+        @Bind(R.id.v_red_bg)
+        View v_red_bg;
 
 
 

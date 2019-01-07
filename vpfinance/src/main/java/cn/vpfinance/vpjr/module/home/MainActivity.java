@@ -68,6 +68,7 @@ import cn.vpfinance.vpjr.service.DemoIntentService;
 import cn.vpfinance.vpjr.service.DemoPushService;
 import cn.vpfinance.vpjr.util.DBUtils;
 import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
+import cn.vpfinance.vpjr.util.StatusBarUtils;
 import cn.vpfinance.vpjr.util.UpdateAppUtil;
 import cn.vpfinance.vpjr.view.popwindow.MainTab2Menu;
 import de.greenrobot.event.EventBus;

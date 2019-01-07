@@ -12,6 +12,7 @@
         android:src="@drawable/arrow_down1" />
 
     <ProgressBar
+        android:indeterminateTint="@color/red_text2"
         android:id="@+id/iv_header_loading"
         android:layout_width="30dp"
         android:layout_height="30dp" />

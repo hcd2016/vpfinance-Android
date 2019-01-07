@@ -565,6 +565,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         @Override
         public View createView(Context context) {
             imageView = new ImageView(context);
+            imageView.setPadding(Utils.dip2px(getActivity(),10),0,Utils.dip2px(getActivity(),10),0);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             return imageView;
         }

@@ -2,14 +2,19 @@ package cn.vpfinance.vpjr.module.list;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +36,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.App;
+import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.base.BaseFragment;
 import cn.vpfinance.vpjr.gson.LoanSignTypeBean;
 import cn.vpfinance.vpjr.model.RefreshTab;
@@ -49,6 +54,12 @@ public class ProductCategoryFragment extends BaseFragment {
 
     @Bind(R.id.tab_layout)
     TabLayout tabLayout;
+    @Bind(R.id.coordinatorLayout)
+    CoordinatorLayout coordinatorLayout;
+    @Bind(R.id.appBarLayout)
+    AppBarLayout appBarLayout;
+    @Bind(R.id.titleBar)
+    ActionBarLayout titleBar;
     private ViewPager mViewPager;
     //    private PagerSlidingTabStripNew mTabs;
     private HttpService mHttpService;
@@ -62,12 +73,14 @@ public class ProductCategoryFragment extends BaseFragment {
         EventBus.getDefault().register(this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_product_category, null);
+        ButterKnife.bind(this, view);
 
-        ((ActionBarLayout) view.findViewById(R.id.titleBar)).reset().setTitle("产品列表").setImageButtonLeft(R.mipmap.icon_info, new View.OnClickListener() {
+        ((ActionBarLayout) view.findViewById(R.id.titleBar)).reset().setTitle("产品列表").setFakeStatusBar(false).setImageButtonLeft(R.mipmap.icon_info, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gotoWeb("/AppContent/productdescription", "名词解释");
@@ -87,7 +100,6 @@ public class ProductCategoryFragment extends BaseFragment {
         mHttpService = new HttpService(mContext, this);
 //        mHttpService.getIsShowDeposit();
         mHttpService.getLoanSignType();
-        ButterKnife.bind(this, view);
         return view;
     }
 

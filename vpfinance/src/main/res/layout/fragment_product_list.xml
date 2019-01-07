@@ -12,12 +12,11 @@
         android:layout_height="match_parent">
 
         <cn.vpfinance.vpjr.view.pullrefresh.PullRefreshRecyclerView
+            android:background="@color/gray_bg"
             android:id="@+id/pull_refresh_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginTop="15dp" />
+             />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <TextView
