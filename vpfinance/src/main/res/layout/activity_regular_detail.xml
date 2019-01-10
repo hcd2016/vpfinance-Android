@@ -21,6 +21,7 @@
         android:layout_weight="1">
 
         <android.support.design.widget.AppBarLayout
+            app:elevation="0dp"
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -32,10 +33,13 @@
             <include layout="@layout/head_view_product_detail" />
 
             <android.support.design.widget.TabLayout
+                android:background="@color/white"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
                 android:id="@+id/tabs"
                 app:tabMode="scrollable"
+                app:tabIndicatorHeight="1dp"
                 android:layout_width="match_parent"
-                android:layout_height="42dip"
+                android:layout_height="44dp"
                 app:tabIndicatorColor="@color/red_text2"
                 app:tabSelectedTextColor="@color/red_text2"
                 app:tabTextColor="@color/text_666666" />
@@ -46,7 +50,7 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@color/gray_bg"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </android.support.design.widget.CoordinatorLayout>

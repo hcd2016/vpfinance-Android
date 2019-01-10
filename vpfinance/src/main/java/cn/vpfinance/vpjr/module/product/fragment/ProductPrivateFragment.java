@@ -2,6 +2,7 @@ package cn.vpfinance.vpjr.module.product.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ public class ProductPrivateFragment extends BaseFragment {
 
     @Bind(R.id.info)
     TextView info;
+    @Bind(R.id.lookOtherProduct)
+    TextView lookOtherProduct;
     private Context mContext;
     public static final String HINT_TEXT = "hint_text";
 
@@ -38,9 +41,10 @@ public class ProductPrivateFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         Bundle bundle = getArguments();
-        if (bundle != null && !TextUtils.isEmpty(bundle.getString(HINT_TEXT))){
+        if (bundle != null && !TextUtils.isEmpty(bundle.getString(HINT_TEXT))) {
             info.setText(bundle.getString(HINT_TEXT));
         }
+        lookOtherProduct.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
         return view;
     }
 

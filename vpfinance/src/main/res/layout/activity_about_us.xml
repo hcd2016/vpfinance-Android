@@ -11,14 +11,14 @@
         android:layout_height="wrap_content" />
 
     <ScrollView
-        android:background="@color/gray_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/gray_bg">
 
         <LinearLayout
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <ImageView
@@ -29,15 +29,15 @@
                 android:src="@drawable/img_logo_v" />
 
             <TextView
-                android:textColor="@color/text_666666"
-                android:textSize="13sp"
                 android:id="@+id/currVer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="60dp"
                 android:layout_marginTop="20dp"
-                android:text="微品金融0.0" />
+                android:text="微品金融0.0"
+                android:textColor="@color/text_666666"
+                android:textSize="13sp" />
 
             <include layout="@layout/gray_split_bar_10" />
 
@@ -110,6 +110,43 @@
             </LinearLayout>
 
             <include layout="@layout/line_linear_gray_marginleft15" />
+
+            <LinearLayout
+                android:id="@+id/ll_company_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="18dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="18dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="客服热线"
+                    android:textColor="@color/text_333333"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_phone_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0755-86627551"
+                    android:textColor="@color/text_666666" />
+
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="9dp"
+                    android:src="@drawable/nav_next_2" />
+            </LinearLayout>
+
+
+            <include layout="@layout/line_linear_gray_marginleft15" />
+
             <LinearLayout
                 android:id="@+id/ll_company_profile"
                 android:layout_width="match_parent"
@@ -135,276 +172,275 @@
                     android:layout_marginLeft="9dp"
                     android:src="@drawable/nav_next_2" />
             </LinearLayout>
-
             <!--<include layout="@layout/line_linear_gray_marginleft15" />-->
 
 
             <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:layout_marginRight="10dp"-->
-                <!--android:orientation="vertical">-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:orientation="vertical">-->
 
-                <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:id="@+id/clickAttent"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:gravity="center_vertical"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:orientation="horizontal"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:paddingLeft="20dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:paddingRight="20dp">&ndash;&gt;-->
+            <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/clickAttent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:gravity="center_vertical"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:orientation="horizontal"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:paddingLeft="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:paddingRight="20dp">&ndash;&gt;-->
 
-                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:drawableLeft="@drawable/ic_aboutme_weixin"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:drawablePadding="5dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="关注我们" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:drawableLeft="@drawable/ic_aboutme_weixin"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:drawablePadding="5dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="关注我们" />&ndash;&gt;-->
 
-                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:drawablePadding="20dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:drawableRight="@drawable/nav_next_2"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:gravity="center_vertical|right"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="随时了解平台最新资讯"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:textColor="@color/text_black" />&ndash;&gt;-->
-                <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:drawablePadding="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:drawableRight="@drawable/nav_next_2"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:gravity="center_vertical|right"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="随时了解平台最新资讯"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textColor="@color/text_black" />&ndash;&gt;-->
+            <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
 
-                <!--&lt;!&ndash;<View&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="1px"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:background="@color/divider_color" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<View&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="1px"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:background="@color/divider_color" />&ndash;&gt;-->
 
-                <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:id="@+id/clickVP"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:gravity="center_vertical"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:orientation="horizontal"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:paddingLeft="20dp"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:paddingRight="20dp">&ndash;&gt;-->
+            <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/clickVP"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:gravity="center_vertical"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:orientation="horizontal"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:paddingLeft="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:paddingRight="20dp">&ndash;&gt;-->
 
-                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:drawableLeft="@drawable/ic_aboutme_home"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:drawablePadding="5dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="我们官网" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:drawableLeft="@drawable/ic_aboutme_home"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:drawablePadding="5dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="我们官网" />&ndash;&gt;-->
 
-                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:drawablePadding="20dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:drawableRight="@drawable/nav_next_2"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:gravity="center_vertical|right"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="www.vpfinance.cn"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:textColor="@color/text_black" />&ndash;&gt;-->
-                <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:drawablePadding="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:drawableRight="@drawable/nav_next_2"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:gravity="center_vertical|right"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="www.vpfinance.cn"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textColor="@color/text_black" />&ndash;&gt;-->
+            <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
 
-                <!--&lt;!&ndash;<View&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="1px"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:background="@color/divider_color" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<View&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="1px"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:background="@color/divider_color" />&ndash;&gt;-->
 
-                <!--<LinearLayout-->
-                    <!--android:id="@+id/clickPhone"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="50dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:paddingLeft="20dp"-->
-                    <!--android:paddingRight="20dp">-->
+            <!--<LinearLayout-->
+            <!--android:id="@+id/clickPhone"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:paddingLeft="20dp"-->
+            <!--android:paddingRight="20dp">-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:drawableLeft="@drawable/ic_aboutme_call"-->
-                        <!--android:drawablePadding="5dp"-->
-                        <!--android:text="客服热线" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawableLeft="@drawable/ic_aboutme_call"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:text="客服热线" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:drawablePadding="20dp"-->
-                        <!--android:drawableRight="@drawable/nav_next_2"-->
-                        <!--android:gravity="center_vertical|right"-->
-                        <!--android:text="0755-86627551"-->
-                        <!--android:textColor="@color/text_black" />-->
-                <!--</LinearLayout>-->
+            <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:drawablePadding="20dp"-->
+            <!--android:drawableRight="@drawable/nav_next_2"-->
+            <!--android:gravity="center_vertical|right"-->
+            <!--android:text="0755-86627551"-->
+            <!--android:textColor="@color/text_black" />-->
+            <!--</LinearLayout>-->
 
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1px"-->
-                    <!--android:background="@color/divider_color" />-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1px"-->
+            <!--android:background="@color/divider_color" />-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="50dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:paddingLeft="20dp"-->
-                    <!--android:paddingRight="20dp">-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:paddingLeft="20dp"-->
+            <!--android:paddingRight="20dp">-->
 
-                    <!--<ImageView-->
-                        <!--android:layout_width="17dp"-->
-                        <!--android:layout_height="17dp"-->
-                        <!--android:layout_marginRight="5dp"-->
-                        <!--android:background="@drawable/ic_aboutme_zaixiankefu" />-->
+            <!--<ImageView-->
+            <!--android:layout_width="17dp"-->
+            <!--android:layout_height="17dp"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--android:background="@drawable/ic_aboutme_zaixiankefu" />-->
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/textView3"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="在线客服" />-->
+            <!--<TextView-->
+            <!--android:id="@+id/textView3"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="在线客服" />-->
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/textView4"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:drawablePadding="20dp"-->
-                        <!--android:gravity="center_vertical|right"-->
-                        <!--android:text="微信客服一对一为你解答"-->
-                        <!--android:textColor="@color/text_black" />-->
-                <!--</LinearLayout>-->
+            <!--<TextView-->
+            <!--android:id="@+id/textView4"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:drawablePadding="20dp"-->
+            <!--android:gravity="center_vertical|right"-->
+            <!--android:text="微信客服一对一为你解答"-->
+            <!--android:textColor="@color/text_black" />-->
+            <!--</LinearLayout>-->
 
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1px"-->
-                    <!--android:layout_marginLeft="20dp"-->
-                    <!--android:background="@color/divider_color" />-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1px"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:background="@color/divider_color" />-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="30dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:paddingLeft="20dp"-->
-                    <!--android:paddingRight="20dp">-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:paddingLeft="20dp"-->
+            <!--android:paddingRight="20dp">-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="22dp"-->
-                        <!--android:drawablePadding="5dp"-->
-                        <!--android:text="客服小微"-->
-                        <!--android:textSize="@dimen/text_size_12" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="22dp"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:text="客服小微"-->
+            <!--android:textSize="@dimen/text_size_12" />-->
 
-                    <!--<View-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_weight="1" />-->
+            <!--<View-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:drawablePadding="20dp"-->
-                        <!--android:gravity="center_vertical|right"-->
-                        <!--android:text="微信号:"-->
-                        <!--android:textColor="@color/text_black"-->
-                        <!--android:textSize="@dimen/text_size_12" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawablePadding="20dp"-->
+            <!--android:gravity="center_vertical|right"-->
+            <!--android:text="微信号:"-->
+            <!--android:textColor="@color/text_black"-->
+            <!--android:textSize="@dimen/text_size_12" />-->
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/phone1"-->
-                        <!--android:layout_width="80dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:drawablePadding="20dp"-->
-                        <!--android:gravity="center_vertical|right"-->
-                        <!--android:text="13530986255"-->
-                        <!--android:textColor="@color/text_black"-->
-                        <!--android:textSize="@dimen/text_size_12" />-->
+            <!--<TextView-->
+            <!--android:id="@+id/phone1"-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawablePadding="20dp"-->
+            <!--android:gravity="center_vertical|right"-->
+            <!--android:text="13530986255"-->
+            <!--android:textColor="@color/text_black"-->
+            <!--android:textSize="@dimen/text_size_12" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:drawablePadding="20dp"-->
-                        <!--android:gravity="center_vertical|right"-->
-                        <!--android:text="  或  "-->
-                        <!--android:textColor="@color/text_black"-->
-                        <!--android:textSize="@dimen/text_size_12" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawablePadding="20dp"-->
+            <!--android:gravity="center_vertical|right"-->
+            <!--android:text="  或  "-->
+            <!--android:textColor="@color/text_black"-->
+            <!--android:textSize="@dimen/text_size_12" />-->
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/name1"-->
-                        <!--android:layout_width="70dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:drawablePadding="20dp"-->
-                        <!--android:gravity="center_vertical|right"-->
-                        <!--android:text="vp_xiaowei"-->
-                        <!--android:textColor="@color/text_black"-->
-                        <!--android:textSize="@dimen/text_size_12" />-->
-                <!--</LinearLayout>-->
+            <!--<TextView-->
+            <!--android:id="@+id/name1"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawablePadding="20dp"-->
+            <!--android:gravity="center_vertical|right"-->
+            <!--android:text="vp_xiaowei"-->
+            <!--android:textColor="@color/text_black"-->
+            <!--android:textSize="@dimen/text_size_12" />-->
+            <!--</LinearLayout>-->
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="20dp"-->
-                    <!--android:layout_marginBottom="10dp"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:paddingLeft="20dp"-->
-                    <!--android:paddingRight="20dp">-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:paddingLeft="20dp"-->
+            <!--android:paddingRight="20dp">-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="22dp"-->
-                        <!--android:drawablePadding="5dp"-->
-                        <!--android:text="客服小金"-->
-                        <!--android:textSize="@dimen/text_size_12" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="22dp"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:text="客服小金"-->
+            <!--android:textSize="@dimen/text_size_12" />-->
 
-                    <!--<View-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_weight="1" />-->
+            <!--<View-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:drawablePadding="20dp"-->
-                        <!--android:gravity="center_vertical|right"-->
-                        <!--android:text="微信号:"-->
-                        <!--android:textColor="@color/text_black"-->
-                        <!--android:textSize="@dimen/text_size_12" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawablePadding="20dp"-->
+            <!--android:gravity="center_vertical|right"-->
+            <!--android:text="微信号:"-->
+            <!--android:textColor="@color/text_black"-->
+            <!--android:textSize="@dimen/text_size_12" />-->
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/phone2"-->
-                        <!--android:layout_width="80dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:drawablePadding="20dp"-->
-                        <!--android:gravity="center_vertical|right"-->
-                        <!--android:text="18589082579"-->
-                        <!--android:textColor="@color/text_black"-->
-                        <!--android:textSize="@dimen/text_size_12" />-->
+            <!--<TextView-->
+            <!--android:id="@+id/phone2"-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawablePadding="20dp"-->
+            <!--android:gravity="center_vertical|right"-->
+            <!--android:text="18589082579"-->
+            <!--android:textColor="@color/text_black"-->
+            <!--android:textSize="@dimen/text_size_12" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:drawablePadding="20dp"-->
-                        <!--android:gravity="center_vertical|right"-->
-                        <!--android:text="  或  "-->
-                        <!--android:textColor="@color/text_black"-->
-                        <!--android:textSize="@dimen/text_size_12" />-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawablePadding="20dp"-->
+            <!--android:gravity="center_vertical|right"-->
+            <!--android:text="  或  "-->
+            <!--android:textColor="@color/text_black"-->
+            <!--android:textSize="@dimen/text_size_12" />-->
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/name2"-->
-                        <!--android:layout_width="70dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:drawablePadding="20dp"-->
-                        <!--android:gravity="center_vertical|right"-->
-                        <!--android:text="vpjrkf"-->
-                        <!--android:textColor="@color/text_black"-->
-                        <!--android:textSize="@dimen/text_size_12" />-->
-                <!--</LinearLayout>-->
+            <!--<TextView-->
+            <!--android:id="@+id/name2"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:drawablePadding="20dp"-->
+            <!--android:gravity="center_vertical|right"-->
+            <!--android:text="vpjrkf"-->
+            <!--android:textColor="@color/text_black"-->
+            <!--android:textSize="@dimen/text_size_12" />-->
+            <!--</LinearLayout>-->
 
-                <!--<View-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1px"-->
-                    <!--android:layout_marginBottom="20dp"-->
-                    <!--android:background="@color/divider_color" />-->
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1px"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--android:background="@color/divider_color" />-->
             <!--</LinearLayout>-->
 
 

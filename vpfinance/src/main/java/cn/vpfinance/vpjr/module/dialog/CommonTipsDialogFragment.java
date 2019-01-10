@@ -1,6 +1,7 @@
 package cn.vpfinance.vpjr.module.dialog;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -108,6 +109,7 @@ public class CommonTipsDialogFragment extends DialogFragment {
         super.onStart();
         boolean isCancel = getArguments().getBoolean("isCancel");
         getDialog().setCancelable(isCancel);//必须在这调用才生效
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         initDialog();
     }
 

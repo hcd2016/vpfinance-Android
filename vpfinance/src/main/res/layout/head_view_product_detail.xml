@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
@@ -195,7 +195,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
-                        android:layout_marginTop="17dp"
+                        android:layout_marginTop="10dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -228,23 +228,26 @@
                         android:layout_height="18dp"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         custom:newLayout="@layout/layout_time_countdown5" />
                 </LinearLayout>
             </LinearLayout>
 
-            <include layout="@layout/line_linear_gray" />
+            <View
+                android:background="@color/gray_d5d"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
 
             <!--倒计时-->
             <cn.vpfinance.vpjr.view.MyCountDownTimer
+                android:layout_marginLeft="15dp"
                 android:visibility="gone"
                 android:id="@+id/coutdowntime_going"
                 tools:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 custom:newLayout="@layout/layout_time_countdown6" />
 
             <TextView
@@ -277,7 +280,7 @@
             android:layout_height="70dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:visibility="gone"
             tools:src="@mipmap/chanpin_manbiao"
             tools:visibility="visible" />

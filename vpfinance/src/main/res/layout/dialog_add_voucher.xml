@@ -2,6 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
+    android:background="@drawable/dialog_shape"
     android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="300dp"
@@ -67,7 +68,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:text="兑换"
-                android:textColor="@color/link_blue" />
+                android:textColor="@color/red_text2" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

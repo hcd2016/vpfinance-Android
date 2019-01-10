@@ -36,6 +36,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
         findViewById(R.id.clickVP).setOnClickListener(this);
         findViewById(R.id.clickAttent).setOnClickListener(this);
         findViewById(R.id.ll_company_profile).setOnClickListener(this);
+        findViewById(R.id.ll_company_phone).setOnClickListener(this);
 
 //        phone1 = (TextView) findViewById(R.id.phone1);
 //        phone2 = (TextView) findViewById(R.id.phone2);
@@ -82,9 +83,13 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
             case R.id.ll_company_profile://公司简介
                 //todo
                 break;
-//            case R.id.phone1:
-//                copeTv(phone1);
-//                break;
+            case R.id.ll_company_phone://客服热线
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + "0755-86627551"));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+                break;
 //            case R.id.phone2:
 //                copeTv(phone2);
 //                break;

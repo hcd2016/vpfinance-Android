@@ -9,6 +9,7 @@
             android:orientation="vertical"
             android:background="#EE373737">
             <ImageButton
+                android:visibility="gone"
                 android:id="@+id/clickX"
                 android:layout_width="40dp"
                 android:layout_height="40dp"

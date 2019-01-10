@@ -183,9 +183,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             GeneralViewHolder holder = (GeneralViewHolder)viewHolder;
             final LoanSignListNewBean.LoansignsBean product = mLoansigns.get(position);
             if(position == 0) {
-                holder.v_red_bg.setVisibility(View.VISIBLE);
+//                holder.rl_container.setBackgroundColor(Utils.getColor(R.color.transparent));
+//                holder.v_red_bg.setVisibility(View.VISIBLE);
             }else {
-                holder.v_red_bg.setVisibility(View.GONE);
+//                holder.rl_container.setBackgroundColor(Utils.getColor(R.color.bg_gray));
+//                holder.v_red_bg.setVisibility(View.GONE);
             }
 
             if (product != null){
@@ -330,9 +332,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             holder.tvRate.setTextColor(mContext.getResources().getColor(R.color.red_text));
                             holder.tvRatePercent.setTextColor(mContext.getResources().getColor(R.color.red_text));
 //                            holder.circle_background.setVisibility(View.GONE);
-                            holder.tvTerm.setTextColor(mContext.getResources().getColor(R.color.text_1c1c1c));
-                            holder.tvLoanTatol.setTextColor(mContext.getResources().getColor(R.color.text_1c1c1c));
-                            holder.tv_addrate.setBackground(mContext.getResources().getDrawable(R.mipmap.jiaxi1));
+                            holder.tvTerm.setTextColor(mContext.getResources().getColor(R.color.text_333333));
+                            holder.tvLoanTatol.setTextColor(mContext.getResources().getColor(R.color.text_333333));
+                            holder.tv_addrate.setBackgroundResource(R.mipmap.jiaxi1);
                             holder.rewardIv.setImageResource(R.mipmap.jiaxi);
                             break;
                         case 2://进行中
@@ -351,6 +353,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             }
 //                            holder.circular.setProgress(value);
                             holder.ll_progress_container.setVisibility(View.VISIBLE);
+                            holder.tv_progress_num.setTextColor(Utils.getColor(R.color.red_text2));
                             holder.tv_progress_num.setText(FormatUtils.formatAbout(value)+"%");
                             holder.progress.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.process_red_bg));
 //                            holder.progress.setProgress((int) product.process);
@@ -360,8 +363,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //                            holder.progress.setProgressTextColor(R.color.progress_complete);
 //                            holder.circular.setProgressColor(mContext.getResources().getColor(R.color.red_text));
 //                            holder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.red_text));
-                            holder.tvTerm.setTextColor(mContext.getResources().getColor(R.color.text_1c1c1c));
-                            holder.tvLoanTatol.setTextColor(mContext.getResources().getColor(R.color.text_1c1c1c));
+                            holder.tvTerm.setTextColor(mContext.getResources().getColor(R.color.text_333333));
+                            holder.tvLoanTatol.setTextColor(mContext.getResources().getColor(R.color.text_333333));
                             holder.tv_addrate.setBackground(mContext.getResources().getDrawable(R.mipmap.jiaxi1));
                             holder.rewardIv.setImageResource(R.mipmap.jiaxi);
                             break;
@@ -389,8 +392,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //                            holder.progress.setReachedBarColor(mContext.getResources().getColor(R.color.process_gray_noamal));
 //                            holder.progress.setUnreachedBarColor(mContext.getResources().getColor(R.color.process_gray_noamal));
 
-                            holder.tvTerm.setTextColor(mContext.getResources().getColor(R.color.text_999999));
-                            holder.tvLoanTatol.setTextColor(mContext.getResources().getColor(R.color.text_999999));
+                            holder.tvTerm.setTextColor(mContext.getResources().getColor(R.color.text_333333));
+                            holder.tvLoanTatol.setTextColor(mContext.getResources().getColor(R.color.text_333333));
                             holder.tv_addrate.setBackground(mContext.getResources().getDrawable(R.drawable.bg_rate_gray));
                             holder.rewardIv.setImageResource(R.drawable.ic_rate_gray);
                             break;
@@ -509,7 +512,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return mLoansigns == null ? 0 : mLoansigns.size();
     }
 
-    class GeneralViewHolder extends RecyclerView.ViewHolder {
+    public class GeneralViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.rootView)
         RelativeLayout rootView;
 //        @Bind(R.id.ll_Order)
@@ -574,6 +577,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         LinearLayout ll_progress_container;
         @Bind(R.id.v_red_bg)
         View v_red_bg;
+        @Bind(R.id.rl_container)
+        RelativeLayout rl_container;
 
 
 

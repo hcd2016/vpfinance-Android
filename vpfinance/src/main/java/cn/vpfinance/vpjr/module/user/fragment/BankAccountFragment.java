@@ -359,9 +359,10 @@ public class BankAccountFragment extends BaseFragment {
         String text = "近七日有" + tradeFlowRecordInfo + "笔回款";
         tvReturnMoneyCount.setText(text);
 
-        canUseNum.setText((TextUtils.isEmpty(mUserInfoBean.canUseTotal) || "0".equals(mUserInfoBean.canUseTotal)) ? "" : mUserInfoBean.canUseTotal + "张券可使用");
+//        canUseNum.setText((TextUtils.isEmpty(mUserInfoBean.canUseTotal) || "0".equals(mUserInfoBean.canUseTotal)) ? "" : mUserInfoBean.canUseTotal + "张可用");
+        canUseNum.setText((TextUtils.isEmpty(mUserInfoBean.canUseTotal) || "0".equals(mUserInfoBean.canUseTotal)) ?  mUserInfoBean.canUseTotal + "张可用": mUserInfoBean.canUseTotal + "张可用");
 
-        tvReturnMoneyPrincipal.setText(mUserInfoBean.capitalAmountSum);//待回款本金
+        tvReturnMoneyPrincipal.setText(mUserInfoBean.inCount);//待回款本金
 //        tvReturnMoneyIncome.setText(mUserInfoBean.profitAmountSum);//待回款利息
 
 //        myDescribe.setText(TextUtils.isEmpty(mUserInfoBean.signature) ? "未设置签名" : mUserInfoBean.signature);//个人签名
@@ -594,6 +595,8 @@ public class BankAccountFragment extends BaseFragment {
                     intent1.putExtra("frozenAmtN", TextUtils.isEmpty(mUserInfoBean.frozenAmtN) ? "" : mUserInfoBean.frozenAmtN);
                     intent1.putExtra("netAsset", TextUtils.isEmpty(mUserInfoBean.netAsset) ? "" : mUserInfoBean.netAsset);
                     intent1.putExtra("rechargingMoney", TextUtils.isEmpty(mUserInfoBean.rechargingMoney) ? "" : mUserInfoBean.rechargingMoney);
+                    intent1.putExtra("capitalAmountSum", TextUtils.isEmpty(mUserInfoBean.capitalAmountSum) ? "" : mUserInfoBean.capitalAmountSum);
+                    intent1.putExtra("profitAmountSum", TextUtils.isEmpty(mUserInfoBean.profitAmountSum) ? "" : mUserInfoBean.profitAmountSum);
                     intent1.putExtra(Constant.AccountType, accountType);
                     gotoActivity(intent1);
                 }

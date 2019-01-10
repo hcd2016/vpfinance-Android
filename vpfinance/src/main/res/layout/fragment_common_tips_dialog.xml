@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_radius8_white"
+    android:background="@drawable/dialog_shape"
     android:gravity="center"
     android:orientation="vertical"
     >
@@ -46,7 +46,6 @@
         android:background="@color/background_gray" />
 
     <LinearLayout
-        android:padding="2dp"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:orientation="horizontal">
@@ -56,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/selector_btn_white_gray"
+            android:background="@drawable/selector_white_left_bottom_circle_side"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
@@ -75,12 +74,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/selector_btn_white_gray"
+            android:background="@drawable/selector_white_right_bottom_circle_side"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
             android:text="确定"
-            android:textColor="@color/main_color"
+            android:textColor="@color/red_text2"
             android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>

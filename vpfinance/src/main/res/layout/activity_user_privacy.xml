@@ -11,17 +11,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/bg_gray2">
+        android:layout_height="15dp"
+        android:background="@color/bg_gray">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="30dp"
-            android:gravity="bottom"
-            android:paddingBottom="5dp"
-            android:text=""
-            android:textSize="@dimen/text_size_12"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_marginLeft="30dp"-->
+            <!--android:gravity="bottom"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:text=""-->
+            <!--android:textSize="@dimen/text_size_12"/>-->
     </RelativeLayout>
 
     <LinearLayout
@@ -51,21 +51,30 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
 
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/allow_pub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <!--<android.support.v7.widget.SwitchCompat-->
+                <!--android:id="@+id/allow_pub"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:checked="true"-->
+                <!--android:visibility="gone"/>-->
+            <ToggleButton
                 android:checked="true"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:id="@+id/allow_pub"
+                android:textOff=""
+                android:textOn=""
+                android:layout_width="45dp"
+                android:layout_height="24dp"
+                android:background="@drawable/switch_track" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="1px"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="12dp"
-            android:background="@color/divider_color"/>
+            android:background="@color/gray_d5d"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,20 +97,28 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
 
-            <android.support.v7.widget.SwitchCompat
+            <!--<android.support.v7.widget.SwitchCompat-->
+                <!--android:id="@+id/allow_invest"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:checked="true"/>-->
+            <ToggleButton
+                android:checked="true"
                 android:id="@+id/allow_invest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"/>
+                android:textOff=""
+                android:textOn=""
+                android:layout_width="45dp"
+                android:layout_height="24dp"
+                android:background="@drawable/switch_track" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="1px"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="12dp"
-            android:background="@color/divider_color"/>
+            android:background="@color/gray_d5d"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -124,21 +141,30 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
 
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/allow_medal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <!--<android.support.v7.widget.SwitchCompat-->
+                <!--android:id="@+id/allow_medal"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:checked="false"-->
+                <!--android:visibility="gone"/>-->
+            <ToggleButton
                 android:checked="false"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:id="@+id/allow_medal"
+                android:textOff=""
+                android:textOn=""
+                android:layout_width="45dp"
+                android:layout_height="24dp"
+                android:background="@drawable/switch_track" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="1px"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="12dp"
-            android:background="@color/divider_color"/>
+            android:background="@color/gray_d5d"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -161,11 +187,19 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
 
-            <android.support.v7.widget.SwitchCompat
+            <!--<android.support.v7.widget.SwitchCompat-->
+                <!--android:id="@+id/allow_friend"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:checked="true"/>-->
+            <ToggleButton
+                android:checked="true"
                 android:id="@+id/allow_friend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"/>
+                android:textOff=""
+                android:textOn=""
+                android:layout_width="45dp"
+                android:layout_height="24dp"
+                android:background="@drawable/switch_track" />
 
         </LinearLayout>
 
@@ -173,6 +207,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0"
-            android:background="@color/bg_gray2"/>
+            android:background="@color/bg_gray"/>
     </LinearLayout>
 </LinearLayout>

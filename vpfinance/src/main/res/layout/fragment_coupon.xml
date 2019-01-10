@@ -21,6 +21,52 @@
             android:layout_marginTop="8dp"
             android:textSize="@dimen/text_size_12"
             android:layout_marginLeft="20dp"/>
+
+        <LinearLayout
+            android:id="@+id/ll_invite_container"
+            android:gravity="center"
+            android:layout_margin="15dp"
+            android:background="@drawable/selector_btn_white_gray"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/icon_yaoqing"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <LinearLayout
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_333333"
+                    android:text="邀请好友最多可获得50元优惠券"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_999999"
+                    android:text="现在去邀请好友"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <ImageView
+                android:src="@drawable/arrow_right"
+                android:layout_width="7dp"
+                android:layout_height="13dp" />
+        </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/mRecyclerView"
             android:layout_width="match_parent"

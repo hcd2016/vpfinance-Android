@@ -1,6 +1,7 @@
 package cn.vpfinance.vpjr.module.dialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -9,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.vpfinance.android.R;
+import cn.vpfinance.vpjr.App;
 
 /**
  * Created by Administrator on 2015/11/16.
@@ -24,6 +27,8 @@ public class VoucherDialogFragment extends DialogFragment implements View.OnClic
     private TextView dialogOk;
     private TextView dialogCancel;
     private onTextConfrimListener mListener;
+
+
 
     @Nullable
     @Override
@@ -36,10 +41,23 @@ public class VoucherDialogFragment extends DialogFragment implements View.OnClic
 
         dialogCancel.setOnClickListener(this);
         dialogOk.setOnClickListener(this);
-
         return view;
     }
 
+
+    public void showKeyboard() {
+        //其中editText为dialog中的输入框的 EditText
+        if(mCode!=null){
+            //设置可获得焦点
+            mCode.setFocusable(true);
+            mCode.setFocusableInTouchMode(true);
+            //请求获得焦点
+            mCode.requestFocus();
+            //调用系统输入法
+            InputMethodManager inputManager = (InputMethodManager)mCode.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.showSoftInput(mCode, 0);
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,6 +100,7 @@ public class VoucherDialogFragment extends DialogFragment implements View.OnClic
                 break;
         }
     }
+
 
     public static interface onTextConfrimListener {
         /**

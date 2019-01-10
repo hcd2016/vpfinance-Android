@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.Utils;
@@ -38,7 +39,7 @@ public class AutoInvestTypeActivity extends BaseActivity {
     @Bind(R.id.title_bar)
     ActionBarLayout mTitleBar;
     @Bind(R.id.switchOpen)
-    Switch switchOpen;
+    ToggleButton switchOpen;
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
     private int black;

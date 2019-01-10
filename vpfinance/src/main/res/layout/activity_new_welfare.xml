@@ -159,7 +159,7 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="8dp"
                 android:background="@drawable/actionbar_button_selector"
-                android:src="@drawable/nav_back"/>
+                android:src="@mipmap/back"/>
             <TextView
                 android:id="@+id/actionLeft"
                 android:layout_width="wrap_content"

@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/transparent"
+    android:id="@+id/rl_container"
     android:orientation="vertical">
     <View
+        android:visibility="gone"
         android:id="@+id/v_red_bg"
         android:background="@color/red_text2"
         android:layout_width="match_parent"
@@ -157,6 +159,7 @@
                             android:layout_weight="1">
 
                             <TextView
+                                android:textColor="@color/text_999999"
                                 android:id="@+id/tv_deadline"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -264,7 +267,7 @@
             android:layout_height="70dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:visibility="gone"
             tools:src="@mipmap/chanpin_manbiao"
             tools:visibility="visible" />

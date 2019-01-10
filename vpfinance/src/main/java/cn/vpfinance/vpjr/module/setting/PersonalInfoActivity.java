@@ -153,6 +153,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
     private LinearLayout ll_bind_phone;
     private TextView isHxBandCarkStatus;
     private boolean isPersonType;
+    private LinearLayout ll_header_contianer;
 
     private void initFind() {
         titlebar = (ActionBarLayout) findViewById(R.id.titleBar);
@@ -181,6 +182,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         my_describe = (TextView) findViewById(R.id.my_describe);
         ll_bind_phone = (LinearLayout) findViewById(R.id.ll_bind_phone);
         isHxBandCarkStatus = ((TextView) findViewById(R.id.isHxBandCarkStatus));
+        ll_header_contianer = (LinearLayout) findViewById(R.id.ll_header_contianer);
     }
 
     @Override
@@ -253,7 +255,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
 
         ll_my_describe.setOnClickListener(this);
         mPrivate_setting.setOnClickListener(this);
-        mUserHead.setOnClickListener(this);
+//        mUserHead.setOnClickListener(this);
 //        user_background.setOnClickListener(this);
 //        modifypasword.setOnClickListener(this);
         paypassword.setOnClickListener(this);
@@ -271,6 +273,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                 chargeUserName();
             }
         });
+        ll_header_contianer.setOnClickListener(this);
 
         if (isPersonType) {
             llChangeCompanyInfo.setVisibility(View.GONE);
@@ -637,7 +640,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
 //                    }
 //                });
 //                break;
-            case R.id.userHead:
+            case R.id.ll_header_contianer:
                 isUserHead = true;
                 menuWindow = new SelectPicPopupWindow(this, itemsOnClick);
                 menuWindow.showAtLocation(mViewLl,

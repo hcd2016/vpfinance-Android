@@ -38,6 +38,7 @@
         <include layout="@layout/line_linear_gray_marginleft15" />
 
         <LinearLayout
+            android:gravity="center_vertical"
             android:id="@+id/ll_btn_service_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,6 +59,11 @@
                 android:text="0755-86627551"
                 android:textColor="@color/text_333333"
                 android:textSize="13sp" />
+            <ImageView
+                android:layout_marginRight="15dp"
+                android:src="@drawable/nav_next_2"
+                android:layout_width="6dp"
+                android:layout_height="13dp" />
         </LinearLayout>
 
         <include layout="@layout/line_linear_gray_marginleft15" />

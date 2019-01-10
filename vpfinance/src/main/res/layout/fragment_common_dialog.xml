@@ -55,7 +55,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:text="取消"
-                android:textColor="@color/main_color"/>
+                android:textColor="@color/text_333333"/>
 
             <View
                 android:layout_width="1px"
@@ -71,7 +71,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:text="确定"
-                android:textColor="@color/main_color"/>
+                android:textColor="@color/red_text2"/>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

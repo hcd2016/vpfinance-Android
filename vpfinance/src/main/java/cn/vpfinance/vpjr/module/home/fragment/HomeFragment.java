@@ -1,10 +1,12 @@
 package cn.vpfinance.vpjr.module.home.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +47,7 @@ import cn.vpfinance.vpjr.gson.IndexPacketBean;
 import cn.vpfinance.vpjr.model.RefreshCountDown;
 import cn.vpfinance.vpjr.model.RefreshTab;
 import cn.vpfinance.vpjr.module.common.LoginActivity;
+import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.home.IndexRedPacketActivity;
 import cn.vpfinance.vpjr.module.home.InviteGiftIntroduceActivity;
 import cn.vpfinance.vpjr.module.home.MainActivity;

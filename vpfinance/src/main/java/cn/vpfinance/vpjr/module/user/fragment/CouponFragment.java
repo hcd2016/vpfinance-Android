@@ -49,8 +49,8 @@ public class CouponFragment extends BaseFragment {
     private int status = STATUS_UNUSED;
     private int type = TYPE_ALL;
 
-    @Bind(R.id.mEmpty)
-    LinearLayout mEmpty;
+//    @Bind(R.id.mEmpty)
+//    LinearLayout mEmpty;
     @Bind(R.id.mRecommend)
     Button mRecommend;
     //    @Bind(R.id.mRefresh)
@@ -167,7 +167,7 @@ public class CouponFragment extends BaseFragment {
                 }
             }
             adapter.setData(data);
-            mEmpty.setVisibility(data.size() == 0 ? View.VISIBLE : View.GONE);
+//            mEmpty.setVisibility(data.size() == 0 ? View.VISIBLE : View.GONE);
             page++;
         }
     }
@@ -203,14 +203,18 @@ public class CouponFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick({R.id.mRecommend})
+    @OnClick({R.id.mRecommend,R.id.ll_invite_container})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.mRecommend:
                 InviteGiftActivity.goThis(getContext());
                 break;
+            case R.id.ll_invite_container://邀请好友
+                InviteGiftActivity.goThis(getActivity());
+                break;
         }
     }
+
 
     public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponViewHolder> {
 
@@ -272,10 +276,10 @@ public class CouponFragment extends BaseFragment {
 //                    holder.ivStatus.setVisibility(bean.voucherStatus == 2 ? View.VISIBLE : View.GONE);
 
                     //todo 待加状态
-                    if(bean.voucherStatus == 2) {
+                    if (bean.voucherStatus == 2) {
 //                        holder.ll_state_container
 //                        holder.tv_state_desc
-                    }else {
+                    } else {
 
                     }
 

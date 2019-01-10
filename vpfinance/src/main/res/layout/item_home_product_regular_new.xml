@@ -25,7 +25,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -84,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="5dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
@@ -106,6 +106,7 @@
                                     tools:text="9.0" />
 
                                 <TextView
+                                    android:id="@+id/tv_bfh"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="7dp"
@@ -151,12 +152,14 @@
                             android:layout_weight="1">
 
                             <TextView
+                                android:textColor="@color/text_999999"
                                 android:id="@+id/tv_deadline"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="项目期限" />
 
                             <TextView
+                                android:textColor="@color/text_333333"
                                 android:id="@+id/month"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -175,6 +178,7 @@
                                 custom:layout_constraintTop_toBottomOf="@+id/tv_deadline" />
 
                             <TextView
+                                android:textColor="@color/text_333333"
                                 android:id="@+id/money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -186,21 +190,49 @@
                     </LinearLayout>
 
 
-                    <com.daimajia.numberprogressbar.NumberProgressBar
-                        android:id="@+id/progress"
-                        style="@style/NumberProgressBar_Funny_Orange"
+                    <!--<com.daimajia.numberprogressbar.NumberProgressBar-->
+                        <!--android:id="@+id/progress"-->
+                        <!--style="@style/NumberProgressBar_Funny_Orange"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="15dp"-->
+                        <!--android:layout_marginRight="30dp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--custom:progress_current="0"-->
+                        <!--custom:progress_reached_bar_height="5dp"-->
+                        <!--custom:progress_reached_color="@color/progress_complete"-->
+                        <!--custom:progress_text_color="@color/progress_complete"-->
+                        <!--custom:progress_text_size="12sp"-->
+                        <!--custom:progress_unreached_bar_height="5dp"-->
+                        <!--custom:progress_unreached_color="@color/progress_normal" />-->
+
+                    <LinearLayout
+                        android:id="@+id/ll_progress_container"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="17dp"
-                        custom:progress_current="0"
-                        custom:progress_reached_bar_height="5dp"
-                        custom:progress_reached_color="@color/progress_complete"
-                        custom:progress_text_color="@color/progress_complete"
-                        custom:progress_text_size="12sp"
-                        custom:progress_unreached_bar_height="5dp"
-                        custom:progress_unreached_color="@color/progress_normal" />
+                        android:orientation="horizontal">
+
+                        <ProgressBar
+                            android:progressDrawable="@drawable/process_red_bg"
+                            android:id="@+id/progress"
+                            android:max="100"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="5dp" />
+                        <TextView
+                            android:id="@+id/tv_progress_num"
+                            android:layout_marginLeft="6dp"
+                            android:textColor="@color/red_text2"
+                            android:textSize="12sp"
+                            android:text="0.00%"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
 
                     <cn.vpfinance.vpjr.view.MyCountDownTimer
                         android:id="@+id/countDown"
@@ -208,7 +240,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="10dp"
                         android:visibility="visible"
                         custom:newLayout="@layout/layout_time_countdown5" />
                 </LinearLayout>
@@ -228,7 +260,7 @@
             android:layout_height="70dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:visibility="gone"
             tools:src="@mipmap/chanpin_manbiao"
             tools:visibility="visible" />

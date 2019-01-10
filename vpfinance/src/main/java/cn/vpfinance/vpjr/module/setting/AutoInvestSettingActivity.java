@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
 import com.jewelcredit.ui.widget.ActionBarLayout;
@@ -51,7 +52,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
     @Bind(R.id.title_bar)
     ActionBarLayout mTitleBar;
     @Bind(R.id.allow_pub)
-    SwitchCompat allowPub;
+    ToggleButton allowPub;
     @Bind(R.id.etReserveMoney)
     EditText etReserveMoney;
     @Bind(R.id.etMaxInvestMoney)
@@ -126,7 +127,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
         setContentView(R.layout.activity_auto_invest_setting);
         mHttpService = new HttpService(this, this);
         ButterKnife.bind(this);
-
+//        allowPub.setBackgroundResource(R.drawable.switch_track);
         User user = DBUtils.getUser(this);
         if (user != null && user.getUserId() != 0) {
             userId = user.getUserId();
@@ -137,7 +138,7 @@ public class AutoInvestSettingActivity extends BaseActivity {
             return;
         }
 
-        mTitleBar.reset().setTitle("自动投标").setHeadBackVisible(View.VISIBLE).setActionRight("说明", new View.OnClickListener() {
+        mTitleBar.reset().setTitle("自动投标").setHeadBackVisible(View.VISIBLE).setImageButtonRight(R.mipmap.icon_info, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gotoWeb("/h5/help/autoDesc", "自动投标说明");

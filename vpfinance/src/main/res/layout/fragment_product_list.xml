@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <cn.vpfinance.vpjr.view.pullrefresh.PullRefreshRecyclerView
-            android:background="@color/gray_bg"
+            android:background="@color/transparent"
             android:id="@+id/pull_refresh_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -134,8 +134,8 @@ public class NewRegularProductActivity extends BaseActivity {
     RelativeLayout rootView;
     @Bind(R.id.appBarLayout)
     AppBarLayout appBarLayout;
-    @Bind(R.id.line_gray)
-    View lineGray;
+//    @Bind(R.id.line_gray)
+//    View lineGray;
     @Bind(R.id.invest)
     Button btnInverst;
     @Bind(R.id.coutdowntime_going)
@@ -447,11 +447,11 @@ public class NewRegularProductActivity extends BaseActivity {
             }
             if (newBaseInfoBean.graceDays > 0) {//是浮动计息
                 ivFdjx.setVisibility(View.VISIBLE);
-                lineGray.setVisibility(View.VISIBLE);
+//                lineGray.setVisibility(View.VISIBLE);
                 tvWarningDesc.setVisibility(View.VISIBLE);//提示
                 setWarningContent(newBaseInfoBean);
             } else {
-                lineGray.setVisibility(View.GONE);
+//                lineGray.setVisibility(View.GONE);
                 ivFdjx.setVisibility(View.GONE);
                 tvWarningDesc.setVisibility(View.GONE);
             }
@@ -460,12 +460,15 @@ public class NewRegularProductActivity extends BaseActivity {
 
             double v = (newBaseInfoBean.rate - newBaseInfoBean.reward) * 100;
             itemLoanRate.setText(FormatUtils.formatRate(v));//约定年利率
+
+            ivHomeState.setVisibility(View.GONE);
             if (newBaseInfoBean.reward != 0) {//加息
-                ivHomeState.setVisibility(View.VISIBLE);
+                rewardIv.setVisibility(View.VISIBLE);
                 tvAddrate.setVisibility(View.VISIBLE);
                 tvAddrate.setText("+" + FormatUtils.formatRate(newBaseInfoBean.reward * 100) + "%");
             } else {
-                ivHomeState.setVisibility(View.GONE);
+                rewardIv.setVisibility(View.GONE);
+//                ivHomeState.setVisibility(View.GONE);
                 tvAddrate.setVisibility(View.GONE);
             }
             itemLoanTerm.setText(newBaseInfoBean.month);//项目期限
@@ -478,7 +481,7 @@ public class NewRegularProductActivity extends BaseActivity {
             //默认状态
             llProgressContainer.setVisibility(View.VISIBLE);
             countDown.setVisibility(View.GONE);
-            rewardIv.setVisibility(View.GONE);
+//            rewardIv.setVisibility(View.GONE);
             String state = "";
             coutdowntimeGoing.setVisibility(View.GONE);
             btnInverst.setEnabled(true);
@@ -500,7 +503,7 @@ public class NewRegularProductActivity extends BaseActivity {
                     }
                     llProgressContainer.setVisibility(View.GONE);
                     countDown.setVisibility(View.VISIBLE);
-                    rewardIv.setVisibility(View.GONE);
+//                    rewardIv.setVisibility(View.GONE);
                     countDown.setCountDownTime(this, Long.parseLong(newBaseInfoBean.publishTime));
                     countDown.setOnFinishListener(new MyCountDownTimer.onFinish() {
                         @Override
@@ -518,8 +521,8 @@ public class NewRegularProductActivity extends BaseActivity {
                     if (newBaseInfoBean.process >= 100) {//满标审核
                         state = getString(R.string.productStateFill);
                         tvProgressNum.setText("100%");
-                        rewardIv.setVisibility(View.VISIBLE);
-                        rewardIv.setImageResource(R.mipmap.chanpin_manbiao);
+//                        rewardIv.setVisibility(View.VISIBLE);
+//                        rewardIv.setImageResource(R.mipmap.chanpin_manbiao);
                         if (newBaseInfoBean.canBuyMoney <= 0.005) {
                             btnInverst.setEnabled(false);
                         }
@@ -542,15 +545,15 @@ public class NewRegularProductActivity extends BaseActivity {
                     pro = 100.00f;
                     btnInverst.setEnabled(false);
                     state = getString(R.string.productState3);
-                    rewardIv.setVisibility(View.VISIBLE);
-                    rewardIv.setImageResource(R.mipmap.chanpin_huaikuanzhong);
+//                    rewardIv.setVisibility(View.VISIBLE);
+//                    rewardIv.setImageResource(R.mipmap.chanpin_huaikuanzhong);
                     break;
                 case "4"://已完成
                     pro = 100.00f;
                     btnInverst.setEnabled(false);
                     state = getString(R.string.productState4);
-                    rewardIv.setVisibility(View.VISIBLE);
-                    rewardIv.setImageResource(R.mipmap.chanpin_yiwancheng);
+//                    rewardIv.setVisibility(View.VISIBLE);
+//                    rewardIv.setImageResource(R.mipmap.chanpin_yiwancheng);
                     break;
             }
             //设置进度

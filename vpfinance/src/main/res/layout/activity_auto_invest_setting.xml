@@ -80,28 +80,36 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
 
-                <android.support.v7.widget.SwitchCompat
-                    android:background="@drawable/switch_track"
-                    app:splitTrack="false"
-                    app:showText="false"
-                    app:theme="@style/scstyle"
-                    app:trackTint="#00000000"
-                    app:thumbTint="#00000000"
+                <ToggleButton
                     android:id="@+id/allow_pub"
+                    android:textOff=""
+                    android:textOn=""
                     android:layout_width="45dp"
                     android:layout_height="24dp"
-                    android:checked="false"
-                    />
+                    android:background="@drawable/switch_track" />
+
+
+                <!--<android.support.v7.widget.SwitchCompat-->
+                    <!--android:id="@+id/allow_pub"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:checked="false"-->
+                    <!--android:trackTintMode="src_in"-->
+                    <!--app:showText="false"-->
+                    <!--app:splitTrack="false"-->
+                    <!--app:theme="@style/scstyle"-->
+                    <!--app:thumbTint="#00000000"-->
+                    <!--app:trackTint="#00000000" />-->
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/containerSetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="1px"
                 android:orientation="vertical"
                 android:visibility="gone"
-                tools:visibility="visible"
-                android:layout_marginTop="1px">
+                tools:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"

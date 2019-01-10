@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.jewelcredit.ui.widget.ActionBarLayout;
 
@@ -29,7 +30,7 @@ public class AutoInvestRateActivity extends BaseActivity {
     @Bind(R.id.title_bar)
     ActionBarLayout mTitleBar;
     @Bind(R.id.switchOpen)
-    Switch switchOpen;
+    ToggleButton switchOpen;
     @Bind(R.id.tv_min_rate)
     TextView tvMinRate;
     @Bind(R.id.click_min_rate)

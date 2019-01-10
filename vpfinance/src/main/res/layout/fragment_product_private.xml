@@ -5,17 +5,12 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:layout_marginTop="90dp"
+        android:layout_gravity="center_horizontal"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/ic_product_private" />
 
         <TextView
             android:id="@+id/info"
@@ -24,13 +19,20 @@
             android:text="该项目已满标，为保护借款人信息，详细内容仅对出借用户显示，敬请谅解。"
             android:textColor="@color/text_999999" />
 
-        <Button
+        <TextView
             android:id="@+id/lookOtherProduct"
-            style="@style/SubmitButtonStyle"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="查看其它产品" />
+            android:text="查看其它产品"
+            android:textColor="@color/btn_blue"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <!--<Button-->
+            <!--style="@style/SubmitButtonStyle"-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:text="查看其它产品" />-->
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

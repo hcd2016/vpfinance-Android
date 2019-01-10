@@ -543,7 +543,7 @@ public class PullRefreshView extends ViewGroup {
         return mCurrentState != STATE_DOWN && mIsUpRefresh && isBottom();
     }
 
-    protected boolean isTop() {
+    public boolean isTop() {
 
         if (getChildCount() < 2) {
             return true;

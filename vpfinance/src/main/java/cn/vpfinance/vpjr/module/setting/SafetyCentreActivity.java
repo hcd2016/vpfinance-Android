@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.ToggleButton;
 
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.AppState;
@@ -37,7 +38,7 @@ public class SafetyCentreActivity extends BaseActivity {
     @Bind(R.id.modifypasword)
     LinearLayout modifypasword;
     @Bind(R.id.lockSwitch)
-    SwitchCompat lockSwitch;
+    ToggleButton lockSwitch;
     private boolean close = false;
 
     @Override

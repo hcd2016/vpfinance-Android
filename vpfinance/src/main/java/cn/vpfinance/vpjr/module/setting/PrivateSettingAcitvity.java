@@ -5,6 +5,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.HttpService;
@@ -28,13 +29,13 @@ public class PrivateSettingAcitvity extends BaseActivity implements CompoundButt
     @Bind(R.id.titleBar)
     ActionBarLayout mTitleBar;
     @Bind(R.id.allow_pub)
-    SwitchCompat    mAllowPub;
+    ToggleButton    mAllowPub;
     @Bind(R.id.allow_invest)
-    SwitchCompat    mAllowInvest;
+    ToggleButton    mAllowInvest;
     @Bind(R.id.allow_medal)
-    SwitchCompat    mAllowMedal;
+    ToggleButton    mAllowMedal;
     @Bind(R.id.allow_friend)
-    SwitchCompat    mAllowFriend;
+    ToggleButton mAllowFriend;
     private HttpService mHttpService;
 
     @Override

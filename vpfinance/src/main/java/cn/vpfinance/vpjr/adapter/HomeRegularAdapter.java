@@ -8,14 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
+import com.jewelcredit.util.Utils;
 
 import java.util.List;
 
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.gson.AppmemberIndexBean;
+import cn.vpfinance.vpjr.gson.LoanSignListNewBean;
 import cn.vpfinance.vpjr.model.RefreshCountDown;
 import cn.vpfinance.vpjr.module.product.NewRegularProductActivity;
 import cn.vpfinance.vpjr.util.Common;
@@ -33,6 +37,7 @@ public class HomeRegularAdapter extends BaseAdapter {
 
     private List<AppmemberIndexBean.LoanDataBean.LoansignsBean> loansigns;
     private Context mContext;
+    private LinearLayout ll_progress_container;
 
     public void setData(Context context, List<AppmemberIndexBean.LoanDataBean.LoansignsBean> loansigns) {
         this.loansigns = loansigns;
@@ -71,13 +76,18 @@ public class HomeRegularAdapter extends BaseAdapter {
         TextView tv_float = ((TextView) itemView.findViewById(R.id.tv_float));
         TextView mMonth = ((TextView) itemView.findViewById(R.id.month));
         TextView mMoney = ((TextView) itemView.findViewById(R.id.money));
-        NumberProgressBar mProgress = ((NumberProgressBar) itemView.findViewById(R.id.progress));
+//        NumberProgressBar mProgress = ((NumberProgressBar) itemView.findViewById(R.id.progress));
         MyCountDownTimer mCountDownTimer = ((MyCountDownTimer) itemView.findViewById(R.id.countDown));
         TextView mAddRate = ((TextView) itemView.findViewById(R.id.add_rate));
+        TextView tv_bfh = ((TextView) itemView.findViewById(R.id.tv_bfh));
 //        ImageView loanSignTypeIcon = (ImageView) itemView.findViewById(R.id.loan_sign_type);
         ImageView ivHomeState = (ImageView) itemView.findViewById(R.id.iv_home_state);
 //        ImageView iphone = (ImageView) itemView.findViewById(R.id.iphone7);
         ImageView iv_fdjx = (ImageView) itemView.findViewById(R.id.iv_fdjx);//是否是浮动计息
+        //是否是浮动计息
+        LinearLayout ll_progress_container = (LinearLayout) itemView.findViewById(R.id.ll_progress_container);
+        ProgressBar progress = (ProgressBar) itemView.findViewById(R.id.progress);
+        TextView tv_progress_num = (TextView) itemView.findViewById(R.id.tv_progress_num);
 //        TextView bankAccountStatus = (TextView) itemView.findViewById(R.id.bankAccountStatus);
 
 
@@ -169,12 +179,12 @@ public class HomeRegularAdapter extends BaseAdapter {
                     tv_float.setText(rateStr);
                     //金额
                     String issueLoanStr = loansign.issueLoan;
-                    if(!TextUtils.isEmpty(issueLoanStr) ){
+                    if (!TextUtils.isEmpty(issueLoanStr)) {
                         double v = Double.parseDouble(loansign.issueLoan);
-                        if(v >= 10000) {
+                        if (v >= 10000) {
                             mMoney.setText(FormatUtils.formatDown2(v / 10000) + "万");
-                        }else {
-                            mMoney.setText(FormatUtils.formatDown2(v ) + "元");
+                        } else {
+                            mMoney.setText(FormatUtils.formatDown2(v) + "元");
                         }
                     }
 
@@ -184,7 +194,7 @@ public class HomeRegularAdapter extends BaseAdapter {
                         @Override
                         public void onClick(View view) {
                             int accountType = loansign.product == 4 ? 1 : 0;
-                            NewRegularProductActivity.goNewRegularProductActivity(mContext, pid, 0, "产品详情",false);
+                            NewRegularProductActivity.goNewRegularProductActivity(mContext, pid, 0, "产品详情", false);
                         }
                     });
 
@@ -199,13 +209,13 @@ public class HomeRegularAdapter extends BaseAdapter {
 //                    Common.productJing(productType, mJing);
 
                     if (mLoanstate == 1) {//预售
-                        mProgress.setVisibility(View.GONE);
+//                        mProgress.setVisibility(View.GONE);
                         mCountDownTimer.setVisibility(View.VISIBLE);
 //                        mPresell.setVisibility(View.VISIBLE);
 
                         //倒计时
                         long publishTime = bean.publishTime;
-                        mCountDownTimer.setCountDownTime(mContext,publishTime);
+                        mCountDownTimer.setCountDownTime(mContext, publishTime);
                         mCountDownTimer.setOnFinishListener(new MyCountDownTimer.onFinish() {
                             @Override
                             public void finish() {
@@ -215,12 +225,12 @@ public class HomeRegularAdapter extends BaseAdapter {
                     } else {//普通标
 //                        mPresell.setVisibility(View.GONE);
 
-                        mProgress.setVisibility(View.VISIBLE);
+//                        mProgress.setVisibility(View.VISIBLE);
                         mCountDownTimer.setVisibility(View.GONE);
                         //进度条
                         float process = bean.process;
-                        mProgress.setProgress(process);
-                        if (process >= 100 && loansign.loanstate == 2){//满标
+//                        mProgress.setProgress(process);
+                        if (process >= 100 && loansign.loanstate == 2) {//满标
 //                            mProgress.setReachedBarColor(mContext.getResources().getColor(R.color.text_999999));
 //                            mRateFirst.setTextColor(mContext.getResources().getColor(R.color.text_999999));
 //                            mRateSecond.setTextColor(mContext.getResources().getColor(R.color.text_999999));
@@ -261,9 +271,9 @@ public class HomeRegularAdapter extends BaseAdapter {
                             }
                         }*/
                     }
-                    if(loansign.graceDays > 0) {//是否是浮动计息
+                    if (loansign.graceDays > 0) {//是否是浮动计息
                         iv_fdjx.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         iv_fdjx.setVisibility(View.GONE);
                     }
                 }
@@ -271,12 +281,129 @@ public class HomeRegularAdapter extends BaseAdapter {
                 if (loanstate == 3) {
                     ivHomeState.setVisibility(View.VISIBLE);
                     ivHomeState.setImageResource(R.mipmap.chanpin_huaikuanzhong);
-                    mProgress.setProgress(100);
+//                    mProgress.setProgress(100);
                 } else if (loanstate == 4) {
                     ivHomeState.setVisibility(View.VISIBLE);
                     ivHomeState.setImageResource(R.mipmap.chanpin_yiwancheng);
-                    mProgress.setProgress(100);
+//                    mProgress.setProgress(100);
                 }
+
+
+                String state = "";
+                String value = bean.process + "";
+                progress.setProgress((int) bean.process);
+                tv_progress_num.setText(FormatUtils.formatAbout(value) + "%");
+                ll_progress_container.setVisibility(View.VISIBLE);
+                progress.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.process_red_bg));
+
+
+                switch (loanstate) { //1未发布 2进行中 3回款中 4已完成
+                    case 1://预售
+                        ivHomeState.setVisibility(View.GONE);
+//                            holder.progress.setVisibility(View.GONE);
+//                        ll_progress_container.setVisibility(View.GONE);
+//                        holder.countDown.setVisibility(View.VISIBLE);
+//                            state = mContext.getString(R.string.productState1);
+//                            holder.iv_home_state.setImageResource(R.mipmap.chanp);
+
+
+                        tv_float.setTextColor(mContext.getResources().getColor(R.color.red_text));
+                        tv_bfh.setTextColor(mContext.getResources().getColor(R.color.red_text));
+//                            holder.circle_background.setVisibility(View.GONE);
+                        mMonth.setTextColor(mContext.getResources().getColor(R.color.text_333333));
+                        mMoney.setTextColor(mContext.getResources().getColor(R.color.text_333333));
+                        mAddRate.setBackgroundResource(R.mipmap.jiaxi1);
+                        mAddRateState.setImageResource(R.mipmap.jiaxi);
+                        break;
+                    case 2://进行中
+//                            holder.circle_background.setVisibility(View.GONE);
+                        state = value + "%";
+                        tv_float.setTextColor(mContext.getResources().getColor(R.color.red_text));
+                        tv_bfh.setTextColor(mContext.getResources().getColor(R.color.red_text));
+                        if (bean.process >= 100F) {//满标
+                            state = "满标\n审核";
+                            tv_float.setTextColor(mContext.getResources().getColor(R.color.red_text));
+                            tv_bfh.setTextColor(mContext.getResources().getColor(R.color.red_text));
+                            ivHomeState.setVisibility(View.VISIBLE);
+                            ivHomeState.setImageResource(R.mipmap.chanpin_manbiao);
+                        } else {
+                            ivHomeState.setVisibility(View.GONE);
+                        }
+//                            holder.circular.setProgress(value);
+                        ll_progress_container.setVisibility(View.VISIBLE);
+                        tv_progress_num.setText(FormatUtils.formatAbout(value) + "%");
+                        tv_progress_num.setTextColor(Utils.getColor(R.color.red_text2));
+                        progress.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.process_red_bg));
+//                            holder.progress.setProgress((int) product.process);
+//                            holder.progress.setProgressDrawable(d);
+//                            holder.progress.setUnreachedBarColor(R.color.progress_normal);
+//                            holder.progress.setReachedBarColor(R.color.progress_complete);
+//                            holder.progress.setProgressTextColor(R.color.progress_complete);
+//                            holder.circular.setProgressColor(mContext.getResources().getColor(R.color.red_text));
+//                            holder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.red_text));
+                        mMonth.setTextColor(mContext.getResources().getColor(R.color.text_333333));
+                        mMoney.setTextColor(mContext.getResources().getColor(R.color.text_333333));
+                        mAddRate.setBackgroundResource(R.mipmap.jiaxi1);
+                        mAddRateState.setImageResource(R.mipmap.jiaxi);
+                        break;
+                    case 3://回款中
+                        ivHomeState.setVisibility(View.VISIBLE);
+                        ivHomeState.setImageResource(R.mipmap.chanpin_huaikuanzhong);
+//                            holder.circle_background.setVisibility(View.VISIBLE);
+                        state = mContext.getString(R.string.productState3);
+                        tv_float.setTextColor(mContext.getResources().getColor(R.color.text_999999));
+                        tv_bfh.setTextColor(mContext.getResources().getColor(R.color.text_999999));
+//                            holder.circular.setProgress(0);
+//                            holder.circular.setProgressColor(mContext.getResources().getColor(R.color.text_cccccc));
+//                            holder.circular.setProgress(100);
+//                            holder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.text_999999));
+                        ll_progress_container.setVisibility(View.VISIBLE);
+                        progress.setProgress(100);
+
+
+                        ll_progress_container.setVisibility(View.VISIBLE);
+                        tv_progress_num.setTextColor(Utils.getColor(R.color.text_999999));
+                        tv_progress_num.setText("100.00%");
+                        progress.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.process_gray_bg));
+
+//                            holder.progress.setProgressTextColor(mContext.getResources().getColor(R.color.text_999999));
+//                            holder.progress.setReachedBarColor(mContext.getResources().getColor(R.color.process_gray_noamal));
+//                            holder.progress.setUnreachedBarColor(mContext.getResources().getColor(R.color.process_gray_noamal));
+
+                        mMonth.setTextColor(mContext.getResources().getColor(R.color.text_333333));
+                        mMoney.setTextColor(mContext.getResources().getColor(R.color.text_333333));
+                        mAddRate.setBackgroundResource(R.drawable.bg_rate_gray);
+                        mAddRateState.setImageResource(R.drawable.ic_rate_gray);
+                        break;
+                    case 4://已完成
+                        ivHomeState.setVisibility(View.VISIBLE);
+                        ivHomeState.setImageResource(R.mipmap.chanpin_yiwancheng);
+//                            holder.circle_background.setVisibility(View.VISIBLE);
+                        state = mContext.getString(R.string.productState4);
+                        tv_float.setTextColor(mContext.getResources().getColor(R.color.text_999999));
+                        tv_bfh.setTextColor(mContext.getResources().getColor(R.color.text_999999));
+//                            holder.circular.setProgressColor(mContext.getResources().getColor(R.color.text_cccccc));
+//                            holder.circular.setProgress(0);
+//                            holder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.text_999999));
+
+//                            holder.progress.setReachedBarColor(mContext.getResources().getColor(R.color.process_gray_noamal));
+//                            holder.progress.setUnreachedBarColor(mContext.getResources().getColor(R.color.process_gray_noamal));
+//                            holder.progress.setProgress(0);
+//                            holder.progress.setProgressTextColor(mContext.getResources().getColor(R.color.text_999999));
+                        progress.setProgress(100);
+                        ll_progress_container.setVisibility(View.VISIBLE);
+                        tv_progress_num.setTextColor(Utils.getColor(R.color.text_999999));
+                        tv_progress_num.setText("100.00%");
+                        progress.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.process_gray_bg));
+
+
+                        mMonth.setTextColor(mContext.getResources().getColor(R.color.text_999999));
+                        mMoney.setTextColor(mContext.getResources().getColor(R.color.text_999999));
+                        mAddRate.setBackgroundResource(R.drawable.bg_rate_gray);
+                        mAddRateState.setImageResource(R.drawable.ic_rate_gray);
+                        break;
+                }
+//                    holder.tvStatus.setText(state);
             }
 
         }

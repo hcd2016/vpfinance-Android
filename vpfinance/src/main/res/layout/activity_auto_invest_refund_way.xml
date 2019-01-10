@@ -23,11 +23,19 @@
             android:layout_weight="1"
             android:text="不限"
             android:textColor="@color/text_1c1c1c"/>
-        <Switch
+        <!--<Switch-->
+            <!--android:id="@+id/switchOpen"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:checked="true"/>-->
+        <ToggleButton
             android:id="@+id/switchOpen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"/>
+            android:checked="true"
+            android:textOff=""
+            android:textOn=""
+            android:layout_width="45dp"
+            android:layout_height="24dp"
+            android:background="@drawable/switch_track" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

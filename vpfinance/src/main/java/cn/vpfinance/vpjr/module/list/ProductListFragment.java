@@ -1,11 +1,9 @@
 package cn.vpfinance.vpjr.module.list;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +12,12 @@ import android.widget.TextView;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.json.JSONObject;
 
@@ -46,6 +47,11 @@ import de.greenrobot.event.EventBus;
 
 //产品列表非智存fragment
 public class ProductListFragment extends BaseFragment implements View.OnClickListener {
+    OnRecyclerViewChangeListner onRecyclerViewChangeListner;
+
+    public void setOnRecyclerViewChangeListner(OnRecyclerViewChangeListner onRecyclerViewChangeListner) {
+        this.onRecyclerViewChangeListner = onRecyclerViewChangeListner;
+    }
 
     @Bind(R.id.textview)
     TextView mTextview;
@@ -104,6 +110,77 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
                 loadDate();
             }
         });
+        refresh.setOnMultiPurposeListener(new OnMultiPurposeListener() {
+            @Override
+            public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {
+                if(onRecyclerViewChangeListner != null) {
+                    onRecyclerViewChangeListner.onRefrsh();
+                }
+            }
+
+            @Override
+            public void onHeaderReleased(RefreshHeader header, int headerHeight, int maxDragHeight) {
+
+            }
+
+            @Override
+            public void onHeaderStartAnimator(RefreshHeader header, int headerHeight, int maxDragHeight) {
+            }
+
+            @Override
+            public void onHeaderFinish(RefreshHeader header, boolean success) {
+
+            }
+
+            @Override
+            public void onFooterMoving(RefreshFooter footer, boolean isDragging, float percent, int offset, int footerHeight, int maxDragHeight) {
+
+            }
+
+            @Override
+            public void onFooterReleased(RefreshFooter footer, int footerHeight, int maxDragHeight) {
+
+            }
+
+            @Override
+            public void onFooterStartAnimator(RefreshFooter footer, int footerHeight, int maxDragHeight) {
+
+            }
+
+            @Override
+            public void onFooterFinish(RefreshFooter footer, boolean success) {
+
+            }
+
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+
+            }
+
+            @Override
+            public void onStateChanged(@NonNull RefreshLayout refreshLayout, @NonNull RefreshState oldState, @NonNull RefreshState newState) {
+            }
+        });
+        mRecyclerView.getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                boolean top = mRecyclerView.isTop();
+                if (onRecyclerViewChangeListner != null) {
+                    onRecyclerViewChangeListner.onScrollChange(recyclerView,top,dx,dy);
+                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
 //        refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
 //            @Override
 //            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -125,6 +202,7 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
 //                loadDate();
 //            }
 //        });
+
         mRecyclerView.setOnPullUpRefreshListener(new PullRefreshView.OnPullUpRefreshListener() {
             @Override
             public void onRefresh() {
@@ -171,6 +249,7 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
         totalData.clear();
     }
 
+
     @Override
     public void onHttpSuccess(int reqId, JSONObject json) {
         if (!isHttpHandle(json)) return;
@@ -194,7 +273,7 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
                     refresh.finishLoadMore(true);
                     totalData.addAll(listNew.loansigns);
                     mRecyclerView.refreshFinish();
-                }else {
+                } else {
                     refresh.finishLoadMoreWithNoMoreData();
                 }
                 myAdapter.setData(totalData, typeList);
@@ -228,5 +307,10 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
         mRecyclerView.refreshFinish();
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    public interface OnRecyclerViewChangeListner {
+        void onScrollChange(RecyclerView recyclerView, boolean isTop, int dx, int dy);
+        void onRefrsh();
     }
 }

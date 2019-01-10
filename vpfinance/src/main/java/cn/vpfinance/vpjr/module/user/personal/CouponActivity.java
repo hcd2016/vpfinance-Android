@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
@@ -241,7 +244,7 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
                 if (menuWindow != null && menuWindow.isShowing()) {
                     menuWindow.dismiss();
                 }
-                VoucherDialogFragment voucherDialogFragment = new VoucherDialogFragment();
+                final VoucherDialogFragment voucherDialogFragment = new VoucherDialogFragment();
                 voucherDialogFragment.setOnTextConfrimListener(new VoucherDialogFragment.onTextConfrimListener() {
                     @Override
                     public boolean onTextConfrim(String value) {
@@ -252,6 +255,14 @@ public class CouponActivity extends BaseActivity implements View.OnClickListener
                     }
                 });
                 voucherDialogFragment.show(getSupportFragmentManager(), "VoucherDialog");
+                vRootView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        voucherDialogFragment.showKeyboard();
+                    }
+                },200);
+
+
                 break;
             case R.id.tvGetCoupon:
                 if (menuWindow != null && menuWindow.isShowing()) {

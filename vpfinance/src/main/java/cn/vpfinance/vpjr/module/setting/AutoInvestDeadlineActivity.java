@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.Utils;
@@ -31,7 +32,7 @@ public class AutoInvestDeadlineActivity extends BaseActivity {
     @Bind(R.id.title_bar)
     ActionBarLayout mTitleBar;
     @Bind(R.id.switchOpen)
-    Switch switchOpen;
+    ToggleButton switchOpen;
     @Bind(R.id.tv_min_deadline)
     TextView tvMinDeadline;
     @Bind(R.id.click_min_deadline)

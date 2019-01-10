@@ -98,7 +98,7 @@ public class VoucherActivity2 extends BaseActivity implements AbsListView.OnScro
         (findViewById(R.id.llConvertVoucher)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VoucherDialogFragment voucherDialogFragment = new VoucherDialogFragment();
+                final VoucherDialogFragment voucherDialogFragment = new VoucherDialogFragment();
                 voucherDialogFragment.setOnTextConfrimListener(new VoucherDialogFragment.onTextConfrimListener() {
                     @Override
                     public boolean onTextConfrim(String value) {
@@ -109,6 +109,12 @@ public class VoucherActivity2 extends BaseActivity implements AbsListView.OnScro
                     }
                 });
                 voucherDialogFragment.show(getSupportFragmentManager(), "VoucherDialog");
+                textview.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        voucherDialogFragment.showKeyboard();
+                    }
+                },200);
             }
         });
 

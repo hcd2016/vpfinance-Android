@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jewelcredit.ui.widget.ActionBarLayout;
+import com.jewelcredit.util.DifColorTextStringBuilder;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
+import com.jewelcredit.util.Utils;
 
 import org.json.JSONObject;
 
@@ -58,6 +60,9 @@ public class FundOverViewActivity extends BaseActivity implements View.OnClickLi
     private String rechargingMoney;
     private TextView tv_total_money;
     private TextView tv_recharging_money;
+    private TextView tv_daihuikuan;
+    private String capitalAmountSum;
+    private String profitAmountSum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,8 @@ public class FundOverViewActivity extends BaseActivity implements View.OnClickLi
             frozenAmtNStr = intent.getStringExtra("frozenAmtN");
             netAssetStr = intent.getStringExtra("netAsset");
             rechargingMoney = intent.getStringExtra("rechargingMoney");
+            capitalAmountSum = intent.getStringExtra("capitalAmountSum");
+            profitAmountSum = intent.getStringExtra("profitAmountSum");
         }
 
         DaoMaster.DevOpenHelper dbHelper;
@@ -127,6 +134,7 @@ public class FundOverViewActivity extends BaseActivity implements View.OnClickLi
         netAsset = (TextView) findViewById(R.id.netAsset);
         tv_total_money = (TextView) findViewById(R.id.tv_total_money);
         tv_recharging_money = (TextView) findViewById(R.id.tv_recharging_money);
+        tv_daihuikuan = (TextView) findViewById(R.id.tv_daihuikuan);
 
 //        findViewById(R.id.clickRecharge).setOnClickListener(this);
 //        findViewById(R.id.clickWithdrawal).setOnClickListener(this);
@@ -142,6 +150,13 @@ public class FundOverViewActivity extends BaseActivity implements View.OnClickLi
         this.inCount.setText(inCountStr+"元");
         //资金总额
         this.netAsset.setText(netAssetStr+"元");
+        String content = "待回款本金"+capitalAmountSum+"元与待回款利息"+profitAmountSum+"元之和";
+        DifColorTextStringBuilder difColorTextStringBuilder = new DifColorTextStringBuilder();
+        difColorTextStringBuilder.setContent(content)
+                .setHighlightContent(capitalAmountSum+"元",R.color.red_text2)
+                .setHighlightContent(profitAmountSum+"元",R.color.red_text2)
+                .setTextView(tv_daihuikuan)
+                .create();
         //总余额
         if(!TextUtils.isEmpty(rechargingMoney) && !TextUtils.isEmpty(cashBalanceStr)) {
             float r = Float.parseFloat(rechargingMoney);

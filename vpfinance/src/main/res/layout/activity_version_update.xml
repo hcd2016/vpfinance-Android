@@ -16,15 +16,16 @@
         android:layout_height="match_parent"
         android:scrollbars="none">
         <LinearLayout
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="62dp"
-                android:src="@drawable/bg_update_top"
-                android:layout_gravity="center_horizontal"/>
+                android:src="@drawable/img_logo_v" />
             <TextView
                 android:id="@+id/currVer"
                 android:layout_width="wrap_content"
@@ -33,12 +34,13 @@
                 android:layout_marginTop="10dp"
                 android:text="当前版本0.0"/>
             <TextView
+                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/red_top"
-                android:text="您有新的版本！"/>
+                android:text="您有新的版本!"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"

@@ -60,7 +60,7 @@
             android:gravity="center"
             android:padding="15dp"
             android:text="确定"
-            android:textColor="@color/black_text"
+            android:textColor="@color/red_text2"
             android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>

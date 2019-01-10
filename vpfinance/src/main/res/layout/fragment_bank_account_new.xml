@@ -146,11 +146,11 @@
                                 android:id="@+id/tvTotalIncome"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="30dp"
+                                android:layout_marginTop="25dp"
                                 android:gravity="center"
                                 android:text="0.00"
                                 android:textColor="@color/text_333333"
-                                android:textSize="20sp"
+                                android:textSize="35sp"
                                 android:textStyle="bold"
                                 tools:text="5000.00" />
 
@@ -181,9 +181,9 @@
                                     android:gravity="center"
                                     android:text="0.00"
                                     android:textColor="@color/text_333333"
-                                    android:textSize="14sp"
+                                    android:textSize="15sp"
                                     android:textStyle="bold"
-                                    tools:text="3000000.00" />
+                                    tools:text="300000000.00" />
 
 
                                 <TextView
@@ -194,7 +194,7 @@
                                     android:gravity="center"
                                     android:text="0.00"
                                     android:textColor="@color/text_333333"
-                                    android:textSize="14sp"
+                                    android:textSize="15sp"
                                     android:textStyle="bold"
                                     tools:text="3000000.00" />
 
@@ -206,7 +206,7 @@
                                     android:gravity="center"
                                     android:text="0.00"
                                     android:textColor="@color/text_333333"
-                                    android:textSize="14sp"
+                                    android:textSize="15sp"
                                     android:textStyle="bold"
                                     tools:text="3000000.00" />
                             </LinearLayout>
@@ -218,7 +218,7 @@
                                 android:layout_marginBottom="30dp"
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginRight="15dp"
-                                android:layout_marginTop="10dp"
+                                android:layout_marginTop="5dp"
                                 android:orientation="horizontal">
 
                                 <TextView

@@ -272,14 +272,15 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void finish() {
-        ViewGroup view = (ViewGroup) getWindow().getDecorView();
-        view.removeAllViews();
+
         super.finish();
     }
 
     protected void onDestroy() {
         if (webView != null) {
             webView.setVisibility(View.GONE);
+            ViewGroup view = (ViewGroup) getWindow().getDecorView();
+            view.removeAllViews();
         }
         super.onDestroy();
     }

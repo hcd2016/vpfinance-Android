@@ -1,12 +1,14 @@
 package cn.vpfinance.vpjr.module.product.invest;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -36,8 +38,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.vpfinance.android.R;
-import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.App;
+import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.greendao.User;
 import cn.vpfinance.vpjr.gson.AddRateBean;
@@ -134,6 +136,10 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     TextView tvProtocal2;
     @Bind(R.id.tv_bottom_desc)
     TextView tvBottomDesc;
+    @Bind(R.id.ll_transfer_warnings)
+    LinearLayout llTransferWarnings;
+    @Bind(R.id.ll_pre_warnings)
+    LinearLayout llPreWarnings;
     //    private ActionBarLayout titleBar;
     private HttpService mHttpService;
     private FinanceProduct product = new FinanceProduct();
@@ -183,7 +189,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
     //    private ImageView ivAllowTransfer;
     private String allowTransferStr = "false";
     private Button btnInvest;
-//    private LinearLayout selectVoucher;
+    //    private LinearLayout selectVoucher;
     //    private LinearLayout ll_acitvity;
 //    private LinearLayout ll_normal;
 //    private RelativeLayout rl_iphone_submit;
@@ -288,10 +294,10 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             countDown.setVisibility(View.VISIBLE);
             llProgressContainer.setVisibility(View.GONE);
             tvMoneyDesc.setText("预售余额");
-
+            llPreWarnings.setVisibility(View.VISIBLE);
 //            tv_userOrder.setVisibility(View.VISIBLE);
 //            Utils.setTwoTextColor("您将使用1张预约券进行预约", "1", Color.RED, tv_userOrder);
-        }else {
+        } else {
             countDown.setVisibility(View.GONE);
             llProgressContainer.setVisibility(View.VISIBLE);
             tvMoneyDesc.setText("可购余额");
@@ -318,6 +324,8 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             mTransfer_rate = intent.getDoubleExtra(PRODUCT_TRANSFER_RATE, 0);
 //            ((LinearLayout) findViewById(R.id.transfer_info)).setVisibility(View.GONE);
 //            ((LinearLayout) findViewById(R.id.transfer_des)).setVisibility(View.VISIBLE);
+
+            llTransferWarnings.setVisibility(View.VISIBLE);
 //            transfer_money.setVisibility(View.VISIBLE);
 //            ((TextView) findViewById(R.id.tvMonthInfo)).setText("剩余期限");
 //            selectVoucher.setVisibility(View.GONE);
@@ -348,6 +356,15 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
 //        }
     }
 
+    public void showSoftInputFromWindow(EditText editText) {
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+        InputMethodManager inputManager =
+                (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.showSoftInput(editText, 0);
+    }
+
     protected void initView() {
 //        productTitle = (TextView) findViewById(R.id.productTitle);
 //        productRate = (TextView) findViewById(R.id.productRate);
@@ -368,7 +385,6 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                 }
             }
         });
-
 //        if ("1".equals(mIPhone) && !isOrder) {
 //            setEditTextListener(etRechargeMoney_activity);
 //        } else {
@@ -449,8 +465,11 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                         if (voucherValue > 0 && voucherrate > 0 && m > 0) {
                             calcedMoney = m * voucherrate;
                             calcedMoney = Math.min(calcedMoney, voucherValue);
-                            tvDiscountCounts.setTextColor(getResources().getColor(R.color.main_color));
+//                            tvDiscountCounts.setTextColor(getResources().getColor(R.color.main_color));
                             tvDiscountCounts.setText("已抵扣代金券" + String.format("%.2f", calcedMoney) + "元");
+                        }else if(voucherValue > 0 && voucherrate > 0 && m == 0) {
+//                            tvDiscountCounts.setTextColor(getResources().getColor(R.color.main_color));
+                            tvDiscountCounts.setText("已抵扣代金券" + "0.00" + "元");
                         }
                     }
                 } else if ("2".equals(mType)) {
@@ -546,26 +565,26 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             if (product.getIssueLoan() > 0) {
                 if (isOrder) {
                     availMoney = product.getIssueLoan() * product.getBookPercent() - v;
-                    if(availMoney >= 10000 ) {
-                        itemLoanTotle.setText(FormatUtils.formatDown2(availMoney/10000) + "万");
-                    }else {
+                    if (availMoney >= 10000) {
+                        itemLoanTotle.setText(FormatUtils.formatDown2(availMoney / 10000) + "万");
+                    } else {
                         itemLoanTotle.setText(FormatUtils.formatDown2(availMoney) + "元");
                     }
                 } else {
                     availMoney = product.getIssueLoan() - v;
-                    if(availMoney >= 10000 ) {
-                        itemLoanTotle.setText(FormatUtils.formatDown2(availMoney/10000) + "万");
-                    }else {
+                    if (availMoney >= 10000) {
+                        itemLoanTotle.setText(FormatUtils.formatDown2(availMoney / 10000) + "万");
+                    } else {
                         itemLoanTotle.setText(FormatUtils.formatDown2(availMoney) + "元");
                     }
                 }
             }
             //设置进度
-            if(!isOrder) {
+            if (!isOrder) {
                 //进度
                 double v1 = (v / product.getIssueLoan()) * 100;
                 progress.setProgress((int) (v1));
-                tvProgressNum.setText(FormatUtils.formatDown3(v1)+"%");
+                tvProgressNum.setText(FormatUtils.formatDown3(v1) + "%");
             }
 
             if (isInvestTag) {
@@ -616,7 +635,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             String resultMoney = json.optString("resultMoney");
             try {
                 double v = Double.parseDouble(resultMoney);
-                tvDiscountCounts.setTextColor(getResources().getColor(R.color.main_color));
+//                tvDiscountCounts.setTextColor(getResources().getColor(R.color.main_color));
                 tvDiscountCounts.setText("预计加息" + FormatUtils.formatDown(v) + "元");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -673,7 +692,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
 
                 if (isOrder) {
                     tvMoneyDesc.setText("预售余额");
-                    countDown.setCountDownTime(this,Long.parseLong(product.getPublishTime()));
+                    countDown.setCountDownTime(this, Long.parseLong(product.getPublishTime()));
                     countDown.setOnFinishListener(new MyCountDownTimer.onFinish() {
                         @Override
                         public void finish() {
@@ -683,9 +702,9 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
 
                     if (accountType == Constant.AccountLianLain) {
                         availMoney = product.getIssueLoan() * product.getBookPercent() - product.getTotal_tend_money();
-                        if(availMoney >= 10000 ) {
-                            itemLoanTotle.setText(FormatUtils.formatDown2(availMoney/10000) + "万");
-                        }else {
+                        if (availMoney >= 10000) {
+                            itemLoanTotle.setText(FormatUtils.formatDown2(availMoney / 10000) + "万");
+                        } else {
                             itemLoanTotle.setText(FormatUtils.formatDown2(availMoney) + "元");
                         }
                     } else {
@@ -695,9 +714,9 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
 
                     if (accountType == Constant.AccountLianLain) {
                         availMoney = product.getIssueLoan() - product.getTotal_tend_money();
-                        if(availMoney >= 10000 ) {
-                            itemLoanTotle.setText(FormatUtils.formatDown2(availMoney/10000) + "万");
-                        }else {
+                        if (availMoney >= 10000) {
+                            itemLoanTotle.setText(FormatUtils.formatDown2(availMoney / 10000) + "万");
+                        } else {
                             itemLoanTotle.setText(FormatUtils.formatDown2(availMoney) + "元");
                         }
                     } else {
@@ -911,7 +930,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                     }
 
                     if (moneyValue < 0.00) {
-                        Toast.makeText(ProductInvestActivity.this, "请输入出借金额", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductInvestActivity.this, "请先输入出借金额", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     Intent intent = new Intent(this, NewSelectVoucherActivity.class);
@@ -940,7 +959,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             voucherValue = event.getVoucherValue();
             double calcedMoney = event.getCalcedMoney();
             voucherrate = event.getVoucherrate();
-            tvDiscountCounts.setTextColor(getResources().getColor(R.color.main_color));
+//            tvDiscountCounts.setTextColor(getResources().getColor(R.color.main_color));
             tvDiscountCounts.setText("已抵扣" + FormatUtils.formatDown(calcedMoney) + "元");
             //                    tvCalcedMoney.setText("已抵扣" + String.format("%.2f",calcedMoney) + "元");
             vouchersArray = event.getVouchersArray();
@@ -968,7 +987,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
         vouchers = "";
         mType = event.getType();//加息券过来
         mAddRateInfo = event;
-        tvDiscountCounts.setTextColor(getResources().getColor(R.color.main_color));
+//        tvDiscountCounts.setTextColor(getResources().getColor(R.color.main_color));
         tvDiscountCounts.setText("预计加息" + FormatUtils.formatDown(event.getAddRateMoey()) + "元");
         mValue = event.getValue();
         mTemp = event.getTemp();
@@ -1011,7 +1030,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
 //            money = "0";
 //        }
         if (TextUtils.isEmpty(money)) {
-            Toast.makeText(ProductInvestActivity.this, "请输入购买金额", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProductInvestActivity.this, "请先输入出借金额", Toast.LENGTH_SHORT).show();
             return;
         }
         if (money.contains(".")) {
@@ -1033,7 +1052,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             e.printStackTrace();
         }
         if (mBuyMoney <= 0) {
-            Toast.makeText(ProductInvestActivity.this, "请输入正确的购买金额", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProductInvestActivity.this, "请输入正确的出借金额", Toast.LENGTH_SHORT).show();
             return;
         }
         if (availMoney < 100) {
@@ -1065,7 +1084,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             }
         }
         if (doubleMoneyCompare(mBuyMoney, availMoney) == 1) {
-            Toast.makeText(ProductInvestActivity.this, "输入的购买金额大于该产品的可购金额", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProductInvestActivity.this, "输入的出借金额大于该产品的可购金额", Toast.LENGTH_SHORT).show();
             return;
         }
         try {
@@ -1194,7 +1213,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    @OnClick({R.id.btn_recharge, R.id.btn_allin,R.id.ll_discount_container})
+    @OnClick({R.id.btn_recharge, R.id.btn_allin, R.id.ll_discount_container,R.id.tv_bottom_desc})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_recharge://充值
@@ -1213,9 +1232,12 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
             case R.id.btn_allin://全投
                 allRecharge();
                 break;
+            case R.id.tv_bottom_desc://出借有风险,投资需谨慎
+                gotoWeb("/registration/riskAgreement", "风险提示");
+                break;
             case R.id.ll_discount_container://优惠券
-                if (mTotalCount + usableVoucherCount > 0) {
-                    double moneyValue = 0;
+                double moneyValue = 0;
+                if (mTotalCount + usableVoucherCount >= 0) {
 //                    String money = etRechargeMoney.getText().toString();
                     String money = null;
 //                    if ("1".equals(mIPhone) && !isOrder) {
@@ -1230,7 +1252,7 @@ public class ProductInvestActivity extends BaseActivity implements View.OnClickL
                             e.printStackTrace();
                         }
                     }
-                    if (moneyValue < 0.00) {
+                    if (TextUtils.isEmpty(money)) {
                         Toast.makeText(ProductInvestActivity.this, "请输入出借金额", Toast.LENGTH_SHORT).show();
                         return;
                     }

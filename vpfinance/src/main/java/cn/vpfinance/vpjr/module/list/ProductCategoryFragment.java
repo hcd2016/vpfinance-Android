@@ -2,23 +2,24 @@ package cn.vpfinance.vpjr.module.list;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -31,6 +32,7 @@ import com.umeng.analytics.MobclickAgent;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -54,17 +56,20 @@ public class ProductCategoryFragment extends BaseFragment {
 
     @Bind(R.id.tab_layout)
     TabLayout tabLayout;
-    @Bind(R.id.coordinatorLayout)
-    CoordinatorLayout coordinatorLayout;
-    @Bind(R.id.appBarLayout)
-    AppBarLayout appBarLayout;
+    //    @Bind(R.id.coordinatorLayout)
+//    CoordinatorLayout coordinatorLayout;
+//    @Bind(R.id.appBarLayout)
+//    AppBarLayout appBarLayout;
     @Bind(R.id.titleBar)
     ActionBarLayout titleBar;
+    @Bind(R.id.v_red_bg)
+    View v_red_bg;
     private ViewPager mViewPager;
     //    private PagerSlidingTabStripNew mTabs;
     private HttpService mHttpService;
     //    private boolean isShowDeposit = false;
     private MyAdapter mTabsAdapter;
+    private List<Fragment> fragmentsList;
 
 
     @Override
@@ -73,7 +78,6 @@ public class ProductCategoryFragment extends BaseFragment {
         EventBus.getDefault().register(this);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,7 +96,7 @@ public class ProductCategoryFragment extends BaseFragment {
                 gotoActivity(intent);
             }
         });
-
+        initFragment();
         mViewPager = (ViewPager) view.findViewById(R.id.pager);
         mViewPager.setPageMargin(Utils.dip2px(getActivity(), 4));
         mViewPager.setOffscreenPageLimit(5);
@@ -100,7 +104,170 @@ public class ProductCategoryFragment extends BaseFragment {
         mHttpService = new HttpService(mContext, this);
 //        mHttpService.getIsShowDeposit();
         mHttpService.getLoanSignType();
+
         return view;
+    }
+
+
+    private boolean isShow = true;
+    private boolean isAnimationRunning = false;
+    private long preTime = System.currentTimeMillis();
+
+    //标题动画效果
+    private void initFragment() {
+        final Animation mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+
+
+        final Animation mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f);
+        final Animation mShowAction1 = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+
+
+        final Animation mHiddenAction1 = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f);
+
+        mShowAction.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                isAnimationRunning = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                isAnimationRunning = false;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                isAnimationRunning = true;
+            }
+        });
+        mShowAction.setDuration(150);
+        mHiddenAction.setDuration(150);
+        mHiddenAction.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                isAnimationRunning = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                isAnimationRunning = false;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+//                                isAnimationRunning = true;
+            }
+        });
+        mHiddenAction1.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                isAnimationRunning = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                isAnimationRunning = false;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                isAnimationRunning = true;
+            }
+        });
+        mShowAction1.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                isAnimationRunning = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                isAnimationRunning = false;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+//                                isAnimationRunning = true;
+            }
+        });
+        mShowAction1.setDuration(150);
+        mHiddenAction1.setDuration(150);
+        fragmentsList = new ArrayList<>();
+        fragmentsList.add(ProductListFragment.getInstance(Constant.TYPE_REGULAR));
+        fragmentsList.add(ProductListFragment.getInstance(Constant.TYPE_BANK));
+        fragmentsList.add(ProductListFragment.getInstance(Constant.TYPE_TRANSFER));
+        fragmentsList.add(ProductDepositListFragment.getInstance());
+
+        for (int i = 0; i < fragmentsList.size(); i++) {
+            if (i < 3) {
+                ((ProductListFragment) (fragmentsList.get(i))).setOnRecyclerViewChangeListner(new ProductListFragment.OnRecyclerViewChangeListner() {
+                    @Override
+                    public void onScrollChange(RecyclerView recyclerView, boolean isTop, int dx, int dy) {
+                        Log.i("onScrollChange", "isTop=============: " + isTop);
+                        Log.i("onScrollChange", "dy=============: " + dy);
+                        Log.i("onScrollChange", "isAnimationRunning=============: " + isAnimationRunning);
+                        Log.i("onScrollChange", "isShow=============: " + isShow);
+                        Log.i("preTime", "System.currentTimeMillis() - preTime=============: " +(System.currentTimeMillis() - preTime) );
+                        if (isTop) {
+                            if (dy <= 0 && Math.abs(dy) > 2) {//下拉且到顶部
+                                if (!isShow) {
+                                    titleBar.clearAnimation();
+                                    v_red_bg.clearAnimation();
+//                                    if (!isAnimationRunning && System.currentTimeMillis() - preTime > 200) {
+                                    if (!isAnimationRunning ) {
+                                        titleBar.startAnimation(mShowAction);
+                                        titleBar.setVisibility(View.VISIBLE);
+                                        v_red_bg.startAnimation(mShowAction1);
+                                        v_red_bg.setVisibility(View.VISIBLE);
+                                        isShow = !isShow;
+                                        preTime = System.currentTimeMillis();
+                                    }
+                                }
+                            }
+                        } else {
+                            if (isShow && dy > 0 && Math.abs(dy) > 2) {
+                                titleBar.clearAnimation();
+                                v_red_bg.clearAnimation();
+//                                if (!isAnimationRunning && System.currentTimeMillis() - preTime > 200) {
+                                if (!isAnimationRunning ) {
+                                    titleBar.startAnimation(mHiddenAction);
+                                    titleBar.setVisibility(View.GONE);
+                                    v_red_bg.startAnimation(mHiddenAction1);
+                                    v_red_bg.setVisibility(View.GONE);
+                                    isShow = !isShow;
+                                    preTime = System.currentTimeMillis();
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onRefrsh() {
+                        if (!isShow) {
+                            titleBar.clearAnimation();
+                            v_red_bg.clearAnimation();
+                            if (!isAnimationRunning) {
+                                titleBar.startAnimation(mShowAction);
+                                titleBar.setVisibility(View.VISIBLE);
+                                v_red_bg.startAnimation(mShowAction1);
+                                v_red_bg.setVisibility(View.VISIBLE);
+                                isShow = !isShow;
+                            }
+                        }
+                    }
+                });
+            }
+        }
     }
 
 
@@ -296,6 +463,7 @@ public class ProductCategoryFragment extends BaseFragment {
 
     class MyAdapter extends FragmentStatePagerAdapter {
 
+
         private List<LoanSignTypeBean.TypesBean> types = null;
 
         @Override
@@ -308,6 +476,7 @@ public class ProductCategoryFragment extends BaseFragment {
         public MyAdapter(FragmentManager fm, List<LoanSignTypeBean.TypesBean> types) {
             super(fm);
             this.types = types;
+
         }
 
         public Integer getTabValue(int position) {
@@ -319,13 +488,17 @@ public class ProductCategoryFragment extends BaseFragment {
             Integer type = types.get(position).value;
             switch (type) {
                 case Constant.TYPE_REGULAR://定期
-                    return ProductListFragment.getInstance(Constant.TYPE_REGULAR);
+//                    return ProductListFragment.getInstance(Constant.TYPE_REGULAR);
+                    return fragmentsList.get(0);
                 case Constant.TYPE_BANK://存管专区
-                    return ProductListFragment.getInstance(Constant.TYPE_BANK);
+                    return fragmentsList.get(1);
+//                    return ProductListFragment.getInstance(Constant.TYPE_BANK);
                 case Constant.TYPE_TRANSFER://债权转让
-                    return ProductListFragment.getInstance(Constant.TYPE_TRANSFER);
+                    return fragmentsList.get(2);
+//                    return ProductListFragment.getInstance(Constant.TYPE_TRANSFER);
                 case Constant.TYPE_POOL://智存出借
-                    return ProductDepositListFragment.getInstance();
+                    return fragmentsList.get(3);
+//                    return ProductDepositListFragment.getInstance();
             }
             return null;
         }
@@ -348,6 +521,9 @@ public class ProductCategoryFragment extends BaseFragment {
             return fragment;
         }
 
+        public Fragment getCurrentFragment(int position) {
+            return fragmentsList.get(position);
+        }
     }
 
     public static ProductCategoryFragment newInstance() {
