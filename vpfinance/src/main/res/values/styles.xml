@@ -292,4 +292,6 @@
     <style name="TabLayoutTextStyle" >
         <item name="android:textSize">15sp</item>
     </style>
+
+    <dimen name="status_top_bar_height">0dp</dimen>
 </resources>

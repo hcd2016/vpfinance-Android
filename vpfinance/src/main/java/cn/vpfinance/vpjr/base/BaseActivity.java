@@ -2,10 +2,13 @@ package cn.vpfinance.vpjr.base;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.jewelcredit.util.KeybordUtil;
 import com.jewelcredit.util.TitleBar;
@@ -26,110 +29,109 @@ import cn.vpfinance.vpjr.util.SharedPreferencesHelper;
 import cn.vpfinance.vpjr.util.StatusBarCompat1;
 import cn.vpfinance.vpjr.util.StatusBarUtils;
 
-public class BaseActivity extends FragmentActivity implements HttpDownloader.HttpDownloaderListener{
-	protected TitleBar mTitleBar;
+public class BaseActivity extends FragmentActivity implements HttpDownloader.HttpDownloaderListener {
+    protected TitleBar mTitleBar;
 
 
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); //去除半透明状态栏
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN); //全屏.显示
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
 //		StatusBarUtils.hideStatusBar(this,true);//隐藏标题栏
-		StatusBarCompat1.translucentStatusBar(this);
-	}
+//		StatusBarCompat1.translucentStatusBar(this);
+    }
 
-	protected  <T extends View> T viewById(int resId) {
-		return (T) super.findViewById(resId);
-	}
+    protected <T extends View> T viewById(int resId) {
+        return (T) super.findViewById(resId);
+    }
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-		MobclickAgent.onPause(this);
-		//更新时间
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+        //更新时间
 //		SharedPreferencesHelper.getInstance(this).putLongValue(SharedPreferencesHelper.KEY_LAST_PAUSE_TIME, System.currentTimeMillis());
-	}
+    }
 
-	protected void initView(){}
-	protected void loadDate(){}
+    protected void initView() {
+    }
 
-	@Override
-	protected void onResume() {
-		super.onResume();
+    protected void loadDate() {
+    }
 
-		SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
-		String lockPattenString = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING, null);
-		if(!(this instanceof WelcomeActivity))
-		{
-			if (!TextUtils.isEmpty(lockPattenString)) {
-				long lastPauseTime = preferencesHelper.getLongValue(SharedPreferencesHelper.KEY_LAST_PAUSE_TIME, System.currentTimeMillis());
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
+        String lockPattenString = preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_LOCK_STRING, null);
+        if (!(this instanceof WelcomeActivity)) {
+            if (!TextUtils.isEmpty(lockPattenString)) {
+                long lastPauseTime = preferencesHelper.getLongValue(SharedPreferencesHelper.KEY_LAST_PAUSE_TIME, System.currentTimeMillis());
 //				Logger.e("System.currentTimeMillis() - lastPauseTime: "+(System.currentTimeMillis() - lastPauseTime));
-				if(System.currentTimeMillis() - lastPauseTime > LockActivity.TIME_LOCK)
-				{
-					Intent intent = new Intent(this, LockActivity.class);
+                if (System.currentTimeMillis() - lastPauseTime > LockActivity.TIME_LOCK) {
+                    Intent intent = new Intent(this, LockActivity.class);
 //					intent.putExtra(LockActivity.NAME_AUTO_LOGIN, true);
-					startActivity(intent);
-				}
-			}
-		}
+                    startActivity(intent);
+                }
+            }
+        }
 
-		MobclickAgent.onResume(this);
-	}
+        MobclickAgent.onResume(this);
+    }
 
-	protected void onDestroy()
-	{
-		HttpDownloader.mClient.cancelRequests(this, true);
-		super.onDestroy();
+    protected void onDestroy() {
+        HttpDownloader.mClient.cancelRequests(this, true);
+        super.onDestroy();
 //		ImageLoader.getInstance().stop();
 //		if(KeybordUtil.isSoftInputShow(this)) {
 //			KeybordUtil.closeKeybord(this.getCurrentFocus(),this);
 //		}
-	}
-	
+    }
+
     public void onHttpSuccess(int reqId, JSONObject json) {
-	}
-    
-    
-    public void onHttpCache(int reqId)
-    {
-    }
-
-    protected boolean isHttpHandle(JSONObject json){
-		if (json == null || isFinishing() || Common.isForceLogout(this,json))	return false;
-		return true;
-	}
-
-//	private static boolean isToast = false;
-    public void onHttpError(int reqId, String errmsg)
-    {
-    }
-    
-    public void gotoActivity(Class<? extends Activity> activityClass)
-	{
-		startActivity(new Intent(this, activityClass));
-		this.overridePendingTransition(R.anim.fragment_slide_in_right, R.anim.fragment_slide_out_left);
-	}
-
-	public void gotoActivity(Intent intent)
-	{
-		startActivity(intent);
-		this.overridePendingTransition(R.anim.fragment_slide_in_right, R.anim.fragment_slide_out_left);
-	}
-    
-    public void gotoActivityWithFinish(Class<? extends Activity> activityClass)
-	{
-		startActivity(new Intent(this, activityClass));
-		overridePendingTransition(R.anim.fragment_slide_in_right, R.anim.fragment_slide_out_left);
-		finish();
-	}
-    
-    public void gotoWeb(String url, String title)
-    {
-    	Utils.goToWeb(this, url, title);
     }
 
 
-	@Override
-	public void onHttpSuccess(int reqId, JSONArray json) {
-	}
+    public void onHttpCache(int reqId) {
+    }
+
+    protected boolean isHttpHandle(JSONObject json) {
+        if (json == null || isFinishing() || Common.isForceLogout(this, json)) return false;
+        return true;
+    }
+
+    //	private static boolean isToast = false;
+    public void onHttpError(int reqId, String errmsg) {
+    }
+
+    public void gotoActivity(Class<? extends Activity> activityClass) {
+        startActivity(new Intent(this, activityClass));
+        this.overridePendingTransition(R.anim.fragment_slide_in_right, R.anim.fragment_slide_out_left);
+    }
+
+    public void gotoActivity(Intent intent) {
+        startActivity(intent);
+        this.overridePendingTransition(R.anim.fragment_slide_in_right, R.anim.fragment_slide_out_left);
+    }
+
+    public void gotoActivityWithFinish(Class<? extends Activity> activityClass) {
+        startActivity(new Intent(this, activityClass));
+        overridePendingTransition(R.anim.fragment_slide_in_right, R.anim.fragment_slide_out_left);
+        finish();
+    }
+
+    public void gotoWeb(String url, String title) {
+        Utils.goToWeb(this, url, title);
+    }
+
+
+    @Override
+    public void onHttpSuccess(int reqId, JSONArray json) {
+    }
 }
 
