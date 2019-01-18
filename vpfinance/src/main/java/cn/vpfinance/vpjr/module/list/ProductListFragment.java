@@ -287,7 +287,7 @@ public class ProductListFragment extends BaseFragment implements View.OnClickLis
     public void onHttpError(int reqId, String errmsg) {
         if (!isAdded()) return;
         if (reqId == ServiceCmd.CmdId.CMD_Loan_Sign_List_New.ordinal()) {
-//            mRecyclerView.refreshFinish();
+            mRecyclerView.refreshFinish();
             refresh.finishRefresh();
         }
     }

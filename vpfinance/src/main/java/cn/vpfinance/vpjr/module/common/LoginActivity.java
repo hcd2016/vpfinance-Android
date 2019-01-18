@@ -422,10 +422,12 @@ public class LoginActivity extends BaseActivity {
                 if (isPersonType) {//个人用户
 //                    sharedPreferencesHelper.putStringValue(SharedPreferencesHelper.KEY_CELL_PHONE, cellPhone);
                     sharedPreferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_USER_NAME, username);
+                    sharedPreferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD, password);
                 } else {//企业用户
                     sharedPreferencesHelper.putStringValue(SharedPreferencesHelper.KEY_SAVE_COMPANY_USER_NAME, username);//保存登录企业用户名
+                    sharedPreferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_PWD, password);
                 }
-
+                sharedPreferencesHelper.putStringValue(SharedPreferencesHelper.KEY_LOCK_USER_NAME, username);
                 App application = (App) getApplication();
                 application.isLogin = true;
                 SharedPreferencesHelper.getInstance(this).putBooleanValue(SharedPreferencesHelper.KEY_ISPERSONTYPE, isPersonType);

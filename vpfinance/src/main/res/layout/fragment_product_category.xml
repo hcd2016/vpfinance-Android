@@ -28,6 +28,11 @@
     添加app:layout_scrollFlags="scroll"属性可以滑出布局
     TabLayout没有添加，所以停留在顶部
     -->
+    <LinearLayout
+        android:id="@+id/ll_title_contianer"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <com.jewelcredit.ui.widget.ActionBarLayout
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
@@ -47,7 +52,7 @@
         app:tabSelectedTextColor="@color/white"
         app:tabTextAppearance="@style/TabLayoutTextStyle"
         app:tabTextColor="@color/white" />
-
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

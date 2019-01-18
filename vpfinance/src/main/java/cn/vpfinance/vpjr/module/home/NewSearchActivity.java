@@ -3,6 +3,7 @@ package cn.vpfinance.vpjr.module.home;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -13,7 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.jewelcredit.util.HttpService;
@@ -32,7 +33,7 @@ import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.App;
 import cn.vpfinance.vpjr.Constant;
 import cn.vpfinance.vpjr.adapter.LoanSignDepositListAdapter;
-import cn.vpfinance.vpjr.adapter.LoanSignListNewAdapter;
+import cn.vpfinance.vpjr.adapter.ProductListAdapter;
 import cn.vpfinance.vpjr.base.BaseActivity;
 import cn.vpfinance.vpjr.gson.LoanSignDepositBean;
 import cn.vpfinance.vpjr.gson.LoanSignListNewBean;
@@ -41,6 +42,9 @@ import cn.vpfinance.vpjr.module.product.shenyang.PresellProductActivity;
 import cn.vpfinance.vpjr.module.product.transfer.NewTransferProductActivity;
 import cn.vpfinance.vpjr.util.StatusBarCompat1;
 import cn.vpfinance.vpjr.view.EditTextWithDel;
+import cn.vpfinance.vpjr.view.pullrefresh.PullRefreshRecyclerView;
+import cn.vpfinance.vpjr.view.pullrefresh.PullRefreshUtil;
+import cn.vpfinance.vpjr.view.pullrefresh.PullRefreshView;
 
 /**
  */
@@ -50,10 +54,12 @@ public class NewSearchActivity extends BaseActivity {
     EditTextWithDel mSearchText;
     @Bind(R.id.close)
     TextView mClose;
-    @Bind(R.id.listView)
-    ListView mListView;
+    //    @Bind(R.id.listView)
+//    ListView mListView;
     @Bind(R.id.textview)
     TextView textview;
+    @Bind(R.id.recyclerView)
+    PullRefreshRecyclerView recyclerView;
 
     private HttpService mHttpService;
     private final static int PAGE_SIZE = 10;
@@ -61,7 +67,8 @@ public class NewSearchActivity extends BaseActivity {
 
     private Context mContext;
     private boolean isLastPage = false;
-    private LoanSignListNewAdapter mListAdapter;
+    //    private LoanSignListNewAdapter mListAdapter;
+    private ProductListAdapter mListAdapter;
     private List<LoanSignListNewBean.LoansignsBean> totalData = new ArrayList<>();
     private List<LoanSignDepositBean.LoansignpoolBean> mDepositData = new ArrayList<>();
     private LoanSignDepositListAdapter mDepositAdapter;
@@ -87,13 +94,17 @@ public class NewSearchActivity extends BaseActivity {
 
         int currentListTabType = ((App) getApplication()).currentListTabType;
 //
-        if (currentListTabType == Constant.TYPE_POOL) {
-            mDepositAdapter = new LoanSignDepositListAdapter(mContext);
-            mListView.setAdapter(mDepositAdapter);
-        } else {
-            mListAdapter = new LoanSignListNewAdapter(this);
-            mListView.setAdapter(mListAdapter);
-        }
+        mListAdapter = new ProductListAdapter(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(mListAdapter);
+//        if (currentListTabType == Constant.TYPE_POOL) {
+//            mDepositAdapter = new LoanSignDepositListAdapter(mContext);
+//            mListView.setAdapter(mDepositAdapter);
+//        } else {
+//            mListAdapter = new ProductListAdapter(this);
+//            mListView.setAdapter(mListAdapter);
+//        }
+
 
         //如果输入法在窗口上已经显示，则隐藏，反之则显示
 //        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -139,26 +150,34 @@ public class NewSearchActivity extends BaseActivity {
                 }
             }
         });
-
-        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-
+        PullRefreshUtil.setRefresh(recyclerView, false, true);
+        recyclerView.isAutomaticUp(true);
+        recyclerView.setOnPullUpRefreshListener(new PullRefreshView.OnPullUpRefreshListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (view.getLastVisiblePosition() == view.getCount() - 1 && !isLastPage) {
-                    page++;
-                    requestNet();
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            public void onRefresh() {
+                page++;
+                requestNet();
             }
         });
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+//
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//                if (view.getLastVisiblePosition() == view.getCount() - 1 && !isLastPage) {
+//                    page++;
+//                    requestNet();
+//                }
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//            }
+//        });
 
+        mListAdapter.setOnItemClickListener(new ProductListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(LoanSignListNewBean.LoansignsBean regularBean) {
                 int currentListTabType = ((App) getApplication()).currentListTabType;
 
                 switch (currentListTabType) {
@@ -177,7 +196,7 @@ public class NewSearchActivity extends BaseActivity {
                     case Constant.TYPE_REGULAR:
                     case Constant.TYPE_BANK:
                         if (mListAdapter != null) {
-                            LoanSignListNewBean.LoansignsBean regularBean = mListAdapter.getItem(position);
+//                            LoanSignListNewBean.LoansignsBean regularBean = mListAdapter.getItem(position);
                             if ((!isFinishing()) && regularBean != null && regularBean.loansign != null) {
                                 if (regularBean.loansign.productType == 3) {
                                     PresellProductActivity.goPresellProductActivity(NewSearchActivity.this, "" + regularBean.loansign.id);
@@ -189,25 +208,32 @@ public class NewSearchActivity extends BaseActivity {
                         break;
                     case Constant.TYPE_TRANSFER:
                         if (mListAdapter != null) {
-                            LoanSignListNewBean.LoansignsBean tranfBean = mListAdapter.getItem(position);
-                            if ((!isFinishing()) && tranfBean != null && tranfBean.loansign != null) {
-                                NewTransferProductActivity.goNewTransferProductActivity(mContext, tranfBean.loansign.id);
+//                            LoanSignListNewBean.LoansignsBean tranfBean = mListAdapter.getItem(position);
+                            if ((!isFinishing()) && regularBean != null && regularBean.loansign != null) {
+                                NewTransferProductActivity.goNewTransferProductActivity(mContext, regularBean.loansign.id);
                             }
                         }
                         break;
-                    case Constant.TYPE_POOL:
-                        if (mDepositAdapter != null) {
-                            LoanSignDepositBean.LoansignpoolBean item = mDepositAdapter.getItem(position);
-                            if (item != null && item.id != 0) {
-                                int pid = item.id;
-                                String loanTitle = item.loanTitle;
-                                NewRegularProductActivity.goNewRegularProductActivity(mContext, pid, 0, loanTitle, true);
-                            }
-                        }
-                        break;
+//                    case Constant.TYPE_POOL:
+//                        if (mDepositAdapter != null) {
+//                            LoanSignDepositBean.LoansignpoolBean item = mDepositAdapter.getItem(position);
+//                            if (item != null && item.id != 0) {
+//                                int pid = item.id;
+//                                String loanTitle = item.loanTitle;
+//                                NewRegularProductActivity.goNewRegularProductActivity(mContext, pid, 0, loanTitle, true);
+//                            }
+//                        }
+//                        break;
                 }
             }
         });
+//        recyclerView.addon(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//            }
+//        });
 
     }
 
@@ -247,7 +273,10 @@ public class NewSearchActivity extends BaseActivity {
                     if (page == 0) {
                         totalData.clear();
                     }
+                    boolean isMore = listNew.total > (page + 1) * PAGE_SIZE;
+                    recyclerView.isMore(isMore);
                     totalData.addAll(listNew.loansigns);
+                    recyclerView.refreshFinish();
                 }
                 int currentListTabType = ((App) getApplication()).currentListTabType;
                 mListAdapter.setData(totalData, currentListTabType);
@@ -259,10 +288,19 @@ public class NewSearchActivity extends BaseActivity {
                 if (page == 0) {
                     mDepositData.clear();
                 }
+//                boolean isMore = listNew.total > (pageNum + 1) * PAGE_SIZE;
                 mDepositData.addAll(loanSignDepositBean.loansignpool);
                 mDepositAdapter.setData(mDepositData);
+//                recyclerView.isMore(isMore);
+                recyclerView.refreshFinish();
             }
         }
+    }
+
+    @Override
+    public void onHttpError(int reqId, String errmsg) {
+        super.onHttpError(reqId, errmsg);
+        recyclerView.refreshFinish();
     }
 
     @OnClick(R.id.close)

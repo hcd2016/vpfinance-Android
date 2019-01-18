@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -64,6 +62,8 @@ public class ProductCategoryFragment extends BaseFragment {
     ActionBarLayout titleBar;
     @Bind(R.id.v_red_bg)
     View v_red_bg;
+    @Bind(R.id.ll_title_contianer)
+    LinearLayout llTitleContianer;
     private ViewPager mViewPager;
     //    private PagerSlidingTabStripNew mTabs;
     private HttpService mHttpService;
@@ -97,6 +97,7 @@ public class ProductCategoryFragment extends BaseFragment {
             }
         });
         initFragment();
+
         mViewPager = (ViewPager) view.findViewById(R.id.pager);
         mViewPager.setPageMargin(Utils.dip2px(getActivity(), 4));
         mViewPager.setOffscreenPageLimit(5);
@@ -115,24 +116,34 @@ public class ProductCategoryFragment extends BaseFragment {
 
     //标题动画效果
     private void initFragment() {
-        final Animation mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+//        int height = titleBar.getHeight();
+        int height = Utils.dip2px(getActivity(),48);
+        final Animation mShowAction =
+//                new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+//                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+//                -height, Animation.RELATIVE_TO_SELF, 0.0f);
+        new TranslateAnimation(0,0,-height,0);
 
 
-        final Animation mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
-                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                -1.0f);
-        final Animation mShowAction1 = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+        final Animation mHiddenAction =
+                new TranslateAnimation(0,0,0,-height);
+//                new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+//                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+//                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+//                -height);
+        final Animation mShowAction1 =
+//                new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+//                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+//                -height, Animation.RELATIVE_TO_SELF, 0.0f);
+                new TranslateAnimation(0,0,-height,0);
 
 
-        final Animation mHiddenAction1 = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
-                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-                -1.0f);
+        final Animation mHiddenAction1 =
+//                new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+//                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+//                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+//                -height);
+                new TranslateAnimation(0,0,0,-height);
 
         mShowAction.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -217,15 +228,15 @@ public class ProductCategoryFragment extends BaseFragment {
                         Log.i("onScrollChange", "dy=============: " + dy);
                         Log.i("onScrollChange", "isAnimationRunning=============: " + isAnimationRunning);
                         Log.i("onScrollChange", "isShow=============: " + isShow);
-                        Log.i("preTime", "System.currentTimeMillis() - preTime=============: " +(System.currentTimeMillis() - preTime) );
+                        Log.i("preTime", "System.currentTimeMillis() - preTime=============: " + (System.currentTimeMillis() - preTime));
                         if (isTop) {
-                            if (dy <= 0 && Math.abs(dy) > 2) {//下拉且到顶部
+                            if (dy < 0 && Math.abs(dy) > 2) {//下拉且到顶部
                                 if (!isShow) {
-                                    titleBar.clearAnimation();
+                                    llTitleContianer.clearAnimation();
                                     v_red_bg.clearAnimation();
 //                                    if (!isAnimationRunning && System.currentTimeMillis() - preTime > 200) {
-                                    if (!isAnimationRunning ) {
-                                        titleBar.startAnimation(mShowAction);
+                                    if (!isAnimationRunning) {
+                                        llTitleContianer.startAnimation(mShowAction);
                                         titleBar.setVisibility(View.VISIBLE);
                                         v_red_bg.startAnimation(mShowAction1);
                                         v_red_bg.setVisibility(View.VISIBLE);
@@ -236,11 +247,11 @@ public class ProductCategoryFragment extends BaseFragment {
                             }
                         } else {
                             if (isShow && dy > 0 && Math.abs(dy) > 2) {
-                                titleBar.clearAnimation();
+                                llTitleContianer.clearAnimation();
                                 v_red_bg.clearAnimation();
 //                                if (!isAnimationRunning && System.currentTimeMillis() - preTime > 200) {
-                                if (!isAnimationRunning ) {
-                                    titleBar.startAnimation(mHiddenAction);
+                                if (!isAnimationRunning) {
+                                    llTitleContianer.startAnimation(mHiddenAction);
                                     titleBar.setVisibility(View.GONE);
                                     v_red_bg.startAnimation(mHiddenAction1);
                                     v_red_bg.setVisibility(View.GONE);
@@ -254,10 +265,10 @@ public class ProductCategoryFragment extends BaseFragment {
                     @Override
                     public void onRefrsh() {
                         if (!isShow) {
-                            titleBar.clearAnimation();
+                            llTitleContianer.clearAnimation();
                             v_red_bg.clearAnimation();
                             if (!isAnimationRunning) {
-                                titleBar.startAnimation(mShowAction);
+                                llTitleContianer.startAnimation(mShowAction);
                                 titleBar.setVisibility(View.VISIBLE);
                                 v_red_bg.startAnimation(mShowAction1);
                                 v_red_bg.setVisibility(View.VISIBLE);
@@ -368,14 +379,14 @@ public class ProductCategoryFragment extends BaseFragment {
         mViewPager.setAdapter(mTabsAdapter);
 //        mTabs.setViewPager(mViewPager);
         tabLayout.setupWithViewPager(mViewPager);
-        mViewPager.setCurrentItem(0);
 
-        int currentListTabType = ((App) getActivity().getApplication()).currentListTabType;
-        for (int i = 0; i < typeBean.types.size(); i++) {
-            if (currentListTabType == typeBean.types.get(i).value) {
-                mViewPager.setCurrentItem(i);
-            }
-        }
+
+//        int currentListTabType = ((App) getActivity().getApplication()).currentListTabType;
+//        for (int i = 0; i < typeBean.types.size(); i++) {
+//            if (currentListTabType == typeBean.types.get(i).value) {
+//                mViewPager.setCurrentItem(i);
+//            }
+//        }
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -433,6 +444,7 @@ public class ProductCategoryFragment extends BaseFragment {
 
             }
         });
+        mViewPager.setCurrentItem(0);
         reflex(tabLayout);
     }
 

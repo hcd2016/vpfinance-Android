@@ -4,13 +4,14 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:background="@drawable/guide03">
+    tools:background="@drawable/guide04">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/guide_viewpager"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
     <Button
+        android:visibility="gone"
         android:id="@+id/go_main"
         android:layout_width="120dp"
         android:layout_height="60dp"

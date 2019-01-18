@@ -17,7 +17,7 @@
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:background="@color/bg_gray2">
+        android:background="@color/white">
         <LinearLayout
             android:id="@+id/clickWeiXin"
             android:layout_width="0dp"
@@ -29,14 +29,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/icon_wechat"/>
+                android:background="@mipmap/we_chat"/>
             <TextView
                 android:layout_marginTop="18dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:textColor="@color/text_666666"
+                android:textColor="@color/text_999999"
                 android:text="微信"/>
         </LinearLayout>
         <LinearLayout
@@ -50,14 +50,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/icon_friend"/>
+                android:background="@mipmap/moments"/>
             <TextView
                 android:layout_marginTop="18dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:textColor="@color/text_666666"
+                android:textColor="@color/text_999999"
                 android:text="朋友圈"/>
         </LinearLayout>
         <LinearLayout
@@ -71,14 +71,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/icon_qq"/>
+                android:background="@mipmap/qq"/>
             <TextView
                 android:layout_marginTop="18dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:textColor="@color/text_666666"
+                android:textColor="@color/text_999999"
                 android:text="QQ好友"/>
         </LinearLayout>
         <LinearLayout
@@ -92,22 +92,22 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/icon_weibo"/>
+                android:background="@mipmap/sina"/>
             <TextView
                 android:layout_marginTop="18dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:textColor="@color/text_666666"
+                android:textColor="@color/text_999999"
                 android:text="新浪微博"/>
         </LinearLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/text_cccccc"/>
+        android:layout_height="1px"
+        android:background="@color/gray_d5d"/>
     <TextView
         android:id="@+id/tvCancel"
         android:layout_width="match_parent"

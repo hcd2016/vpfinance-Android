@@ -17,7 +17,7 @@ import cn.vpfinance.vpjr.module.home.MainActivity;
 import cn.vpfinance.vpjr.util.Logger;
 
 public class WelcomeGuideActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener{
-	private int[] mImageIds = {R.drawable.guide01, R.drawable.guide02, R.drawable.guide03};
+	private int[] mImageIds = {R.drawable.guide01, R.drawable.guide02, R.drawable.guide03,R.drawable.guide04};
 
 	private LinearLayout mPageIndicator;
 	private ViewPager mViewPager;
@@ -104,18 +104,18 @@ public class WelcomeGuideActivity extends BaseActivity implements View.OnClickLi
 	}
 
 	public void onPageSelected(int index) {
-		switch (index){
-			case 0:
-				goMain.setVisibility(View.GONE);
-				break;
-			case 1:
-				goMain.setVisibility(View.GONE);
-				break;
-			case 2:
-				goMain.setVisibility(View.VISIBLE);
-				break;
-		}
-//		Utils.addIndicator(this, mPageIndicator, index, mImageIds.length, R.drawable.indicator, R.drawable.indicator_sel);
+//		switch (index){
+//			case 0:
+//				goMain.setVisibility(View.GONE);
+//				break;
+//			case 1:
+//				goMain.setVisibility(View.GONE);
+//				break;
+//			case 2:
+//				goMain.setVisibility(View.VISIBLE);
+//				break;
+//		}
+////		Utils.addIndicator(this, mPageIndicator, index, mImageIds.length, R.drawable.indicator, R.drawable.indicator_sel);
 	}
 
 	@Override

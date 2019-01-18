@@ -272,7 +272,6 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void finish() {
-
         super.finish();
     }
 
@@ -498,29 +497,29 @@ public class WebViewActivity extends BaseActivity implements View.OnClickListene
             Utils.Toast(WebViewActivity.this, description);
         }
 
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            String url = "";
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                url = request.getUrl().toString();
-            } else {
-                url = request.toString();
-            }
-            Logger.e("shouldOverrideUrlLoading:" + url);
-            if (TextUtils.isEmpty(url)) return true;
-            //vpfinance://toLogin
-            //如果跳转链接出现vpfinance://开头的就去调用相对应的方法
-            if (!TextUtils.isEmpty(url) && url.contains("vpfinance://")) {
-                String methodName = url.substring("vpfinance://".length());
-//                Logger.e("qqq:"+methodName);
-                if ("toLogin".equals(methodName)) {
-                    mTempUrl = webView.getUrl();
-                    gotoActivity(LoginActivity.class);
-                    //?uid=&isShare=1&type=4   成功后添加uid参数
-                }
-            }
-            return true;
-        }
+//        @Override
+//        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+//            String url = "";
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                url = request.getUrl().toString();
+//            } else {
+//                url = request.toString();
+//            }
+//            Logger.e("shouldOverrideUrlLoading:" + url);
+//            if (TextUtils.isEmpty(url)) return true;
+//            //vpfinance://toLogin
+//            //如果跳转链接出现vpfinance://开头的就去调用相对应的方法
+//            if (!TextUtils.isEmpty(url) && url.contains("vpfinance://")) {
+//                String methodName = url.substring("vpfinance://".length());
+////                Logger.e("qqq:"+methodName);
+//                if ("toLogin".equals(methodName)) {
+//                    mTempUrl = webView.getUrl();
+//                    gotoActivity(LoginActivity.class);
+//                    //?uid=&isShare=1&type=4   成功后添加uid参数
+//                }
+//            }
+//            return true;
+//        }
 
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             Logger.e("shouldOverrideUrlLoading:" + url);

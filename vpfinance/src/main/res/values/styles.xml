@@ -140,6 +140,13 @@
         <item name="android:textSize">@dimen/submit_text_size</item>
     </style>
 
+    <style name="NoRadiusSubmitButtonStyle" parent="SingleLineTextStyle">
+        <item name="android:background">@drawable/bg_submit_no_radius</item>
+        <!--<item name="android:textColor">@android:color/white</item>-->
+        <item name="android:textColor">@drawable/bg_btn_textcolor_submit</item>
+        <item name="android:textSize">@dimen/submit_text_size</item>
+    </style>
+
     <style name="AreaTextStyle" parent="TextStyle">
 
     </style>

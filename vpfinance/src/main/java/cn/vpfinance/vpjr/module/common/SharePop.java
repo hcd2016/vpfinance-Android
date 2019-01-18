@@ -3,14 +3,18 @@ package cn.vpfinance.vpjr.module.common;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import java.lang.reflect.Field;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -78,6 +82,7 @@ public class SharePop extends PopupWindow {
         ColorDrawable dw = new ColorDrawable(0x80000000);
         // 设置SelectPicPopupWindow弹出窗体的背景
         this.setBackgroundDrawable(dw);
+        fitPopupWindowOverStatusBar(true,this);
         // mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
         mView.setOnTouchListener(new View.OnTouchListener() {
 
@@ -95,6 +100,20 @@ public class SharePop extends PopupWindow {
                 return true;
             }
         });
+    }
+
+    public void fitPopupWindowOverStatusBar(boolean needFullScreen,PopupWindow mPopupWindow) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            try {
+                Field mLayoutInScreen = PopupWindow.class.getDeclaredField("mLayoutInScreen");
+                mLayoutInScreen.setAccessible(true);
+                mLayoutInScreen.set(mPopupWindow, needFullScreen);
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @OnClick({R.id.clickWeiXin, R.id.clickFriend, R.id.clickQQ, R.id.clickWeiBo, R.id.tvCancel})

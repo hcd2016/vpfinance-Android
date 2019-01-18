@@ -150,12 +150,14 @@ public class MoreFragment2 extends BaseFragment implements View.OnClickListener 
         if (AppState.instance().logined()) {//登录与未登录头部
             llLoginedHeaderContainer.setVisibility(View.VISIBLE);
             tvUnloginDesc.setVisibility(View.GONE);
-        } else {
             ivAvatar.setImageResource(R.mipmap.profile);
+        } else {
+            ivAvatar.setImageResource(R.mipmap.profile_gray);
             tvUnloginDesc.setVisibility(View.VISIBLE);
             llLoginedHeaderContainer.setVisibility(View.GONE);
         }
     }
+
 
     @Override
     public void onHttpSuccess(int reqId, JSONObject json) {

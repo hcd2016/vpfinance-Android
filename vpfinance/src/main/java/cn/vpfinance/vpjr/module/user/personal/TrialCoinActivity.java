@@ -48,7 +48,7 @@ public class TrialCoinActivity extends BaseActivity implements View.OnClickListe
     private BonusRespondModel mBonusModel;
     private TextView tvNormalProfit;
     private TextView tvChequeMoney;  //赠送体验金
-    private TextView tvChequeProfit; //预计收益
+//    private TextView tvChequeProfit; //预计收益
     private int status = 1;
     private TextView tvChequeAction;
     private User user;
@@ -66,7 +66,7 @@ public class TrialCoinActivity extends BaseActivity implements View.OnClickListe
         tvYearRate = (TextView) findViewById(R.id.mrate);
         tvNormalProfit = (TextView) findViewById(R.id.normalProfit);
         tvChequeMoney = (TextView) findViewById(R.id.chequeMoney);
-        tvChequeProfit = (TextView) findViewById(R.id.chequeProfit);
+//        tvChequeProfit = (TextView) findViewById(R.id.chequeProfit);
         tvChequeAction = (TextView) findViewById(R.id.chequeAction);
         ivTrialCoin = ((ImageView) findViewById(R.id.ivTrialCoin));
         tvDeadInfo = ((TextView)findViewById(R.id.tvDeadInfo));
@@ -157,8 +157,8 @@ public class TrialCoinActivity extends BaseActivity implements View.OnClickListe
         if (model.msg == 0 && AppState.instance().logined()) {
             // 用户没有体验金
             tvChequeMoney.setText(String.format("%.2f", 0f));
-            tvChequeProfit.setText(String.format("￥%.2f", 0f));
-            tvChequeProfit.setVisibility(View.GONE);
+//            tvChequeProfit.setText(String.format("￥%.2f", 0f));
+//            tvChequeProfit.setVisibility(View.GONE);
             ivTrialCoin.setBackgroundResource(R.drawable.bg_trial_orin_none);
         }else{
             ivTrialCoin.setBackgroundResource(R.drawable.bg_trial_coin_change);
@@ -168,7 +168,7 @@ public class TrialCoinActivity extends BaseActivity implements View.OnClickListe
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             tvDeadInfo.setText("有效期 " + format.format(new Date(model.bonusProfit.principalExpiryTime*1000)));
             tvChequeMoney.setText(String.format("%.2f", model.bonusProfit.principal));
-            tvChequeProfit.setText(String.format("￥%.2f", Utils.doubleFloor(model.bonusProfit.totalEarning)));
+//            tvChequeProfit.setText(String.format("￥%.2f", Utils.doubleFloor(model.bonusProfit.totalEarning)));
             status = model.bonusProfit.status;
         }
 
@@ -215,7 +215,7 @@ public class TrialCoinActivity extends BaseActivity implements View.OnClickListe
                 tvTotalOrIncomeTitle.setText("累计收益");
                 if(model != null){
                     if (model.bonusProfit!= null){
-                        tvChequeMoney.setText(String.format("￥%.2f", Utils.doubleFloor(model.bonusProfit.totalEarning)));
+                        tvChequeMoney.setText(String.format("%.2f", Utils.doubleFloor(model.bonusProfit.totalEarning)));
                         tvDeadInfo.setText("出借金额" + String.format("%.2f", model.bonusProfit.principal) + "元");
                     }
                 }
@@ -228,7 +228,7 @@ public class TrialCoinActivity extends BaseActivity implements View.OnClickListe
                 tvDeadInfo.setVisibility(View.VISIBLE);
                 if(model != null){
                     if (model.bonusProfit!= null){
-                        tvChequeMoney.setText(String.format("￥%.2f", Utils.doubleFloor(model.bonusProfit.totalEarning)));
+                        tvChequeMoney.setText(String.format("%.2f", Utils.doubleFloor(model.bonusProfit.totalEarning)));
                         tvDeadInfo.setText("出借金额" + String.format("%.2f", model.bonusProfit.principal) + "元");
                     }
                 }
@@ -240,7 +240,7 @@ public class TrialCoinActivity extends BaseActivity implements View.OnClickListe
                 tvTotalOrIncomeTitle.setText("累计收益");
                 if(model != null){
                     if (model.bonusProfit!= null){
-                        tvChequeMoney.setText(String.format("￥%.2f", Utils.doubleFloor(model.bonusProfit.totalEarning)));
+                        tvChequeMoney.setText(String.format("%.2f", Utils.doubleFloor(model.bonusProfit.totalEarning)));
                     }
                 }
 
@@ -253,7 +253,7 @@ public class TrialCoinActivity extends BaseActivity implements View.OnClickListe
                 tvTotalOrIncomeTitle.setText("累计收益");
                 if(model != null){
                     if (model.bonusProfit!= null){
-                        tvChequeMoney.setText(String.format("￥%.2f", Utils.doubleFloor(model.bonusProfit.totalEarning)));
+                        tvChequeMoney.setText(String.format("%.2f", Utils.doubleFloor(model.bonusProfit.totalEarning)));
                     }
                 }
 

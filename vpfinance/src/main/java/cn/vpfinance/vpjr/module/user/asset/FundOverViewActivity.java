@@ -126,7 +126,7 @@ public class FundOverViewActivity extends BaseActivity implements View.OnClickLi
 
     public void initView() {
         titleBar = (ActionBarLayout) findViewById(R.id.titleBar);
-        titleBar.setHeadBackVisible(View.VISIBLE).setTitle("资金总览");
+        titleBar.setHeadBackVisible(View.VISIBLE).setTitle("资产总览");
 
         cashBalance = (TextView) findViewById(R.id.cashBalance);
         frozenAmtN = (TextView) findViewById(R.id.frozenAmtN);

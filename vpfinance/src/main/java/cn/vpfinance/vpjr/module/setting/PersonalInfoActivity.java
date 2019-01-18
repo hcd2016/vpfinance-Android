@@ -777,6 +777,11 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         SharedPreferencesHelper preferencesHelper = SharedPreferencesHelper.getInstance(this);
         preferencesHelper.removeKey(SharedPreferencesHelper.KEY_LOCK_STRING);
         preferencesHelper.removeKey(SharedPreferencesHelper.KEY_LOCK_USER_ID);
+        if (!TextUtils.isEmpty(preferencesHelper.getStringValue(SharedPreferencesHelper.KEY_WEIXIN_UNIONID))) {//是账号密码登录,如之前是微信登录,清除unionid
+            preferencesHelper.removeKey(SharedPreferencesHelper.KEY_WEIXIN_UNIONID);
+        }else {
+            preferencesHelper.removeKey(SharedPreferencesHelper.KEY_LOCK_USER_PWD);
+        }
 
         ((App) getApplication()).isLogin = false;
         mHttpService.logout();

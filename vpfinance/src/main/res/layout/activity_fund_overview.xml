@@ -75,7 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="在投金额"
+                        android:text="待回款金额"
                         android:textSize="12sp" />
                 </LinearLayout>
             </RelativeLayout>
@@ -125,7 +125,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="在投金额"
+                        android:text="待回款金额"
                         android:textColor="@color/text_999999"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingBottom="18dp"
-                    android:text="可用余额、在投金额、冻结金额之和"
+                    android:text="可用余额、待回款金额、冻结金额之和"
                     android:textColor="@color/text_999999"
                     android:textSize="12sp" />
 
@@ -314,7 +314,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingBottom="18dp"
-                    android:text="出借后未开始计息的金额"
+                    android:text="出借后项目未完成满标审核的金额"
                     android:textColor="@color/text_999999"
                     android:textSize="12sp" />
 
