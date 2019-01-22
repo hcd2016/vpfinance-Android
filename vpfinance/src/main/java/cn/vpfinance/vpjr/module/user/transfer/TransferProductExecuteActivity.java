@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.HttpService;
 import com.jewelcredit.util.ServiceCmd;
+import com.jewelcredit.util.Utils;
 
 import org.json.JSONObject;
 
@@ -112,7 +113,7 @@ public class TransferProductExecuteActivity extends BaseActivity implements View
             borrowId = info.getBorrowId();
 
             tvTitle.setText(TextUtils.isEmpty(info.getTitle()) ? "" : info.getTitle());
-            tvRate.setText(info.getRate() == 0 ? "" : info.getRate() + "%");
+            tvRate.setText(info.getRate() == 0 ? "" : Utils.doubleFloor(info.getRate()) + "%");
             tvMonth.setText(info.getMonth());
             tvInvestMoney.setText(TextUtils.isEmpty(info.getTenderMoney()) ? "" : "¥" + info.getTenderMoney());
             tvInvestTime.setText(TextUtils.isEmpty(info.getTenderTime()) ? "" : info.getTenderTime());
