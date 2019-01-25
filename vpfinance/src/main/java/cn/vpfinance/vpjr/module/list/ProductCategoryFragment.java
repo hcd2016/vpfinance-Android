@@ -117,34 +117,53 @@ public class ProductCategoryFragment extends BaseFragment {
     //标题动画效果
     private void initFragment() {
 //        int height = titleBar.getHeight();
-        int height = Utils.dip2px(getActivity(),48);
-        final Animation mShowAction =
-//                new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-//                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-//                -height, Animation.RELATIVE_TO_SELF, 0.0f);
-        new TranslateAnimation(0,0,-height,0);
+//        int height = Utils.dip2px(getActivity(),48);
+//        final Animation mShowAction =
+////                new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+////                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+////                -height, Animation.RELATIVE_TO_SELF, 0.0f);
+//        new TranslateAnimation(0,0,-height,0);
+//
+//
+//        final Animation mHiddenAction =
+//                new TranslateAnimation(0,0,0,-height);
+////                new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+////                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+////                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+////                -height);
+//        final Animation mShowAction1 =
+////                new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+////                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+////                -height, Animation.RELATIVE_TO_SELF, 0.0f);
+//                new TranslateAnimation(0,0,-height,0);
+//
+//
+//        final Animation mHiddenAction1 =
+////                new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+////                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+////                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+////                -height);
+//                new TranslateAnimation(0,0,0,-height);
 
 
-        final Animation mHiddenAction =
-                new TranslateAnimation(0,0,0,-height);
-//                new TranslateAnimation(Animation.RELATIVE_TO_SELF,
-//                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-//                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-//                -height);
-        final Animation mShowAction1 =
-//                new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-//                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-//                -height, Animation.RELATIVE_TO_SELF, 0.0f);
-                new TranslateAnimation(0,0,-height,0);
+        final Animation mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
 
 
-        final Animation mHiddenAction1 =
-//                new TranslateAnimation(Animation.RELATIVE_TO_SELF,
-//                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-//                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
-//                -height);
-                new TranslateAnimation(0,0,0,-height);
+        final Animation mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f);
+        final Animation mShowAction1 = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
 
+
+        final Animation mHiddenAction1 = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f);
         mShowAction.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -154,6 +173,7 @@ public class ProductCategoryFragment extends BaseFragment {
             @Override
             public void onAnimationEnd(Animation animation) {
                 isAnimationRunning = false;
+                titleBar.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -172,6 +192,7 @@ public class ProductCategoryFragment extends BaseFragment {
             @Override
             public void onAnimationEnd(Animation animation) {
                 isAnimationRunning = false;
+                titleBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -188,6 +209,7 @@ public class ProductCategoryFragment extends BaseFragment {
             @Override
             public void onAnimationEnd(Animation animation) {
                 isAnimationRunning = false;
+                v_red_bg.setVisibility(View.GONE);
             }
 
             @Override
@@ -203,6 +225,7 @@ public class ProductCategoryFragment extends BaseFragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                v_red_bg.setVisibility(View.VISIBLE);
                 isAnimationRunning = false;
             }
 
@@ -232,14 +255,16 @@ public class ProductCategoryFragment extends BaseFragment {
                         if (isTop) {
                             if (dy < 0 && Math.abs(dy) > 2) {//下拉且到顶部
                                 if (!isShow) {
-                                    llTitleContianer.clearAnimation();
-                                    v_red_bg.clearAnimation();
+//                                    llTitleContianer.clearAnimation();
+//                                    v_red_bg.clearAnimation();
 //                                    if (!isAnimationRunning && System.currentTimeMillis() - preTime > 200) {
-                                    if (!isAnimationRunning) {
-                                        llTitleContianer.startAnimation(mShowAction);
-                                        titleBar.setVisibility(View.VISIBLE);
+                                    if (!isAnimationRunning && System.currentTimeMillis() - preTime > 600) {
+//                                        titleBar.setVisibility(View.VISIBLE);
+//                                        v_red_bg.setVisibility(View.VISIBLE);
+                                        titleBar.startAnimation(mShowAction);
+
                                         v_red_bg.startAnimation(mShowAction1);
-                                        v_red_bg.setVisibility(View.VISIBLE);
+
                                         isShow = !isShow;
                                         preTime = System.currentTimeMillis();
                                     }
@@ -247,14 +272,16 @@ public class ProductCategoryFragment extends BaseFragment {
                             }
                         } else {
                             if (isShow && dy > 0 && Math.abs(dy) > 2) {
-                                llTitleContianer.clearAnimation();
-                                v_red_bg.clearAnimation();
+//                                llTitleContianer.clearAnimation();
+//                                v_red_bg.clearAnimation();
 //                                if (!isAnimationRunning && System.currentTimeMillis() - preTime > 200) {
-                                if (!isAnimationRunning) {
-                                    llTitleContianer.startAnimation(mHiddenAction);
-                                    titleBar.setVisibility(View.GONE);
+                                if (!isAnimationRunning && System.currentTimeMillis() - preTime > 600) {
+//                                    titleBar.setVisibility(View.GONE);
+//                                    v_red_bg.setVisibility(View.GONE);
+                                    titleBar.startAnimation(mHiddenAction);
+
                                     v_red_bg.startAnimation(mHiddenAction1);
-                                    v_red_bg.setVisibility(View.GONE);
+
                                     isShow = !isShow;
                                     preTime = System.currentTimeMillis();
                                 }
@@ -265,13 +292,13 @@ public class ProductCategoryFragment extends BaseFragment {
                     @Override
                     public void onRefrsh() {
                         if (!isShow) {
-                            llTitleContianer.clearAnimation();
-                            v_red_bg.clearAnimation();
-                            if (!isAnimationRunning) {
-                                llTitleContianer.startAnimation(mShowAction);
-                                titleBar.setVisibility(View.VISIBLE);
+                            if (!isAnimationRunning && System.currentTimeMillis() - preTime > 600) {
+//                                titleBar.setVisibility(View.VISIBLE);
+//                                v_red_bg.setVisibility(View.VISIBLE);
+                                titleBar.startAnimation(mShowAction);
+
                                 v_red_bg.startAnimation(mShowAction1);
-                                v_red_bg.setVisibility(View.VISIBLE);
+
                                 isShow = !isShow;
                             }
                         }

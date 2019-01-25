@@ -144,6 +144,7 @@ public class VerificationCodeDialog extends DialogFragment implements HttpDownlo
                 }else if(isRegisterType == 3) {//是修改经办人(企业)手机号
                     mHttpService.getVerifyImageCode(mImgCaptcha+"",mPhone+"",mType+"","3");
                 }
+                mTvAffirm.setEnabled(false);
                 break;
         }
     }
@@ -158,6 +159,7 @@ public class VerificationCodeDialog extends DialogFragment implements HttpDownlo
 
     @Override
     public void onHttpSuccess(int reqId, JSONObject json) {
+        mTvAffirm.setEnabled(true);
         if (json == null || (!isAdded()) || Common.isForceLogout(getContext(),json))    return;
         if (reqId == ServiceCmd.CmdId.CMD_IMAGE_CODE.ordinal()) {
             String imageUrl = json.optString("imageUrl");
@@ -250,6 +252,7 @@ public class VerificationCodeDialog extends DialogFragment implements HttpDownlo
 
     @Override
     public void onHttpError(int reqId, String errmsg) {
+        mTvAffirm.setEnabled(true);
         Utils.Toast(App.getAppContext(),"加载数据失败，请检查您的网络...");
     }
 }
