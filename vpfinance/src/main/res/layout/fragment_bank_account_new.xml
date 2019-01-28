@@ -121,7 +121,7 @@
                     android:visibility="visible"
                     android:id="@+id/open_content"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <RelativeLayout
@@ -399,11 +399,6 @@
                     <include layout="@layout/gray_split_bar_10" />
                 </LinearLayout>
 
-                <View
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"/>
-
                 <!--点击列表-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -656,6 +651,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="18dp"
                     android:background="@color/gray_bg" />
+
+                <View
+                    android:background="@color/gray_bg"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
 
             </LinearLayout>
 
