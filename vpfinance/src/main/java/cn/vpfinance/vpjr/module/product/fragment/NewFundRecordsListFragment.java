@@ -254,6 +254,8 @@ public class NewFundRecordsListFragment extends NewBaseFragment implements HttpD
 //                viewHolder.interest = (ImageView) convertView.findViewById(R.id.interest);
                 viewHolder.ll_share = (LinearLayout) convertView.findViewById(R.id.ll_share);
                 viewHolder.ll_month = (LinearLayout) convertView.findViewById(R.id.ll_month);
+                viewHolder.tv_deadline = (TextView) convertView.findViewById(R.id.tv_deadline);
+                viewHolder.tv_pre_eanings = (TextView) convertView.findViewById(R.id.tv_pre_eanings);
                 convertView.setTag(viewHolder);
 
             } else {
@@ -365,8 +367,8 @@ public class NewFundRecordsListFragment extends NewBaseFragment implements HttpD
                         viewHolder.tvDate.setText(split[0]  + " 完成");//时间
                         viewHolder.tv_earnings_desc.setText("收益");
                     }
-                    //todo 收益 期限数据待加
-
+                    viewHolder.tv_deadline.setText(bean.getDeadline());
+                    viewHolder.tv_pre_eanings.setText(bean.getPreProfit());
                 }
             }
             return convertView;
@@ -386,5 +388,7 @@ public class NewFundRecordsListFragment extends NewBaseFragment implements HttpD
 //        ImageView    interest;
         LinearLayout ll_share;
         LinearLayout ll_month;
+        TextView tv_deadline;//期限
+        TextView tv_pre_eanings;//预计收益
     }
 }

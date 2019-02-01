@@ -20,7 +20,14 @@ public class LoanRecord {
     private Integer isBook;
     private String voucherMoney;
     private String type;
+    private String preProfit;//预计收益
 
+    public String getPreProfit() {
+        return preProfit;
+    }
+    public void setPreProfit(String preProfit) {
+        this.preProfit = preProfit;
+    }
     public LoanRecord() {
     }
 

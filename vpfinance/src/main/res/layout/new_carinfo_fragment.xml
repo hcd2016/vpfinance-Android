@@ -17,66 +17,72 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <cn.vpfinance.vpjr.view.TagCloudView
-                android:id="@+id/carTag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:tcvBorder="6dp"
-                app:tcvCanTagClick="true"
-                app:tcvItemBorderHorizontal="8dp"
-                app:tcvItemBorderVertical="6dp"
-                app:tcvShowEndText="false"
-                app:tcvSingleLine="true"
-                app:tcvTextColor="@color/text_black_no4_gray"></cn.vpfinance.vpjr.view.TagCloudView>
-
-            <cn.vpfinance.vpjr.view.CoordinatorLayoutListView
-                android:id="@+id/listView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:divider="@color/bg_gray2"
-                android:dividerHeight="10dp"
-                android:focusable="false"
-                android:scrollbars="none" />
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_show_login"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <cn.vpfinance.vpjr.view.TagCloudView
+                    android:id="@+id/carTag"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/ic_product_private" />
+                    android:background="@color/white"
+                    app:tcvBorder="6dp"
+                    app:tcvCanTagClick="true"
+                    app:tcvItemBorderHorizontal="8dp"
+                    app:tcvItemBorderVertical="6dp"
+                    app:tcvShowEndText="false"
+                    app:tcvSingleLine="true"
+                    app:tcvTextColor="@color/text_black_no4_gray"></cn.vpfinance.vpjr.view.TagCloudView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="请登录后查看"
-                    android:textColor="@color/text_999999" />
+                <cn.vpfinance.vpjr.view.CoordinatorLayoutListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:divider="@color/bg_gray2"
+                    android:dividerHeight="10dp"
+                    android:focusable="false"
+                    android:scrollbars="none" />
 
-                <Button
-                    android:id="@+id/lookOtherProduct"
-                    style="@style/SubmitButtonStyle"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="登录" />
             </LinearLayout>
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_show_login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/ic_product_private" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="请登录后查看"
+                        android:textColor="@color/text_999999" />
+
+                    <Button
+                        android:id="@+id/lookOtherProduct"
+                        style="@style/SubmitButtonStyle"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="登录" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </RelativeLayout>

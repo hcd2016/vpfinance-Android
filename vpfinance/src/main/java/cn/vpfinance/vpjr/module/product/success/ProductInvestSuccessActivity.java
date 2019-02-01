@@ -489,7 +489,8 @@ public class ProductInvestSuccessActivity extends BaseActivity implements View.O
 //                    showShare(title, content, imageIconPath, redpacketstrurl);
                     SharePop sharePop = new SharePop(this, redpacketstrurl, imageIconPath,
                             content, title);
-                    sharePop.showAtLocation(mViewLl, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, ScreenUtil.getBottomStatusHeight(this));
+//                    sharePop.showAtLocation(mViewLl, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, ScreenUtil.getBottomStatusHeight(this));
+                    sharePop.showAtLocation(mViewLl, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 }
                 mDialog.dismiss();
                 break;

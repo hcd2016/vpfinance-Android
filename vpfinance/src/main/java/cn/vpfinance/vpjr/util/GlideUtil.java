@@ -40,7 +40,7 @@ public class GlideUtil {
      *      * @param imageView
      *      
      */
-    public static void loadRoundImage(final Context context, String url, int placeholder,
+    public void loadRoundImage(final Context context, String url, int placeholder,
                                       final int radius, final ImageView imageView) {
         Glide.with(context)
                 .load(url)

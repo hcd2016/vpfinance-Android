@@ -64,7 +64,7 @@ public class GuideAdapter extends PagerAdapter{
 //		}
 
 		ImageView imageView = new ImageView(mContext);
-		imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		imageView.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
 		imageView.setImageResource(mImageIds[index]);
 		if (index == mImageIds.length - 1){

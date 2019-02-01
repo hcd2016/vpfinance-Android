@@ -1471,6 +1471,7 @@ paying		偿还中借款
                 int isBook = record.optInt("isBook");
                 String voucherMoney = record.optString("voucherMoney");
                 String type = record.optString("type");
+                String preProfit = record.optString("preProfit");
 
                 LoanRecord loanRecord = new LoanRecord();
                 loanRecord.setId(id);
@@ -1482,6 +1483,7 @@ paying		偿还中借款
                 loanRecord.setIsBook(isBook);
                 loanRecord.setVoucherMoney(voucherMoney);
                 loanRecord.setType(type);
+                loanRecord.setPreProfit(preProfit);
 
                 loanList.add(loanRecord);
             }

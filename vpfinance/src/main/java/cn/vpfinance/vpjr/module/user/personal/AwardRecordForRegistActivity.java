@@ -119,6 +119,10 @@ public class AwardRecordForRegistActivity extends BaseActivity {
 
     @Override
     public void onHttpSuccess(int reqId, JSONObject json) {
+        if (mRefresh.isRefreshing()) {
+            mRefresh.setRefreshing(false);
+        }
+        isRefreshing = false;
         if (!isHttpHandle(json)) return;
         if (reqId == ServiceCmd.CmdId.CMD_RegistAwardRecord.ordinal()) {
             AwardRecordRegistInfo info = mHttpService.onGetRegistAwardRecord(json);
@@ -135,10 +139,6 @@ public class AwardRecordForRegistActivity extends BaseActivity {
             } else {
 //                Toast.makeText(AwardRecordForRegistActivity.this, "服务器有误！", Toast.LENGTH_SHORT).show();
             }
-            if (mRefresh.isRefreshing()) {
-                mRefresh.setRefreshing(false);
-            }
-            isRefreshing = false;
         }
 
     }

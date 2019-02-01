@@ -18,6 +18,43 @@ public class ReturnMonthBean {
     private String       returnMoney;
     private List<String> eventDays;
 
+    private String       unRepayCount;//当月待回款笔数
+    private String       unRepayAmount;//当月待回款金额
+    private String       repayCount;//当月已回款笔数
+    private String       repayAmount;//当月已回款金额
+
+    public String getUnRepayCount() {
+        return unRepayCount;
+    }
+
+    public void setUnRepayCount(String unRepayCount) {
+        this.unRepayCount = unRepayCount;
+    }
+
+    public String getUnRepayAmount() {
+        return unRepayAmount;
+    }
+
+    public void setUnRepayAmount(String unRepayAmount) {
+        this.unRepayAmount = unRepayAmount;
+    }
+
+    public String getRepayCount() {
+        return repayCount;
+    }
+
+    public void setRepayCount(String repayCount) {
+        this.repayCount = repayCount;
+    }
+
+    public String getRepayAmount() {
+        return repayAmount;
+    }
+
+    public void setRepayAmount(String repayAmount) {
+        this.repayAmount = repayAmount;
+    }
+
     public void setReturnCount(String returnCount) {
         this.returnCount = returnCount;
     }

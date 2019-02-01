@@ -44,6 +44,12 @@ public class RecordDetailBean {
     public int graceDays;//是否是浮动计息产品 >0为是
     public String flowInvestReminder;//提示文案
 
+    public String unPeriods;//待回款期数
+    public String unAmount;//待回款本金
+    public String unProfit;//待回款利息
+    public String finishDate;//完成时间
+    public String afterLoanUpdateTime;//贷后情况更新时间
+
     /**
      * title : 出借服务协议
      * url : /loaninfo/loan_protocol_2?rid=47392

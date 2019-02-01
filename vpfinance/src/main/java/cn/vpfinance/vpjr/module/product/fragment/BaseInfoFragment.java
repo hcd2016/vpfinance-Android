@@ -54,7 +54,8 @@ public class BaseInfoFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = View.inflate(getActivity(), R.layout.fragment_base_info, null);
+//        View view = View.inflate(getActivity(), R.layout.fragment_base_info, null);
+        View view = inflater.inflate(R.layout.fragment_base_info, container, false);
         ButterKnife.bind(this, view);
         initView();
         return view;

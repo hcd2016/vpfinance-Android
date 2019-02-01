@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.NewBaseFragment;
 import cn.vpfinance.vpjr.gson.InvestTopBean;
+import cn.vpfinance.vpjr.module.product.fragment.BaseInfoFragment;
 import cn.vpfinance.vpjr.view.CircleImg;
 
 public class InvestTopListFragment extends NewBaseFragment {
@@ -37,6 +38,7 @@ public class InvestTopListFragment extends NewBaseFragment {
     private InvestTopBean mInvestTopBean;
     private List<InvestTopBean.ListEntity> list;
     private MyAdapter myAdapter;
+    private int currentPosition;//0为总榜,1为月榜,2为周榜
 
     @Nullable
     @Override
@@ -47,10 +49,24 @@ public class InvestTopListFragment extends NewBaseFragment {
         return view;
     }
 
+    public static InvestTopListFragment newInstance(int position) {
+        InvestTopListFragment fragment = new InvestTopListFragment();
+        Bundle args = new Bundle();
+        args.putInt("position",position);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     private void initView() {
+        Bundle args = getArguments();
+        if (args != null) {
+            currentPosition = args.getInt("position");
+        }
         list = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myAdapter = new MyAdapter(list);
+        View emptyView = View.inflate(getActivity(),R.layout.layout_data_empty,null);
+        myAdapter.setEmptyView(emptyView);
         recyclerView.setAdapter(myAdapter);
         httpService = new HttpService(getActivity(),this);
         httpService.getInvestTop(1,"1");
@@ -67,13 +83,30 @@ public class InvestTopListFragment extends NewBaseFragment {
         super.onHttpSuccess(reqId, json);
         if (reqId == ServiceCmd.CmdId.CMD_Invest_Top.ordinal()) {
             mInvestTopBean = httpService.onGetInvestTop(json);
-            if(mInvestTopBean == null) return;
-            List<InvestTopBean.ListEntity> listEntityList = mInvestTopBean.list;
+            initData(mInvestTopBean);
+        }
+    }
+
+    private void initData(InvestTopBean mInvestTopBean) {
+        if(mInvestTopBean == null) return;
+
+        List<InvestTopBean.ListEntity> listEntityList = mInvestTopBean.list;
+        List<InvestTopBean.ListEntity> monthMapList = mInvestTopBean.monthMapList;
+        List<InvestTopBean.ListEntity> weekMapList = mInvestTopBean.weekMapList;
+        if(currentPosition == 0) {
             if(listEntityList != null && listEntityList.size() != 0) {
                 list.addAll(listEntityList);
-                myAdapter.notifyDataSetChanged();
+            }
+        }else if(currentPosition == 1) {
+            if(monthMapList != null && monthMapList.size() != 0) {
+                list.addAll(monthMapList);
+            }
+        }else if(currentPosition == 2) {
+            if(weekMapList != null && weekMapList.size() != 0) {
+                list.addAll(weekMapList);
             }
         }
+        myAdapter.notifyDataSetChanged();
     }
 
     private class MyAdapter extends BaseQuickAdapter<InvestTopBean.ListEntity,BaseViewHolder> {

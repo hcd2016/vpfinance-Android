@@ -123,6 +123,8 @@ public class ProductInvestListActivity extends BaseActivity {
         list = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         investRecordAdapter = new InvestRecordAdapter(list);
+        View view = View.inflate(this,R.layout.no_data_default,null);
+        investRecordAdapter.setEmptyView(view);
         recyclerView.setAdapter(investRecordAdapter);
         mHttpService = new HttpService(this, this);
 
@@ -212,7 +214,7 @@ public class ProductInvestListActivity extends BaseActivity {
             helper.setText(R.id.tv_user_name, item.getUsername());
             helper.setText(R.id.tv_toloan_amount, item.getTendMoney() + "元");
             helper.setText(R.id.tv_date, item.getPaytime());
-            helper.setText(R.id.tv_earnings, item.getTendMoney() + "元");//todo 待加
+            helper.setText(R.id.tv_earnings, item.getPreProfit() + "元");
 
             TextView tv_deduction = helper.getView(R.id.tv_deduction);//抵扣券
             tv_deduction.setVisibility(View.GONE);

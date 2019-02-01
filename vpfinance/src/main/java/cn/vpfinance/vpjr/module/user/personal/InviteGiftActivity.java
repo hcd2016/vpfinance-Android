@@ -76,9 +76,6 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
         getUser();
         mHttpService.getPromoteLinks();
 
-        mHttpService.getShareInfo();
-
-
         titleBar = (ActionBarLayout) findViewById(R.id.titleBar);
         titleBar.setTitle("邀请有礼").setHeadBackVisible(View.VISIBLE);
 
@@ -107,9 +104,8 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void onClick(View v) {
-                InviteGifeDialog inviteGifeDialog = new InviteGifeDialog(InviteGiftActivity.this);
-                inviteGifeDialog.setData(info.shareUrl,info.imageUrl,mPromoteLinks.getMsg());
-                inviteGifeDialog.show();
+                mHttpService.getShareInfo();
+
 //                String msg = "";
 //                if (info != null) {
 //                    if (mPromoteLinks != null) {
@@ -216,6 +212,9 @@ public class InviteGiftActivity extends BaseActivity implements View.OnClickList
             MyQRcodeActivity.ShareInfo info = MyQRcodeActivity.parseShareInfo(json);
             if (info != null) {
                 this.info = info;
+                InviteGifeDialog inviteGifeDialog = new InviteGifeDialog(InviteGiftActivity.this);
+                inviteGifeDialog.setData(info.shareUrl,info.imageUrl,mPromoteLinks.getMsg());
+                inviteGifeDialog.show();
             }
         }
     }

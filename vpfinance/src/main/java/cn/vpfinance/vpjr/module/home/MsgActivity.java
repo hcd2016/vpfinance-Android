@@ -73,7 +73,6 @@ public class MsgActivity extends BaseActivity {
             titleBar.setActionRight("全部已读", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //todo
                     httpService.getAllRead();
                     EventBus.getDefault().post(new EventStringModel(EventStringModel.EVENT_MSG_ALL_READ_CLICK));
                 }

@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jewelcredit.ui.widget.ActionBarLayout;
+import com.jewelcredit.util.HttpService;
+import com.jewelcredit.util.ServiceCmd;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +24,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.vpfinance.android.R;
 import cn.vpfinance.vpjr.base.BaseActivity;
+import cn.vpfinance.vpjr.gson.InvestTopBean;
 
 /**
  * 风云榜4.0
@@ -42,6 +47,7 @@ public class InvestTopNewActivity extends BaseActivity {
     @Bind(R.id.view_pager)
     ViewPager viewPager;
     private List<String> tabs;
+    private HttpService httpService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,8 @@ public class InvestTopNewActivity extends BaseActivity {
         tabs.add("总榜");
         tabs.add("周榜");
         tabs.add("月榜");
+        httpService = new HttpService(this,this);
+        httpService.getInvestTop(1,"1");
     }
 
     private void initTab() {
@@ -67,6 +75,31 @@ public class InvestTopNewActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(tabs.size());
         viewPager.setAdapter(investTopNewViewPager);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onHttpSuccess(int reqId, JSONObject json) {
+        super.onHttpSuccess(reqId, json);
+        if (reqId == ServiceCmd.CmdId.CMD_Invest_Top.ordinal()) {
+            InvestTopBean investTopBean = httpService.onGetInvestTop(json);
+            initHeaderView(investTopBean);
+        }
+    }
+
+    private void initHeaderView(InvestTopBean investTopBean) {
+        if(investTopBean == null) return;
+        if(investTopBean.currentRank != null) {
+            tvTotalList.setText(investTopBean.currentRank);
+        }
+        if(investTopBean.monthCurrentRank != null) {
+            tvMonthList.setText(investTopBean.monthCurrentRank);
+        }
+        if(investTopBean.weekCurrentRank != null) {
+            tvWeekList.setText(investTopBean.weekCurrentRank);
+        }
+        if(investTopBean.number != null) {
+            tvBeatDesc.setText("击败了"+investTopBean.number+"的出借达人");
+        }
     }
 
     public class InvestTopNewAdapter extends FragmentPagerAdapter {
@@ -77,15 +110,7 @@ public class InvestTopNewActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-//            switch (position) {
-//                case 0://总榜
-//                    break;
-//                case 1://周榜
-//                    break;
-//                case 2://月榜
-//                    break;
-//            }
-            return new InvestTopListFragment();
+            return InvestTopListFragment.newInstance(position);
         }
 
         @Override

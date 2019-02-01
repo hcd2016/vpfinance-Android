@@ -17,6 +17,7 @@ import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -57,6 +58,7 @@ import cn.vpfinance.vpjr.module.common.fragment.WebViewFragment;
 import cn.vpfinance.vpjr.module.dialog.CommonTipsDialogFragment;
 import cn.vpfinance.vpjr.module.dialog.InvestmentRiskTipsDialog;
 import cn.vpfinance.vpjr.module.product.fragment.BaseInfoFragment;
+import cn.vpfinance.vpjr.module.product.fragment.NewBaseInfoFragment;
 import cn.vpfinance.vpjr.module.product.fragment.NewCarInfoFragment;
 import cn.vpfinance.vpjr.module.product.fragment.NewDepositFragment;
 import cn.vpfinance.vpjr.module.product.fragment.NewWritingAndPicFragment;
@@ -722,6 +724,11 @@ public class NewRegularProductActivity extends BaseActivity {
             super(fm);
         }
 
+//        @Override
+//        public Object instantiateItem(ViewGroup container, int position) {
+//            return mFragments.get(position);
+//        }
+
         @Override
         public Fragment getItem(int position) {
             return mFragments.get(position);
@@ -735,6 +742,11 @@ public class NewRegularProductActivity extends BaseActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return mTabName == null ? "" : mTabName.get(position);
+        }
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+//            super.setPrimaryItem(container, position, object);
         }
     }
 }

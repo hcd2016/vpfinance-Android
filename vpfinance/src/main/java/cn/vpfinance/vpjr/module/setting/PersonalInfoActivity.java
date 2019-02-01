@@ -29,6 +29,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.AppState;
 import com.jewelcredit.util.HttpService;
@@ -201,7 +203,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         mHttpService.getBankCard(AppState.instance().getSessionCode());
         mHttpService.getUserInfo();
         setHeadImage();
-        setBgImage();
+//        setBgImage();
 //        BindBankHintActivity.goThis(this,DBUtils.getUser(this).getUserId()+"");
     }
 
@@ -211,24 +213,25 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         }
         String headUrl = SharedPreferencesHelper.getInstance(this).getStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId());
         if (headUrl == null) {
-            mUserHead.setImageResource(R.drawable.user_head);
+            mUserHead.setImageResource(R.mipmap.profile);
         } else {
-            ImageLoader imageLoader = ImageLoader.getInstance();
-            imageLoader.displayImage(headUrl, mUserHead);
+            Glide.with(this).load(headUrl).error(R.mipmap.profile).into(mUserHead);
+//            ImageLoader imageLoader = ImageLoader.getInstance();
+//            imageLoader.displayImage(headUrl, mUserHead);
         }
     }
 
-    private void setBgImage() {
-        if (user == null) {
-            return;
-        }
-        String bgUrl = SharedPreferencesHelper.getInstance(this).getStringValue(SharedPreferencesHelper.USER_BACKGROUND_URL + user.getUserId());
-        if (bgUrl == null || bgUrl.equals(HttpService.mBaseUrl)) {
-            return;
-        }
-        ImageLoader imageLoader = ImageLoader.getInstance();
-//        imageLoader.displayImage(bgUrl, user_background);
-    }
+//    private void setBgImage() {
+//        if (user == null) {
+//            return;
+//        }
+//        String bgUrl = SharedPreferencesHelper.getInstance(this).getStringValue(SharedPreferencesHelper.USER_BACKGROUND_URL + user.getUserId());
+//        if (bgUrl == null || bgUrl.equals(HttpService.mBaseUrl)) {
+//            return;
+//        }
+//        ImageLoader imageLoader = ImageLoader.getInstance();
+////        imageLoader.displayImage(bgUrl, user_background);
+//    }
 
     protected void initView() {
         titlebar.setTitle("设置").setHeadBackVisible(View.VISIBLE);
@@ -437,6 +440,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
         mHttpService.getUserInfo();
     }
 
+    private boolean isFirstRequest = true;
     @Override
     public void onHttpSuccess(int reqId, JSONObject json) {
         if (!isHttpHandle(json)) return;
@@ -479,6 +483,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             mHeadImgUrl = mUserInfoBean.headImg;
             mHeadImgUrl = HttpService.mBaseUrl + mHeadImgUrl;
 
+//            Glide.with(this).load(mHeadImgUrl).error(R.mipmap.profile).diskCacheStrategy(DiskCacheStrategy.ALL).into(mUserHead);
 //            ImageLoader.getInstance().displayImage(BaseUrl.mBaseUrl + userInfoBean.background , user_background);
             if (TextUtils.isEmpty(mUserInfoBean.signature)) {
                 my_describe.setText("未设置签名");
@@ -502,16 +507,21 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
 //            }
 
             if (mUserInfoBean.isBindWx.equals("0")) {//未绑定微信
+                tvWeixinBindDesc.setTextColor(Utils.getColor(R.color.red_text));
                 tvWeixinBindDesc.setText("未绑定");
             } else {
+                tvWeixinBindDesc.setTextColor(Utils.getColor(R.color.text_999999));
                 tvWeixinBindDesc.setText("已绑定");
             }
             if (user != null) {
-                SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
-                String value = sp.getStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId());
-                if (TextUtils.isEmpty(value) /*|| !mHeadImgUrl.equals(value)*/) {
-                    sp.putStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId(), mHeadImgUrl);
-                    setHeadImage();
+                if(isFirstRequest) {
+                    SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(this);
+                    String value = sp.getStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId());
+                    if (!mHeadImgUrl.equals(value)) {
+                        sp.putStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId(), mHeadImgUrl);
+                        setHeadImage();
+                    }
+                    isFirstRequest = false;
                 }
                 cellPhone = user.getCellPhone();
                 if (!TextUtils.isEmpty(user.getRealName())) {
@@ -643,8 +653,10 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
             case R.id.ll_header_contianer:
                 isUserHead = true;
                 menuWindow = new SelectPicPopupWindow(this, itemsOnClick);
+//                menuWindow.showAtLocation(mViewLl,
+//                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, mBottomStatusHeight);
                 menuWindow.showAtLocation(mViewLl,
-                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, mBottomStatusHeight);
+                        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
                 ScreenUtil.lightoff(this);
                 menuWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                     @Override
@@ -833,7 +845,7 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
 
                     ServiceCmd.CmdId cmdId = null;
                     if (drawable != null) {
-                        mUserHead.setImageDrawable(drawable);
+//                        mUserHead.setImageDrawable(drawable);
                     } else {
                         Utils.Toast(this, "选择图片错误");
                     }
@@ -1071,14 +1083,21 @@ public class PersonalInfoActivity extends BaseActivity implements View.OnClickLi
                     try {
                         String data = response.body().string();
                         json = new JSONObject(data);
-                        String imgUrl = json.optString("url");
+                        final String imgUrl = json.optString("url");
                         String state = json.optString("state");
-//                        SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(PersonalInfoActivity.this);
-//                        sp.putStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId(), BaseUrl.mBaseUrl + imgUrl);
                         String str = "";
                         switch (state) {
                             case "0":
                                 str = "更换成功";
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        SharedPreferencesHelper sp = SharedPreferencesHelper.getInstance(PersonalInfoActivity.this);
+                                        sp.putStringValue(SharedPreferencesHelper.USER_HEAD_URL + user.getUserId(), HttpService.mBaseUrl + imgUrl);
+                                        mHeadImgUrl = HttpService.mBaseUrl + imgUrl;
+                                        setHeadImage();
+                                    }
+                                });
                                 break;
                             case "1":
                                 str = "上传失败";

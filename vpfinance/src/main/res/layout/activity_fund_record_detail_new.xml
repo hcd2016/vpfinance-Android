@@ -278,6 +278,7 @@
                         android:layout_weight="1" />
 
                     <TextView
+                        android:id="@+id/tv_repayment_counts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_333333"
@@ -309,6 +310,7 @@
                         android:layout_weight="1" />
 
                     <TextView
+                       android:id="@+id/tv_repayment_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_333333"
@@ -340,6 +342,7 @@
                         android:layout_weight="1" />
 
                     <TextView
+                        android:id="@+id/tv_repayment_earnings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_333333"
@@ -409,6 +412,7 @@
                         android:layout_weight="1" />
 
                     <TextView
+                        android:id="@+id/tv_finish_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_333333"
@@ -499,6 +503,7 @@
                         android:layout_weight="1" />
 
                     <TextView
+                        android:id="@+id/tv_update_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="11dp"

@@ -11,10 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_gray2"
+        android:background="@color/gray_bg"
         android:scrollbars="none">
 
         <LinearLayout
@@ -39,13 +40,13 @@
                     android:paddingRight="15dp">
 
                     <TextView
-                        android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
                         android:text="头像"
-                        android:textColor="@color/text_1c1c1c" />
+                        android:textColor="@color/text_1c1c1c"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/userPhone"
@@ -81,13 +82,13 @@
                     android:paddingRight="15dp">
 
                     <TextView
-                        android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
                         android:text="用户名"
-                        android:textColor="@color/text_1c1c1c" />
+                        android:textColor="@color/text_1c1c1c"
+                        android:textSize="15sp" />
 
                     <View
                         android:layout_width="0dp"
@@ -124,13 +125,13 @@
                     android:paddingRight="15dp">
 
                     <TextView
-                        android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
                         android:text="个性签名"
-                        android:textColor="@color/text_1c1c1c" />
+                        android:textColor="@color/text_1c1c1c"
+                        android:textSize="15sp" />
 
                     <View
                         android:layout_width="0dp"
@@ -168,13 +169,13 @@
                     android:paddingRight="15dp">
 
                     <TextView
-                        android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
                         android:text="隐私设置"
-                        android:textColor="@color/text_1c1c1c" />
+                        android:textColor="@color/text_1c1c1c"
+                        android:textSize="15sp" />
 
                     <View
                         android:layout_width="0dp"
@@ -213,14 +214,14 @@
                         android:paddingRight="15dp">
 
                         <TextView
-                            android:textSize="15sp"
                             android:id="@+id/realname"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
                             android:text="实名认证"
-                            android:textColor="@color/text_1c1c1c" />
+                            android:textColor="@color/text_1c1c1c"
+                            android:textSize="15sp" />
 
                         <View
                             android:layout_width="0dp"
@@ -253,14 +254,14 @@
                         android:paddingRight="15dp">
 
                         <TextView
-                            android:textSize="15sp"
                             android:id="@+id/tv_bind_phone_desc"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
                             android:text="修改绑定手机号"
-                            android:textColor="@color/text_1c1c1c" />
+                            android:textColor="@color/text_1c1c1c"
+                            android:textSize="15sp" />
 
                         <View
                             android:layout_width="0dp"
@@ -268,10 +269,11 @@
                             android:layout_weight="1" />
 
                         <TextView
+                            android:textColor="@color/text_999999"
                             android:id="@+id/phoneNum"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="18dp"
+                            android:layout_marginRight="8dp"
                             android:gravity="center"
                             tools:text="183****3352" />
 
@@ -293,14 +295,14 @@
                         android:paddingRight="15dp">
 
                         <TextView
-                            android:textSize="15sp"
                             android:id="@+id/bindemail"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
                             android:text="邮箱绑定"
-                            android:textColor="@color/text_1c1c1c" />
+                            android:textColor="@color/text_1c1c1c"
+                            android:textSize="15sp" />
 
                         <View
                             android:layout_width="0dp"
@@ -333,13 +335,13 @@
                         android:paddingRight="15dp">
 
                         <TextView
-                            android:textSize="15sp"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
                             android:text="微信绑定"
-                            android:textColor="@color/text_1c1c1c" />
+                            android:textColor="@color/text_1c1c1c"
+                            android:textSize="15sp" />
 
                         <View
                             android:layout_width="0dp"
@@ -347,6 +349,7 @@
                             android:layout_weight="1" />
 
                         <TextView
+                            android:textColor="@color/text_999999"
                             android:id="@+id/tv_weixin_bind_desc"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -372,13 +375,13 @@
                         android:paddingRight="15dp">
 
                         <TextView
-                            android:textSize="15sp"
                             android:layout_width="wrap_content"
                             android:layout_height="48dp"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
                             android:text="安全中心"
-                            android:textColor="@color/text_1c1c1c" />
+                            android:textColor="@color/text_1c1c1c"
+                            android:textSize="15sp" />
 
                         <View
                             android:layout_width="0dp"
@@ -603,13 +606,13 @@
                         android:paddingRight="15dp">
 
                         <TextView
-                            android:textSize="15sp"
                             android:layout_width="wrap_content"
                             android:layout_height="48dp"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
                             android:text="存管账户设置"
-                            android:textColor="@color/text_1c1c1c" />
+                            android:textColor="@color/text_1c1c1c"
+                            android:textSize="15sp" />
 
                         <View
                             android:layout_width="0dp"
@@ -695,13 +698,13 @@
                         android:paddingRight="15dp">
 
                         <TextView
-                            android:textSize="15sp"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:drawablePadding="10dp"
                             android:gravity="center_vertical"
                             android:text="存管账户绑卡激活"
-                            android:textColor="@color/text_1c1c1c" />
+                            android:textColor="@color/text_1c1c1c"
+                            android:textSize="15sp" />
 
                         <View
                             android:layout_width="0dp"
@@ -709,10 +712,11 @@
                             android:layout_weight="1" />
 
                         <TextView
+                            android:textColor="@color/text_999999"
                             android:id="@+id/isHxBandCarkStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="15dp"
+                            android:layout_marginRight="8dp"
                             android:gravity="center"
                             tools:text="已激活" />
 
@@ -769,8 +773,6 @@
                     android:background="@drawable/list_item_background"
                     android:drawablePadding="10dp"
                     android:gravity="center"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="12dp"
                     android:text="安全退出"
                     android:textColor="@color/text_666666"
                     android:textSize="15sp" />

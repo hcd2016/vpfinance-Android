@@ -73,6 +73,22 @@ public class NewRecordsBean {
         private String isBook;
         private String addRate;
         private String recordPoolId;//有值就是定存宝
+        private String preProfit;//预计收益
+
+        public String getPreProfit() {
+            return preProfit;
+        }
+        public void setPreProfit(String preProfit) {
+            this.preProfit = preProfit;
+        }
+
+        private String deadline;//期限
+        public String getDeadline() {
+            return deadline;
+        }
+        public void setDeadline(String deadline) {
+            this.deadline = deadline;
+        }
 
         public String getRecordPoolId() {
             return recordPoolId;

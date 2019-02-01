@@ -25,11 +25,15 @@ public class InvestTopBean {
     public String background;
     public String name;
     public String sumTenderMoney;
-    public int    currentRank;
+    public String    currentRank;
     public double promit;
     public String number;
     public String head;
     public String isTender;
+    public String monthCurrentRank;//月榜排名
+    public String weekCurrentRank;//周榜排名
+
+
     /**
      * level :
      * userId : 395660
@@ -40,6 +44,9 @@ public class InvestTopBean {
      */
 
     public List<ListEntity> list;
+    public List<ListEntity> monthMapList;
+    public List<ListEntity> weekMapList;
+
 
     public static class ListEntity {
         public String level;
@@ -49,4 +56,21 @@ public class InvestTopBean {
         public String head;
         public String tenderMoney;
     }
+//    public static class MonthMapList {
+//        public String level;
+//        public String userId;
+//        public String userName;
+//        public String promit;
+//        public String head;
+//        public String tenderMoney;
+//    }
+//
+//    public static class WeekMapList {
+//        public String level;
+//        public String userId;
+//        public String userName;
+//        public String promit;
+//        public String head;
+//        public String tenderMoney;
+//    }
 }

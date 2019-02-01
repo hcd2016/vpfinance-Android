@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jewelcredit.model.AppUpdateInfo;
 import com.jewelcredit.ui.widget.ActionBarLayout;
 import com.jewelcredit.util.AppState;
@@ -40,6 +41,7 @@ import cn.vpfinance.vpjr.module.setting.PersonalInfoActivity;
 import cn.vpfinance.vpjr.module.user.personal.InvestTopActivity;
 import cn.vpfinance.vpjr.module.user.personal.InviteGiftActivity;
 import cn.vpfinance.vpjr.util.DBUtils;
+import cn.vpfinance.vpjr.util.GlideUtil;
 import cn.vpfinance.vpjr.view.CircleImg;
 
 /**
@@ -117,9 +119,14 @@ public class MoreFragment2 extends BaseFragment implements View.OnClickListener 
         super.onResume();
         MobclickAgent.onPageStart("MoreFragment");
         if (AppState.instance().logined()) {
+            llLoginedHeaderContainer.setVisibility(View.VISIBLE);
+            tvUnloginDesc.setVisibility(View.GONE);
             mHttpService.getUserInfo();
+        }else {
+            tvUnloginDesc.setVisibility(View.VISIBLE);
+            llLoginedHeaderContainer.setVisibility(View.GONE);
+            Glide.with(getActivity()).load(R.mipmap.profile_gray).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivAvatar);
         }
-        initView(view);
     }
 
     @Override
@@ -147,15 +154,15 @@ public class MoreFragment2 extends BaseFragment implements View.OnClickListener 
         view.findViewById(R.id.clickVersionUpdate).setOnClickListener(this);
         view.findViewById(R.id.clickRisk).setOnClickListener(this);
         view.findViewById(R.id.clickInfoShow).setOnClickListener(this);
-        if (AppState.instance().logined()) {//登录与未登录头部
-            llLoginedHeaderContainer.setVisibility(View.VISIBLE);
-            tvUnloginDesc.setVisibility(View.GONE);
-            ivAvatar.setImageResource(R.mipmap.profile);
-        } else {
-            ivAvatar.setImageResource(R.mipmap.profile_gray);
-            tvUnloginDesc.setVisibility(View.VISIBLE);
-            llLoginedHeaderContainer.setVisibility(View.GONE);
-        }
+//        if (AppState.instance().logined()) {//登录与未登录头部
+//            llLoginedHeaderContainer.setVisibility(View.VISIBLE);
+//            tvUnloginDesc.setVisibility(View.GONE);
+//            Glide.with(getActivity()).load(R.mipmap.profile).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivAvatar);
+//        } else {
+//            Glide.with(getActivity()).load(R.mipmap.profile_gray).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivAvatar);
+//            tvUnloginDesc.setVisibility(View.VISIBLE);
+//            llLoginedHeaderContainer.setVisibility(View.GONE);
+//        }
     }
 
 
@@ -197,8 +204,12 @@ public class MoreFragment2 extends BaseFragment implements View.OnClickListener 
 
     private void setData(UserInfoBean mUserInfoBean) {
         if (null != mUserInfoBean) {
-            Glide.with(getActivity()).load(HttpService.mBaseUrl + mUserInfoBean.headImg).
-                    dontAnimate().error(R.mipmap.profile).into(ivAvatar);
+            if(!TextUtils.isEmpty(mUserInfoBean.headImg)) {
+                Glide.with(getActivity()).load(HttpService.mBaseUrl + mUserInfoBean.headImg).
+                        dontAnimate().error(R.mipmap.profile).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivAvatar);
+            }else {
+                ivAvatar.setImageResource(R.mipmap.profile);
+            }
             tvUserName.setText(mUserInfoBean.userName);
             tvSignature.setText(TextUtils.isEmpty(mUserInfoBean.signature) ? "未设置签名" : mUserInfoBean.signature);//个人签名
             //todo vip等级待加
@@ -238,7 +249,11 @@ public class MoreFragment2 extends BaseFragment implements View.OnClickListener 
 //                break;
             case R.id.clickRepay://风云榜
 //                InvestTopActivity.goThis(getActivity(), 1, "");
-                gotoActivity(InvestTopNewActivity.class);
+                if (!AppState.instance().logined()) {
+                    gotoActivity(LoginActivity.class);
+                }else {
+                    gotoActivity(InvestTopNewActivity.class);
+                }
                 break;
             case R.id.clickAboutMe:
                 startActivity(new Intent(getActivity(), AboutUsActivity.class));

@@ -136,7 +136,6 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
 //                String str2 = "共" + returnMonthBean.getReturnMoney() + "元";
 //                Utils.setTwoTextColor(str2, returnMonthBean.getReturnMoney(), getResources().getColor(R.color.text_ff5757), mReturnMoney);
 
-                //todo 待设数据
                 Calendar calendar = Calendar.getInstance();
 
                 List<String> eventDays = returnMonthBean.getEventDays();
@@ -154,6 +153,10 @@ public class ReturnMoneyCalendarActivity extends BaseActivity implements RobotoC
                     }
                 }
 
+                tvWaitRepaymentCounts.setText(returnMonthBean.getUnRepayCount());
+                tvWaitRepaymentAmount.setText(returnMonthBean.getUnRepayAmount());
+                tvRepaymentedCounts.setText(returnMonthBean.getReturnCount());
+                tvRepaymentedAmount.setText(returnMonthBean.getRepayAmount());
             }
         }
 

@@ -34,7 +34,7 @@ import cn.vpfinance.vpjr.util.GsonUtil;
 import de.greenrobot.event.EventBus;
 
 /**
- * 平台消息
+ * 平台消息,已废弃,(平台,还款用同一个fragment)
  */
 public class MsgPlatformFragment extends NewBaseFragment {
     @Bind(R.id.rl_no_data_container)
@@ -68,7 +68,6 @@ public class MsgPlatformFragment extends NewBaseFragment {
         msgPlatformAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                //todo
                 ((MsgActivity) getActivity()).gotoActivity(MsgDetailActivity.class);
             }
         });

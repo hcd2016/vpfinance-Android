@@ -7,11 +7,12 @@
     android:orientation="vertical">
 
     <ImageView
+        android:scaleType="centerCrop"
         android:id="@+id/welcome_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/welcome_general"
-        android:scaleType="centerCrop" />
+        android:src="@drawable/welcome_general"
+        />
     <!--3.6.2版本去除倒计时-->
     <TextView
         android:visibility="gone"

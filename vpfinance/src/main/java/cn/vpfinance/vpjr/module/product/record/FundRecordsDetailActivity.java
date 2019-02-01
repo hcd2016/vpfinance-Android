@@ -1,7 +1,6 @@
 package cn.vpfinance.vpjr.module.product.record;
 
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -89,6 +88,18 @@ public class FundRecordsDetailActivity extends BaseActivity {
     LinearLayout llProtocol;
     @Bind(R.id.ll_transfer_container)
     LinearLayout llTransferContainer;
+    @Bind(R.id.tv_repayment_counts)
+    TextView tvRepaymentCounts;
+    @Bind(R.id.line_gray)
+    View lineGray;
+    @Bind(R.id.tv_repayment_money)
+    TextView tvRepaymentMoney;
+    @Bind(R.id.tv_repayment_earnings)
+    TextView tvRepaymentEarnings;
+    @Bind(R.id.tv_finish_time)
+    TextView tvFinishTime;
+    @Bind(R.id.tv_update_time)
+    TextView tvUpdateTime;
     private HttpService mHttpService;
     private int pid;
     private String mLoanTitle;
@@ -271,6 +282,13 @@ public class FundRecordsDetailActivity extends BaseActivity {
                 } else {
                     llWarningDescContainer.setVisibility(View.GONE);
                 }
+
+                //待回款数据
+                tvRepaymentCounts.setText(bean.unPeriods);
+                tvRepaymentMoney.setText(bean.unAmount+"元");
+                tvRepaymentEarnings.setText(bean.unProfit+"元");
+                tvFinishTime.setText(bean.finishDate);
+                tvUpdateTime.setText("更新至"+bean.afterLoanUpdateTime);
             }
         }
     }
